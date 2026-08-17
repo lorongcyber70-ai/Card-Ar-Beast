@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Card Beast AR — DR-001 Scanner</title>
+<title>Card Beast AR — DR-001 Scanner v1.1 Camera Fix</title>
 
 <!-- Load the AR engines from HTTPS. -->
 <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
@@ -49,7 +49,7 @@ html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#07050d;fon
 #ui{position:fixed;z-index:20;top:0;left:0;right:0;padding:14px;text-align:center;color:#fff;pointer-events:none}
 .logo{font-size:21px;font-weight:900}.logo span{color:#b75cff}
 #status{display:inline-block;margin-top:9px;padding:9px 13px;border-radius:22px;background:#09060de8;border:1px solid #6b3a8b;font-size:12px;font-weight:700}
-#startBtn{position:fixed;z-index:30;left:8%;right:8%;bottom:92px;width:84%;padding:15px;border:0;border-radius:14px;background:linear-gradient(135deg,#7433ad,#b75cff);color:#fff;font-weight:900;font-size:16px}#startBtn:disabled{opacity:.55}#result{position:fixed;z-index:20;bottom:18px;left:7%;right:7%;padding:14px;border-radius:16px;background:#09060def;border:1px solid #43275a;color:#ddd;text-align:center;font-size:13px}
+#startBtn{display:block;position:fixed;z-index:30;left:8%;right:8%;bottom:92px;width:84%;padding:15px;border:0;border-radius:14px;background:linear-gradient(135deg,#7433ad,#b75cff);color:#fff;font-weight:900;font-size:16px}#startBtn:disabled{opacity:.55}#result{position:fixed;z-index:20;bottom:18px;left:7%;right:7%;padding:14px;border-radius:16px;background:#09060def;border:1px solid #43275a;color:#ddd;text-align:center;font-size:13px}
 .ok{color:#68ff9b;font-weight:900;font-size:18px}
 .warn{color:#ffd15c}
 </style>
@@ -103,19 +103,50 @@ target.addEventListener('targetLost', () => {
   resultEl.innerHTML = 'Point the rear camera at <b>DR-001 Ember Dragon</b>.';
 });
 
+
+const startBtn = document.getElementById('startBtn');
+
 window.addEventListener('load', () => {
   const scene = document.querySelector('a-scene');
 
-  scene.addEventListener('arReady', () => {
-    statusEl.textContent = 'READY — SCAN DR-001';
-    resultEl.innerHTML = 'Point the rear camera at <b>DR-001 Ember Dragon</b>.';
+  scene.addEventListener('loaded', () => {
+    statusEl.textContent = 'READY — TAP START CAMERA';
+    resultEl.innerHTML = 'Tap <b>START CAMERA</b>, then allow camera access.';
+    startBtn.style.display = 'block';
   });
 
-  scene.addEventListener('arError', () => {
-    statusEl.textContent = 'AR ERROR';
-    resultEl.innerHTML = '<span class="warn">Camera/AR access failed.</span><br>If camera permission is denied, open this page from HTTPS instead of content://.';
+  scene.addEventListener('arReady', () => {
+    statusEl.textContent = 'CAMERA ACTIVE — SCAN DR-001';
+    resultEl.innerHTML = 'Point the rear camera at <b>DR-001 Ember Dragon</b>.';
+    startBtn.style.display = 'none';
+  });
+
+  scene.addEventListener('arError', (e) => {
+    statusEl.textContent = 'CAMERA / AR ERROR';
+    resultEl.innerHTML = '<span class="warn">Camera could not start.</span><br>Chrome → site settings → Permissions → Camera → Allow → reload.';
+    startBtn.disabled = false;
+    startBtn.style.display = 'block';
+    console.error(e);
+  });
+
+  startBtn.addEventListener('click', async () => {
+    try {
+      startBtn.disabled = true;
+      statusEl.textContent = 'REQUESTING CAMERA...';
+      resultEl.textContent = 'Allow camera permission if Android asks.';
+      const arSystem = scene.systems['mindar-image-system'];
+      if (!arSystem) throw new Error('MindAR image system not found');
+      await arSystem.start();
+    } catch (e) {
+      console.error(e);
+      statusEl.textContent = 'CAMERA PERMISSION NEEDED';
+      resultEl.innerHTML = '<span class="warn">Camera did not start.</span><br>Chrome → site settings → Permissions → Camera → Allow → reload.';
+      startBtn.disabled = false;
+      startBtn.style.display = 'block';
+    }
   });
 });
+
 </script>
 </body>
 </html>
