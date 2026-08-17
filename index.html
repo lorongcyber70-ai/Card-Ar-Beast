@@ -3,65 +3,32 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Card Beast AR — Step 2.2 FIX</title>
+<title>Card Beast AR — Step 2.3</title>
 
 <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
 
 <style>
 *{box-sizing:border-box}
-html,body{
-  margin:0;width:100%;height:100%;overflow:hidden;
-  background:#000;font-family:Arial,sans-serif
-}
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#000;font-family:Arial,sans-serif}
 body{position:fixed;inset:0}
-
-a-scene{
-  position:fixed!important;
-  inset:0!important;
-  width:100%!important;
-  height:100%!important;
-  z-index:1!important;
-  background:transparent!important;
-}
-canvas{
-  background:transparent!important;
-}
-
-#ui{
-  position:fixed;z-index:20;top:18px;left:0;width:100%;
-  text-align:center;pointer-events:none
-}
-.logo{
-  font-size:28px;font-weight:900;color:#fff;
-  text-shadow:0 2px 8px #000
-}
+a-scene{position:fixed!important;inset:0!important;width:100%!important;height:100%!important;z-index:1!important;background:transparent!important}
+canvas{background:transparent!important}
+#ui{position:fixed;z-index:20;top:18px;left:0;width:100%;text-align:center;pointer-events:none}
+.logo{font-size:28px;font-weight:900;color:#fff;text-shadow:0 2px 8px #000}
 .logo span{color:#b75cff}
-#status{
-  display:inline-block;margin-top:12px;padding:10px 20px;
-  border:1px solid #b75cff;border-radius:30px;
-  color:#68ff9b;background:rgba(5,0,12,.80);
-  font-weight:800
-}
-#info{
-  position:fixed;z-index:20;left:5%;right:5%;bottom:20px;
-  padding:14px 18px;border:1px solid #7d35b8;border-radius:24px;
-  background:rgba(5,0,12,.84);color:#fff;text-align:center;
-  font-size:17px;line-height:1.45;pointer-events:none
-}
+#status{display:inline-block;margin-top:12px;padding:10px 20px;border:1px solid #b75cff;border-radius:30px;color:#68ff9b;background:rgba(5,0,12,.82);font-weight:800}
+#info{position:fixed;z-index:20;left:5%;right:5%;bottom:20px;padding:14px 18px;border:1px solid #7d35b8;border-radius:24px;background:rgba(5,0,12,.84);color:#fff;text-align:center;font-size:17px;line-height:1.45;pointer-events:none}
 </style>
 </head>
 
 <body>
-
 <div id="ui">
   <div class="logo">CARD <span>BEAST</span> AR</div>
   <div id="status">INITIALISING…</div>
 </div>
 
-<div id="info">
-  Point the rear camera at <b>DR-001 Ember Dragon</b>.
-</div>
+<div id="info">Point the rear camera at <b>DR-001 Ember Dragon</b>.</div>
 
 <a-scene
   id="scene"
@@ -76,145 +43,116 @@ canvas{
 
   <a-entity id="target" mindar-image-target="targetIndex:0">
 
-    <!--
-      STEP 2.2 FIX:
-      Very obvious purple dragon prototype.
-      It is deliberately large, bright and slightly in front
-      of the target so it is easy to verify tracking.
-    -->
-    <a-entity id="beast" visible="false" position="0 0 0.18">
+    <!-- STEP 2.3: smaller, centered Ember Dragon -->
+    <a-entity id="beast" visible="false" position="0 0 0.16" scale="0.62 0.62 0.62">
 
-      <!-- Aura -->
+      <!-- Purple aura -->
       <a-sphere
-        radius="0.95"
-        material="shader:flat;color:#7b2cff;transparent:true;opacity:0.22"
-        animation="property:scale;from:0.92 0.92 0.92;to:1.10 1.10 1.10;dir:alternate;dur:800;loop:true">
+        radius="0.92"
+        material="shader:flat;color:#742cff;transparent:true;opacity:0.18"
+        animation="property:scale;from:0.94 0.94 0.94;to:1.08 1.08 1.08;dir:alternate;dur:850;loop:true">
       </a-sphere>
 
-      <!-- Body -->
+      <!-- Main body -->
       <a-sphere
-        position="0 -0.05 0.08"
-        scale="0.72 0.48 0.42"
-        material="shader:flat;color:#3b087d;opacity:1">
+        position="0 -0.03 0.08"
+        scale="0.72 0.46 0.40"
+        material="shader:flat;color:#35106e">
+      </a-sphere>
+
+      <!-- Belly -->
+      <a-sphere
+        position="0 -0.05 0.42"
+        scale="0.47 0.30 0.18"
+        material="shader:flat;color:#7024c7">
       </a-sphere>
 
       <!-- Neck -->
       <a-cylinder
         position="0 0.34 0.08"
-        radius="0.22"
-        height="0.62"
-        material="shader:flat;color:#5812a8">
+        radius="0.20"
+        height="0.58"
+        material="shader:flat;color:#50109a">
       </a-cylinder>
 
       <!-- Head -->
       <a-sphere
-        position="0 0.70 0.10"
-        scale="0.42 0.34 0.36"
-        material="shader:flat;color:#7b2cff">
+        position="0 0.68 0.10"
+        scale="0.39 0.32 0.34"
+        material="shader:flat;color:#7828db">
       </a-sphere>
 
       <!-- Snout -->
       <a-sphere
-        position="0 0.62 0.42"
-        scale="0.27 0.16 0.22"
-        material="shader:flat;color:#a94dff">
+        position="0 0.61 0.40"
+        scale="0.25 0.14 0.20"
+        material="shader:flat;color:#a54bff">
       </a-sphere>
 
-      <!-- Left horn -->
-      <a-cone
-        position="-0.24 0.98 0.08"
-        radius-bottom="0.12"
-        radius-top="0"
-        height="0.38"
-        rotation="0 0 -18"
-        material="shader:flat;color:#d28cff">
-      </a-cone>
-
-      <!-- Right horn -->
-      <a-cone
-        position="0.24 0.98 0.08"
-        radius-bottom="0.12"
-        radius-top="0"
-        height="0.38"
-        rotation="0 0 18"
-        material="shader:flat;color:#d28cff">
-      </a-cone>
+      <!-- Horns -->
+      <a-cone position="-0.21 0.94 0.08" radius-bottom="0.10" radius-top="0" height="0.34"
+        rotation="0 0 -18" material="shader:flat;color:#d995ff"></a-cone>
+      <a-cone position="0.21 0.94 0.08" radius-bottom="0.10" radius-top="0" height="0.34"
+        rotation="0 0 18" material="shader:flat;color:#d995ff"></a-cone>
 
       <!-- Eyes -->
-      <a-sphere
-        position="-0.16 0.74 0.40"
-        radius="0.055"
-        material="shader:flat;color:#ffffff">
-      </a-sphere>
-
-      <a-sphere
-        position="0.16 0.74 0.40"
-        radius="0.055"
-        material="shader:flat;color:#ffffff">
-      </a-sphere>
+      <a-sphere position="-0.14 0.71 0.38" radius="0.047" material="shader:flat;color:#fff"></a-sphere>
+      <a-sphere position="0.14 0.71 0.38" radius="0.047" material="shader:flat;color:#fff"></a-sphere>
 
       <!-- Wings -->
       <a-triangle
-        position="-0.58 0.18 0"
-        rotation="0 0 18"
-        vertex-a="0 0.65 0"
-        vertex-b="-0.75 -0.15 0"
-        vertex-c="0.05 -0.20 0"
-        material="shader:flat;color:#9b38ff;side:double;opacity:0.92">
+        position="-0.54 0.17 0"
+        vertex-a="0 0.62 0"
+        vertex-b="-0.68 -0.12 0"
+        vertex-c="0.04 -0.18 0"
+        material="shader:flat;color:#8d32e8;side:double;opacity:0.90">
       </a-triangle>
 
       <a-triangle
-        position="0.58 0.18 0"
-        rotation="0 0 -18"
-        vertex-a="0 0.65 0"
-        vertex-b="0.75 -0.15 0"
-        vertex-c="-0.05 -0.20 0"
-        material="shader:flat;color:#9b38ff;side:double;opacity:0.92">
+        position="0.54 0.17 0"
+        vertex-a="0 0.62 0"
+        vertex-b="0.68 -0.12 0"
+        vertex-c="-0.04 -0.18 0"
+        material="shader:flat;color:#8d32e8;side:double;opacity:0.90">
       </a-triangle>
 
-      <!-- Wing bones -->
-      <a-cylinder
-        position="-0.78 0.34 0.05"
-        radius="0.035"
-        height="0.75"
-        rotation="0 0 -62"
-        material="shader:flat;color:#d28cff">
-      </a-cylinder>
-
-      <a-cylinder
-        position="0.78 0.34 0.05"
-        radius="0.035"
-        height="0.75"
-        rotation="0 0 62"
-        material="shader:flat;color:#d28cff">
-      </a-cylinder>
+      <!-- Wing highlights -->
+      <a-cylinder position="-0.67 0.33 0.04" radius="0.025" height="0.66"
+        rotation="0 0 -62" material="shader:flat;color:#d995ff"></a-cylinder>
+      <a-cylinder position="0.67 0.33 0.04" radius="0.025" height="0.66"
+        rotation="0 0 62" material="shader:flat;color:#d995ff"></a-cylinder>
 
       <!-- Tail -->
       <a-torus
-        position="0 -0.34 -0.05"
-        radius="0.42"
-        radius-tubular="0.075"
+        position="0 -0.31 -0.03"
+        radius="0.38"
+        radius-tubular="0.065"
         rotation="90 0 0"
-        arc="270"
-        material="shader:flat;color:#6f25ff">
+        arc="285"
+        material="shader:flat;color:#6420bd">
       </a-torus>
 
-      <!-- Chest core -->
+      <!-- Core -->
       <a-sphere
-        position="0 0.02 0.49"
-        radius="0.13"
-        material="shader:flat;color:#ff55ff"
-        animation="property:scale;from:0.9 0.9 0.9;to:1.2 1.2 1.2;dir:alternate;dur:500;loop:true">
+        position="0 0.00 0.50"
+        radius="0.11"
+        material="shader:flat;color:#ff5cff"
+        animation="property:scale;from:0.88 0.88 0.88;to:1.18 1.18 1.18;dir:alternate;dur:520;loop:true">
       </a-sphere>
 
-      <!-- Energy particles -->
-      <a-sphere position="-0.58 0.58 0.18" radius="0.055"
-        material="shader:flat;color:#ffffff"
-        animation="property:position;to:-0.58 0.72 0.18;dir:alternate;dur:700;loop:true"></a-sphere>
+      <!-- Fire particles -->
+      <a-sphere position="-0.42 0.52 0.18" radius="0.035"
+        material="shader:flat;color:#f0b8ff"
+        animation="property:position;to:-0.48 0.66 0.18;dir:alternate;dur:720;loop:true"></a-sphere>
 
-      <a-sphere position="0.58 0.58 0.18" radius="0.055"
-        material="shader:flat;color:#ffffff"
-        animation="property:position;to:0.58 0.72 0.18;dir:alternate;dur:700;loop:true"></a-sphere>
+      <a-sphere position="0.42 0.52 0.18" radius="0.035"
+        material="shader:flat;color:#f0b8ff"
+        animation="property:position;to:0.48 0.66 0.18;dir:alternate;dur:720;loop:true"></a-sphere>
+
+      <!-- Subtle floating animation: whole dragon breathes without changing tracking -->
+      <a-entity
+        animation="property:position;from:0 -0.025 0.16;to:0 0.025 0.16;dir:alternate;dur:1200;loop:true">
+      </a-entity>
 
     </a-entity>
   </a-entity>
@@ -228,40 +166,33 @@ canvas{
   const status=document.getElementById('status');
   const info=document.getElementById('info');
 
-  function statusText(t){
-    status.textContent=t;
-  }
-
   scene.addEventListener('loaded',()=>{
-    statusText('AR INITIALISING…');
+    status.textContent='AR INITIALISING…';
     info.innerHTML='Loading MindAR target <b>DR-001</b>…';
   });
 
   scene.addEventListener('arReady',()=>{
-    statusText('CAMERA ACTIVE ✓');
+    status.textContent='CAMERA ACTIVE ✓';
     info.innerHTML='Point the rear camera at <b>DR-001 Ember Dragon</b>.';
   });
 
   target.addEventListener('targetFound',()=>{
     beast.setAttribute('visible','true');
-    statusText('CARD CONFIRMED • DR-001');
-    info.innerHTML='🔥 <b>EMBER DRAGON DETECTED</b><br>🟣 Step 2.2 monster overlay active.';
-    console.log('STEP 2.2: DR-001 target FOUND');
+    status.textContent='CARD CONFIRMED • DR-001';
+    info.innerHTML='🔥 <b>EMBER DRAGON DETECTED</b><br>🟣 Step 2.3 — centered AR monster active.';
   });
 
   target.addEventListener('targetLost',()=>{
     beast.setAttribute('visible','false');
-    statusText('CAMERA ACTIVE ✓');
+    status.textContent='CAMERA ACTIVE ✓';
     info.innerHTML='Point the rear camera at <b>DR-001 Ember Dragon</b>.';
   });
 
-  scene.addEventListener('arError',(e)=>{
-    console.error('MindAR error:',e);
-    statusText('AR ERROR');
-    info.innerHTML='MindAR gagal dimulakan. Semak Console jika perlu.';
+  scene.addEventListener('arError',()=>{
+    status.textContent='AR ERROR';
+    info.innerHTML='MindAR gagal dimulakan.';
   });
 })();
 </script>
-
 </body>
 </html>
