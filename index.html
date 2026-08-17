@@ -2,6 +2,7 @@
 <html lang="ms">
 
 <head>
+
 <meta charset="utf-8">
 
 <meta
@@ -9,11 +10,22 @@
   content="width=device-width,initial-scale=1,viewport-fit=cover"
 >
 
-<title>Card Beast AR — Step 2.5</title>
+<title>Card Beast AR — Ember Dragon 3D</title>
+
+
+<!-- =========================================
+     A-FRAME
+========================================= -->
 
 <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
 
+
+<!-- =========================================
+     MINDAR
+========================================= -->
+
 <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
+
 
 <style>
 
@@ -36,25 +48,41 @@ body{
   inset:0;
 }
 
-/* CAMERA */
+
+/* =========================================
+   CAMERA VIDEO
+========================================= */
+
 video{
   position:fixed!important;
   inset:0!important;
+
   width:100%!important;
   height:100%!important;
+
   object-fit:cover!important;
+
   z-index:0!important;
+
   display:block!important;
+
   background:#000!important;
 }
 
-/* AR SCENE */
+
+/* =========================================
+   A-FRAME
+========================================= */
+
 a-scene{
   position:fixed!important;
   inset:0!important;
+
   width:100%!important;
   height:100%!important;
+
   z-index:1!important;
+
   background:transparent!important;
 }
 
@@ -63,75 +91,153 @@ canvas{
   background:transparent!important;
 }
 
-/* TOP UI */
+
+/* =========================================
+   UI
+========================================= */
+
 #ui{
   position:fixed;
+
   z-index:20;
+
   top:18px;
+
   left:0;
+
   width:100%;
+
   text-align:center;
+
   pointer-events:none;
 }
 
+
 .logo{
   font-size:28px;
+
   font-weight:900;
+
   color:#fff;
+
   text-shadow:0 2px 8px #000;
 }
+
 
 .logo span{
   color:#b75cff;
 }
 
+
 #status{
+
   display:inline-block;
+
   margin-top:12px;
+
   padding:10px 20px;
+
   border:1px solid #b75cff;
+
   border-radius:30px;
+
   color:#68ff9b;
+
   background:rgba(5,0,12,.72);
+
   font-weight:800;
 }
+
 
 .ok{
   color:#68ff9b!important;
 }
 
+
 .err{
   color:#ff6b6b!important;
 }
 
-/* BOTTOM INFO */
+
+/* =========================================
+   BOTTOM INFO
+========================================= */
+
 #info{
+
   position:fixed;
+
   z-index:20;
+
   left:5%;
   right:5%;
+
   bottom:20px;
+
   padding:14px 18px;
+
   border:1px solid #7d35b8;
+
   border-radius:24px;
+
   background:rgba(5,0,12,.78);
+
   color:#fff;
+
   text-align:center;
+
   font-size:17px;
+
   line-height:1.45;
+
   pointer-events:none;
 }
 
+
+/* =========================================
+   LOAD ERROR
+========================================= */
+
+#modelError{
+
+  display:none;
+
+  position:fixed;
+
+  z-index:30;
+
+  left:8%;
+
+  right:8%;
+
+  top:45%;
+
+  padding:16px;
+
+  border:1px solid #ff5555;
+
+  border-radius:18px;
+
+  background:rgba(20,0,0,.9);
+
+  color:#ff7777;
+
+  text-align:center;
+
+  font-weight:bold;
+}
+
 </style>
+
 </head>
 
 
 <body>
 
 
-<!-- ================================
-     UI
-================================ -->
+<!-- =========================================
+     TOP UI
+========================================= -->
 
 <div id="ui">
 
@@ -146,26 +252,46 @@ canvas{
 </div>
 
 
+<!-- =========================================
+     INFORMATION
+========================================= -->
+
 <div id="info">
+
   Point the rear camera at
   <b>DR-001 Ember Dragon</b>.
+
 </div>
 
 
-<!-- ================================
-     MINDAR SCENE
-     JANGAN UBAH
-================================ -->
+<div id="modelError">
+
+  Ember Dragon 3D model gagal dimuat.
+
+</div>
+
+
+<!-- =========================================
+     MINDAR + A-FRAME
+     
+     TRACKING SETTINGS KEKAL
+========================================= -->
 
 <a-scene
+
   id="scene"
+
   embedded
 
   vr-mode-ui="enabled:false"
 
   device-orientation-permission-ui="enabled:false"
 
-  renderer="alpha:true; colorManagement:true; physicallyCorrectLights:true"
+  renderer="
+    alpha:true;
+    colorManagement:true;
+    physicallyCorrectLights:true
+  "
 
   mindar-image="
     imageTargetSrc:./targets.mind;
@@ -181,48 +307,106 @@ canvas{
 >
 
 
-  <!-- CAMERA — KEKAL -->
+  <!-- =========================================
+       CAMERA
+       KEKAL
+  ========================================= -->
+
   <a-camera
+
     position="0 0 0"
-    look-controls="enabled:false">
-  </a-camera>
+
+    look-controls="enabled:false"
+
+  ></a-camera>
 
 
-  <!-- TARGET — KEKAL -->
+  <!-- =========================================
+       TARGET
+       KEKAL
+  ========================================= -->
+
   <a-entity
+
     id="target"
+
     mindar-image-target="targetIndex:0"
+
   >
 
 
-    <!-- =================================================
-         STEP 2.5
-         EMBER DRAGON MODEL
-         
-         Parent position KEKAL:
-         0 0 0
+    <!-- =======================================
+         BEAST PARENT
 
-         Tiada rotation pada parent.
-         MindAR tracking tidak disentuh.
-    ================================================== -->
+         POSITION KEKAL
+         TRACKING TIDAK DIUBAH
+    ======================================== -->
 
     <a-entity
+
       id="beast"
+
       visible="false"
+
       position="0 0 0"
+
     >
 
 
-      <!-- =========================================
-           PURPLE AURA
-      ========================================== -->
+      <!-- =====================================
+           MODEL WRAPPER
+
+           Hanya model yang dirotate.
+           MindAR target TIDAK dirotate.
+      ====================================== -->
+
+      <a-entity
+
+        id="dragonModel"
+
+        position="0 0 0"
+
+        rotation="90 0 0"
+
+        scale="0.35 0.35 0.35"
+
+      >
+
+
+        <!-- =================================
+             EMBER DRAGON GLB
+        ================================== -->
+
+        <a-entity
+
+          id="emberDragon"
+
+          gltf-model="./models/ember-dragon.glb"
+
+        ></a-entity>
+
+
+      </a-entity>
+
+
+      <!-- =====================================
+           PURPLE GLOW
+
+           Glow ini berada di luar GLB supaya
+           model masih ada aura purple.
+      ====================================== -->
 
       <a-sphere
-        radius="0.95"
+
+        id="dragonGlow"
+
+        position="0 0.65 0"
+
+        radius="0.9"
 
         color="#7b2cff"
 
-        opacity="0.14"
+        opacity="0.10"
 
         material="
           transparent:true;
@@ -234,579 +418,18 @@ canvas{
           property:scale;
           to:1.12 1.12 1.12;
           dir:alternate;
-          dur:1000;
+          dur:900;
           loop:true
         "
-      >
-      </a-sphere>
 
-
-      <!-- =========================================
-           DRAGON BODY
-           
-           Feet are close to y=0.
-           Head rises upward.
-      ========================================== -->
-
-      <!-- MAIN BODY -->
-
-      <a-sphere
-        position="0 0.72 0"
-        scale="0.48 0.72 0.36"
-
-        color="#35106f"
-
-        material="
-          shader:flat;
-          transparent:true;
-          opacity:0.96
-        "
-      >
-      </a-sphere>
-
-
-      <!-- CHEST -->
-
-      <a-sphere
-        position="0 0.95 0.04"
-        scale="0.42 0.48 0.34"
-
-        color="#5520a8"
-
-        material="shader:flat"
-      >
-      </a-sphere>
-
-
-      <!-- NECK -->
-
-      <a-cylinder
-        position="0 1.30 0"
-
-        radius="0.22"
-
-        height="0.62"
-
-        color="#48158c"
-
-        material="shader:flat"
-
-        rotation="0 0 0"
-      >
-      </a-cylinder>
-
-
-      <!-- =========================================
-           DRAGON HEAD
-      ========================================== -->
-
-      <a-sphere
-        position="0 1.72 0"
-
-        scale="0.34 0.30 0.34"
-
-        color="#6324c7"
-
-        material="shader:flat"
-      >
-      </a-sphere>
-
-
-      <!-- SNOUT -->
-
-      <a-box
-        position="0 1.65 0.28"
-
-        width="0.38"
-        height="0.16"
-        depth="0.32"
-
-        color="#4b1794"
-
-        material="shader:flat"
-
-        rotation="0 0 0"
-      >
-      </a-box>
-
-
-      <!-- LOWER JAW -->
-
-      <a-box
-        position="0 1.56 0.28"
-
-        width="0.34"
-        height="0.10"
-        depth="0.27"
-
-        color="#35106f"
-
-        material="shader:flat"
-      >
-      </a-box>
-
-
-      <!-- =========================================
-           HORNS
-      ========================================== -->
-
-      <a-cone
-        position="-0.20 1.95 0"
-
-        radius-bottom="0.09"
-
-        radius-top="0"
-
-        height="0.30"
-
-        color="#b66cff"
-
-        material="shader:flat"
-
-        rotation="0 0 -18"
-      >
-      </a-cone>
-
-
-      <a-cone
-        position="0.20 1.95 0"
-
-        radius-bottom="0.09"
-
-        radius-top="0"
-
-        height="0.30"
-
-        color="#b66cff"
-
-        material="shader:flat"
-
-        rotation="0 0 18"
-      >
-      </a-cone>
-
-
-      <!-- =========================================
-           GLOWING EYES
-      ========================================== -->
-
-      <a-sphere
-        position="-0.13 1.77 0.31"
-
-        radius="0.055"
-
-        color="#f0b7ff"
-
-        material="
-          shader:flat;
-          emissive:#d76cff;
-          emissiveIntensity:2
-        "
-      >
-      </a-sphere>
-
-
-      <a-sphere
-        position="0.13 1.77 0.31"
-
-        radius="0.055"
-
-        color="#f0b7ff"
-
-        material="
-          shader:flat;
-          emissive:#d76cff;
-          emissiveIntensity:2
-        "
-      >
-      </a-sphere>
-
-
-      <!-- =========================================
-           FIREBALL
-      ========================================== -->
-
-      <a-sphere
-        position="0 1.62 0.57"
-
-        radius="0.12"
-
-        color="#9d38ff"
-
-        material="
-          shader:flat;
-          transparent:true;
-          opacity:0.95;
-          emissive:#9d38ff;
-          emissiveIntensity:2
-        "
-
-        animation="
-          property:scale;
-          from:0.85 0.85 0.85;
-          to:1.15 1.15 1.15;
-          dir:alternate;
-          dur:450;
-          loop:true
-        "
-      >
-      </a-sphere>
-
-
-      <!-- FIRE GLOW -->
-
-      <a-sphere
-        position="0 1.62 0.57"
-
-        radius="0.20"
-
-        color="#8b2cff"
-
-        opacity="0.15"
-
-        material="
-          transparent:true;
-          shader:flat
-        "
-      >
-      </a-sphere>
-
-
-      <!-- =========================================
-           LEFT WING
-      ========================================== -->
-
-      <a-cone
-        position="-0.48 1.10 0"
-
-        radius-bottom="0.42"
-
-        radius-top="0.04"
-
-        height="0.90"
-
-        color="#6e27d9"
-
-        material="shader:flat"
-
-        rotation="0 0 72"
-      >
-      </a-cone>
-
-
-      <!-- LEFT WING ARM -->
-
-      <a-cylinder
-        position="-0.62 1.40 0"
-
-        radius="0.035"
-
-        height="0.72"
-
-        color="#b36cff"
-
-        material="shader:flat"
-
-        rotation="0 0 65"
-      >
-      </a-cylinder>
-
-
-      <!-- LEFT WING TIP -->
-
-      <a-cone
-        position="-0.90 1.72 0"
-
-        radius-bottom="0.16"
-
-        radius-top="0"
-
-        height="0.48"
-
-        color="#7f35e8"
-
-        material="shader:flat"
-
-        rotation="0 0 55"
-      >
-      </a-cone>
-
-
-      <!-- =========================================
-           RIGHT WING
-      ========================================== -->
-
-      <a-cone
-        position="0.48 1.10 0"
-
-        radius-bottom="0.42"
-
-        radius-top="0.04"
-
-        height="0.90"
-
-        color="#6e27d9"
-
-        material="shader:flat"
-
-        rotation="0 0 -72"
-      >
-      </a-cone>
-
-
-      <!-- RIGHT WING ARM -->
-
-      <a-cylinder
-        position="0.62 1.40 0"
-
-        radius="0.035"
-
-        height="0.72"
-
-        color="#b36cff"
-
-        material="shader:flat"
-
-        rotation="0 0 -65"
-      >
-      </a-cylinder>
-
-
-      <!-- RIGHT WING TIP -->
-
-      <a-cone
-        position="0.90 1.72 0"
-
-        radius-bottom="0.16"
-
-        radius-top="0"
-
-        height="0.48"
-
-        color="#7f35e8"
-
-        material="shader:flat"
-
-        rotation="0 0 -55"
-      >
-      </a-cone>
-
-
-      <!-- =========================================
-           FRONT LEFT LEG
-           FOOT = NEAR CARD ANCHOR
-      ========================================== -->
-
-      <a-cylinder
-        position="-0.25 0.38 0.15"
-
-        radius="0.095"
-
-        height="0.65"
-
-        color="#42117e"
-
-        material="shader:flat"
-
-        rotation="0 0 8"
-      >
-      </a-cylinder>
-
-
-      <!-- FRONT LEFT FOOT -->
-
-      <a-sphere
-        position="-0.27 0.055 0.20"
-
-        scale="0.15 0.07 0.22"
-
-        color="#7227d1"
-
-        material="shader:flat"
-      >
-      </a-sphere>
-
-
-      <!-- =========================================
-           FRONT RIGHT LEG
-      ========================================== -->
-
-      <a-cylinder
-        position="0.25 0.38 0.15"
-
-        radius="0.095"
-
-        height="0.65"
-
-        color="#42117e"
-
-        material="shader:flat"
-
-        rotation="0 0 -8"
-      >
-      </a-cylinder>
-
-
-      <!-- FRONT RIGHT FOOT -->
-
-      <a-sphere
-        position="0.27 0.055 0.20"
-
-        scale="0.15 0.07 0.22"
-
-        color="#7227d1"
-
-        material="shader:flat"
-      >
-      </a-sphere>
-
-
-      <!-- =========================================
-           REAR LEFT LEG
-      ========================================== -->
-
-      <a-cylinder
-        position="-0.30 0.34 -0.13"
-
-        radius="0.11"
-
-        height="0.62"
-
-        color="#3b106f"
-
-        material="shader:flat"
-
-        rotation="0 0 12"
-      >
-      </a-cylinder>
-
-
-      <!-- REAR LEFT FOOT -->
-
-      <a-sphere
-        position="-0.34 0.055 -0.16"
-
-        scale="0.17 0.07 0.24"
-
-        color="#7227d1"
-
-        material="shader:flat"
-      >
-      </a-sphere>
-
-
-      <!-- =========================================
-           REAR RIGHT LEG
-      ========================================== -->
-
-      <a-cylinder
-        position="0.30 0.34 -0.13"
-
-        radius="0.11"
-
-        height="0.62"
-
-        color="#3b106f"
-
-        material="shader:flat"
-
-        rotation="0 0 -12"
-      >
-      </a-cylinder>
-
-
-      <!-- REAR RIGHT FOOT -->
-
-      <a-sphere
-        position="0.34 0.055 -0.16"
-
-        scale="0.17 0.07 0.24"
-
-        color="#7227d1"
-
-        material="shader:flat"
-      >
-      </a-sphere>
-
-
-      <!-- =========================================
-           CURVED TAIL
-      ========================================== -->
-
-      <a-torus
-        position="0 0.55 -0.25"
-
-        radius="0.45"
-
-        radius-tubular="0.075"
-
-        arc="270"
-
-        color="#48158c"
-
-        material="shader:flat"
-
-        rotation="90 0 0"
-
-        scale="1 1 0.65"
-      >
-      </a-torus>
-
-
-      <!-- TAIL TIP -->
-
-      <a-cone
-        position="0 0.55 -0.68"
-
-        radius-bottom="0.14"
-
-        radius-top="0"
-
-        height="0.40"
-
-        color="#7d2ee0"
-
-        material="shader:flat"
-
-        rotation="180 0 0"
-      >
-      </a-cone>
-
-
-      <!-- =========================================
-           BODY GLOW
-      ========================================== -->
-
-      <a-sphere
-        position="0 0.78 0.34"
-
-        radius="0.12"
-
-        color="#b35cff"
-
-        opacity="0.75"
-
-        material="
-          shader:flat;
-          emissive:#b35cff;
-          emissiveIntensity:2
-        "
-
-        animation="
-          property:scale;
-          from:0.8 0.8 0.8;
-          to:1.2 1.2 1.2;
-          dir:alternate;
-          dur:700;
-          loop:true
-        "
-      >
-      </a-sphere>
+      ></a-sphere>
 
 
     </a-entity>
 
+
   </a-entity>
+
 
 </a-scene>
 
@@ -814,6 +437,10 @@ canvas{
 <script>
 
 (function(){
+
+  /* =========================================
+     ELEMENTS
+  ========================================= */
 
   const scene =
     document.getElementById('scene');
@@ -824,14 +451,27 @@ canvas{
   const beast =
     document.getElementById('beast');
 
+  const dragon =
+    document.getElementById('emberDragon');
+
+  const glow =
+    document.getElementById('dragonGlow');
+
   const status =
     document.getElementById('status');
 
   const info =
     document.getElementById('info');
 
+  const modelError =
+    document.getElementById('modelError');
 
-  function setStatus(text,cls){
+
+  /* =========================================
+     STATUS
+  ========================================= */
+
+  function setStatus(text, cls){
 
     status.textContent = text;
 
@@ -840,6 +480,10 @@ canvas{
   }
 
 
+  /* =========================================
+     INFO
+  ========================================= */
+
   function setInfo(html){
 
     info.innerHTML = html;
@@ -847,49 +491,98 @@ canvas{
   }
 
 
-  /* ===============================
+  /* =========================================
      A-FRAME LOADED
-  =============================== */
+  ========================================= */
 
-  scene.addEventListener('loaded',()=>{
+  scene.addEventListener(
+    'loaded',
+    function(){
 
-    setStatus(
-      'CAMERA / AR INITIALISING…'
-    );
+      setStatus(
+        'CAMERA / AR INITIALISING…'
+      );
 
-    setInfo(
-      'Loading MindAR target <b>DR-001</b>…'
-    );
+      setInfo(
+        'Loading MindAR target <b>DR-001</b>…'
+      );
 
-  });
+    }
+  );
 
 
-  /* ===============================
+  /* =========================================
      MINDAR READY
-  =============================== */
-
-  scene.addEventListener('arReady',()=>{
-
-    setStatus(
-      'CAMERA ACTIVE ✓',
-      'ok'
-    );
-
-    setInfo(
-      'Point the rear camera at <b>DR-001 Ember Dragon</b>.'
-    );
-
-  });
-
-
-  /* ===============================
-     TARGET FOUND
+     
      KEKAL
-  =============================== */
+  ========================================= */
+
+  scene.addEventListener(
+    'arReady',
+    function(){
+
+      setStatus(
+        'CAMERA ACTIVE ✓',
+        'ok'
+      );
+
+      setInfo(
+        'Point the rear camera at ' +
+        '<b>DR-001 Ember Dragon</b>.'
+      );
+
+    }
+  );
+
+
+  /* =========================================
+     GLB MODEL LOADED
+  ========================================= */
+
+  dragon.addEventListener(
+    'model-loaded',
+    function(){
+
+      console.log(
+        'EMBER DRAGON GLB LOADED'
+      );
+
+      modelError.style.display =
+        'none';
+
+    }
+  );
+
+
+  /* =========================================
+     GLB MODEL ERROR
+  ========================================= */
+
+  dragon.addEventListener(
+    'model-error',
+    function(event){
+
+      console.error(
+        'EMBER DRAGON GLB ERROR',
+        event
+      );
+
+      modelError.style.display =
+        'block';
+
+    }
+  );
+
+
+  /* =========================================
+     TARGET FOUND
+     
+     KEKAL
+  ========================================= */
 
   target.addEventListener(
     'targetFound',
-    ()=>{
+    function(){
 
       beast.setAttribute(
         'visible',
@@ -903,21 +596,22 @@ canvas{
 
       setInfo(
         '🔥 <b>EMBER DRAGON DETECTED</b><br>' +
-        '🟣 Step 2.5 — Ember Dragon active.'
+        '🟣 3D Ember Dragon active.'
       );
 
     }
   );
 
 
-  /* ===============================
+  /* =========================================
      TARGET LOST
+     
      KEKAL
-  =============================== */
+  ========================================= */
 
   target.addEventListener(
     'targetLost',
-    ()=>{
+    function(){
 
       beast.setAttribute(
         'visible',
@@ -930,24 +624,25 @@ canvas{
       );
 
       setInfo(
-        'Point the rear camera at <b>DR-001 Ember Dragon</b>.'
+        'Point the rear camera at ' +
+        '<b>DR-001 Ember Dragon</b>.'
       );
 
     }
   );
 
 
-  /* ===============================
+  /* =========================================
      AR ERROR
-  =============================== */
+  ========================================= */
 
   scene.addEventListener(
     'arError',
-    e=>{
+    function(event){
 
       console.error(
         'MindAR error',
-        e
+        event
       );
 
       setStatus(
@@ -965,40 +660,48 @@ canvas{
   );
 
 
-  /* ===============================
+  /* =========================================
      CAMERA VIDEO SAFEGUARD
-     KEKAL
-  =============================== */
+  ========================================= */
 
   function fixVideoLayer(){
 
     document
       .querySelectorAll('video')
-      .forEach(v=>{
+      .forEach(function(video){
 
-        v.setAttribute(
+        video.setAttribute(
           'playsinline',
           ''
         );
 
-        v.setAttribute(
+        video.setAttribute(
           'autoplay',
           ''
         );
 
-        v.muted = true;
+        video.muted = true;
 
         Object.assign(
-          v.style,
+          video.style,
           {
+
             position:'fixed',
+
             inset:'0',
+
             width:'100%',
+
             height:'100%',
+
             objectFit:'cover',
+
             zIndex:'0',
+
             display:'block',
+
             background:'#000'
+
           }
         );
 
@@ -1025,5 +728,7 @@ canvas{
 
 </script>
 
+
 </body>
+
 </html>
