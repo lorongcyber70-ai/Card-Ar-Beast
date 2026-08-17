@@ -3,165 +3,172 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Card Beast AR — Step 2.1</title>
+<title>Card Beast AR — Step 2.1.1 Diagnostic</title>
 
 <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
 
 <style>
 *{box-sizing:border-box}
-html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#000;font-family:Arial,sans-serif}
-a-scene{position:fixed!important;inset:0!important;width:100vw!important;height:100vh!important}
-#ui{position:fixed;z-index:100;top:0;left:0;right:0;padding:18px;text-align:center;pointer-events:none}
-.logo{font-size:23px;font-weight:900;color:#fff;text-shadow:0 2px 8px #000}
-.logo span{color:#b75cff}
-#status{display:inline-block;margin-top:10px;padding:10px 16px;border-radius:24px;background:#09060ddd;border:1px solid #b75cff;color:#fff;font-size:14px;font-weight:900}
-#info{position:fixed;z-index:100;left:6%;right:6%;bottom:28px;padding:13px 16px;border-radius:16px;background:#09060ddd;border:1px solid #6c3a88;color:#fff;text-align:center;font-size:13px;pointer-events:none}
-.ok{color:#68ff9b!important}
-.warn{color:#ffcc66!important}
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#050308;color:#fff;font-family:Arial,sans-serif}
+#cameraTest{position:fixed;inset:0;width:100%;height:100%;object-fit:cover;background:#000;z-index:1}
+#arRoot{display:none;position:fixed;inset:0;z-index:2}
+a-scene{position:fixed!important;inset:0!important}
+#ui{position:fixed;top:0;left:0;right:0;z-index:20;padding:18px 16px 12px;
+background:linear-gradient(#07050b,rgba(7,5,11,.82),transparent);pointer-events:none}
+.logo{font-size:25px;font-weight:900}.logo span{color:#b75cff}
+.badge{display:inline-block;margin-top:10px;padding:10px 16px;border:1px solid #9c3dff;border-radius:999px;font-weight:800}
+#log{position:fixed;left:16px;right:16px;bottom:90px;z-index:25;max-height:34vh;overflow:auto;
+background:rgba(8,6,12,.88);border:1px solid #5e277e;border-radius:16px;padding:12px;font-size:13px;line-height:1.45}
+.ok{color:#68ff9b}.warn{color:#ffcc66}.err{color:#ff6b6b}
+button{position:fixed;left:16px;right:16px;bottom:20px;z-index:30;border:0;border-radius:18px;padding:17px;
+font-size:17px;font-weight:900;color:white;background:linear-gradient(90deg,#7b2cff,#bd4dff)}
+#fallback{position:fixed;inset:0;z-index:0;display:grid;place-items:center;color:#aaa;text-align:center;padding:30px}
 </style>
 </head>
 
 <body>
+<div id="fallback">CARD BEAST AR<br>Step 2.1.1 Diagnostic</div>
 
-<div id="ui">
-  <div class="logo">CARD <span>BEAST</span> AR</div>
-  <div id="status">STARTING AR...</div>
-</div>
+<video id="cameraTest" autoplay playsinline muted></video>
 
-<div id="info">Point the rear camera at <b>DR-001 Ember Dragon</b>.</div>
-
+<div id="arRoot">
 <a-scene
-  embedded
+  mindar-image="imageTargetSrc: ./targets.mind; autoStart: false; uiLoading: no; uiScanning: no; uiError: no"
   color-space="sRGB"
-  renderer="colorManagement: true; physicallyCorrectLights: true; alpha: true"
+  renderer="colorManagement: true"
+  embedded
   vr-mode-ui="enabled: false"
-  device-orientation-permission-ui="enabled: false"
-  mindar-image="imageTargetSrc: ./targets.mind; autoStart: true; uiScanning: no; uiLoading: no"
->
+  device-orientation-permission-ui="enabled: false">
 
   <a-camera position="0 0 0" look-controls="enabled:false"></a-camera>
 
   <a-entity id="target" mindar-image-target="targetIndex: 0">
-
-    <!-- STEP 2.1: PURPLE AR BEAST PLACEHOLDER -->
-    <a-entity id="beast" visible="false" position="0 0.15 0.05" scale="0.45 0.45 0.45">
-
-      <!-- aura -->
-      <a-sphere
-        radius="0.72"
-        color="#6f25ff"
-        opacity="0.12"
-        material="transparent:true;shader:flat"
-        animation="property:scale;to:1.12 1.12 1.12;dir:alternate;dur:900;loop:true">
+    <a-entity id="beast" visible="false" position="0 0 0">
+      <a-sphere radius=".48" color="#7b2cff"
+        material="shader:flat;opacity:.92"
+        animation="property:rotation;to:0 360 0;loop:true;dur:2200">
       </a-sphere>
-
-      <!-- body -->
-      <a-sphere position="0 0 0" radius="0.42"
-        color="#32105f"
-        material="roughness:0.35;metalness:0.55">
-      </a-sphere>
-
-      <!-- chest -->
-      <a-sphere position="0 -0.04 0.36" radius="0.28"
-        color="#8b35ff"
-        material="emissive:#3b087a;emissiveIntensity:1">
-      </a-sphere>
-
-      <!-- head -->
-      <a-sphere position="0 0.46 0.02" radius="0.30"
-        color="#42127a"
-        material="roughness:0.3;metalness:0.6">
-      </a-sphere>
-
-      <!-- horns -->
-      <a-cone position="-0.18 0.70 0.02" radius-bottom="0.08" radius-top="0.015" height="0.34"
-        rotation="0 0 -22" color="#c79cff">
-      </a-cone>
-      <a-cone position="0.18 0.70 0.02" radius-bottom="0.08" radius-top="0.015" height="0.34"
-        rotation="0 0 22" color="#c79cff">
-      </a-cone>
-
-      <!-- eyes -->
-      <a-sphere position="-0.105 0.50 0.265" radius="0.035"
-        color="#ff38e8" material="emissive:#ff00dd;emissiveIntensity:4">
-      </a-sphere>
-      <a-sphere position="0.105 0.50 0.265" radius="0.035"
-        color="#ff38e8" material="emissive:#ff00dd;emissiveIntensity:4">
-      </a-sphere>
-
-      <!-- wings -->
-      <a-box position="-0.48 0.28 0" width="0.48" height="0.55" depth="0.06"
-        rotation="0 0 25" color="#5c20a6" material="transparent:true;opacity:0.86"
-        animation="property:rotation;from:0 0 25;to:0 0 42;dir:alternate;dur:700;loop:true">
-      </a-box>
-      <a-box position="0.48 0.28 0" width="0.48" height="0.55" depth="0.06"
-        rotation="0 0 -25" color="#5c20a6" material="transparent:true;opacity:0.86"
-        animation="property:rotation;from:0 0 -25;to:0 0 -42;dir:alternate;dur:700;loop:true">
-      </a-box>
-
-      <!-- tail -->
-      <a-torus position="0 -0.30 -0.02"
-        radius="0.28" radius-tubular="0.045"
-        rotation="90 0 0"
-        color="#6f25ff"
-        material="emissive:#2a005c;emissiveIntensity:1"
-        animation="property:rotation;from:90 0 0;to:90 25 0;dir:alternate;dur:1200;loop:true">
-      </a-torus>
-
-      <!-- energy core -->
-      <a-sphere position="0 0.02 0.58" radius="0.09"
-        color="#ff38e8"
-        material="emissive:#ff00dd;emissiveIntensity:5"
-        animation="property:scale;to:1.35 1.35 1.35;dir:alternate;dur:500;loop:true">
-      </a-sphere>
-
-      <!-- floating energy particles -->
-      <a-sphere position="-0.65 0.15 0.1" radius="0.025" color="#b75cff"
-        animation="property:position;from:-0.65 0.15 0.1;to:-0.65 0.55 0.1;dir:alternate;dur:1100;loop:true"></a-sphere>
-      <a-sphere position="0.65 0.05 0.1" radius="0.025" color="#ff38e8"
-        animation="property:position;from:0.65 0.05 0.1;to:0.65 0.45 0.1;dir:alternate;dur:950;loop:true"></a-sphere>
-
+      <a-ring radius-inner=".58" radius-outer=".66" color="#d58cff"
+        rotation="-90 0 0"
+        animation="property:scale;from:1 1 1;to:1.25 1.25 1.25;dir:alternate;loop:true;dur:700">
+      </a-ring>
     </a-entity>
-
   </a-entity>
 </a-scene>
+</div>
+
+<div id="ui">
+  <div class="logo">CARD <span>BEAST</span> AR</div>
+  <div id="status" class="badge">DIAGNOSTIC READY</div>
+</div>
+
+<div id="log"></div>
+<button id="action">1 — TEST CAMERA</button>
 
 <script>
-const statusEl = document.getElementById('status');
-const infoEl = document.getElementById('info');
-const targetEl = document.getElementById('target');
-const beastEl = document.getElementById('beast');
+const video=document.getElementById('cameraTest');
+const arRoot=document.getElementById('arRoot');
+const status=document.getElementById('status');
+const log=document.getElementById('log');
+const action=document.getElementById('action');
+const fallback=document.getElementById('fallback');
+let stream=null, arStarted=false;
 
-targetEl.addEventListener('targetFound', () => {
-  beastEl.setAttribute('visible', 'true');
-  statusEl.textContent = 'CARD CONFIRMED • DR-001';
-  statusEl.classList.add('ok');
-  infoEl.innerHTML = '✓ <b>EMBER DRAGON AR ACTIVE</b><br>Step 2.1 — Monster placeholder is locked to the card.';
-});
+function write(msg, cls=''){
+  const d=document.createElement('div');
+  d.className=cls;
+  d.textContent=msg;
+  log.appendChild(d);
+  log.scrollTop=log.scrollHeight;
+}
+function setStatus(msg, cls=''){status.textContent=msg;status.className='badge '+cls}
+function fail(msg){write('ERROR: '+msg,'err');setStatus('DIAGNOSTIC ERROR','err')}
 
-targetEl.addEventListener('targetLost', () => {
-  beastEl.setAttribute('visible', 'false');
-  statusEl.textContent = 'SEARCHING • DR-001';
-  statusEl.classList.remove('ok');
-  infoEl.innerHTML = 'Point the rear camera at <b>DR-001 Ember Dragon</b>.';
-});
+write('Step 2.1.1 diagnostic loaded.','ok');
+write('targets.mind will NOT be modified.','ok');
+write('Browser: '+navigator.userAgent);
 
-window.addEventListener('load', () => {
-  const scene = document.querySelector('a-scene');
+async function testCamera(){
+  action.disabled=true;
+  try{
+    if(!window.isSecureContext) throw new Error('Page is not HTTPS / secure context.');
+    write('HTTPS / secure context: PASS','ok');
 
-  scene.addEventListener('arReady', () => {
-    statusEl.textContent = 'CAMERA ACTIVE — SCAN DR-001';
+    if(!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia)
+      throw new Error('getUserMedia is unavailable in this browser.');
+
+    stream=await navigator.mediaDevices.getUserMedia({
+      video:{facingMode:{ideal:'environment'},width:{ideal:1280},height:{ideal:720}},
+      audio:false
+    });
+    video.srcObject=stream;
+    await video.play();
+    fallback.style.display='none';
+    write('Camera permission: PASS','ok');
+    write('Rear camera stream: PASS','ok');
+    setStatus('CAMERA WORKING ✓','ok');
+
+    action.textContent='2 — START AR DIAGNOSTIC';
+    action.disabled=false;
+    action.onclick=startAR;
+  }catch(e){
+    fail(e.name+': '+e.message);
+    action.disabled=false;
+    action.textContent='RETRY CAMERA';
+    action.onclick=testCamera;
+  }
+}
+
+async function startAR(){
+  action.disabled=true;
+  write('Starting MindAR/A-Frame...','warn');
+
+  // Stop the standalone camera first so MindAR can acquire it cleanly.
+  if(stream){stream.getTracks().forEach(t=>t.stop());stream=null;}
+  video.style.display='none';
+  arRoot.style.display='block';
+
+  const scene=document.querySelector('a-scene');
+  scene.addEventListener('arReady',()=>{
+    arStarted=true;
+    setStatus('MINDAR READY ✓','ok');
+    write('MindAR initialization: PASS','ok');
+    write('Point rear camera at DR-001.','ok');
+    action.textContent='AR RUNNING — SCAN DR-001';
+    action.disabled=false;
+    action.onclick=()=>{};
+  },{once:true});
+
+  scene.addEventListener('arError',e=>{
+    fail('MindAR/A-Frame camera or initialization failed.');
+    write('Try Chrome Incognito after confirming Camera test passes.','warn');
+    action.textContent='RELOAD TEST';
+    action.disabled=false;
+    action.onclick=()=>location.reload();
+  },{once:true});
+
+  const target=document.getElementById('target');
+  target.addEventListener('targetFound',()=>{
+    setStatus('DR-001 FOUND ✓','ok');
+    write('DR-001 tracking: PASS','ok');
+    document.getElementById('beast').setAttribute('visible','true');
+    write('Purple AR placeholder: VISIBLE ✓','ok');
+  });
+  target.addEventListener('targetLost',()=>{
+    setStatus('DR-001 LOST','warn');
+    write('Target lost — move card back into view.','warn');
+    document.getElementById('beast').setAttribute('visible','false');
   });
 
-  scene.addEventListener('arError', (e) => {
-    statusEl.textContent = 'AR ERROR';
-    statusEl.classList.add('warn');
-    infoEl.textContent = 'AR engine failed to start. Check HTTPS and camera permission.';
-    console.error(e);
-  });
-});
+  try{
+    scene.components['mindar-image-system'].start();
+  }catch(e){
+    fail('Could not start MindAR: '+e.message);
+    action.disabled=false;
+  }
+}
+action.onclick=testCamera;
 </script>
-
 </body>
 </html>
