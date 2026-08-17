@@ -1,29 +1,20 @@
 <!doctype html>
 <html lang="ms">
-
 <head>
 <meta charset="utf-8">
-
-<meta
-  name="viewport"
-  content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 
 <title>Card Beast AR — Ember Dragon GLB</title>
 
-<!-- A-Frame -->
 <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
-
-<!-- MindAR -->
 <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
 
 <style>
-
 *{
   box-sizing:border-box;
 }
 
-html,
-body{
+html,body{
   margin:0;
   width:100%;
   height:100%;
@@ -37,63 +28,41 @@ body{
   inset:0;
 }
 
-/* =========================================
-   CAMERA
-========================================= */
-
+/* CAMERA */
 video{
   position:fixed!important;
   inset:0!important;
-
   width:100%!important;
   height:100%!important;
-
   object-fit:cover!important;
-
   z-index:0!important;
-
   display:block!important;
-
   background:#000!important;
 }
 
-/* =========================================
-   A-FRAME
-========================================= */
-
+/* A-FRAME */
 a-scene{
   position:fixed!important;
   inset:0!important;
-
   width:100%!important;
   height:100%!important;
-
   z-index:1!important;
-
   background:transparent!important;
 }
 
-.a-canvas,
-canvas{
+canvas,
+.a-canvas{
   background:transparent!important;
 }
 
-/* =========================================
-   TOP UI
-========================================= */
-
+/* UI */
 #ui{
   position:fixed;
-
   z-index:20;
-
   top:18px;
   left:0;
-
   width:100%;
-
   text-align:center;
-
   pointer-events:none;
 }
 
@@ -101,9 +70,7 @@ canvas{
   font-size:28px;
   font-weight:900;
   color:#fff;
-
-  text-shadow:
-    0 2px 8px #000;
+  text-shadow:0 2px 8px #000;
 }
 
 .logo span{
@@ -111,55 +78,30 @@ canvas{
 }
 
 #status{
-
   display:inline-block;
-
   margin-top:12px;
-
   padding:10px 20px;
-
   border:1px solid #b75cff;
-
   border-radius:30px;
-
   color:#68ff9b;
-
-  background:rgba(5,0,12,.72);
-
+  background:rgba(5,0,12,.78);
   font-weight:800;
 }
 
-/* =========================================
-   BOTTOM INFO
-========================================= */
-
 #info{
-
   position:fixed;
-
   z-index:20;
-
   left:5%;
   right:5%;
-
   bottom:20px;
-
   padding:14px 18px;
-
   border:1px solid #7d35b8;
-
   border-radius:24px;
-
-  background:rgba(5,0,12,.78);
-
+  background:rgba(5,0,12,.82);
   color:#fff;
-
   text-align:center;
-
   font-size:17px;
-
   line-height:1.45;
-
   pointer-events:none;
 }
 
@@ -171,10 +113,21 @@ canvas{
   color:#ff6b6b!important;
 }
 
-.warn{
-  color:#ffcc66!important;
+#modelError{
+  display:none;
+  position:fixed;
+  z-index:50;
+  left:8%;
+  right:8%;
+  top:42%;
+  padding:18px;
+  border:1px solid #ff5555;
+  border-radius:18px;
+  background:rgba(20,0,0,.92);
+  color:#ff7777;
+  text-align:center;
+  font-weight:bold;
 }
-
 </style>
 </head>
 
@@ -182,7 +135,7 @@ canvas{
 <body>
 
 <!-- =========================================
-     UI
+     TOP UI
 ========================================= -->
 
 <div id="ui">
@@ -203,27 +156,34 @@ canvas{
 ========================================= -->
 
 <div id="info">
-
   Point the rear camera at
   <b>DR-001 Ember Dragon</b>.
+</div>
 
+
+<!-- =========================================
+     MODEL ERROR
+========================================= -->
+
+<div id="modelError">
+  ❌ Ember Dragon GLB gagal dimuat.
+  <br><br>
+  Semak:
+  <br>
+  <b>models/ember-dragon.glb</b>
 </div>
 
 
 <!-- =========================================
      A-FRAME + MINDAR
-     
-     TRACKING CONFIGURATION KEPT UNCHANGED
+
+     TRACKING DIKEKALKAN
 ========================================= -->
 
 <a-scene
-
   id="scene"
-
   embedded
-
   vr-mode-ui="enabled:false"
-
   device-orientation-permission-ui="enabled:false"
 
   renderer="
@@ -241,33 +201,28 @@ canvas{
   "
 
   color-space="sRGB"
-
   loading-screen="enabled:false"
 >
 
 
-  <!-- =======================================
+  <!-- =========================================
        GLB ASSET
-       
-       NEW:
-       models/ember-dragon.glb
-  ======================================== -->
+========================================= -->
 
   <a-assets>
 
     <a-asset-item
-      id="emberDragonModel"
+      id="emberDragonAsset"
       src="./models/ember-dragon.glb">
     </a-asset-item>
 
   </a-assets>
 
 
-  <!-- =======================================
+  <!-- =========================================
        CAMERA
-       
-       KEPT
-  ======================================== -->
+       KEKAL
+========================================= -->
 
   <a-camera
     position="0 0 0"
@@ -275,98 +230,97 @@ canvas{
   </a-camera>
 
 
-  <!-- =======================================
-       MINDAR TARGET
-       
-       KEPT UNCHANGED
-  ======================================== -->
+  <!-- =========================================
+       TARGET
+       KEKAL
+========================================= -->
 
   <a-entity
     id="target"
-    mindar-image-target="targetIndex:0">
+    mindar-image-target="targetIndex:0"
+  >
 
 
-    <!-- =====================================
-         BEAST CONTAINER
-         
-         Tracking anchor remains here.
-         Only model content is changed.
-    ====================================== -->
+    <!-- =======================================
+         BEAST
+
+         TRACKING ANCHOR KEKAL
+    ======================================== -->
 
     <a-entity
       id="beast"
       visible="false"
       position="0 0 0"
-      rotation="0 0 0"
-      scale="0.5 0.5 0.5">
+    >
 
 
-      <!-- ===================================
-           EMBER DRAGON GLB
-           
-           IMPORTANT:
-           Initial rotation is deliberately
-           neutral so we can determine the
-           model's native orientation first.
-      ==================================== -->
+      <!-- =====================================
+           MODEL WRAPPER
 
-      <a-gltf-model
+           Hanya wrapper ini yang akan kita
+           ubah rotation/scale kemudian.
+      ====================================== -->
 
-        id="emberDragon"
-
-        src="#emberDragonModel"
-
+      <a-entity
+        id="dragonModel"
         position="0 0 0"
-
         rotation="0 0 0"
-
-        scale="1 1 1">
-
-      </a-gltf-model>
+        scale="0.35 0.35 0.35"
+      >
 
 
-      <!-- ===================================
-           PURPLE GLOW
-           
-           Decorative AR effect only.
-           Does NOT affect tracking.
-      ==================================== -->
+        <!-- =================================
+             EMBER DRAGON GLB
+        ================================== -->
+
+        <a-gltf-model
+          id="emberDragon"
+          src="#emberDragonAsset"
+          position="0 0 0"
+          rotation="0 0 0"
+          scale="1 1 1"
+        >
+        </a-gltf-model>
+
+
+      </a-entity>
+
+
+      <!-- =====================================
+           PURPLE AR GLOW
+      ====================================== -->
 
       <a-sphere
-
+        id="dragonGlow"
+        position="0 0.55 0"
         radius="0.75"
-
-        color="#6f25ff"
-
+        color="#7b2cff"
         opacity="0.10"
 
         material="
           transparent:true;
-          shader:flat
+          shader:flat;
+          side:double
         "
 
         animation="
           property:scale;
+          from:0.92 0.92 0.92;
           to:1.08 1.08 1.08;
           dir:alternate;
-          dur:1000;
+          dur:900;
           loop:true
-        ">
-
+        "
+      >
       </a-sphere>
 
 
     </a-entity>
 
-
   </a-entity>
 
 </a-scene>
 
-
-<!-- =========================================
-     JAVASCRIPT
-========================================= -->
 
 <script>
 
@@ -381,21 +335,24 @@ canvas{
   const beast =
     document.getElementById('beast');
 
+  const dragon =
+    document.getElementById('emberDragon');
+
   const status =
     document.getElementById('status');
 
   const info =
     document.getElementById('info');
 
-  const dragon =
-    document.getElementById('emberDragon');
+  const modelError =
+    document.getElementById('modelError');
 
 
-  /* ========================================
+  /* =========================================
      STATUS
-  ======================================== */
+  ========================================= */
 
-  function setStatus(text, cls){
+  function setStatus(text,cls){
 
     status.textContent = text;
 
@@ -404,9 +361,9 @@ canvas{
   }
 
 
-  /* ========================================
+  /* =========================================
      INFO
-  ======================================== */
+  ========================================= */
 
   function setInfo(html){
 
@@ -415,49 +372,108 @@ canvas{
   }
 
 
-  /* ========================================
+  /* =========================================
      A-FRAME LOADED
-  ======================================== */
+  ========================================= */
 
-  scene.addEventListener('loaded', function(){
+  scene.addEventListener(
+    'loaded',
+    function(){
 
-    setStatus(
-      'CAMERA / AR INITIALISING…'
-    );
+      setStatus(
+        'CAMERA / AR INITIALISING…'
+      );
 
-    setInfo(
-      'Loading MindAR target <b>DR-001</b>…'
-    );
+      setInfo(
+        'Loading MindAR target <b>DR-001</b>…'
+      );
 
-  });
+    }
+  );
 
 
-  /* ========================================
+  /* =========================================
      MINDAR READY
-     
-     KEPT
-  ======================================== */
+     KEKAL
+  ========================================= */
 
-  scene.addEventListener('arReady', function(){
+  scene.addEventListener(
+    'arReady',
+    function(){
 
-    setStatus(
-      'CAMERA ACTIVE ✓',
-      'ok'
-    );
+      setStatus(
+        'CAMERA ACTIVE ✓',
+        'ok'
+      );
 
-    setInfo(
-      'Point the rear camera at ' +
-      '<b>DR-001 Ember Dragon</b>.'
-    );
+      setInfo(
+        'Point the rear camera at ' +
+        '<b>DR-001 Ember Dragon</b>.'
+      );
 
-  });
+    }
+  );
 
 
-  /* ========================================
+  /* =========================================
+     GLB LOADED
+  ========================================= */
+
+  dragon.addEventListener(
+    'model-loaded',
+    function(){
+
+      console.log(
+        'EMBER DRAGON GLB LOADED ✓'
+      );
+
+      modelError.style.display =
+        'none';
+
+      setInfo(
+        '🟣 Ember Dragon 3D loaded.<br>' +
+        'Point camera at <b>DR-001</b>.'
+      );
+
+    }
+  );
+
+
+  /* =========================================
+     GLB ERROR
+  ========================================= */
+
+  dragon.addEventListener(
+    'model-error',
+    function(event){
+
+      console.error(
+        'EMBER DRAGON GLB ERROR:',
+        event
+      );
+
+      modelError.style.display =
+        'block';
+
+      setStatus(
+        'GLB ERROR',
+        'err'
+      );
+
+      setInfo(
+        '❌ Gagal memuat ' +
+        '<b>ember-dragon.glb</b>.'
+      );
+
+    }
+  );
+
+
+  /* =========================================
      TARGET FOUND
-     
-     KEPT
-  ======================================== */
+
+     KEKAL
+  ========================================= */
 
   target.addEventListener(
     'targetFound',
@@ -474,19 +490,23 @@ canvas{
       );
 
       setInfo(
-        '🔥 <b>EMBER DRAGON DETECTED</b>' +
-        '<br>🟣 Ember Dragon GLB active.'
+        '🔥 <b>EMBER DRAGON DETECTED</b><br>' +
+        '🟣 3D Ember Dragon active.'
+      );
+
+      console.log(
+        'DR-001 TARGET FOUND'
       );
 
     }
   );
 
 
-  /* ========================================
+  /* =========================================
      TARGET LOST
-     
-     KEPT
-  ======================================== */
+
+     KEKAL
+  ========================================= */
 
   target.addEventListener(
     'targetLost',
@@ -507,21 +527,25 @@ canvas{
         '<b>DR-001 Ember Dragon</b>.'
       );
 
+      console.log(
+        'DR-001 TARGET LOST'
+      );
+
     }
   );
 
 
-  /* ========================================
-     AR ERROR
-  ======================================== */
+  /* =========================================
+     MINDAR ERROR
+  ========================================= */
 
   scene.addEventListener(
     'arError',
-    function(e){
+    function(event){
 
       console.error(
-        'MindAR error',
-        e
+        'MindAR error:',
+        event
       );
 
       setStatus(
@@ -531,87 +555,37 @@ canvas{
 
       setInfo(
         'MindAR gagal dimulakan. ' +
-        'Kamera mungkin masih tersedia, ' +
-        'tetapi AR tidak aktif.'
+        'Kamera mungkin masih tersedia.'
       );
 
     }
   );
 
 
-  /* ========================================
-     GLB LOADING
-  ======================================== */
-
-  if(dragon){
-
-    dragon.addEventListener(
-      'model-loaded',
-      function(){
-
-        console.log(
-          'EMBER DRAGON GLB LOADED'
-        );
-
-        setInfo(
-          '🟣 Ember Dragon model loaded. ' +
-          'Point camera at <b>DR-001</b>.'
-        );
-
-      }
-    );
-
-
-    dragon.addEventListener(
-      'model-error',
-      function(e){
-
-        console.error(
-          'EMBER DRAGON GLB ERROR',
-          e
-        );
-
-        setStatus(
-          'GLB ERROR',
-          'err'
-        );
-
-        setInfo(
-          '❌ Tidak dapat memuat ' +
-          '<b>models/ember-dragon.glb</b>. ' +
-          'Semak nama fail dan folder.'
-        );
-
-      }
-    );
-
-  }
-
-
-  /* ========================================
+  /* =========================================
      CAMERA VIDEO SAFEGUARD
-  ======================================== */
+  ========================================= */
 
   function fixVideoLayer(){
 
     document
       .querySelectorAll('video')
-      .forEach(function(v){
+      .forEach(function(video){
 
-        v.setAttribute(
+        video.setAttribute(
           'playsinline',
           ''
         );
 
-        v.setAttribute(
+        video.setAttribute(
           'autoplay',
           ''
         );
 
-        v.muted = true;
+        video.muted = true;
 
         Object.assign(
-          v.style,
+          video.style,
           {
 
             position:'fixed',
@@ -631,6 +605,7 @@ canvas{
             background:'#000'
 
           }
+
         );
 
       });
@@ -638,9 +613,9 @@ canvas{
   }
 
 
-  /* ========================================
-     OBSERVE MINDAR VIDEO
-  ======================================== */
+  /* =========================================
+     WATCH FOR CAMERA VIDEO
+  ========================================= */
 
   new MutationObserver(
     fixVideoLayer
