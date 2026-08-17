@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Card Beast AR — Step 2.1.2 Camera Fixed</title>
+<title>Card Beast AR — Step 2.1.3</title>
 
 <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
@@ -20,18 +20,19 @@ html, body {
     font-family: Arial, sans-serif;
 }
 
-/* IMPORTANT: make the A-Frame/MindAR camera layer fill the phone */
+/* Let MindAR manage its camera/video layer.
+   Do NOT force the A-Frame canvas over the video. */
 a-scene {
     position: fixed !important;
     inset: 0 !important;
-    width: 100vw !important;
-    height: 100vh !important;
     z-index: 1 !important;
+    width: 100% !important;
+    height: 100% !important;
+    background: transparent !important;
 }
 
 a-scene canvas {
-    width: 100% !important;
-    height: 100% !important;
+    background: transparent !important;
 }
 
 #ui {
@@ -78,9 +79,9 @@ a-scene canvas {
     line-height: 1.45;
 }
 
-.err { color:#ff6868 !important; }
-.warn { color:#ffcc66 !important; }
 .ok { color:#68ff9b !important; }
+.warn { color:#ffcc66 !important; }
+.err { color:#ff6868 !important; }
 
 #diagnostic {
     position: fixed;
@@ -118,7 +119,7 @@ a-scene canvas {
     id="arScene"
     embedded
     color-space="sRGB"
-    renderer="colorManagement: true; physicallyCorrectLights: true"
+    renderer="alpha: true; colorManagement: true; physicallyCorrectLights: true"
     vr-mode-ui="enabled: false"
     device-orientation-permission-ui="enabled: false"
     mindar-image="
@@ -129,7 +130,6 @@ a-scene canvas {
         uiError: no;
     "
 >
-
     <a-camera
         position="0 0 0"
         look-controls="enabled: false">
@@ -279,289 +279,6 @@ a-scene canvas {
             setStatus("MINDAR START FAILED", "err");
             detail.textContent = "MindAR could not start.";
             report("START ERROR: " + e.message, "err");
-        }
-    });
-})();
-</script>
-
-</body>
-</html>
-    color: white;
-    font-size: 28px;
-    font-weight: 900;
-    letter-spacing: .5px;
-}
-
-.logo span { color: #b75cff; }
-
-#status {
-    display: inline-block;
-    margin-top: 12px;
-    padding: 10px 20px;
-    border: 1px solid #a84cff;
-    border-radius: 28px;
-    background: rgba(8,3,12,.78);
-    color: #68ff9b;
-    font-weight: 800;
-    font-size: 16px;
-}
-
-#info {
-    position: fixed;
-    z-index: 9999;
-    left: 5%;
-    right: 5%;
-    bottom: 22px;
-    padding: 14px 18px;
-    border: 1px solid rgba(183,92,255,.55);
-    border-radius: 20px;
-    background: rgba(8,3,12,.82);
-    color: white;
-    text-align: center;
-    font-size: 14px;
-    line-height: 1.45;
-}
-
-.ok { color: #68ff9b; }
-.warn { color: #ffcc66; }
-.err { color: #ff6868; }
-
-#log {
-    position: fixed;
-    z-index: 10000;
-    left: 12px;
-    right: 12px;
-    bottom: 105px;
-    max-height: 28vh;
-    overflow: auto;
-    padding: 10px;
-    border-radius: 12px;
-    background: rgba(0,0,0,.72);
-    color: #ddd;
-    font: 12px monospace;
-    display: none;
-}
-</style>
-</head>
-
-<body>
-
-<div id="ui">
-    <div class="logo">CARD <span>BEAST</span> AR</div>
-    <div id="status">INITIALISING...</div>
-</div>
-
-<div id="log"></div>
-
-<div id="info">
-    Point the rear camera at <b>DR-001 Ember Dragon</b>.
-    <br>
-    <span id="detail">Step 2.1.2 — MindAR initialization diagnostic.</span>
-</div>
-
-<a-scene
-    id="arScene"
-    embedded
-    color-space="sRGB"
-    renderer="colorManagement: true; physicallyCorrectLights: true"
-    vr-mode-ui="enabled: false"
-    device-orientation-permission-ui="enabled: false"
-    mindar-image="
-        imageTargetSrc: ./targets.mind;
-        autoStart: false;
-        uiScanning: no;
-        uiLoading: no;
-        uiError: no;
-    "
->
-
-    <a-camera
-        position="0 0 0"
-        look-controls="enabled: false">
-    </a-camera>
-
-    <!-- DR-001 = targetIndex 0 -->
-    <a-entity
-        id="dr001Target"
-        mindar-image-target="targetIndex: 0">
-
-        <!-- Purple AR beast placeholder -->
-        <a-entity
-            id="purpleBeast"
-            visible="false"
-            position="0 0 0.15"
-            scale="0.55 0.55 0.55">
-
-            <!-- Aura -->
-            <a-sphere
-                radius="0.9"
-                color="#8b35ff"
-                opacity="0.16"
-                material="transparent: true; shader: flat"
-                animation="property: scale; from: 0.9 0.9 0.9; to: 1.08 1.08 1.08; dir: alternate; loop: true; dur: 900">
-            </a-sphere>
-
-            <!-- Body -->
-            <a-sphere
-                position="0 -0.05 0"
-                radius="0.55"
-                color="#32105f">
-            </a-sphere>
-
-            <!-- Head -->
-            <a-sphere
-                position="0 0.52 0"
-                radius="0.36"
-                color="#54158c">
-            </a-sphere>
-
-            <!-- Snout -->
-            <a-cone
-                position="0 0.45 0.27"
-                radius-bottom="0.22"
-                radius-top="0.05"
-                height="0.38"
-                rotation="90 0 0"
-                color="#6e21a8">
-            </a-cone>
-
-            <!-- Eyes -->
-            <a-sphere
-                position="-0.13 0.58 0.29"
-                radius="0.045"
-                color="#dca7ff"
-                emissive="#dca7ff"
-                material="emissiveIntensity: 2">
-            </a-sphere>
-
-            <a-sphere
-                position="0.13 0.58 0.29"
-                radius="0.045"
-                color="#dca7ff"
-                emissive="#dca7ff"
-                material="emissiveIntensity: 2">
-            </a-sphere>
-
-            <!-- Wings -->
-            <a-cone
-                position="-0.55 0.15 0"
-                radius-bottom="0.42"
-                radius-top="0.02"
-                height="0.9"
-                rotation="0 0 65"
-                color="#6f22a8">
-            </a-cone>
-
-            <a-cone
-                position="0.55 0.15 0"
-                radius-bottom="0.42"
-                radius-top="0.02"
-                height="0.9"
-                rotation="0 0 -65"
-                color="#6f22a8">
-            </a-cone>
-
-            <!-- Tail -->
-            <a-torus
-                position="0 -0.5 -0.05"
-                radius="0.42"
-                radius-tubular="0.08"
-                rotation="90 0 0"
-                color="#4b167d">
-            </a-torus>
-
-            <a-light
-                type="point"
-                color="#a64dff"
-                intensity="1.4"
-                distance="3">
-            </a-light>
-
-        </a-entity>
-    </a-entity>
-
-</a-scene>
-
-<script>
-(function () {
-    const sceneEl = document.querySelector("#arScene");
-    const statusEl = document.querySelector("#status");
-    const detailEl = document.querySelector("#detail");
-    const logEl = document.querySelector("#log");
-    const beastEl = document.querySelector("#purpleBeast");
-    const targetEl = document.querySelector("#dr001Target");
-
-    function log(message, type) {
-        console.log(message);
-        const line = document.createElement("div");
-        line.textContent = message;
-        if (type) line.className = type;
-        logEl.appendChild(line);
-    }
-
-    function setStatus(text, cls) {
-        statusEl.textContent = text;
-        statusEl.className = cls || "";
-    }
-
-    // Keep diagnostic log hidden during normal use.
-    // Set to "block" in console if detailed diagnostics are needed.
-    window.showDiagnosticLog = function () {
-        logEl.style.display = "block";
-    };
-
-    log("Step 2.1.2 loaded.");
-    log("targets.mind will NOT be modified.");
-
-    sceneEl.addEventListener("loaded", function () {
-        log("A-Frame loaded.", "ok");
-
-        const arSystem = sceneEl.systems["mindar-image-system"];
-
-        if (!arSystem) {
-            setStatus("MINDAR SYSTEM NOT FOUND", "err");
-            detailEl.textContent = "MindAR system was not registered. Check the MindAR script.";
-            log("ERROR: sceneEl.systems['mindar-image-system'] is undefined.", "err");
-            return;
-        }
-
-        log("MindAR system FOUND.", "ok");
-        setStatus("MINDAR SYSTEM FOUND ✓", "ok");
-        detailEl.textContent = "Starting MindAR...";
-
-        sceneEl.addEventListener("arReady", function () {
-            setStatus("AR READY ✓", "ok");
-            detailEl.textContent = "MindAR started successfully. Scan DR-001.";
-            log("MindAR arReady event received.", "ok");
-        });
-
-        sceneEl.addEventListener("arError", function (event) {
-            setStatus("MINDAR ERROR", "err");
-            detailEl.textContent = "MindAR reported an error. See diagnostic log.";
-            log("MindAR arError: " + JSON.stringify(event.detail || {}), "err");
-        });
-
-        targetEl.addEventListener("targetFound", function () {
-            beastEl.setAttribute("visible", "true");
-            setStatus("CARD CONFIRMED • DR-001", "ok");
-            detailEl.textContent = "✓ EMBER DRAGON DETECTED — purple overlay active.";
-            log("DR-001 targetFound.", "ok");
-        });
-
-        targetEl.addEventListener("targetLost", function () {
-            beastEl.setAttribute("visible", "false");
-            setStatus("CARD LOST", "warn");
-            detailEl.textContent = "Move the card back into view.";
-            log("DR-001 targetLost.", "warn");
-        });
-
-        try {
-            arSystem.start();
-            log("MindAR start() called successfully.", "ok");
-        } catch (error) {
-            setStatus("MINDAR START FAILED", "err");
-            detailEl.textContent = "MindAR could not start. See diagnostic log.";
-            log("ERROR: " + error.message, "err");
         }
     });
 })();
