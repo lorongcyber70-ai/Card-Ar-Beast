@@ -9,10 +9,12 @@
   content="width=device-width,initial-scale=1,viewport-fit=cover"
 >
 
-<title>Card Beast AR — Step 2.5 v33</title>
+<title>Card Beast AR — Step 2.5 v34</title>
 
+<!-- A-FRAME -->
 <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
 
+<!-- MINDAR -->
 <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
 
 <style>
@@ -83,7 +85,6 @@ canvas{
 
 #ui{
   position:fixed;
-
   z-index:20;
 
   top:18px;
@@ -209,7 +210,7 @@ canvas{
 
 
 <!-- =========================================
-     MINDAR SCENE
+     A-FRAME + MINDAR
 ========================================= -->
 
 <a-scene
@@ -248,7 +249,7 @@ canvas{
   <!-- =======================================
        CAMERA
 
-       TIDAK DIUBAH
+       JANGAN UBAH
   ======================================== -->
 
   <a-camera
@@ -260,7 +261,7 @@ canvas{
   <!-- =======================================
        DR-001 TARGET
 
-       TIDAK DIUBAH
+       TRACKING KEKAL
   ======================================== -->
 
   <a-entity
@@ -270,16 +271,18 @@ canvas{
 
 
     <!-- =====================================
-         BEAST PARENT
+         EMBER DRAGON
 
-         ROTATION:
-         180 0 0
+         v34
+
+         BEAST:
+         rotation = 0 0 0
 
          SCALE:
          2.5
 
-         POSITION:
-         0 0 0
+         MODEL:
+         rotation = 0 180 0
     ====================================== -->
 
     <a-entity
@@ -289,24 +292,17 @@ canvas{
 
       position="0 0 0"
 
-      rotation="180 0 0"
+      rotation="0 0 0"
 
       scale="2.5 2.5 2.5"
     >
 
 
       <!-- ===================================
-           EMBER DRAGON GLB
-
-           MODEL ROTATION:
-           0 180 0
-
-           Ini hanya memusingkan GLB,
-           bukan tracking.
+           GLB MODEL
       ==================================== -->
 
       <a-entity
-
         id="dragonModel"
 
         gltf-model="./models/ember-dragon.glb"
@@ -316,7 +312,6 @@ canvas{
         rotation="0 180 0"
 
         scale="1 1 1"
-
       >
       </a-entity>
 
@@ -440,19 +435,27 @@ canvas{
     function(){
 
       console.log(
+        '================================'
+      );
+
+      console.log(
         'ember-dragon.glb loaded successfully.'
       );
 
       console.log(
-        'Beast rotation: 180 0 0'
+        'Rotation beast: 0 0 0'
       );
 
       console.log(
-        'Model rotation: 0 180 0'
+        'Rotation model: 0 180 0'
       );
 
       console.log(
-        'Scale: 2.5'
+        'Scale beast: 2.5'
+      );
+
+      console.log(
+        '================================'
       );
 
       setInfo(
@@ -629,7 +632,6 @@ canvas{
             background:'#000'
 
           }
-
         );
 
       });
@@ -638,7 +640,7 @@ canvas{
 
 
   /* =========================================
-     WATCH MINDAR VIDEO
+     WATCH FOR MINDAR VIDEO
   ========================================= */
 
   new MutationObserver(
@@ -653,7 +655,7 @@ canvas{
 
 
   /* =========================================
-     INITIAL CAMERA FIX
+     INITIAL VIDEO FIX
   ========================================= */
 
   fixVideoLayer();
@@ -664,15 +666,19 @@ canvas{
   ========================================= */
 
   console.log(
-    '================================'
+    '========================================'
   );
 
   console.log(
-    'CARD BEAST AR v33'
+    'CARD BEAST AR — STEP 2.5 v34'
   );
 
   console.log(
-    'Target: DR-001'
+    '========================================'
+  );
+
+  console.log(
+    'Target ID: DR-001'
   );
 
   console.log(
@@ -684,23 +690,27 @@ canvas{
   );
 
   console.log(
-    'Beast rotation: 180 0 0'
+    'Beast position: 0 0 0'
   );
 
   console.log(
-    'Dragon rotation: 0 180 0'
+    'Beast rotation: 0 0 0'
   );
 
   console.log(
-    'Scale: 2.5'
+    'Model rotation: 0 180 0'
   );
 
   console.log(
-    'Tracking: MindAR'
+    'Beast scale: 2.5 2.5 2.5'
   );
 
   console.log(
-    '================================'
+    'MindAR tracking: ACTIVE'
+  );
+
+  console.log(
+    '========================================'
   );
 
 })();
