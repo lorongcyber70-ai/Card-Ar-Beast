@@ -9,12 +9,10 @@
   content="width=device-width,initial-scale=1,viewport-fit=cover"
 >
 
-<title>Card Beast AR — Step 2.5 v34</title>
+<title>Card Beast AR — Cube Check v36</title>
 
-<!-- A-FRAME -->
 <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
 
-<!-- MINDAR -->
 <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
 
 <style>
@@ -39,7 +37,7 @@ body{
 }
 
 /* =========================================
-   CAMERA VIDEO
+   CAMERA
 ========================================= */
 
 video{
@@ -85,6 +83,7 @@ canvas{
 
 #ui{
   position:fixed;
+
   z-index:20;
 
   top:18px;
@@ -103,8 +102,7 @@ canvas{
 
   color:#fff;
 
-  text-shadow:
-    0 2px 8px #000;
+  text-shadow:0 2px 8px #000;
 }
 
 .logo span{
@@ -112,6 +110,7 @@ canvas{
 }
 
 #status{
+
   display:inline-block;
 
   margin-top:12px;
@@ -137,6 +136,7 @@ canvas{
 ========================================= */
 
 #info{
+
   position:fixed;
 
   z-index:20;
@@ -248,8 +248,7 @@ canvas{
 
   <!-- =======================================
        CAMERA
-
-       JANGAN UBAH
+       KEKAL
   ======================================== -->
 
   <a-camera
@@ -260,8 +259,7 @@ canvas{
 
   <!-- =======================================
        DR-001 TARGET
-
-       TRACKING KEKAL
+       JANGAN UBAH
   ======================================== -->
 
   <a-entity
@@ -271,21 +269,20 @@ canvas{
 
 
     <!-- =====================================
-         EMBER DRAGON
+         EMBER DRAGON — CUBE CHECK v36
 
-         v34
+         ROTATION BEAST:
+         0 0 0
 
-         BEAST:
-         rotation = 0 0 0
+         ROTATION MODEL:
+         0 0 0
 
          SCALE:
          2.5
-
-         MODEL:
-         rotation = 0 180 0
     ====================================== -->
 
     <a-entity
+
       id="beast"
 
       visible="false"
@@ -295,23 +292,26 @@ canvas{
       rotation="0 0 0"
 
       scale="2.5 2.5 2.5"
+
     >
 
 
       <!-- ===================================
-           GLB MODEL
+           GLB
       ==================================== -->
 
       <a-entity
+
         id="dragonModel"
 
         gltf-model="./models/ember-dragon.glb"
 
         position="0 0 0"
 
-        rotation="0 0 180"
+        rotation="0 0 0"
 
         scale="1 1 1"
+
       >
       </a-entity>
 
@@ -435,7 +435,11 @@ canvas{
     function(){
 
       console.log(
-        '================================'
+        '========================================'
+      );
+
+      console.log(
+        'CARD BEAST AR — CUBE CHECK v36'
       );
 
       console.log(
@@ -443,24 +447,32 @@ canvas{
       );
 
       console.log(
-        'Rotation beast: 0 0 0'
+        'Beast rotation: 0 0 0'
       );
 
       console.log(
-        'Rotation model: 0 180 0'
+        'Model rotation: 0 0 0'
       );
 
       console.log(
-        'Scale beast: 2.5'
+        'Scale: 2.5'
       );
 
       console.log(
-        '================================'
+        'Target: DR-001'
+      );
+
+      console.log(
+        'Target file: ./targets.mind'
+      );
+
+      console.log(
+        '========================================'
       );
 
       setInfo(
         '🔥 <b>EMBER DRAGON READY</b><br>' +
-        '3D model loaded successfully.'
+        'Cube Check v36 — original GLB orientation.'
       );
 
     }
@@ -497,7 +509,6 @@ canvas{
 
   /* =========================================
      TARGET FOUND
-
      TRACKING KEKAL
   ========================================= */
 
@@ -517,7 +528,8 @@ canvas{
 
       setInfo(
         '🔥 <b>EMBER DRAGON DETECTED</b><br>' +
-        '🟣 3D Ember Dragon active.'
+        '🟣 3D Ember Dragon active.<br>' +
+        'Cube Check v36.'
       );
 
       console.log(
@@ -530,7 +542,6 @@ canvas{
 
   /* =========================================
      TARGET LOST
-
      TRACKING KEKAL
   ========================================= */
 
@@ -662,7 +673,7 @@ canvas{
 
 
   /* =========================================
-     DEBUG INFORMATION
+     DEBUG
   ========================================= */
 
   console.log(
@@ -670,7 +681,7 @@ canvas{
   );
 
   console.log(
-    'CARD BEAST AR — STEP 2.5 v34'
+    'CARD BEAST AR — CUBE CHECK v36'
   );
 
   console.log(
@@ -698,11 +709,11 @@ canvas{
   );
 
   console.log(
-    'Model rotation: 0 180 0'
+    'Model rotation: 0 0 0'
   );
 
   console.log(
-    'Beast scale: 2.5 2.5 2.5'
+    'Beast scale: 2.5'
   );
 
   console.log(
