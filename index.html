@@ -9,7 +9,7 @@
   content="width=device-width,initial-scale=1,viewport-fit=cover"
 >
 
-<title>Card Beast AR — World Y Rotation v41</title>
+<title>Card Beast AR — Diagnostic v41.1</title>
 
 <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
 
@@ -132,6 +132,14 @@ canvas{
     0 0 12px rgba(183,92,255,.25);
 }
 
+#status.error{
+  color:#ff6b6b;
+}
+
+#status.loading{
+  color:#ffd76b;
+}
+
 /* =========================================
    INFO
 ========================================= */
@@ -205,8 +213,10 @@ canvas{
 ========================================= -->
 
 <div id="info">
+
   Point the rear camera at
   <b>DR-001 Ember Dragon</b>.
+
 </div>
 
 
@@ -231,7 +241,7 @@ canvas{
   "
 
   mindar-image="
-    imageTargetSrc:./targets.mind?v=41;
+    imageTargetSrc:./targets.mind?v=41.1;
     autoStart:true;
     uiScanning:false;
     uiLoading:false;
@@ -270,11 +280,11 @@ canvas{
 
 
     <!-- =====================================
-         BEAST
-         
+         BEAST PARENT
+
          KEKAL:
-         rotation 0 0 0
-         scale 2.5
+         rotation = 0 0 0
+         scale = 2.5
     ====================================== -->
 
     <a-entity
@@ -295,18 +305,18 @@ canvas{
       <!-- ===================================
            DRAGON MODEL
 
-           BASE ROTATION KEKAL:
+           BASE ROTATION:
            90 0 0
 
-           CACHE BUST:
-           v=41
+           WORLD Y:
+           +90 DEGREE
       ==================================== -->
 
       <a-entity
 
         id="dragonModel"
 
-        gltf-model="./models/ember-dragon.glb?v=41"
+        gltf-model="./models/ember-dragon.glb?v=41.1"
 
         position="0 0 0"
 
@@ -360,6 +370,10 @@ canvas{
 
   const WORLD_Y_DEGREES = 90;
 
+  let modelLoaded = false;
+
+  let modelError = false;
+
   let worldRotationApplied = false;
 
 
@@ -367,11 +381,11 @@ canvas{
      STATUS
   ========================================= */
 
-  function setStatus(text, cls){
+  function setStatus(text, type){
 
     status.textContent = text;
 
-    status.className = cls || '';
+    status.className = type || '';
 
   }
 
@@ -388,25 +402,23 @@ canvas{
 
 
   /* =========================================
-     WORLD Y ROTATION
+     APPLY WORLD Y ROTATION
      
-     IMPORTANT:
-     
-     Base model:
+     BASE:
      90 0 0
-     
-     Beast:
-     0 0 0
-     
-     World Y:
-     +90
+
+     WORLD Y:
+     +90°
   ========================================= */
 
   function applyWorldYRotation(){
 
     if(worldRotationApplied){
+
       return;
+
     }
+
 
     if(
       !dragonModel ||
@@ -422,17 +434,7 @@ canvas{
     }
 
 
-    const obj =
-      dragonModel.object3D;
-
-
-    /*
-      THREE.js tersedia melalui A-Frame.
-    */
-
-    const THREE =
-      window.THREE;
-
+    const THREE = window.THREE;
 
     if(!THREE){
 
@@ -445,9 +447,13 @@ canvas{
     }
 
 
+    const obj =
+      dragonModel.object3D;
+
+
     /*
       Pastikan base orientation
-      tepat 90 0 0.
+      ialah 90 0 0.
     */
 
     obj.rotation.set(
@@ -465,25 +471,12 @@ canvas{
 
 
     /*
-      Simpan world quaternion asal.
+      Pusing menggunakan WORLD Y.
+
+      Ini bukan local Y.
     */
 
-    const worldQuaternion =
-      new THREE.Quaternion();
-
-    obj.getWorldQuaternion(
-      worldQuaternion
-    );
-
-
-    /*
-      Quaternion untuk WORLD Y rotation.
-    */
-
-    const worldYQuaternion =
-      new THREE.Quaternion();
-
-    worldYQuaternion.setFromAxisAngle(
+    obj.rotateOnWorldAxis(
 
       new THREE.Vector3(0,1,0),
 
@@ -494,62 +487,6 @@ canvas{
     );
 
 
-    /*
-      Apply rotation pada
-      WORLD Y axis.
-    */
-
-    worldQuaternion.premultiply(
-      worldYQuaternion
-    );
-
-
-    /*
-      Tukar balik daripada
-      world quaternion kepada
-      local quaternion.
-
-      Ini penting kerana dragonModel
-      berada di bawah target + beast.
-    */
-
-    const parent =
-      obj.parent;
-
-
-    if(parent){
-
-      const parentWorldQuaternion =
-        new THREE.Quaternion();
-
-      parent.getWorldQuaternion(
-        parentWorldQuaternion
-      );
-
-
-      parentWorldQuaternion.invert();
-
-
-      const localQuaternion =
-        parentWorldQuaternion
-          .multiply(
-            worldQuaternion
-          );
-
-
-      obj.quaternion.copy(
-        localQuaternion
-      );
-
-    }else{
-
-      obj.quaternion.copy(
-        worldQuaternion
-      );
-
-    }
-
-
     obj.updateMatrixWorld(true);
 
 
@@ -557,23 +494,25 @@ canvas{
 
 
     console.log(
-      'WORLD Y APPLIED:',
-      WORLD_Y_DEGREES,
-      'degrees'
+      '========================================'
     );
-
 
     console.log(
-      'Base rotation:',
-      '90 0 0'
+      'WORLD Y ROTATION APPLIED'
     );
-
 
     console.log(
-      'Beast rotation:',
-      '0 0 0'
+      'Base model rotation: 90 0 0'
     );
 
+    console.log(
+      'World Y rotation:',
+      WORLD_Y_DEGREES
+    );
+
+    console.log(
+      '========================================'
+    );
 
   }
 
@@ -589,7 +528,8 @@ canvas{
     function(){
 
       setStatus(
-        'CAMERA / AR INITIALISING…'
+        'CAMERA / AR INITIALISING…',
+        'loading'
       );
 
 
@@ -617,16 +557,28 @@ canvas{
 
     function(){
 
-      setStatus(
-        'CAMERA ACTIVE ✓',
-        'ok'
-      );
+      /*
+        Jangan overwrite MODEL ERROR.
+      */
+
+      if(!modelError){
+
+        setStatus(
+          'CAMERA ACTIVE ✓',
+          'ok'
+        );
+
+      }
 
 
-      setInfo(
-        'Point the rear camera at ' +
-        '<b>DR-001 Ember Dragon</b>.'
-      );
+      if(!modelLoaded){
+
+        setInfo(
+          'Camera active.<br>' +
+          'Loading <b>ember-dragon.glb</b>…'
+        );
+
+      }
 
 
       console.log(
@@ -648,24 +600,29 @@ canvas{
 
     function(){
 
-      console.log(
-        '========================================'
-      );
+      modelLoaded = true;
 
-      console.log(
-        'CARD BEAST AR — WORLD Y ROTATION v41'
-      );
+      modelError = false;
+
 
       console.log(
         '========================================'
       );
 
       console.log(
-        'Target ID: DR-001'
+        'GLB LOADED SUCCESSFULLY ✓'
       );
 
       console.log(
-        'Target file: ./targets.mind?v=41'
+        'CARD BEAST AR — DIAGNOSTIC v41.1'
+      );
+
+      console.log(
+        'Model: ./models/ember-dragon.glb'
+      );
+
+      console.log(
+        'Target: DR-001'
       );
 
       console.log(
@@ -673,11 +630,11 @@ canvas{
       );
 
       console.log(
-        'Model: ./models/ember-dragon.glb?v=41'
+        'Beast rotation: 0 0 0'
       );
 
       console.log(
-        'Beast rotation: 0 0 0'
+        'Beast scale: 2.5'
       );
 
       console.log(
@@ -690,24 +647,21 @@ canvas{
       );
 
       console.log(
-        'Scale: 2.5'
-      );
-
-      console.log(
-        'Tracking: MindAR'
+        '========================================'
       );
 
 
       /*
-        Apply selepas GLB
-        benar-benar loaded.
+        Apply rotation selepas GLB
+        benar-benar siap.
       */
 
       applyWorldYRotation();
 
 
-      console.log(
-        '========================================'
+      setStatus(
+        'GLB LOADED ✓',
+        'ok'
       );
 
 
@@ -715,7 +669,7 @@ canvas{
 
         '🔥 <b>EMBER DRAGON READY</b><br>' +
 
-        '🟣 3D model loaded successfully.<br>' +
+        '🟢 GLB loaded successfully.<br>' +
 
         'Rotation: Right 90°<br>' +
 
@@ -738,25 +692,50 @@ canvas{
 
     function(event){
 
+      modelError = true;
+
+      modelLoaded = false;
+
+
       console.error(
-        'GLB model error:',
+        '========================================'
+      );
+
+      console.error(
+        'GLB MODEL ERROR ✕'
+      );
+
+      console.error(
         event
+      );
+
+      console.error(
+        'Model path:',
+        './models/ember-dragon.glb?v=41.1'
+      );
+
+      console.error(
+        '========================================'
       );
 
 
       setStatus(
-        'MODEL ERROR',
-        'err'
+        'MODEL ERROR ✕',
+        'error'
       );
 
 
       setInfo(
 
-        '❌ Failed to load ' +
+        '❌ <b>EMBER DRAGON GLB ERROR</b><br>' +
 
-        '<b>ember-dragon.glb</b>.<br>' +
+        'Fail tidak berjaya dimuatkan.<br>' +
 
-        'Check the models folder and filename.'
+        '<small>' +
+
+        './models/ember-dragon.glb' +
+
+        '</small>'
 
       );
 
@@ -768,7 +747,8 @@ canvas{
   /* =========================================
      TARGET FOUND
      
-     TRACKING KEKAL
+     IMPORTANT:
+     Jangan overwrite MODEL ERROR.
   ========================================= */
 
   target.addEventListener(
@@ -776,6 +756,68 @@ canvas{
     'targetFound',
 
     function(){
+
+      console.log(
+        'DR-001 targetFound.'
+      );
+
+
+      /*
+        Kalau GLB belum loaded,
+        jangan terus anggap model active.
+      */
+
+      if(!modelLoaded){
+
+        beast.setAttribute(
+          'visible',
+          'false'
+        );
+
+
+        if(modelError){
+
+          setStatus(
+            'MODEL ERROR ✕',
+            'error'
+          );
+
+
+          setInfo(
+
+            '❌ <b>DR-001 DETECTED</b><br>' +
+
+            'Tetapi Ember Dragon GLB gagal dimuatkan.'
+
+          );
+
+        }else{
+
+          setStatus(
+            'LOADING 3D MODEL…',
+            'loading'
+          );
+
+
+          setInfo(
+
+            '🔥 <b>DR-001 DETECTED</b><br>' +
+
+            'Loading 3D Ember Dragon…'
+
+          );
+
+        }
+
+
+        return;
+
+      }
+
+
+      /*
+        GLB sudah loaded.
+      */
 
       applyWorldYRotation();
 
@@ -804,11 +846,6 @@ canvas{
 
       );
 
-
-      console.log(
-        'DR-001 targetFound.'
-      );
-
     }
 
   );
@@ -816,8 +853,6 @@ canvas{
 
   /* =========================================
      TARGET LOST
-     
-     TRACKING KEKAL
   ========================================= */
 
   target.addEventListener(
@@ -832,19 +867,34 @@ canvas{
       );
 
 
-      setStatus(
-        'CAMERA ACTIVE ✓',
-        'ok'
-      );
+      if(modelError){
+
+        setStatus(
+          'MODEL ERROR ✕',
+          'error'
+        );
+
+        setInfo(
+          '❌ Ember Dragon GLB failed to load.'
+        );
+
+      }else{
+
+        setStatus(
+          'CAMERA ACTIVE ✓',
+          'ok'
+        );
 
 
-      setInfo(
+        setInfo(
 
-        'Point the rear camera at ' +
+          'Point the rear camera at ' +
 
-        '<b>DR-001 Ember Dragon</b>.'
+          '<b>DR-001 Ember Dragon</b>.'
 
-      );
+        );
+
+      }
 
 
       console.log(
@@ -874,7 +924,7 @@ canvas{
 
       setStatus(
         'AR ERROR',
-        'err'
+        'error'
       );
 
 
@@ -984,6 +1034,56 @@ canvas{
 
 
   /* =========================================
+     DIAGNOSTIC TIMEOUT
+     
+     Kalau selepas 10 saat GLB
+     tak beri loaded/error event.
+  ========================================= */
+
+  setTimeout(
+
+    function(){
+
+      if(
+        !modelLoaded &&
+        !modelError
+      ){
+
+        console.warn(
+          'GLB masih belum memberi model-loaded atau model-error selepas 10 saat.'
+        );
+
+
+        setStatus(
+          'GLB LOADING…',
+          'loading'
+        );
+
+
+        setInfo(
+
+          '⏳ <b>EMBER DRAGON</b><br>' +
+
+          'GLB masih loading…<br>' +
+
+          '<small>' +
+
+          './models/ember-dragon.glb?v=41.1' +
+
+          '</small>'
+
+        );
+
+      }
+
+    },
+
+    10000
+
+  );
+
+
+  /* =========================================
      DEBUG
   ========================================= */
 
@@ -992,7 +1092,7 @@ canvas{
   );
 
   console.log(
-    'CARD BEAST AR — WORLD Y ROTATION v41'
+    'CARD BEAST AR — DIAGNOSTIC v41.1'
   );
 
   console.log(
@@ -1004,7 +1104,7 @@ canvas{
   );
 
   console.log(
-    'Target file: ./targets.mind?v=41'
+    'Target file: ./targets.mind?v=41.1'
   );
 
   console.log(
@@ -1012,7 +1112,7 @@ canvas{
   );
 
   console.log(
-    'Model: ./models/ember-dragon.glb?v=41'
+    'Model: ./models/ember-dragon.glb?v=41.1'
   );
 
   console.log(
@@ -1040,11 +1140,7 @@ canvas{
   );
 
   console.log(
-    'targets.mind: UNCHANGED'
-  );
-
-  console.log(
-    'Cache bust: v41'
+    'Cache bust: v41.1'
   );
 
   console.log(
@@ -1057,4 +1153,5 @@ canvas{
 </script>
 
 </body>
+
 </html>
