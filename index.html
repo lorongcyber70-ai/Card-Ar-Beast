@@ -9,12 +9,10 @@
   content="width=device-width,initial-scale=1,viewport-fit=cover"
 >
 
-<title>Card Beast AR — Step 2.5 v32</title>
+<title>Card Beast AR — Step 2.5 v33</title>
 
-<!-- A-Frame -->
 <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
 
-<!-- MindAR -->
 <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
 
 <style>
@@ -113,7 +111,6 @@ canvas{
 }
 
 #status{
-
   display:inline-block;
 
   margin-top:12px;
@@ -139,7 +136,6 @@ canvas{
 ========================================= */
 
 #info{
-
   position:fixed;
 
   z-index:20;
@@ -186,7 +182,7 @@ canvas{
 <body>
 
 <!-- =========================================
-     UI
+     TOP UI
 ========================================= -->
 
 <div id="ui">
@@ -213,7 +209,7 @@ canvas{
 
 
 <!-- =========================================
-     A-FRAME / MINDAR
+     MINDAR SCENE
 ========================================= -->
 
 <a-scene
@@ -251,6 +247,8 @@ canvas{
 
   <!-- =======================================
        CAMERA
+
+       TIDAK DIUBAH
   ======================================== -->
 
   <a-camera
@@ -262,7 +260,7 @@ canvas{
   <!-- =======================================
        DR-001 TARGET
 
-       JANGAN UBAH
+       TIDAK DIUBAH
   ======================================== -->
 
   <a-entity
@@ -272,10 +270,10 @@ canvas{
 
 
     <!-- =====================================
-         EMBER DRAGON GLB
+         BEAST PARENT
 
-         v32 ROTATION:
-         180 180 0
+         ROTATION:
+         180 0 0
 
          SCALE:
          2.5
@@ -291,24 +289,37 @@ canvas{
 
       position="0 0 0"
 
-      rotation="180 180 0"
+      rotation="180 0 0"
 
       scale="2.5 2.5 2.5"
     >
 
+
+      <!-- ===================================
+           EMBER DRAGON GLB
+
+           MODEL ROTATION:
+           0 180 0
+
+           Ini hanya memusingkan GLB,
+           bukan tracking.
+      ==================================== -->
+
       <a-entity
+
         id="dragonModel"
 
         gltf-model="./models/ember-dragon.glb"
 
         position="0 0 0"
 
-        rotation="0 0 0"
+        rotation="0 180 0"
 
         scale="1 1 1"
 
       >
       </a-entity>
+
 
     </a-entity>
 
@@ -386,6 +397,10 @@ canvas{
         'Loading MindAR target <b>DR-001</b>…'
       );
 
+      console.log(
+        'A-Frame loaded.'
+      );
+
     }
   );
 
@@ -408,6 +423,10 @@ canvas{
         '<b>DR-001 Ember Dragon</b>.'
       );
 
+      console.log(
+        'MindAR arReady.'
+      );
+
     }
   );
 
@@ -422,6 +441,18 @@ canvas{
 
       console.log(
         'ember-dragon.glb loaded successfully.'
+      );
+
+      console.log(
+        'Beast rotation: 180 0 0'
+      );
+
+      console.log(
+        'Model rotation: 0 180 0'
+      );
+
+      console.log(
+        'Scale: 2.5'
       );
 
       setInfo(
@@ -464,7 +495,7 @@ canvas{
   /* =========================================
      TARGET FOUND
 
-     JANGAN UBAH LOGIC TRACKING
+     TRACKING KEKAL
   ========================================= */
 
   target.addEventListener(
@@ -497,7 +528,7 @@ canvas{
   /* =========================================
      TARGET LOST
 
-     JANGAN UBAH LOGIC TRACKING
+     TRACKING KEKAL
   ========================================= */
 
   target.addEventListener(
@@ -556,7 +587,7 @@ canvas{
 
 
   /* =========================================
-     FORCE CAMERA VIDEO BEHIND AR
+     CAMERA VIDEO LAYER
   ========================================= */
 
   function fixVideoLayer(){
@@ -598,6 +629,7 @@ canvas{
             background:'#000'
 
           }
+
         );
 
       });
@@ -606,7 +638,7 @@ canvas{
 
 
   /* =========================================
-     WATCH FOR MINDAR VIDEO
+     WATCH MINDAR VIDEO
   ========================================= */
 
   new MutationObserver(
@@ -621,14 +653,14 @@ canvas{
 
 
   /* =========================================
-     INITIAL VIDEO FIX
+     INITIAL CAMERA FIX
   ========================================= */
 
   fixVideoLayer();
 
 
   /* =========================================
-     DEBUG
+     DEBUG INFORMATION
   ========================================= */
 
   console.log(
@@ -636,7 +668,7 @@ canvas{
   );
 
   console.log(
-    'CARD BEAST AR v32'
+    'CARD BEAST AR v33'
   );
 
   console.log(
@@ -652,7 +684,11 @@ canvas{
   );
 
   console.log(
-    'Rotation: 180 180 0'
+    'Beast rotation: 180 0 0'
+  );
+
+  console.log(
+    'Dragon rotation: 0 180 0'
   );
 
   console.log(
