@@ -9,12 +9,10 @@
   content="width=device-width,initial-scale=1,viewport-fit=cover"
 >
 
-<title>Card Beast AR — v39</title>
+<title>Card Beast AR — v40</title>
 
-<!-- A-FRAME -->
 <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
 
-<!-- MINDAR -->
 <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
 
 <style>
@@ -88,7 +86,6 @@ canvas{
 
 #ui{
   position:fixed;
-
   z-index:20;
 
   top:18px;
@@ -107,8 +104,7 @@ canvas{
 
   color:#fff;
 
-  text-shadow:
-    0 2px 8px #000;
+  text-shadow:0 2px 8px #000;
 }
 
 .logo span{
@@ -276,21 +272,16 @@ canvas{
 
 
     <!-- =====================================
-         EMBER DRAGON v39
+         BEAST ROOT
 
-         BODY:
-         X = 90
+         SCALE KEKAL 2.5
 
-         Z:
-         +90
-
-         SCALE:
-         2.5
-
-         Y TIDAK DIUBAH
+         ROTATION ROOT:
+         0 0 0
     ====================================== -->
 
     <a-entity
+
       id="beast"
 
       visible="false"
@@ -304,20 +295,56 @@ canvas{
 
 
       <!-- ===================================
-           GLB MODEL
+           ORIENTATION PIVOT
+
+           Y = 0 UNTUK BASELINE
+
+           Jika perlu arah bertentangan,
+           hanya Y parent ini yang akan diuji.
+
+           JANGAN guna Z.
       ==================================== -->
 
       <a-entity
-        id="dragonModel"
 
-        gltf-model="./models/ember-dragon.glb"
+        id="dragonOrientation"
 
         position="0 0 0"
 
-        rotation="90 0 90"
+        rotation="0 0 0"
 
         scale="1 1 1"
       >
+
+
+        <!-- =================================
+             GLB MODEL
+
+             X = 90
+
+             Ini rotation yang terbukti
+             membuat naga tegak.
+
+             Y = 0
+             Z = 0
+        ================================== -->
+
+        <a-entity
+
+          id="dragonModel"
+
+          gltf-model="./models/ember-dragon.glb"
+
+          position="0 0 0"
+
+          rotation="90 0 0"
+
+          scale="1 1 1"
+        >
+
+        </a-entity>
+
+
       </a-entity>
 
 
@@ -328,6 +355,7 @@ canvas{
 
 
 </a-scene>
+
 
 
 <script>
@@ -347,6 +375,9 @@ canvas{
 
   const beast =
     document.getElementById('beast');
+
+  const dragonOrientation =
+    document.getElementById('dragonOrientation');
 
   const dragonModel =
     document.getElementById('dragonModel');
@@ -445,7 +476,7 @@ canvas{
       );
 
       console.log(
-        'CARD BEAST AR — v39'
+        'CARD BEAST AR — v40'
       );
 
       console.log(
@@ -461,37 +492,36 @@ canvas{
       );
 
       console.log(
-        'Beast position: 0 0 0'
-      );
-
-      console.log(
         'Beast rotation: 0 0 0'
       );
 
       console.log(
-        'Model rotation: 90 0 90'
+        'Orientation rotation: 0 0 0'
       );
 
       console.log(
-        'Model scale: 1 1 1'
+        'Model rotation: 90 0 0'
       );
 
       console.log(
-        'Beast scale: 2.5 2.5 2.5'
-      );
-
-      console.log(
-        'Tracking: MindAR'
+        'Beast scale: 2.5'
       );
 
       console.log(
         '========================================'
       );
 
+
       setInfo(
+
         '🔥 <b>EMBER DRAGON READY</b><br>' +
+
         '3D model loaded successfully.<br>' +
-        'Rotation: <b>90 0 90</b>'
+
+        'Body rotation: <b>90 0 0</b><br>' +
+
+        'Direction pivot: <b>0 0 0</b>'
+
       );
 
     }
@@ -517,9 +547,13 @@ canvas{
       );
 
       setInfo(
+
         '❌ Failed to load ' +
+
         '<b>ember-dragon.glb</b>.<br>' +
+
         'Check the models folder and filename.'
+
       );
 
     }
@@ -546,9 +580,13 @@ canvas{
       );
 
       setInfo(
+
         '🔥 <b>EMBER DRAGON DETECTED</b><br>' +
+
         '🟣 3D Ember Dragon active.<br>' +
-        'Rotation: <b>90 0 90</b>'
+
+        'Rotation: <b>90 0 0</b>'
+
       );
 
       console.log(
@@ -579,8 +617,11 @@ canvas{
       );
 
       setInfo(
+
         'Point the rear camera at ' +
+
         '<b>DR-001 Ember Dragon</b>.'
+
       );
 
       console.log(
@@ -610,9 +651,13 @@ canvas{
       );
 
       setInfo(
+
         'MindAR gagal dimulakan. ' +
+
         'Kamera mungkin masih tersedia, ' +
+
         'tetapi AR tidak aktif.'
+
       );
 
     }
@@ -701,7 +746,7 @@ canvas{
   );
 
   console.log(
-    'CARD BEAST AR — v39'
+    'CARD BEAST AR — v40'
   );
 
   console.log(
@@ -729,11 +774,15 @@ canvas{
   );
 
   console.log(
-    'Model rotation: 90 0 90'
+    'Orientation pivot: 0 0 0'
   );
 
   console.log(
-    'Beast scale: 2.5 2.5 2.5'
+    'Model rotation: 90 0 0'
+  );
+
+  console.log(
+    'Beast scale: 2.5'
   );
 
   console.log(
