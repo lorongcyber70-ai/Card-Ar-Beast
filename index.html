@@ -2,6 +2,7 @@
 <html lang="ms">
 
 <head>
+
 <meta charset="utf-8">
 
 <meta
@@ -38,7 +39,7 @@ body{
 }
 
 /* =====================================================
-   CAMERA VIDEO
+   CAMERA
 ===================================================== */
 
 video{
@@ -130,6 +131,14 @@ canvas{
   font-weight:800;
 }
 
+.ok{
+  color:#68ff9b!important;
+}
+
+.err{
+  color:#ff6b6b!important;
+}
+
 /* =====================================================
    INFO
 ===================================================== */
@@ -163,22 +172,16 @@ canvas{
   pointer-events:none;
 }
 
-.ok{
-  color:#68ff9b!important;
-}
-
-.err{
-  color:#ff6b6b!important;
-}
-
 </style>
+
 </head>
 
 
 <body>
 
+
 <!-- =====================================================
-     UI
+     TOP UI
 ===================================================== -->
 
 <div id="ui">
@@ -207,7 +210,7 @@ canvas{
 
 
 <!-- =====================================================
-     MINDAR SCENE
+     MINDAR / A-FRAME
 ===================================================== -->
 
 <a-scene
@@ -255,7 +258,7 @@ canvas{
 
 
 <!-- =====================================================
-     MINDAR TARGET
+     DR-001 TARGET
 ===================================================== -->
 
 <a-entity
@@ -264,16 +267,20 @@ canvas{
 
   mindar-image-target="targetIndex:0">
 
-  
-  <!-- ===================================================
-       EMBER DRAGON MODEL
 
-       ROTATION UPDATED:
-       -90 180 180
+  <!-- ===================================================
+       EMBER DRAGON GLB
+
+       TEST v31
+
+       ROTATION:
+       270 0 0
 
        SCALE:
        2.5
-       (SIZE KEKAL SEPERTI SEKARANG)
+
+       POSITION:
+       0 0 0
   ==================================================== -->
 
   <a-entity
@@ -299,13 +306,13 @@ canvas{
 </a-scene>
 
 
-<!-- =====================================================
-     JAVASCRIPT
-===================================================== -->
-
 <script>
 
 (function(){
+
+  /* ===================================================
+     ELEMENTS
+  =================================================== */
 
   const scene =
     document.getElementById('scene');
@@ -351,36 +358,50 @@ canvas{
      A-FRAME LOADED
   =================================================== */
 
-  scene.addEventListener('loaded', function(){
+  scene.addEventListener(
+    'loaded',
+    function(){
 
-    setStatus(
-      'CAMERA / AR INITIALISING…'
-    );
+      setStatus(
+        'CAMERA / AR INITIALISING…'
+      );
 
-    setInfo(
-      'Loading MindAR target <b>DR-001</b>…'
-    );
+      setInfo(
+        'Loading MindAR target <b>DR-001</b>…'
+      );
 
-  });
+      console.log(
+        'A-Frame loaded.'
+      );
+
+    }
+  );
 
 
   /* ===================================================
      AR READY
   =================================================== */
 
-  scene.addEventListener('arReady', function(){
+  scene.addEventListener(
+    'arReady',
+    function(){
 
-    setStatus(
-      'CAMERA ACTIVE ✓',
-      'ok'
-    );
+      setStatus(
+        'CAMERA ACTIVE ✓',
+        'ok'
+      );
 
-    setInfo(
-      'Point the rear camera at ' +
-      '<b>DR-001 Ember Dragon</b>.'
-    );
+      setInfo(
+        'Point the rear camera at ' +
+        '<b>DR-001 Ember Dragon</b>.'
+      );
 
-  });
+      console.log(
+        'MindAR arReady.'
+      );
+
+    }
+  );
 
 
   /* ===================================================
@@ -410,11 +431,11 @@ canvas{
 
   beast.addEventListener(
     'model-error',
-    function(e){
+    function(event){
 
       console.error(
         'GLB MODEL ERROR:',
-        e
+        event
       );
 
       setStatus(
@@ -500,11 +521,11 @@ canvas{
 
   scene.addEventListener(
     'arError',
-    function(e){
+    function(event){
 
       console.error(
         'MindAR error:',
-        e
+        event
       );
 
       setStatus(
@@ -523,57 +544,59 @@ canvas{
 
 
   /* ===================================================
-     CAMERA VIDEO SAFEGUARD
+     FORCE CAMERA VIDEO BEHIND AR
   =================================================== */
 
   function fixVideoLayer(){
 
     document
       .querySelectorAll('video')
-      .forEach(function(video){
+      .forEach(
+        function(video){
 
-        video.setAttribute(
-          'playsinline',
-          ''
-        );
+          video.setAttribute(
+            'playsinline',
+            ''
+          );
 
-        video.setAttribute(
-          'autoplay',
-          ''
-        );
+          video.setAttribute(
+            'autoplay',
+            ''
+          );
 
-        video.muted = true;
+          video.muted = true;
 
-        Object.assign(
-          video.style,
-          {
+          Object.assign(
+            video.style,
+            {
 
-            position:'fixed',
+              position:'fixed',
 
-            inset:'0',
+              inset:'0',
 
-            width:'100%',
+              width:'100%',
 
-            height:'100%',
+              height:'100%',
 
-            objectFit:'cover',
+              objectFit:'cover',
 
-            zIndex:'0',
+              zIndex:'0',
 
-            display:'block',
+              display:'block',
 
-            background:'#000'
+              background:'#000'
 
-          }
-        );
+            }
+          );
 
-      });
+        }
+      );
 
   }
 
 
   /* ===================================================
-     OBSERVE CAMERA VIDEO
+     WATCH FOR MINDAR CAMERA VIDEO
   =================================================== */
 
   new MutationObserver(
@@ -593,6 +616,7 @@ canvas{
 })();
 
 </script>
+
 
 </body>
 
