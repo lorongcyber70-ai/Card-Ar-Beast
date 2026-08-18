@@ -9,7 +9,7 @@
   content="width=device-width,initial-scale=1,viewport-fit=cover"
 >
 
-<title>Card Beast AR — World Y Rotation v42</title>
+<title>Card Beast AR — World Y Rotation v43</title>
 
 <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
 
@@ -232,7 +232,7 @@ canvas{
   "
 
   mindar-image="
-    imageTargetSrc:./targets.mind?v=42;
+    imageTargetSrc:./targets.mind;
     autoStart:true;
     uiScanning:false;
     uiLoading:false;
@@ -246,6 +246,23 @@ canvas{
   "
 
 >
+
+
+  <!-- =======================================
+       ASSETS
+       
+       GLB LOADING STABILIZED
+  ======================================== -->
+
+  <a-assets timeout="30000">
+
+    <a-asset-item
+      id="dragonAsset"
+      src="./models/ember-dragon.glb"
+    >
+    </a-asset-item>
+
+  </a-assets>
 
 
   <!-- =======================================
@@ -296,21 +313,18 @@ canvas{
       <!-- ===================================
            DRAGON MODEL
 
-           BASE ROTATION:
+           BASE:
            90 0 0
 
            WORLD Y:
-           -90 DEGREE
-
-           CACHE:
-           v42
+           -90
       ==================================== -->
 
       <a-entity
 
         id="dragonModel"
 
-        gltf-model="./models/ember-dragon.glb?v=42"
+        gltf-model="#dragonAsset"
 
         position="0 0 0"
 
@@ -363,23 +377,6 @@ canvas{
      SETTINGS
   ========================================= */
 
-  /*
-     BASE MODEL:
-
-     90 0 0
-
-     BEAST:
-
-     0 0 0
-
-     WORLD Y:
-
-     -90 DEGREE
-
-     INI SAHAJA YANG BERUBAH
-     DARIPADA v41.
-  */
-
   const WORLD_Y_DEGREES = -90;
 
   let worldRotationApplied = false;
@@ -410,20 +407,22 @@ canvas{
 
 
   /* =========================================
-     WORLD Y ROTATION
+     APPLY WORLD Y ROTATION
      
-     BASE MODEL KEKAL 90 0 0
-     
-     ROTATION TAMBAHAN:
-     WORLD Y -90
+     BASE:
+     90 0 0
+
+     WORLD Y:
+     -90
+
+     BEAST:
+     0 0 0
   ========================================= */
 
   function applyWorldYRotation(){
 
     if(worldRotationApplied){
-
       return;
-
     }
 
 
@@ -441,10 +440,6 @@ canvas{
     }
 
 
-    const obj =
-      dragonModel.object3D;
-
-
     const THREE =
       window.THREE;
 
@@ -460,11 +455,14 @@ canvas{
     }
 
 
+    const obj =
+      dragonModel.object3D;
+
+
     /* =======================================
-       1. BASE ROTATION
-       
+       BASE ROTATION
        90 0 0
-       ======================================= */
+    ======================================= */
 
     obj.rotation.set(
 
@@ -481,8 +479,8 @@ canvas{
 
 
     /* =======================================
-       2. DAPATKAN WORLD QUATERNION
-       ======================================= */
+       CURRENT WORLD ROTATION
+    ======================================= */
 
     const worldQuaternion =
       new THREE.Quaternion();
@@ -494,10 +492,8 @@ canvas{
 
 
     /* =======================================
-       3. WORLD Y AXIS
-       
-       -90 DEGREE
-       ======================================= */
+       WORLD Y -90
+    ======================================= */
 
     const worldYQuaternion =
       new THREE.Quaternion();
@@ -515,8 +511,8 @@ canvas{
 
 
     /* =======================================
-       4. APPLY WORLD ROTATION
-       ======================================= */
+       APPLY WORLD ROTATION
+    ======================================= */
 
     worldQuaternion.premultiply(
       worldYQuaternion
@@ -524,8 +520,8 @@ canvas{
 
 
     /* =======================================
-       5. CONVERT WORLD -> LOCAL
-       ======================================= */
+       WORLD -> LOCAL
+    ======================================= */
 
     const parent =
       obj.parent;
@@ -571,10 +567,6 @@ canvas{
     worldRotationApplied = true;
 
 
-    /* =======================================
-       DEBUG
-       ======================================= */
-
     console.log(
       '========================================'
     );
@@ -584,21 +576,23 @@ canvas{
     );
 
     console.log(
-      'Base rotation: 90 0 0'
+      'Base:',
+      '90 0 0'
     );
 
     console.log(
       'World Y:',
-      WORLD_Y_DEGREES,
-      'degrees'
+      WORLD_Y_DEGREES
     );
 
     console.log(
-      'Beast rotation: 0 0 0'
+      'Beast:',
+      '0 0 0'
     );
 
     console.log(
-      'Scale: 2.5'
+      'Scale:',
+      '2.5'
     );
 
     console.log(
@@ -613,27 +607,22 @@ canvas{
   ========================================= */
 
   scene.addEventListener(
-
     'loaded',
-
     function(){
 
       setStatus(
         'CAMERA / AR INITIALISING…'
       );
 
-
       setInfo(
         'Loading MindAR target <b>DR-001</b>…'
       );
-
 
       console.log(
         'A-Frame loaded.'
       );
 
     }
-
   );
 
 
@@ -642,9 +631,7 @@ canvas{
   ========================================= */
 
   scene.addEventListener(
-
     'arReady',
-
     function(){
 
       setStatus(
@@ -652,19 +639,16 @@ canvas{
         'ok'
       );
 
-
       setInfo(
         'Point the rear camera at ' +
         '<b>DR-001 Ember Dragon</b>.'
       );
-
 
       console.log(
         'MindAR arReady.'
       );
 
     }
-
   );
 
 
@@ -673,9 +657,7 @@ canvas{
   ========================================= */
 
   dragonModel.addEventListener(
-
     'model-loaded',
-
     function(){
 
       console.log(
@@ -683,7 +665,7 @@ canvas{
       );
 
       console.log(
-        'CARD BEAST AR — WORLD Y ROTATION v42'
+        'CARD BEAST AR — WORLD Y ROTATION v43'
       );
 
       console.log(
@@ -691,19 +673,23 @@ canvas{
       );
 
       console.log(
-        'Target ID: DR-001'
+        'GLB loaded successfully.'
       );
 
       console.log(
-        'Target file: ./targets.mind?v=42'
+        'Asset: #dragonAsset'
+      );
+
+      console.log(
+        'File: ./models/ember-dragon.glb'
+      );
+
+      console.log(
+        'Target: DR-001'
       );
 
       console.log(
         'Target index: 0'
-      );
-
-      console.log(
-        'Model: ./models/ember-dragon.glb?v=42'
       );
 
       console.log(
@@ -729,8 +715,8 @@ canvas{
 
 
       /* =====================================
-         APPLY ROTATION
-         ===================================== */
+         APPLY ROTATION SELEPAS GLB READY
+      ===================================== */
 
       applyWorldYRotation();
 
@@ -753,7 +739,6 @@ canvas{
       );
 
     }
-
   );
 
 
@@ -762,14 +747,28 @@ canvas{
   ========================================= */
 
   dragonModel.addEventListener(
-
     'model-error',
-
     function(event){
 
       console.error(
-        'GLB model error:',
+        '========================================'
+      );
+
+      console.error(
+        'GLB MODEL ERROR'
+      );
+
+      console.error(
         event
+      );
+
+      console.error(
+        'Check:',
+        './models/ember-dragon.glb'
+      );
+
+      console.error(
+        '========================================'
       );
 
 
@@ -790,28 +789,64 @@ canvas{
       );
 
     }
+  );
 
+
+  /* =========================================
+     ASSET LOADED DEBUG
+  ========================================= */
+
+  const dragonAsset =
+    document.getElementById('dragonAsset');
+
+
+  dragonAsset.addEventListener(
+    'loaded',
+    function(){
+
+      console.log(
+        'GLB asset item loaded successfully.'
+      );
+
+    }
+  );
+
+
+  dragonAsset.addEventListener(
+    'error',
+    function(event){
+
+      console.error(
+        'GLB ASSET ERROR:',
+        event
+      );
+
+      setStatus(
+        'GLB LOAD ERROR',
+        'err'
+      );
+
+      setInfo(
+
+        '❌ GLB asset tidak dapat dimuat.<br>' +
+
+        'Pastikan fail berada di:<br>' +
+
+        '<b>models/ember-dragon.glb</b>'
+
+      );
+
+    }
   );
 
 
   /* =========================================
      TARGET FOUND
-     
-     TRACKING KEKAL
   ========================================= */
 
   target.addEventListener(
-
     'targetFound',
-
     function(){
-
-      /*
-
-         Pastikan rotation
-         sudah diaplikasikan.
-
-      */
 
       applyWorldYRotation();
 
@@ -846,20 +881,15 @@ canvas{
       );
 
     }
-
   );
 
 
   /* =========================================
      TARGET LOST
-     
-     TRACKING KEKAL
   ========================================= */
 
   target.addEventListener(
-
     'targetLost',
-
     function(){
 
       beast.setAttribute(
@@ -888,7 +918,6 @@ canvas{
       );
 
     }
-
   );
 
 
@@ -897,9 +926,7 @@ canvas{
   ========================================= */
 
   scene.addEventListener(
-
     'arError',
-
     function(event){
 
       console.error(
@@ -925,7 +952,6 @@ canvas{
       );
 
     }
-
   );
 
 
@@ -938,7 +964,6 @@ canvas{
     document
       .querySelectorAll('video')
       .forEach(
-
         function(video){
 
           video.setAttribute(
@@ -946,20 +971,16 @@ canvas{
             ''
           );
 
-
           video.setAttribute(
             'autoplay',
             ''
           );
 
-
           video.muted = true;
 
 
           Object.assign(
-
             video.style,
-
             {
 
               position:'fixed',
@@ -979,11 +1000,9 @@ canvas{
               background:'#000'
 
             }
-
           );
 
         }
-
       );
 
   }
@@ -994,21 +1013,13 @@ canvas{
   ========================================= */
 
   new MutationObserver(
-
     fixVideoLayer
-
   ).observe(
-
     document.documentElement,
-
     {
-
       childList:true,
-
       subtree:true
-
     }
-
   );
 
 
@@ -1028,7 +1039,7 @@ canvas{
   );
 
   console.log(
-    'CARD BEAST AR — WORLD Y ROTATION v42'
+    'CARD BEAST AR — WORLD Y ROTATION v43'
   );
 
   console.log(
@@ -1040,7 +1051,7 @@ canvas{
   );
 
   console.log(
-    'Target file: ./targets.mind?v=42'
+    'Target file: ./targets.mind'
   );
 
   console.log(
@@ -1048,7 +1059,11 @@ canvas{
   );
 
   console.log(
-    'Model: ./models/ember-dragon.glb?v=42'
+    'GLB asset: #dragonAsset'
+  );
+
+  console.log(
+    'Model: ./models/ember-dragon.glb'
   );
 
   console.log(
@@ -1073,14 +1088,6 @@ canvas{
 
   console.log(
     'Tracking: MindAR'
-  );
-
-  console.log(
-    'targets.mind: UNCHANGED'
-  );
-
-  console.log(
-    'Cache bust: v42'
   );
 
   console.log(
