@@ -9,7 +9,7 @@
   content="width=device-width,initial-scale=1,viewport-fit=cover"
 >
 
-<title>Card Beast AR — World Y Rotation v40</title>
+<title>Card Beast AR — World Y Rotation v41</title>
 
 <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
 
@@ -183,7 +183,6 @@ canvas{
 
 <body>
 
-
 <!-- =========================================
      TOP UI
 ========================================= -->
@@ -232,7 +231,7 @@ canvas{
   "
 
   mindar-image="
-    imageTargetSrc:./targets.mind;
+    imageTargetSrc:./targets.mind?v=41;
     autoStart:true;
     uiScanning:false;
     uiLoading:false;
@@ -261,7 +260,7 @@ canvas{
 
   <!-- =======================================
        DR-001 TARGET
-       JANGAN UBAH
+       KEKAL
   ======================================== -->
 
   <a-entity
@@ -271,16 +270,11 @@ canvas{
 
 
     <!-- =====================================
-         BEAST PARENT
-
-         ROTATION:
-         0 0 0
-
-         SCALE:
-         2.5
-
-         WORLD-Y ROTATION AKAN DIBUAT
-         MELALUI THREE.JS JAVASCRIPT
+         BEAST
+         
+         KEKAL:
+         rotation 0 0 0
+         scale 2.5
     ====================================== -->
 
     <a-entity
@@ -301,20 +295,18 @@ canvas{
       <!-- ===================================
            DRAGON MODEL
 
-           BASE ROTATION:
+           BASE ROTATION KEKAL:
            90 0 0
 
-           KEKAL TEGAK
-
-           WORLD Y:
-           +90 DEGREE
+           CACHE BUST:
+           v=41
       ==================================== -->
 
       <a-entity
 
         id="dragonModel"
 
-        gltf-model="./models/ember-dragon.glb"
+        gltf-model="./models/ember-dragon.glb?v=41"
 
         position="0 0 0"
 
@@ -338,7 +330,6 @@ canvas{
 <script>
 
 (function(){
-
 
   /* =========================================
      ELEMENTS
@@ -364,18 +355,12 @@ canvas{
 
 
   /* =========================================
-     WORLD Y ROTATION
-     
-     IMPORTANT:
-     MODEL BASE ROTATION KEKAL 90 0 0
-
-     WORLD Y ROTATION:
-     +90 DEGREE
+     SETTINGS
   ========================================= */
 
   const WORLD_Y_DEGREES = 90;
 
-  let worldYApplied = false;
+  let worldRotationApplied = false;
 
 
   /* =========================================
@@ -403,17 +388,25 @@ canvas{
 
 
   /* =========================================
-     APPLY WORLD-Y ROTATION
+     WORLD Y ROTATION
+     
+     IMPORTANT:
+     
+     Base model:
+     90 0 0
+     
+     Beast:
+     0 0 0
+     
+     World Y:
+     +90
   ========================================= */
 
   function applyWorldYRotation(){
 
-    if(worldYApplied){
-
+    if(worldRotationApplied){
       return;
-
     }
-
 
     if(
       !dragonModel ||
@@ -429,15 +422,35 @@ canvas{
     }
 
 
+    const obj =
+      dragonModel.object3D;
+
+
     /*
-      Pastikan base orientation dahulu.
-
-      Ini sama seperti:
-
-      rotation="90 0 0"
+      THREE.js tersedia melalui A-Frame.
     */
 
-    dragonModel.object3D.rotation.set(
+    const THREE =
+      window.THREE;
+
+
+    if(!THREE){
+
+      console.error(
+        'THREE.js tidak tersedia.'
+      );
+
+      return;
+
+    }
+
+
+    /*
+      Pastikan base orientation
+      tepat 90 0 0.
+    */
+
+    obj.rotation.set(
 
       THREE.MathUtils.degToRad(90),
 
@@ -448,32 +461,31 @@ canvas{
     );
 
 
+    obj.updateMatrixWorld(true);
+
+
     /*
-      Force update sebelum
-      world-axis rotation.
+      Simpan world quaternion asal.
     */
 
-    dragonModel.object3D.updateMatrixWorld(
-      true
+    const worldQuaternion =
+      new THREE.Quaternion();
+
+    obj.getWorldQuaternion(
+      worldQuaternion
     );
 
 
     /*
-      WORLD Y AXIS
-
-      Bukan local Y.
-
-      Jadi kita pusing model pada
-      paksi Y dunia sebanyak 90°.
+      Quaternion untuk WORLD Y rotation.
     */
 
-    const worldYAxis =
-      new THREE.Vector3(0,1,0);
+    const worldYQuaternion =
+      new THREE.Quaternion();
 
+    worldYQuaternion.setFromAxisAngle(
 
-    dragonModel.object3D.rotateOnWorldAxis(
-
-      worldYAxis,
+      new THREE.Vector3(0,1,0),
 
       THREE.MathUtils.degToRad(
         WORLD_Y_DEGREES
@@ -482,19 +494,86 @@ canvas{
     );
 
 
-    dragonModel.object3D.updateMatrixWorld(
-      true
+    /*
+      Apply rotation pada
+      WORLD Y axis.
+    */
+
+    worldQuaternion.premultiply(
+      worldYQuaternion
     );
 
 
-    worldYApplied = true;
+    /*
+      Tukar balik daripada
+      world quaternion kepada
+      local quaternion.
+
+      Ini penting kerana dragonModel
+      berada di bawah target + beast.
+    */
+
+    const parent =
+      obj.parent;
+
+
+    if(parent){
+
+      const parentWorldQuaternion =
+        new THREE.Quaternion();
+
+      parent.getWorldQuaternion(
+        parentWorldQuaternion
+      );
+
+
+      parentWorldQuaternion.invert();
+
+
+      const localQuaternion =
+        parentWorldQuaternion
+          .multiply(
+            worldQuaternion
+          );
+
+
+      obj.quaternion.copy(
+        localQuaternion
+      );
+
+    }else{
+
+      obj.quaternion.copy(
+        worldQuaternion
+      );
+
+    }
+
+
+    obj.updateMatrixWorld(true);
+
+
+    worldRotationApplied = true;
 
 
     console.log(
-      'World-Y rotation applied:',
+      'WORLD Y APPLIED:',
       WORLD_Y_DEGREES,
       'degrees'
     );
+
+
+    console.log(
+      'Base rotation:',
+      '90 0 0'
+    );
+
+
+    console.log(
+      'Beast rotation:',
+      '0 0 0'
+    );
+
 
   }
 
@@ -573,57 +652,46 @@ canvas{
         '========================================'
       );
 
-
       console.log(
-        'CARD BEAST AR — WORLD Y ROTATION v40'
+        'CARD BEAST AR — WORLD Y ROTATION v41'
       );
-
 
       console.log(
         '========================================'
       );
 
-
       console.log(
         'Target ID: DR-001'
       );
 
-
       console.log(
-        'Target file: ./targets.mind'
+        'Target file: ./targets.mind?v=41'
       );
-
 
       console.log(
         'Target index: 0'
       );
 
-
       console.log(
-        'Model: ./models/ember-dragon.glb'
+        'Model: ./models/ember-dragon.glb?v=41'
       );
-
 
       console.log(
         'Beast rotation: 0 0 0'
       );
 
-
       console.log(
         'Dragon base rotation: 90 0 0'
       );
-
 
       console.log(
         'World Y rotation:',
         WORLD_Y_DEGREES
       );
 
-
       console.log(
-        'Beast scale: 2.5'
+        'Scale: 2.5'
       );
-
 
       console.log(
         'Tracking: MindAR'
@@ -631,8 +699,8 @@ canvas{
 
 
       /*
-        Apply selepas GLB benar-benar
-        siap supaya object3D tersedia.
+        Apply selepas GLB
+        benar-benar loaded.
       */
 
       applyWorldYRotation();
@@ -708,11 +776,6 @@ canvas{
     'targetFound',
 
     function(){
-
-      /*
-        Pastikan world rotation sudah
-        diaplikasikan apabila target ditemui.
-      */
 
       applyWorldYRotation();
 
@@ -929,7 +992,7 @@ canvas{
   );
 
   console.log(
-    'CARD BEAST AR — WORLD Y ROTATION v40'
+    'CARD BEAST AR — WORLD Y ROTATION v41'
   );
 
   console.log(
@@ -941,7 +1004,7 @@ canvas{
   );
 
   console.log(
-    'Target file: ./targets.mind'
+    'Target file: ./targets.mind?v=41'
   );
 
   console.log(
@@ -949,7 +1012,7 @@ canvas{
   );
 
   console.log(
-    'Model: ./models/ember-dragon.glb'
+    'Model: ./models/ember-dragon.glb?v=41'
   );
 
   console.log(
@@ -981,6 +1044,10 @@ canvas{
   );
 
   console.log(
+    'Cache bust: v41'
+  );
+
+  console.log(
     '========================================'
   );
 
@@ -989,7 +1056,5 @@ canvas{
 
 </script>
 
-
 </body>
-
 </html>
