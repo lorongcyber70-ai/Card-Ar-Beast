@@ -2,19 +2,19 @@
 <html lang="ms">
 
 <head>
-
 <meta charset="utf-8">
 
 <meta
   name="viewport"
-  content="width=device-width,initial-scale=1,viewport-fit=cover">
+  content="width=device-width,initial-scale=1,viewport-fit=cover"
+>
 
-<title>Card Beast AR — Step 2.7</title>
+<title>Card Beast AR — Step 2.5 v32</title>
 
-<!-- A-FRAME -->
+<!-- A-Frame -->
 <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
 
-<!-- MINDAR -->
+<!-- MindAR -->
 <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
 
 <style>
@@ -38,9 +38,9 @@ body{
   inset:0;
 }
 
-/* =====================================================
-   CAMERA
-===================================================== */
+/* =========================================
+   CAMERA VIDEO
+========================================= */
 
 video{
   position:fixed!important;
@@ -58,9 +58,9 @@ video{
   background:#000!important;
 }
 
-/* =====================================================
+/* =========================================
    A-FRAME
-===================================================== */
+========================================= */
 
 a-scene{
   position:fixed!important;
@@ -79,9 +79,9 @@ canvas{
   background:transparent!important;
 }
 
-/* =====================================================
+/* =========================================
    TOP UI
-===================================================== */
+========================================= */
 
 #ui{
   position:fixed;
@@ -100,7 +100,6 @@ canvas{
 
 .logo{
   font-size:28px;
-
   font-weight:900;
 
   color:#fff;
@@ -114,6 +113,7 @@ canvas{
 }
 
 #status{
+
   display:inline-block;
 
   margin-top:12px;
@@ -129,21 +129,17 @@ canvas{
   background:rgba(5,0,12,.72);
 
   font-weight:800;
+
+  box-shadow:
+    0 0 12px rgba(183,92,255,.25);
 }
 
-.ok{
-  color:#68ff9b!important;
-}
-
-.err{
-  color:#ff6b6b!important;
-}
-
-/* =====================================================
+/* =========================================
    INFO
-===================================================== */
+========================================= */
 
 #info{
+
   position:fixed;
 
   z-index:20;
@@ -159,7 +155,7 @@ canvas{
 
   border-radius:24px;
 
-  background:rgba(5,0,12,.78);
+  background:rgba(5,0,12,.82);
 
   color:#fff;
 
@@ -170,19 +166,28 @@ canvas{
   line-height:1.45;
 
   pointer-events:none;
+
+  box-shadow:
+    0 0 18px rgba(125,53,184,.2);
+}
+
+.ok{
+  color:#68ff9b;
+}
+
+.err{
+  color:#ff6b6b;
 }
 
 </style>
-
 </head>
 
 
 <body>
 
-
-<!-- =====================================================
-     TOP UI
-===================================================== -->
+<!-- =========================================
+     UI
+========================================= -->
 
 <div id="ui">
 
@@ -197,21 +202,19 @@ canvas{
 </div>
 
 
-<!-- =====================================================
+<!-- =========================================
      INFO
-===================================================== -->
+========================================= -->
 
 <div id="info">
-
   Point the rear camera at
   <b>DR-001 Ember Dragon</b>.
-
 </div>
 
 
-<!-- =====================================================
-     MINDAR / A-FRAME
-===================================================== -->
+<!-- =========================================
+     A-FRAME / MINDAR
+========================================= -->
 
 <a-scene
 
@@ -229,10 +232,6 @@ canvas{
     physicallyCorrectLights:true
   "
 
-  color-space="sRGB"
-
-  loading-screen="enabled:false"
-
   mindar-image="
     imageTargetSrc:./targets.mind;
     autoStart:true;
@@ -241,66 +240,80 @@ canvas{
     uiError:false
   "
 
+  color-space="sRGB"
+
+  loading-screen="
+    enabled:false
+  "
+
 >
 
 
-<!-- =====================================================
-     CAMERA
-===================================================== -->
+  <!-- =======================================
+       CAMERA
+  ======================================== -->
 
-<a-camera
-
-  position="0 0 0"
-
-  look-controls="enabled:false">
-
-</a-camera>
+  <a-camera
+    position="0 0 0"
+    look-controls="enabled:false">
+  </a-camera>
 
 
-<!-- =====================================================
-     DR-001 TARGET
-===================================================== -->
+  <!-- =======================================
+       DR-001 TARGET
 
-<a-entity
-
-  id="target"
-
-  mindar-image-target="targetIndex:0">
-
-
-  <!-- ===================================================
-       EMBER DRAGON GLB
-
-       TEST v31
-
-       ROTATION:
-       270 0 0
-
-       SCALE:
-       2.5
-
-       POSITION:
-       0 0 0
-  ==================================================== -->
+       JANGAN UBAH
+  ======================================== -->
 
   <a-entity
+    id="target"
+    mindar-image-target="targetIndex:0"
+  >
 
-    id="beast"
 
-    gltf-model="./models/ember-dragon.glb"
+    <!-- =====================================
+         EMBER DRAGON GLB
 
-    position="0 0 0"
+         v32 ROTATION:
+         180 180 0
 
-    rotation="270 0 0"
+         SCALE:
+         2.5
 
-    scale="2.5 2.5 2.5"
+         POSITION:
+         0 0 0
+    ====================================== -->
 
-    visible="false">
+    <a-entity
+      id="beast"
+
+      visible="false"
+
+      position="0 0 0"
+
+      rotation="180 180 0"
+
+      scale="2.5 2.5 2.5"
+    >
+
+      <a-entity
+        id="dragonModel"
+
+        gltf-model="./models/ember-dragon.glb"
+
+        position="0 0 0"
+
+        rotation="0 0 0"
+
+        scale="1 1 1"
+
+      >
+      </a-entity>
+
+    </a-entity>
+
 
   </a-entity>
-
-
-</a-entity>
 
 
 </a-scene>
@@ -310,9 +323,9 @@ canvas{
 
 (function(){
 
-  /* ===================================================
+  /* =========================================
      ELEMENTS
-  =================================================== */
+  ========================================= */
 
   const scene =
     document.getElementById('scene');
@@ -323,6 +336,9 @@ canvas{
   const beast =
     document.getElementById('beast');
 
+  const dragonModel =
+    document.getElementById('dragonModel');
+
   const status =
     document.getElementById('status');
 
@@ -330,9 +346,9 @@ canvas{
     document.getElementById('info');
 
 
-  /* ===================================================
+  /* =========================================
      STATUS
-  =================================================== */
+  ========================================= */
 
   function setStatus(text, cls){
 
@@ -343,9 +359,9 @@ canvas{
   }
 
 
-  /* ===================================================
+  /* =========================================
      INFO
-  =================================================== */
+  ========================================= */
 
   function setInfo(html){
 
@@ -354,9 +370,9 @@ canvas{
   }
 
 
-  /* ===================================================
+  /* =========================================
      A-FRAME LOADED
-  =================================================== */
+  ========================================= */
 
   scene.addEventListener(
     'loaded',
@@ -370,17 +386,13 @@ canvas{
         'Loading MindAR target <b>DR-001</b>…'
       );
 
-      console.log(
-        'A-Frame loaded.'
-      );
-
     }
   );
 
 
-  /* ===================================================
+  /* =========================================
      AR READY
-  =================================================== */
+  ========================================= */
 
   scene.addEventListener(
     'arReady',
@@ -396,19 +408,15 @@ canvas{
         '<b>DR-001 Ember Dragon</b>.'
       );
 
-      console.log(
-        'MindAR arReady.'
-      );
-
     }
   );
 
 
-  /* ===================================================
+  /* =========================================
      GLB LOADED
-  =================================================== */
+  ========================================= */
 
-  beast.addEventListener(
+  dragonModel.addEventListener(
     'model-loaded',
     function(){
 
@@ -425,16 +433,16 @@ canvas{
   );
 
 
-  /* ===================================================
+  /* =========================================
      GLB ERROR
-  =================================================== */
+  ========================================= */
 
-  beast.addEventListener(
+  dragonModel.addEventListener(
     'model-error',
     function(event){
 
       console.error(
-        'GLB MODEL ERROR:',
+        'GLB model error:',
         event
       );
 
@@ -444,18 +452,20 @@ canvas{
       );
 
       setInfo(
-        '❌ Gagal memuatkan ' +
+        '❌ Failed to load ' +
         '<b>ember-dragon.glb</b>.<br>' +
-        'Semak folder <b>models</b>.'
+        'Check the models folder and filename.'
       );
 
     }
   );
 
 
-  /* ===================================================
+  /* =========================================
      TARGET FOUND
-  =================================================== */
+
+     JANGAN UBAH LOGIC TRACKING
+  ========================================= */
 
   target.addEventListener(
     'targetFound',
@@ -484,9 +494,11 @@ canvas{
   );
 
 
-  /* ===================================================
+  /* =========================================
      TARGET LOST
-  =================================================== */
+
+     JANGAN UBAH LOGIC TRACKING
+  ========================================= */
 
   target.addEventListener(
     'targetLost',
@@ -515,9 +527,9 @@ canvas{
   );
 
 
-  /* ===================================================
+  /* =========================================
      AR ERROR
-  =================================================== */
+  ========================================= */
 
   scene.addEventListener(
     'arError',
@@ -534,7 +546,7 @@ canvas{
       );
 
       setInfo(
-        '❌ MindAR gagal dimulakan.<br>' +
+        'MindAR gagal dimulakan. ' +
         'Kamera mungkin masih tersedia, ' +
         'tetapi AR tidak aktif.'
       );
@@ -543,61 +555,59 @@ canvas{
   );
 
 
-  /* ===================================================
+  /* =========================================
      FORCE CAMERA VIDEO BEHIND AR
-  =================================================== */
+  ========================================= */
 
   function fixVideoLayer(){
 
     document
       .querySelectorAll('video')
-      .forEach(
-        function(video){
+      .forEach(function(video){
 
-          video.setAttribute(
-            'playsinline',
-            ''
-          );
+        video.setAttribute(
+          'playsinline',
+          ''
+        );
 
-          video.setAttribute(
-            'autoplay',
-            ''
-          );
+        video.setAttribute(
+          'autoplay',
+          ''
+        );
 
-          video.muted = true;
+        video.muted = true;
 
-          Object.assign(
-            video.style,
-            {
+        Object.assign(
+          video.style,
+          {
 
-              position:'fixed',
+            position:'fixed',
 
-              inset:'0',
+            inset:'0',
 
-              width:'100%',
+            width:'100%',
 
-              height:'100%',
+            height:'100%',
 
-              objectFit:'cover',
+            objectFit:'cover',
 
-              zIndex:'0',
+            zIndex:'0',
 
-              display:'block',
+            display:'block',
 
-              background:'#000'
+            background:'#000'
 
-            }
-          );
+          }
+        );
 
-        }
-      );
+      });
 
   }
 
 
-  /* ===================================================
-     WATCH FOR MINDAR CAMERA VIDEO
-  =================================================== */
+  /* =========================================
+     WATCH FOR MINDAR VIDEO
+  ========================================= */
 
   new MutationObserver(
     fixVideoLayer
@@ -610,14 +620,56 @@ canvas{
   );
 
 
+  /* =========================================
+     INITIAL VIDEO FIX
+  ========================================= */
+
   fixVideoLayer();
 
+
+  /* =========================================
+     DEBUG
+  ========================================= */
+
+  console.log(
+    '================================'
+  );
+
+  console.log(
+    'CARD BEAST AR v32'
+  );
+
+  console.log(
+    'Target: DR-001'
+  );
+
+  console.log(
+    'Target file: ./targets.mind'
+  );
+
+  console.log(
+    'Model: ./models/ember-dragon.glb'
+  );
+
+  console.log(
+    'Rotation: 180 180 0'
+  );
+
+  console.log(
+    'Scale: 2.5'
+  );
+
+  console.log(
+    'Tracking: MindAR'
+  );
+
+  console.log(
+    '================================'
+  );
 
 })();
 
 </script>
 
-
 </body>
-
 </html>
