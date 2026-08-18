@@ -9,7 +9,7 @@
   content="width=device-width,initial-scale=1,viewport-fit=cover"
 >
 
-<title>Card Beast AR — Cube Check v37</title>
+<title>Card Beast AR — v38</title>
 
 <!-- =========================================
      A-FRAME
@@ -25,10 +25,6 @@
 
 
 <style>
-
-/* =========================================
-   GENERAL
-========================================= */
 
 *{
   box-sizing:border-box;
@@ -77,6 +73,7 @@ video{
 ========================================= */
 
 a-scene{
+
   position:fixed!important;
 
   inset:0!important;
@@ -106,6 +103,7 @@ canvas{
   z-index:20;
 
   top:18px;
+
   left:0;
 
   width:100%;
@@ -168,6 +166,7 @@ canvas{
   z-index:20;
 
   left:5%;
+
   right:5%;
 
   bottom:20px;
@@ -229,6 +228,7 @@ canvas{
 </div>
 
 
+
 <!-- =========================================
      INFO
 ========================================= -->
@@ -239,6 +239,7 @@ canvas{
   <b>DR-001 Ember Dragon</b>.
 
 </div>
+
 
 
 <!-- =========================================
@@ -274,7 +275,6 @@ canvas{
   loading-screen="
     enabled:false
   "
-
 >
 
 
@@ -292,9 +292,11 @@ canvas{
   </a-camera>
 
 
+
   <!-- =======================================
        DR-001 TARGET
-       KEKAL
+
+       JANGAN UBAH
   ======================================== -->
 
   <a-entity
@@ -307,16 +309,19 @@ canvas{
 
 
     <!-- =====================================
-         BEAST CONTAINER
+         EMBER DRAGON v38
 
-         POSITION:
-         0 0 0
+         X = 90
+         Y = 180
+         Z = 0
 
-         ROTATION:
-         0 0 0
+         SCALE = 2.5
 
-         SCALE:
-         2.5
+         X 90 dikekalkan kerana v37
+         sudah berjaya menegakkan naga.
+
+         Y 180 digunakan untuk menguji
+         arah menghadap bertentangan.
     ====================================== -->
 
     <a-entity
@@ -336,17 +341,6 @@ canvas{
 
       <!-- ===================================
            EMBER DRAGON GLB
-
-           V37 TEST
-
-           ROTATION:
-           90 0 0
-
-           SCALE:
-           1 1 1
-
-           Parent scale:
-           2.5
       ==================================== -->
 
       <a-entity
@@ -357,7 +351,7 @@ canvas{
 
         position="0 0 0"
 
-        rotation="90 0 0"
+        rotation="90 180 0"
 
         scale="1 1 1"
 
@@ -375,9 +369,11 @@ canvas{
 </a-scene>
 
 
+
 <script>
 
 (function(){
+
 
   /* =========================================
      ELEMENTS
@@ -386,20 +382,26 @@ canvas{
   const scene =
     document.getElementById('scene');
 
+
   const target =
     document.getElementById('target');
+
 
   const beast =
     document.getElementById('beast');
 
+
   const dragonModel =
     document.getElementById('dragonModel');
+
 
   const status =
     document.getElementById('status');
 
+
   const info =
     document.getElementById('info');
+
 
 
   /* =========================================
@@ -415,6 +417,7 @@ canvas{
   }
 
 
+
   /* =========================================
      INFO
   ========================================= */
@@ -426,40 +429,35 @@ canvas{
   }
 
 
+
   /* =========================================
      A-FRAME LOADED
   ========================================= */
 
   scene.addEventListener(
+
     'loaded',
+
     function(){
 
       setStatus(
         'CAMERA / AR INITIALISING…'
       );
 
+
       setInfo(
         'Loading MindAR target <b>DR-001</b>…'
       );
 
-      console.log(
-        '========================================'
-      );
 
       console.log(
         'A-Frame loaded.'
       );
 
-      console.log(
-        'CARD BEAST AR — CUBE CHECK v37'
-      );
-
-      console.log(
-        '========================================'
-      );
-
     }
+
   );
+
 
 
   /* =========================================
@@ -467,25 +465,36 @@ canvas{
   ========================================= */
 
   scene.addEventListener(
+
     'arReady',
+
     function(){
 
       setStatus(
+
         'CAMERA ACTIVE ✓',
+
         'ok'
+
       );
 
+
       setInfo(
+
         'Point the rear camera at ' +
         '<b>DR-001 Ember Dragon</b>.'
+
       );
+
 
       console.log(
         'MindAR arReady.'
       );
 
     }
+
   );
+
 
 
   /* =========================================
@@ -493,52 +502,65 @@ canvas{
   ========================================= */
 
   dragonModel.addEventListener(
+
     'model-loaded',
+
     function(){
 
       console.log(
         '========================================'
       );
 
+
       console.log(
-        'CARD BEAST AR — CUBE CHECK v37'
+        'CARD BEAST AR — v38'
       );
+
 
       console.log(
         'ember-dragon.glb loaded successfully.'
       );
 
-      console.log(
-        'Beast position: 0 0 0'
-      );
-
-      console.log(
-        'Beast rotation: 0 0 0'
-      );
-
-      console.log(
-        'Beast scale: 2.5 2.5 2.5'
-      );
-
-      console.log(
-        'MODEL rotation: 90 0 0'
-      );
-
-      console.log(
-        'MODEL scale: 1 1 1'
-      );
 
       console.log(
         'Target: DR-001'
       );
 
+
       console.log(
         'Target file: ./targets.mind'
       );
 
+
       console.log(
-        'MindAR tracking: ACTIVE'
+        'Beast position: 0 0 0'
       );
+
+
+      console.log(
+        'Beast rotation: 0 0 0'
+      );
+
+
+      console.log(
+        'Model rotation: 90 180 0'
+      );
+
+
+      console.log(
+        'Model scale: 1 1 1'
+      );
+
+
+      console.log(
+        'Beast scale: 2.5 2.5 2.5'
+      );
+
+
+      console.log(
+        'Tracking: MindAR'
+      );
+
 
       console.log(
         '========================================'
@@ -549,14 +571,16 @@ canvas{
 
         '🔥 <b>EMBER DRAGON READY</b><br>' +
 
-        '🟣 GLB loaded successfully.<br>' +
+        '3D model loaded successfully.<br>' +
 
-        'Rotation test: <b>90 0 0</b>.'
+        'Rotation test: <b>90 180 0</b>'
 
       );
 
     }
+
   );
+
 
 
   /* =========================================
@@ -564,18 +588,28 @@ canvas{
   ========================================= */
 
   dragonModel.addEventListener(
+
     'model-error',
+
     function(event){
 
       console.error(
+
         'GLB model error:',
+
         event
+
       );
 
+
       setStatus(
+
         'MODEL ERROR',
+
         'err'
+
       );
+
 
       setInfo(
 
@@ -588,28 +622,38 @@ canvas{
       );
 
     }
+
   );
+
 
 
   /* =========================================
      TARGET FOUND
-     
-     JANGAN UBAH
+
+     TRACKING KEKAL
   ========================================= */
 
   target.addEventListener(
+
     'targetFound',
+
     function(){
 
       beast.setAttribute(
+
         'visible',
+
         'true'
+
       );
 
 
       setStatus(
+
         'CARD CONFIRMED • DR-001',
+
         'ok'
+
       );
 
 
@@ -619,38 +663,50 @@ canvas{
 
         '🟣 3D Ember Dragon active.<br>' +
 
-        'Cube Check v37 — rotation 90 0 0.'
+        'Rotation: <b>90 180 0</b>'
 
       );
 
 
       console.log(
+
         'DR-001 targetFound.'
+
       );
 
     }
+
   );
+
 
 
   /* =========================================
      TARGET LOST
-     
-     JANGAN UBAH
+
+     TRACKING KEKAL
   ========================================= */
 
   target.addEventListener(
+
     'targetLost',
+
     function(){
 
       beast.setAttribute(
+
         'visible',
+
         'false'
+
       );
 
 
       setStatus(
+
         'CAMERA ACTIVE ✓',
+
         'ok'
+
       );
 
 
@@ -664,11 +720,15 @@ canvas{
 
 
       console.log(
+
         'DR-001 targetLost.'
+
       );
 
     }
+
   );
+
 
 
   /* =========================================
@@ -676,18 +736,26 @@ canvas{
   ========================================= */
 
   scene.addEventListener(
+
     'arError',
+
     function(event){
 
       console.error(
+
         'MindAR error:',
+
         event
+
       );
 
 
       setStatus(
+
         'AR ERROR',
+
         'err'
+
       );
 
 
@@ -702,7 +770,9 @@ canvas{
       );
 
     }
+
   );
+
 
 
   /* =========================================
@@ -712,24 +782,37 @@ canvas{
   function fixVideoLayer(){
 
     document
+
       .querySelectorAll('video')
+
       .forEach(function(video){
 
-        video.setAttribute(
-          'playsinline',
-          ''
-        );
 
         video.setAttribute(
-          'autoplay',
+
+          'playsinline',
+
           ''
+
         );
+
+
+        video.setAttribute(
+
+          'autoplay',
+
+          ''
+
+        );
+
 
         video.muted = true;
 
 
         Object.assign(
+
           video.style,
+
           {
 
             position:'fixed',
@@ -749,6 +832,7 @@ canvas{
             background:'#000'
 
           }
+
         );
 
       });
@@ -756,19 +840,29 @@ canvas{
   }
 
 
+
   /* =========================================
      WATCH FOR MINDAR VIDEO
   ========================================= */
 
   new MutationObserver(
+
     fixVideoLayer
+
   ).observe(
+
     document.documentElement,
+
     {
+
       childList:true,
+
       subtree:true
+
     }
+
   );
+
 
 
   /* =========================================
@@ -776,6 +870,7 @@ canvas{
   ========================================= */
 
   fixVideoLayer();
+
 
 
   /* =========================================
@@ -786,53 +881,56 @@ canvas{
     '========================================'
   );
 
+
   console.log(
-    'CARD BEAST AR — CUBE CHECK v37'
+    'CARD BEAST AR — v38'
   );
+
 
   console.log(
     '========================================'
   );
 
+
   console.log(
     'Target ID: DR-001'
   );
+
 
   console.log(
     'Target file: ./targets.mind'
   );
 
+
   console.log(
     'Model: ./models/ember-dragon.glb'
   );
+
 
   console.log(
     'Beast position: 0 0 0'
   );
 
+
   console.log(
     'Beast rotation: 0 0 0'
   );
+
+
+  console.log(
+    'Model rotation: 90 180 0'
+  );
+
 
   console.log(
     'Beast scale: 2.5 2.5 2.5'
   );
 
-  console.log(
-    'Dragon model rotation: 90 0 0'
-  );
 
   console.log(
-    'Dragon model scale: 1 1 1'
+    'Tracking: MindAR'
   );
 
-  console.log(
-    'MindAR image tracking: ACTIVE'
-  );
-
-  console.log(
-    'targetIndex: 0'
-  );
 
   console.log(
     '========================================'
@@ -844,4 +942,5 @@ canvas{
 </script>
 
 </body>
+
 </html>
