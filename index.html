@@ -9,10 +9,12 @@
   content="width=device-width,initial-scale=1,viewport-fit=cover"
 >
 
-<title>Card Beast AR — v40</title>
+<title>Card Beast AR — Rotation Right v38</title>
 
+<!-- A-FRAME -->
 <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
 
+<!-- MINDAR -->
 <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
 
 <style>
@@ -36,7 +38,6 @@ body{
   inset:0;
 }
 
-
 /* =========================================
    CAMERA VIDEO
 ========================================= */
@@ -56,7 +57,6 @@ video{
 
   background:#000!important;
 }
-
 
 /* =========================================
    A-FRAME
@@ -79,13 +79,13 @@ canvas{
   background:transparent!important;
 }
 
-
 /* =========================================
    TOP UI
 ========================================= */
 
 #ui{
   position:fixed;
+
   z-index:20;
 
   top:18px;
@@ -104,7 +104,8 @@ canvas{
 
   color:#fff;
 
-  text-shadow:0 2px 8px #000;
+  text-shadow:
+    0 2px 8px #000;
 }
 
 .logo span{
@@ -112,6 +113,7 @@ canvas{
 }
 
 #status{
+
   display:inline-block;
 
   margin-top:12px;
@@ -132,12 +134,12 @@ canvas{
     0 0 12px rgba(183,92,255,.25);
 }
 
-
 /* =========================================
    INFO
 ========================================= */
 
 #info{
+
   position:fixed;
 
   z-index:20;
@@ -183,7 +185,6 @@ canvas{
 
 <body>
 
-
 <!-- =========================================
      TOP UI
 ========================================= -->
@@ -206,10 +207,8 @@ canvas{
 ========================================= -->
 
 <div id="info">
-
   Point the rear camera at
   <b>DR-001 Ember Dragon</b>.
-
 </div>
 
 
@@ -246,6 +245,7 @@ canvas{
   loading-screen="
     enabled:false
   "
+
 >
 
 
@@ -272,12 +272,17 @@ canvas{
 
 
     <!-- =====================================
-         BEAST ROOT
+         EMBER DRAGON
 
-         SCALE KEKAL 2.5
+         X = 90
+         Y = 90
+         Z = 0
 
-         ROTATION ROOT:
-         0 0 0
+         X 90 = KEKALKAN TEGAK
+         Y 90 = PUSING KE KANAN
+         Z 0  = TIADA ROLL
+
+         SCALE = 2.5
     ====================================== -->
 
     <a-entity
@@ -291,60 +296,27 @@ canvas{
       rotation="0 0 0"
 
       scale="2.5 2.5 2.5"
+
     >
 
 
       <!-- ===================================
-           ORIENTATION PIVOT
-
-           Y = 0 UNTUK BASELINE
-
-           Jika perlu arah bertentangan,
-           hanya Y parent ini yang akan diuji.
-
-           JANGAN guna Z.
+           GLB MODEL
       ==================================== -->
 
       <a-entity
 
-        id="dragonOrientation"
+        id="dragonModel"
+
+        gltf-model="./models/ember-dragon.glb"
 
         position="0 0 0"
 
-        rotation="0 0 0"
+        rotation="90 90 0"
 
         scale="1 1 1"
+
       >
-
-
-        <!-- =================================
-             GLB MODEL
-
-             X = 90
-
-             Ini rotation yang terbukti
-             membuat naga tegak.
-
-             Y = 0
-             Z = 0
-        ================================== -->
-
-        <a-entity
-
-          id="dragonModel"
-
-          gltf-model="./models/ember-dragon.glb"
-
-          position="0 0 0"
-
-          rotation="90 0 0"
-
-          scale="1 1 1"
-        >
-
-        </a-entity>
-
-
       </a-entity>
 
 
@@ -357,11 +329,9 @@ canvas{
 </a-scene>
 
 
-
 <script>
 
 (function(){
-
 
   /* =========================================
      ELEMENTS
@@ -375,9 +345,6 @@ canvas{
 
   const beast =
     document.getElementById('beast');
-
-  const dragonOrientation =
-    document.getElementById('dragonOrientation');
 
   const dragonModel =
     document.getElementById('dragonModel');
@@ -476,11 +443,23 @@ canvas{
       );
 
       console.log(
-        'CARD BEAST AR — v40'
+        'CARD BEAST AR — ROTATION RIGHT v38'
       );
 
       console.log(
         'ember-dragon.glb loaded successfully.'
+      );
+
+      console.log(
+        'Beast rotation: 0 0 0'
+      );
+
+      console.log(
+        'Model rotation: 90 90 0'
+      );
+
+      console.log(
+        'Scale: 2.5'
       );
 
       console.log(
@@ -492,36 +471,17 @@ canvas{
       );
 
       console.log(
-        'Beast rotation: 0 0 0'
-      );
-
-      console.log(
-        'Orientation rotation: 0 0 0'
-      );
-
-      console.log(
-        'Model rotation: 90 0 0'
-      );
-
-      console.log(
-        'Beast scale: 2.5'
+        'Tracking: MindAR'
       );
 
       console.log(
         '========================================'
       );
 
-
       setInfo(
-
         '🔥 <b>EMBER DRAGON READY</b><br>' +
-
-        '3D model loaded successfully.<br>' +
-
-        'Body rotation: <b>90 0 0</b><br>' +
-
-        'Direction pivot: <b>0 0 0</b>'
-
+        'Rotation: 90° 90° 0°<br>' +
+        'Scale: 2.5'
       );
 
     }
@@ -547,13 +507,9 @@ canvas{
       );
 
       setInfo(
-
         '❌ Failed to load ' +
-
         '<b>ember-dragon.glb</b>.<br>' +
-
         'Check the models folder and filename.'
-
       );
 
     }
@@ -580,13 +536,9 @@ canvas{
       );
 
       setInfo(
-
         '🔥 <b>EMBER DRAGON DETECTED</b><br>' +
-
         '🟣 3D Ember Dragon active.<br>' +
-
-        'Rotation: <b>90 0 0</b>'
-
+        'Rotation: 90° 90° 0°'
       );
 
       console.log(
@@ -617,11 +569,8 @@ canvas{
       );
 
       setInfo(
-
         'Point the rear camera at ' +
-
         '<b>DR-001 Ember Dragon</b>.'
-
       );
 
       console.log(
@@ -651,13 +600,9 @@ canvas{
       );
 
       setInfo(
-
         'MindAR gagal dimulakan. ' +
-
         'Kamera mungkin masih tersedia, ' +
-
         'tetapi AR tidak aktif.'
-
       );
 
     }
@@ -746,7 +691,7 @@ canvas{
   );
 
   console.log(
-    'CARD BEAST AR — v40'
+    'CARD BEAST AR — ROTATION RIGHT v38'
   );
 
   console.log(
@@ -774,15 +719,23 @@ canvas{
   );
 
   console.log(
-    'Orientation pivot: 0 0 0'
-  );
-
-  console.log(
-    'Model rotation: 90 0 0'
+    'Model rotation: 90 90 0'
   );
 
   console.log(
     'Beast scale: 2.5'
+  );
+
+  console.log(
+    'X rotation: 90 — upright'
+  );
+
+  console.log(
+    'Y rotation: 90 — turn right'
+  );
+
+  console.log(
+    'Z rotation: 0 — no roll'
   );
 
   console.log(
@@ -793,11 +746,9 @@ canvas{
     '========================================'
   );
 
-
 })();
 
 </script>
 
 </body>
-
 </html>
