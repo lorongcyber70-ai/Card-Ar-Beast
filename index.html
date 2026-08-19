@@ -10,14 +10,33 @@
   content="width=device-width,initial-scale=1,viewport-fit=cover"
 >
 
-<title>Card Beast AR — Baseline Vertical</title>
+<meta
+  name="theme-color"
+  content="#05000c"
+>
+
+<title>Card Beast AR — Stable v45</title>
+
+
+<!-- =========================================
+     A-FRAME
+========================================= -->
 
 <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+
+
+<!-- =========================================
+     MINDAR
+========================================= -->
 
 <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
 
 
 <style>
+
+/* =========================================
+   GENERAL
+========================================= */
 
 *{
   box-sizing:border-box;
@@ -25,44 +44,71 @@
 
 html,
 body{
+
   margin:0;
+
   width:100%;
   height:100%;
+
   overflow:hidden;
+
   background:#000;
-  font-family:Arial,sans-serif;
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
 }
 
 body{
+
   position:fixed;
+
   inset:0;
+
+  width:100vw;
+  height:100vh;
+
 }
 
 
 /* =========================================
    CAMERA VIDEO
+
+   RESPONSIVE
 ========================================= */
 
 video{
+
   position:fixed!important;
 
   inset:0!important;
 
   width:100%!important;
+
   height:100%!important;
 
+  max-width:none!important;
+  max-height:none!important;
+
   object-fit:cover!important;
+
+  object-position:center center!important;
 
   z-index:0!important;
 
   display:block!important;
 
   background:#000!important;
+
 }
 
 
 /* =========================================
    A-FRAME
+
+   RESPONSIVE
 ========================================= */
 
 a-scene{
@@ -72,7 +118,11 @@ a-scene{
   inset:0!important;
 
   width:100%!important;
+
   height:100%!important;
+
+  max-width:none!important;
+  max-height:none!important;
 
   z-index:1!important;
 
@@ -98,11 +148,32 @@ canvas{
 
   z-index:20;
 
-  top:18px;
+  top:
+
+    max(
+      14px,
+      env(safe-area-inset-top)
+    );
 
   left:0;
 
   width:100%;
+
+  padding:
+
+    0
+
+    max(
+      10px,
+      env(safe-area-inset-left)
+    )
+
+    0
+
+    max(
+      10px,
+      env(safe-area-inset-right)
+    );
 
   text-align:center;
 
@@ -113,11 +184,17 @@ canvas{
 
 .logo{
 
-  font-size:28px;
+  font-size:clamp(
+    22px,
+    7vw,
+    30px
+  );
 
   font-weight:900;
 
   color:#fff;
+
+  line-height:1.1;
 
   text-shadow:
     0 2px 8px #000;
@@ -132,26 +209,92 @@ canvas{
 }
 
 
+/* =========================================
+   STATUS
+========================================= */
+
 #status{
 
   display:inline-block;
 
-  margin-top:12px;
+  max-width:90vw;
 
-  padding:10px 20px;
+  margin-top:10px;
 
-  border:1px solid #b75cff;
+  padding:
+
+    9px
+
+    17px;
+
+  border:
+
+    1px
+
+    solid
+
+    #b75cff;
 
   border-radius:30px;
 
-  color:#68ff9b;
+  color:#ffd86b;
 
-  background:rgba(5,0,12,.72);
+  background:
+
+    rgba(
+      5,
+      0,
+      12,
+      .78
+    );
+
+  font-size:
+
+    clamp(
+      12px,
+      3.5vw,
+      15px
+    );
 
   font-weight:800;
 
+  line-height:1.2;
+
   box-shadow:
-    0 0 12px rgba(183,92,255,.25);
+
+    0 0 12px
+
+    rgba(
+      183,
+      92,
+      255,
+      .25
+    );
+
+}
+
+
+/* =========================================
+   STATUS STATES
+========================================= */
+
+#status.ok{
+
+  color:#68ff9b;
+
+}
+
+
+#status.err{
+
+  color:#ff6b6b;
+
+}
+
+
+#status.warn{
+
+  color:#ffd86b;
 
 }
 
@@ -166,45 +309,284 @@ canvas{
 
   z-index:20;
 
-  left:5%;
+  left:
 
-  right:5%;
+    max(
+      14px,
+      env(safe-area-inset-left)
+    );
 
-  bottom:20px;
+  right:
 
-  padding:14px 18px;
+    max(
+      14px,
+      env(safe-area-inset-right)
+    );
 
-  border:1px solid #7d35b8;
+  bottom:
 
-  border-radius:24px;
+    max(
+      16px,
+      env(safe-area-inset-bottom)
+    );
 
-  background:rgba(5,0,12,.82);
+  padding:
+
+    13px
+
+    17px;
+
+  border:
+
+    1px
+
+    solid
+
+    #7d35b8;
+
+  border-radius:22px;
+
+  background:
+
+    rgba(
+      5,
+      0,
+      12,
+      .84
+    );
 
   color:#fff;
 
   text-align:center;
 
-  font-size:17px;
+  font-size:
+
+    clamp(
+      13px,
+      4vw,
+      17px
+    );
 
   line-height:1.45;
 
   pointer-events:none;
 
   box-shadow:
-    0 0 18px rgba(125,53,184,.2);
+
+    0 0 18px
+
+    rgba(
+      125,
+      53,
+      184,
+      .2
+    );
+
+  max-height:30vh;
+
+  overflow:hidden;
 
 }
 
 
-.ok{
+.ok-text{
+
   color:#68ff9b;
+
 }
 
 
-.err{
+.err-text{
+
   color:#ff6b6b;
+
 }
 
+
+/* =========================================
+   LOADING OVERLAY
+========================================= */
+
+#loading{
+
+  position:fixed;
+
+  inset:0;
+
+  z-index:30;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  padding:30px;
+
+  background:
+
+    rgba(
+      0,
+      0,
+      0,
+      .72
+    );
+
+  color:#fff;
+
+  text-align:center;
+
+  transition:
+
+    opacity .25s ease;
+
+  pointer-events:none;
+
+}
+
+
+#loading.hidden{
+
+  opacity:0;
+
+}
+
+
+.loading-box{
+
+  width:min(
+    360px,
+    90vw
+  );
+
+  padding:25px 20px;
+
+  border:
+
+    1px
+
+    solid
+
+    #7d35b8;
+
+  border-radius:22px;
+
+  background:
+
+    rgba(
+      5,
+      0,
+      12,
+      .94
+    );
+
+  box-shadow:
+
+    0 0 30px
+
+    rgba(
+      183,
+      92,
+      255,
+      .2
+    );
+
+}
+
+
+.loading-title{
+
+  font-size:20px;
+
+  font-weight:900;
+
+  margin-bottom:10px;
+
+}
+
+
+.loading-text{
+
+  font-size:14px;
+
+  line-height:1.5;
+
+  color:#ccc;
+
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width:600px){
+
+  #info{
+
+    border-radius:18px;
+
+  }
+
+}
+
+
+/* =========================================
+   LANDSCAPE
+========================================= */
+
+@media (
+  orientation:landscape
+) and (max-height:500px){
+
+  #ui{
+
+    top:8px;
+
+  }
+
+  .logo{
+
+    font-size:22px;
+
+  }
+
+  #status{
+
+    margin-top:5px;
+
+    padding:7px 14px;
+
+  }
+
+  #info{
+
+    bottom:8px;
+
+    padding:8px 12px;
+
+    font-size:13px;
+
+  }
+
+}
+
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (
+  prefers-reduced-motion:reduce
+){
+
+  #loading{
+
+    transition:none;
+
+  }
+
+}
 
 </style>
 
@@ -212,6 +594,30 @@ canvas{
 
 
 <body>
+
+
+<!-- =========================================
+     LOADING
+========================================= -->
+
+<div id="loading">
+
+  <div class="loading-box">
+
+    <div class="loading-title">
+      CARD BEAST AR
+    </div>
+
+    <div
+      id="loadingText"
+      class="loading-text"
+    >
+      Initialising camera and AR…
+    </div>
+
+  </div>
+
+</div>
 
 
 <!-- =========================================
@@ -227,14 +633,16 @@ canvas{
   </div>
 
 
-  <div id="status">
+  <div
+    id="status"
+    class="warn"
+  >
 
     INITIALISING CAMERA…
 
   </div>
 
 </div>
-
 
 
 <!-- =========================================
@@ -249,7 +657,6 @@ canvas{
 </div>
 
 
-
 <!-- =========================================
      A-FRAME + MINDAR
 ========================================= -->
@@ -260,18 +667,23 @@ canvas{
 
   embedded
 
-  vr-mode-ui="enabled:false"
+  vr-mode-ui="
+    enabled:false
+  "
 
-  device-orientation-permission-ui="enabled:false"
+  device-orientation-permission-ui="
+    enabled:false
+  "
 
   renderer="
     alpha:true;
     colorManagement:true;
-    physicallyCorrectLights:true
+    physicallyCorrectLights:true;
+    antialias:true
   "
 
   mindar-image="
-    imageTargetSrc:./targets.mind;
+    imageTargetSrc:./targets.mind?v=45;
     autoStart:true;
     uiScanning:false;
     uiLoading:false;
@@ -287,24 +699,26 @@ canvas{
 >
 
 
-
   <!-- =======================================
        CAMERA
-       KEKAL
   ======================================== -->
 
   <a-camera
 
+    id="camera"
+
     position="0 0 0"
 
-    look-controls="enabled:false">
+    look-controls="
+      enabled:false
+    "
 
-  </a-camera>
-
+  ></a-camera>
 
 
   <!-- =======================================
        DR-001 TARGET
+       
        KEKAL
   ======================================== -->
 
@@ -312,22 +726,21 @@ canvas{
 
     id="target"
 
-    mindar-image-target="targetIndex:0"
+    mindar-image-target="
+      targetIndex:0
+    "
 
   >
 
 
-
     <!-- =====================================
-         BEAST PARENT
-
-         ROTATION:
+         BEAST
+         
+         ROTATION KEKAL
          0 0 0
 
-         SCALE:
+         SCALE KEKAL
          2.5
-
-         TIADA ROTATION TAMBAHAN
     ====================================== -->
 
     <a-entity
@@ -345,23 +758,20 @@ canvas{
     >
 
 
-
       <!-- ===================================
            DRAGON MODEL
-
-           BASE ROTATION:
+           
+           ROTATION KEKAL
            90 0 0
-
-           INI BASELINE TEGAK
-
-           JANGAN TAMBAH WORLD ROTATION
+           
+           JANGAN UBAH
       ==================================== -->
 
       <a-entity
 
         id="dragonModel"
 
-        gltf-model="./models/ember-dragon.glb"
+        gltf-model="./models/ember-dragon.glb?v=45"
 
         position="0 0 0"
 
@@ -369,9 +779,7 @@ canvas{
 
         scale="1 1 1"
 
-      >
-
-      </a-entity>
+      ></a-entity>
 
 
     </a-entity>
@@ -383,10 +791,34 @@ canvas{
 </a-scene>
 
 
-
 <script>
 
 (function(){
+
+
+  'use strict';
+
+
+  /* =========================================
+     CONSTANTS
+  ========================================= */
+
+  const VERSION =
+    '45';
+
+
+  const TARGET_ID =
+    'DR-001';
+
+
+  const TARGET_FILE =
+    './targets.mind?v=' +
+    VERSION;
+
+
+  const MODEL_FILE =
+    './models/ember-dragon.glb?v=' +
+    VERSION;
 
 
   /* =========================================
@@ -394,54 +826,173 @@ canvas{
   ========================================= */
 
   const scene =
-    document.getElementById('scene');
+    document.getElementById(
+      'scene'
+    );
 
 
   const target =
-    document.getElementById('target');
+    document.getElementById(
+      'target'
+    );
 
 
   const beast =
-    document.getElementById('beast');
+    document.getElementById(
+      'beast'
+    );
 
 
   const dragonModel =
-    document.getElementById('dragonModel');
+    document.getElementById(
+      'dragonModel'
+    );
 
 
   const status =
-    document.getElementById('status');
+    document.getElementById(
+      'status'
+    );
 
 
   const info =
-    document.getElementById('info');
+    document.getElementById(
+      'info'
+    );
 
+
+  const loading =
+    document.getElementById(
+      'loading'
+    );
+
+
+  const loadingText =
+    document.getElementById(
+      'loadingText'
+    );
+
+
+  /* =========================================
+     STATE
+  ========================================= */
+
+  let arReady =
+    false;
+
+
+  let modelReady =
+    false;
+
+
+  let targetFound =
+    false;
+
+
+  let cameraError =
+    false;
 
 
   /* =========================================
      STATUS
   ========================================= */
 
-  function setStatus(text, cls){
+  function setStatus(
+    text,
+    type
+  ){
 
-    status.textContent = text;
+    status.textContent =
+      text;
 
-    status.className = cls || '';
+
+    status.className =
+      type || 'warn';
 
   }
-
 
 
   /* =========================================
      INFO
   ========================================= */
 
-  function setInfo(html){
+  function setInfo(
+    html
+  ){
 
-    info.innerHTML = html;
+    info.innerHTML =
+      html;
 
   }
 
+
+  /* =========================================
+     LOADING
+  ========================================= */
+
+  function showLoading(
+    text
+  ){
+
+    loadingText.textContent =
+      text;
+
+
+    loading.classList.remove(
+      'hidden'
+    );
+
+  }
+
+
+  function hideLoading(){
+
+    loading.classList.add(
+      'hidden'
+    );
+
+  }
+
+
+  /* =========================================
+     MODEL VISIBILITY
+     
+     IMPORTANT:
+     Model ONLY appears when:
+     
+     targetFound === true
+     
+     AND
+     
+     modelReady === true
+  ========================================= */
+
+  function updateModelVisibility(){
+
+    const shouldShow =
+      targetFound &&
+      modelReady;
+
+
+    beast.setAttribute(
+
+      'visible',
+
+      shouldShow
+
+    );
+
+  }
+
+
+  /* =========================================
+     INITIAL STATE
+  ========================================= */
+
+  beast.setAttribute(
+    'visible',
+    'false'
+  );
 
 
   /* =========================================
@@ -454,28 +1005,32 @@ canvas{
 
     function(){
 
+      console.log(
+        'A-Frame loaded.'
+      );
+
+
       setStatus(
-        'CAMERA / AR INITIALISING…'
+        'AR INITIALISING…',
+        'warn'
       );
 
 
       setInfo(
 
-        'Loading MindAR target ' +
+        'Loading target ' +
 
-        '<b>DR-001</b>…'
+        '<b>' +
 
-      );
+        TARGET_ID +
 
+        '</b>…'
 
-      console.log(
-        'A-Frame loaded.'
       );
 
     }
 
   );
-
 
 
   /* =========================================
@@ -488,12 +1043,16 @@ canvas{
 
     function(){
 
+      arReady =
+        true;
+
+
+      hideLoading();
+
+
       setStatus(
-
         'CAMERA ACTIVE ✓',
-
         'ok'
-
       );
 
 
@@ -501,7 +1060,11 @@ canvas{
 
         'Point the rear camera at ' +
 
-        '<b>DR-001 Ember Dragon</b>.'
+        '<b>' +
+
+        TARGET_ID +
+
+        ' Ember Dragon</b>.'
 
       );
 
@@ -510,14 +1073,18 @@ canvas{
         'MindAR arReady.'
       );
 
+
+      console.log(
+        'Camera ready.'
+      );
+
     }
 
   );
 
 
-
   /* =========================================
-     GLB LOADED
+     GLB MODEL LOADED
   ========================================= */
 
   dragonModel.addEventListener(
@@ -526,68 +1093,20 @@ canvas{
 
     function(){
 
+      modelReady =
+        true;
+
+
+      updateModelVisibility();
+
+
       console.log(
         '========================================'
       );
 
 
       console.log(
-        'CARD BEAST AR — BASELINE VERTICAL'
-      );
-
-
-      console.log(
-        '========================================'
-      );
-
-
-      console.log(
-        'Target ID: DR-001'
-      );
-
-
-      console.log(
-        'Target file: ./targets.mind'
-      );
-
-
-      console.log(
-        'Target index: 0'
-      );
-
-
-      console.log(
-        'Model: ./models/ember-dragon.glb'
-      );
-
-
-      console.log(
-        'Beast rotation: 0 0 0'
-      );
-
-
-      console.log(
-        'Dragon rotation: 90 0 0'
-      );
-
-
-      console.log(
-        'Scale: 2.5'
-      );
-
-
-      console.log(
-        'World Y rotation: NONE'
-      );
-
-
-      console.log(
-        'Quaternion rotation: NONE'
-      );
-
-
-      console.log(
-        'Tracking: MindAR'
+        'CARD BEAST AR — STABLE v45'
       );
 
 
@@ -596,22 +1115,100 @@ canvas{
       );
 
 
-      setInfo(
-
-        '🔥 <b>EMBER DRAGON READY</b><br>' +
-
-        '🟣 3D model loaded successfully.<br>' +
-
-        'Rotation: Vertical baseline<br>' +
-
-        'Scale: 2.5'
-
+      console.log(
+        'Target:',
+        TARGET_ID
       );
+
+
+      console.log(
+        'Target file:',
+        TARGET_FILE
+      );
+
+
+      console.log(
+        'Target index:',
+        '0'
+      );
+
+
+      console.log(
+        'Model:',
+        MODEL_FILE
+      );
+
+
+      console.log(
+        'Beast position:',
+        '0 0 0'
+      );
+
+
+      console.log(
+        'Beast rotation:',
+        '0 0 0'
+      );
+
+
+      console.log(
+        'Beast scale:',
+        '2.5 2.5 2.5'
+      );
+
+
+      console.log(
+        'Dragon rotation:',
+        '90 0 0'
+      );
+
+
+      console.log(
+        'Tracking:',
+        'MindAR'
+      );
+
+
+      console.log(
+        'Model visibility:',
+        targetFound
+      );
+
+
+      console.log(
+        '========================================'
+      );
+
+
+      if(targetFound){
+
+        setInfo(
+
+          '🔥 <b>EMBER DRAGON DETECTED</b><br>' +
+
+          '🟣 3D model active.<br>' +
+
+          'Scale: 2.5'
+
+        );
+
+      }else{
+
+        setInfo(
+
+          '🔥 <b>EMBER DRAGON READY</b><br>' +
+
+          'Model loaded successfully.<br>' +
+
+          'Point camera at DR-001.'
+
+        );
+
+      }
 
     }
 
   );
-
 
 
   /* =========================================
@@ -624,38 +1221,43 @@ canvas{
 
     function(event){
 
+      modelReady =
+        false;
+
+
+      beast.setAttribute(
+        'visible',
+        'false'
+      );
+
+
       console.error(
-
         'GLB model error:',
-
         event
-
       );
 
 
       setStatus(
-
         'MODEL ERROR',
-
         'err'
-
       );
 
 
       setInfo(
 
-        '❌ Failed to load ' +
+        '❌ <b>EMBER DRAGON FAILED</b><br>' +
 
-        '<b>ember-dragon.glb</b>.<br><br>' +
+        'Cannot load ' +
 
-        'Check:<br>' +
+        '<b>ember-dragon.glb</b>.<br>' +
 
-        '1. Folder <b>models</b><br>' +
+        'Check the models folder and filename.'
 
-        '2. Filename <b>ember-dragon.glb</b><br>' +
+      );
 
-        '3. File path on GitHub Pages.'
 
+      showLoading(
+        'Failed to load 3D model.'
       );
 
     }
@@ -663,10 +1265,11 @@ canvas{
   );
 
 
-
   /* =========================================
      TARGET FOUND
-========================================= */
+     
+     MODEL APPEARS HERE ONLY
+  ========================================= */
 
   target.addEventListener(
 
@@ -674,13 +1277,11 @@ canvas{
 
     function(){
 
-      beast.setAttribute(
+      targetFound =
+        true;
 
-        'visible',
 
-        'true'
-
-      );
+      updateModelVisibility();
 
 
       setStatus(
@@ -692,23 +1293,39 @@ canvas{
       );
 
 
-      setInfo(
+      if(modelReady){
 
-        '🔥 <b>EMBER DRAGON DETECTED</b><br>' +
+        setInfo(
 
-        '🟣 3D Ember Dragon active.<br>' +
+          '🔥 <b>EMBER DRAGON DETECTED</b><br>' +
 
-        'Rotation: Vertical<br>' +
+          '🟣 3D Ember Dragon active.<br>' +
 
-        'Scale: 2.5'
+          'Scale: 2.5'
 
+        );
+
+      }else{
+
+        setInfo(
+
+          '🎯 <b>DR-001 DETECTED</b><br>' +
+
+          'Loading Ember Dragon…'
+
+        );
+
+      }
+
+
+      console.log(
+        'DR-001 targetFound.'
       );
 
 
       console.log(
-
-        'DR-001 targetFound.'
-
+        'Model ready:',
+        modelReady
       );
 
     }
@@ -716,10 +1333,11 @@ canvas{
   );
 
 
-
   /* =========================================
      TARGET LOST
-========================================= */
+     
+     MODEL DISAPPEARS HERE
+  ========================================= */
 
   target.addEventListener(
 
@@ -727,13 +1345,11 @@ canvas{
 
     function(){
 
-      beast.setAttribute(
+      targetFound =
+        false;
 
-        'visible',
 
-        'false'
-
-      );
+      updateModelVisibility();
 
 
       setStatus(
@@ -755,9 +1371,12 @@ canvas{
 
 
       console.log(
-
         'DR-001 targetLost.'
+      );
 
+
+      console.log(
+        'Model hidden.'
       );
 
     }
@@ -765,10 +1384,9 @@ canvas{
   );
 
 
-
   /* =========================================
      AR ERROR
-========================================= */
+  ========================================= */
 
   scene.addEventListener(
 
@@ -776,32 +1394,33 @@ canvas{
 
     function(event){
 
+      arReady =
+        false;
+
+
       console.error(
-
         'MindAR error:',
-
         event
-
       );
 
 
       setStatus(
-
         'AR ERROR',
-
         'err'
-
       );
 
 
       setInfo(
 
-        'MindAR gagal dimulakan. ' +
+        '❌ MindAR gagal dimulakan.<br>' +
 
-        'Kamera mungkin masih tersedia, ' +
+        'Semak permission kamera dan URL.'
 
-        'tetapi AR tidak aktif.'
+      );
 
+
+      showLoading(
+        'AR failed to initialise.'
       );
 
     }
@@ -809,85 +1428,142 @@ canvas{
   );
 
 
-
   /* =========================================
-     CAMERA VIDEO LAYER
+     CAMERA VIDEO ERROR CHECK
   ========================================= */
 
-  function fixVideoLayer(){
+  function inspectVideo(){
 
-    document
-
-      .querySelectorAll('video')
-
-      .forEach(
-
-        function(video){
-
-          video.setAttribute(
-
-            'playsinline',
-
-            ''
-
-          );
-
-
-          video.setAttribute(
-
-            'autoplay',
-
-            ''
-
-          );
-
-
-          video.muted = true;
-
-
-          Object.assign(
-
-            video.style,
-
-            {
-
-              position:'fixed',
-
-              inset:'0',
-
-              width:'100%',
-
-              height:'100%',
-
-              objectFit:'cover',
-
-              zIndex:'0',
-
-              display:'block',
-
-              background:'#000'
-
-            }
-
-          );
-
-        }
-
+    const videos =
+      document.querySelectorAll(
+        'video'
       );
 
-  }
 
+    if(!videos.length){
+
+      return;
+
+    }
+
+
+    videos.forEach(
+
+      function(video){
+
+        video.setAttribute(
+          'playsinline',
+          ''
+        );
+
+
+        video.setAttribute(
+          'webkit-playsinline',
+          ''
+        );
+
+
+        video.setAttribute(
+          'autoplay',
+          ''
+        );
+
+
+        video.muted =
+          true;
+
+
+        Object.assign(
+
+          video.style,
+
+          {
+
+            position:'fixed',
+
+            inset:'0',
+
+            width:'100%',
+
+            height:'100%',
+
+            maxWidth:'none',
+
+            maxHeight:'none',
+
+            objectFit:'cover',
+
+            objectPosition:'center center',
+
+            zIndex:'0',
+
+            display:'block',
+
+            background:'#000'
+
+          }
+
+        );
+
+
+        video.addEventListener(
+
+          'error',
+
+          function(event){
+
+            cameraError =
+              true;
+
+
+            console.error(
+              'Camera video error:',
+              event
+            );
+
+
+            setStatus(
+              'CAMERA ERROR',
+              'err'
+            );
+
+
+            setInfo(
+
+              '❌ Kamera tidak dapat digunakan.<br>' +
+
+              'Pastikan permission kamera diberikan.'
+
+            );
+
+          }
+
+        );
+
+      }
+
+    );
+
+  }
 
 
   /* =========================================
      WATCH FOR MINDAR VIDEO
   ========================================= */
 
-  new MutationObserver(
+  const videoObserver =
+    new MutationObserver(
 
-    fixVideoLayer
+      function(){
 
-  ).observe(
+        inspectVideo();
+
+      }
+
+    );
+
+
+  videoObserver.observe(
 
     document.documentElement,
 
@@ -902,17 +1578,167 @@ canvas{
   );
 
 
-
   /* =========================================
-     INITIAL VIDEO FIX
+     INITIAL VIDEO CHECK
   ========================================= */
 
-  fixVideoLayer();
-
+  inspectVideo();
 
 
   /* =========================================
-     DEBUG
+     WINDOW RESIZE
+     
+     CAMERA RESPONSIVE
+  ========================================= */
+
+  function handleResize(){
+
+    const width =
+      window.innerWidth;
+
+
+    const height =
+      window.innerHeight;
+
+
+    console.log(
+      'Viewport:',
+      width,
+      'x',
+      height
+    );
+
+
+    inspectVideo();
+
+
+    /*
+      A-Frame akan mengurus
+      canvas resize sendiri.
+    */
+
+    if(
+      scene &&
+      scene.renderer
+    ){
+
+      scene.renderer.setSize(
+
+        width,
+
+        height,
+
+        false
+
+      );
+
+    }
+
+  }
+
+
+  window.addEventListener(
+
+    'resize',
+
+    handleResize
+
+  );
+
+
+  window.addEventListener(
+
+    'orientationchange',
+
+    function(){
+
+      setTimeout(
+
+        handleResize,
+
+        250
+
+      );
+
+    }
+
+  );
+
+
+  /* =========================================
+     VISIBILITY CHANGE
+     
+     PHONE TAB / SCREEN LOCK
+  ========================================= */
+
+  document.addEventListener(
+
+    'visibilitychange',
+
+    function(){
+
+      if(
+        document.hidden
+      ){
+
+        beast.setAttribute(
+          'visible',
+          'false'
+        );
+
+      }else{
+
+        updateModelVisibility();
+
+      }
+
+    }
+
+  );
+
+
+  /* =========================================
+     PAGE ERROR
+  ========================================= */
+
+  window.addEventListener(
+
+    'error',
+
+    function(event){
+
+      console.error(
+        'Page error:',
+        event.error || event.message
+      );
+
+    }
+
+  );
+
+
+  /* =========================================
+     UNHANDLED PROMISE
+  ========================================= */
+
+  window.addEventListener(
+
+    'unhandledrejection',
+
+    function(event){
+
+      console.error(
+        'Unhandled promise:',
+        event.reason
+      );
+
+    }
+
+  );
+
+
+  /* =========================================
+     FINAL DEBUG
   ========================================= */
 
   console.log(
@@ -921,7 +1747,7 @@ canvas{
 
 
   console.log(
-    'CARD BEAST AR — BASELINE VERTICAL'
+    'CARD BEAST AR — STABLE v45'
   );
 
 
@@ -931,57 +1757,68 @@ canvas{
 
 
   console.log(
-    'Target ID: DR-001'
+    'Target ID:',
+    TARGET_ID
   );
 
 
   console.log(
-    'targets.mind'
+    'Target:',
+    TARGET_FILE
   );
 
 
   console.log(
-    'targetIndex: 0'
+    'targetIndex:',
+    '0'
   );
 
 
   console.log(
-    './models/ember-dragon.glb'
+    'Model:',
+    MODEL_FILE
   );
 
 
   console.log(
-    'Beast position: 0 0 0'
+    'Beast rotation:',
+    '0 0 0'
   );
 
 
   console.log(
-    'Beast rotation: 0 0 0'
+    'Dragon rotation:',
+    '90 0 0'
   );
 
 
   console.log(
-    'Dragon model rotation: 90 0 0'
+    'Beast scale:',
+    '2.5'
   );
 
 
   console.log(
-    'Beast scale: 2.5'
+    'Tracking:',
+    'MindAR'
   );
 
 
   console.log(
-    'World Y rotation: DISABLED'
+    'Model visible:',
+    'targetFound && modelReady'
   );
 
 
   console.log(
-    'Quaternion rotation: DISABLED'
+    'World-Y rotation:',
+    'OFF'
   );
 
 
   console.log(
-    'Tracking: MindAR'
+    'Quaternion rotation:',
+    'OFF'
   );
 
 
