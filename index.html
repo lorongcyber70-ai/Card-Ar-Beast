@@ -1242,4 +1242,429 @@ a-scene{
 
             setInfo(
 
-                'Poin
+                'Point camera at ' +
+
+                '<b>DR-001 Ember Dragon</b>.'
+
+            );
+
+        }
+
+    );
+
+
+    /* =================================================
+       MODEL LOADED
+    ================================================= */
+
+    dragon.addEventListener(
+
+        'model-loaded',
+
+        function(){
+
+            modelLoaded =
+                true;
+
+
+            restoreBaseline();
+
+
+            console.log(
+                '================================'
+            );
+
+            console.log(
+                'CARD BEAST AR'
+            );
+
+            console.log(
+                'DR-001 BASELINE TEST'
+            );
+
+            console.log(
+                '================================'
+            );
+
+            console.log(
+                'Position: 0 -0.25 0'
+            );
+
+            console.log(
+                'Parent Rotation: 0 0 0'
+            );
+
+            console.log(
+                'Dragon Rotation: 90 0 0'
+            );
+
+            console.log(
+                'Scale: 2.5'
+            );
+
+            console.log(
+                'Forward: local -X'
+            );
+
+            console.log(
+                'Yaw: NONE'
+            );
+
+            console.log(
+                'Z Rotation: NONE'
+            );
+
+            console.log(
+                '================================'
+            );
+
+
+            setInfo(
+
+                '🐉 <b>EMBER DRAGON READY</b><br>' +
+
+                'Rotation = 90 0 0<br>' +
+
+                '🔴 Red marker = local -X'
+
+            );
+
+        }
+
+    );
+
+
+    /* =================================================
+       MODEL ERROR
+    ================================================= */
+
+    dragon.addEventListener(
+
+        'model-error',
+
+        function(
+            event
+        ){
+
+            console.error(
+                'EMBER DRAGON GLB ERROR:',
+                event
+            );
+
+
+            setStatus(
+
+                'MODEL ERROR',
+
+                'error'
+
+            );
+
+
+            setInfo(
+
+                '❌ Gagal load ' +
+
+                '<b>ember-dragon.glb</b>.'
+
+            );
+
+        }
+
+    );
+
+
+    /* =================================================
+       TARGET FOUND
+    ================================================= */
+
+    target.addEventListener(
+
+        'targetFound',
+
+        function(){
+
+            console.log(
+                'DR-001 targetFound'
+            );
+
+
+            if(
+                !modelLoaded
+            ){
+
+                console.warn(
+                    'Target found tetapi GLB belum ready.'
+                );
+
+                return;
+
+            }
+
+
+            restoreBaseline();
+
+
+            beast.setAttribute(
+                'visible',
+                'true'
+            );
+
+
+            playEpicEmergence();
+
+
+            setStatus(
+
+                'CARD CONFIRMED • DR-001',
+
+                'ok'
+
+            );
+
+        }
+
+    );
+
+
+    /* =================================================
+       TARGET LOST
+    ================================================= */
+
+    target.addEventListener(
+
+        'targetLost',
+
+        function(){
+
+            console.log(
+                'DR-001 targetLost'
+            );
+
+
+            clearAnimations();
+
+
+            beast.setAttribute(
+                'visible',
+                'false'
+            );
+
+
+            emergencePlayed =
+                false;
+
+
+            restoreBaseline();
+
+
+            setStatus(
+
+                'CAMERA ACTIVE ✓',
+
+                'ok'
+
+            );
+
+
+            setInfo(
+
+                'Point camera at ' +
+
+                '<b>DR-001 Ember Dragon</b>.'
+
+            );
+
+        }
+
+    );
+
+
+    /* =================================================
+       AR ERROR
+    ================================================= */
+
+    scene.addEventListener(
+
+        'arError',
+
+        function(
+            event
+        ){
+
+            console.error(
+                'MindAR AR error:',
+                event
+            );
+
+
+            setStatus(
+
+                'AR ERROR',
+
+                'error'
+
+            );
+
+
+            setInfo(
+
+                '❌ AR gagal dimulakan.<br>' +
+
+                'Pastikan permission kamera diberikan.'
+
+            );
+
+        }
+
+    );
+
+
+    /* =================================================
+       VIDEO FIX
+    ================================================= */
+
+    function fixVideoLayer(){
+
+        document
+            .querySelectorAll(
+                'video'
+            )
+            .forEach(
+
+                function(
+                    video
+                ){
+
+                    video.setAttribute(
+                        'playsinline',
+                        ''
+                    );
+
+                    video.setAttribute(
+                        'autoplay',
+                        ''
+                    );
+
+                    video.muted =
+                        true;
+
+
+                    Object.assign(
+
+                        video.style,
+
+                        {
+
+                            position:'fixed',
+
+                            inset:'0',
+
+                            width:'100%',
+
+                            height:'100%',
+
+                            objectFit:'cover',
+
+                            zIndex:'0',
+
+                            display:'block',
+
+                            background:'#000'
+
+                        }
+
+                    );
+
+                }
+
+            );
+
+    }
+
+
+    new MutationObserver(
+
+        fixVideoLayer
+
+    ).observe(
+
+        document.documentElement,
+
+        {
+
+            childList:true,
+
+            subtree:true
+
+        }
+
+    );
+
+
+    fixVideoLayer();
+
+
+    /* =================================================
+       FINAL DEBUG
+    ================================================= */
+
+    console.log(
+        '--------------------------------'
+    );
+
+    console.log(
+        'FINAL LOCKED CONFIGURATION'
+    );
+
+    console.log(
+        'DR-001'
+    );
+
+    console.log(
+        'Position       = 0 -0.25 0'
+    );
+
+    console.log(
+        'Parent Rotation = 0 0 0'
+    );
+
+    console.log(
+        'Dragon Rotation = 90 0 0'
+    );
+
+    console.log(
+        'Scale           = 2.5'
+    );
+
+    console.log(
+        'Forward         = local -X'
+    );
+
+    console.log(
+        'Yaw Pivot       = NONE'
+    );
+
+    console.log(
+        'Extra Rotation  = NONE'
+    );
+
+    console.log(
+        'Tracking        = LOCKED'
+    );
+
+    console.log(
+        'Emergence       = LOCKED'
+    );
+
+    console.log(
+        '--------------------------------'
+    );
+
+
+})();
+
+</script>
+
+</body>
+</html>
