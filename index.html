@@ -1,20 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
 
-<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-<meta http-equiv="Pragma" content="no-cache">
-<meta http-equiv="Expires" content="0">
+<meta
+    http-equiv="Cache-Control"
+    content="no-cache, no-store, must-revalidate"
+>
 
-<title>Card Beast AR • DR-001 v60.0</title>
+<meta
+    http-equiv="Pragma"
+    content="no-cache"
+>
+
+<meta
+    http-equiv="Expires"
+    content="0"
+>
+
+<title>Card Beast AR • v61.0</title>
 
 <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+
 <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
 
 <style>
+
+/* =====================================================
+   GENERAL
+===================================================== */
 
 *{
     box-sizing:border-box;
@@ -22,17 +42,27 @@
 
 html,
 body{
+
     margin:0;
     padding:0;
+
     width:100%;
     height:100%;
+
     overflow:hidden;
+
     background:#000;
-    font-family:Arial,Helvetica,sans-serif;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
 }
 
 body{
+
     position:fixed;
+
     inset:0;
 }
 
@@ -42,7 +72,9 @@ body{
 ===================================================== */
 
 video{
+
     position:fixed !important;
+
     inset:0 !important;
 
     width:100% !important;
@@ -59,11 +91,13 @@ video{
 
 
 /* =====================================================
-   A-FRAME
+   AR SCENE
 ===================================================== */
 
 a-scene{
+
     position:fixed !important;
+
     inset:0 !important;
 
     width:100% !important;
@@ -80,10 +114,13 @@ a-scene{
 ===================================================== */
 
 #topUI{
+
     position:fixed;
+
     z-index:50;
 
-    top:17px;
+    top:16px;
+
     left:0;
 
     width:100%;
@@ -94,7 +131,9 @@ a-scene{
 }
 
 .logo{
+
     font-size:30px;
+
     font-weight:900;
 
     color:#fff;
@@ -105,10 +144,12 @@ a-scene{
 }
 
 .logo span{
+
     color:#b84cff;
 }
 
 #status{
+
     display:inline-block;
 
     margin-top:11px;
@@ -117,9 +158,12 @@ a-scene{
 
     border-radius:30px;
 
-    border:1px solid #b84cff;
+    border:
+        1px solid
+        #b84cff;
 
-    background:rgba(5,0,12,.9);
+    background:
+        rgba(5,0,12,.90);
 
     color:#68ff9b;
 
@@ -134,22 +178,25 @@ a-scene{
 
 
 /* =====================================================
-   VERSION BADGE
+   VERSION
 ===================================================== */
 
 #versionBadge{
+
     position:fixed;
 
     z-index:70;
 
     top:10px;
+
     right:10px;
 
     padding:7px 10px;
 
     border-radius:10px;
 
-    background:rgba(0,0,0,.9);
+    background:
+        rgba(0,0,0,.9);
 
     border:
         1px solid
@@ -170,16 +217,19 @@ a-scene{
 ===================================================== */
 
 #debugPanel{
+
     position:fixed;
 
     z-index:40;
 
     top:103px;
+
     left:13px;
 
-    width:330px;
+    width:315px;
 
-    max-width:calc(100% - 26px);
+    max-width:
+        calc(100% - 26px);
 
     padding:15px 16px;
 
@@ -190,7 +240,7 @@ a-scene{
         rgba(255,255,255,.35);
 
     background:
-        rgba(0,0,0,.9);
+        rgba(0,0,0,.88);
 
     color:#fff;
 
@@ -203,8 +253,8 @@ a-scene{
     pointer-events:none;
 }
 
-
 .debugTitle{
+
     color:#d06aff;
 
     font-size:18px;
@@ -214,8 +264,8 @@ a-scene{
     margin-bottom:3px;
 }
 
-
 .debugSub{
+
     color:#aaa;
 
     font-size:11px;
@@ -224,7 +274,12 @@ a-scene{
 }
 
 
+/* =====================================================
+   STATUS ROW
+===================================================== */
+
 .debugRow{
+
     display:flex;
 
     align-items:center;
@@ -240,13 +295,13 @@ a-scene{
         rgba(255,255,255,.08);
 }
 
-
 .debugName{
+
     font-weight:800;
 }
 
-
 .debugState{
+
     padding:4px 9px;
 
     border-radius:12px;
@@ -256,24 +311,24 @@ a-scene{
     font-weight:900;
 }
 
-
 .pending{
+
     color:#ffd84d;
 
     background:
         rgba(255,216,77,.12);
 }
 
-
 .pass{
+
     color:#68ff9b;
 
     background:
         rgba(104,255,155,.12);
 }
 
-
 .fail{
+
     color:#ff6464;
 
     background:
@@ -282,10 +337,10 @@ a-scene{
 
 
 /* =====================================================
-   TEST CONFIG
+   BASELINE
 ===================================================== */
 
-.testBox{
+.baselineBox{
 
     margin-top:12px;
 
@@ -296,8 +351,7 @@ a-scene{
         rgba(255,255,255,.12);
 }
 
-
-.testTitle{
+.baselineTitle{
 
     color:#ffd84d;
 
@@ -308,7 +362,6 @@ a-scene{
     margin-bottom:5px;
 }
 
-
 .rotation{
 
     color:#fff;
@@ -318,24 +371,25 @@ a-scene{
     font-weight:900;
 }
 
+.locked{
 
-.testID{
+    margin-top:8px;
 
-    margin-top:4px;
+    color:#68ff9b;
 
-    color:#aaa;
+    font-size:12px;
 
-    font-size:10px;
+    line-height:1.65;
 }
 
 
 /* =====================================================
-   LOCKED PARAMETERS
+   NEXT CARD
 ===================================================== */
 
-.locked{
+.nextCard{
 
-    margin-top:11px;
+    margin-top:10px;
 
     padding-top:10px;
 
@@ -343,83 +397,11 @@ a-scene{
         1px solid
         rgba(255,255,255,.12);
 
-    color:#68ff9b;
+    color:#aaa;
 
-    font-size:12px;
-
-    line-height:1.7;
-}
-
-
-.lockedTitle{
-
-    color:#68ff9b;
-
-    font-weight:900;
-
-    margin-bottom:3px;
-}
-
-
-/* =====================================================
-   LOG
-===================================================== */
-
-#logPanel{
-
-    position:fixed;
-
-    z-index:45;
-
-    right:12px;
-    top:103px;
-
-    width:285px;
-
-    max-width:calc(100% - 25px);
-
-    max-height:290px;
-
-    padding:12px;
-
-    border-radius:15px;
-
-    background:
-        rgba(0,0,0,.87);
-
-    border:
-        1px solid
-        rgba(184,76,255,.5);
-
-    color:#ddd;
-
-    font-family:monospace;
-
-    font-size:10px;
+    font-size:11px;
 
     line-height:1.5;
-
-    pointer-events:none;
-
-    overflow:hidden;
-}
-
-
-.logTitle{
-
-    color:#d06aff;
-
-    font-family:Arial,sans-serif;
-
-    font-weight:900;
-
-    margin-bottom:7px;
-}
-
-
-#logs{
-    max-height:240px;
-    overflow:hidden;
 }
 
 
@@ -434,6 +416,7 @@ a-scene{
     z-index:40;
 
     left:4%;
+
     right:4%;
 
     bottom:17px;
@@ -468,18 +451,23 @@ a-scene{
 @media(max-width:700px){
 
     .logo{
+
         font-size:28px;
     }
 
     #versionBadge{
+
         top:6px;
+
         right:6px;
+
         font-size:9px;
     }
 
     #debugPanel{
 
         top:101px;
+
         left:8px;
 
         width:300px;
@@ -487,11 +475,8 @@ a-scene{
         padding:13px;
     }
 
-    #logPanel{
-        display:none;
-    }
-
     .rotation{
+
         font-size:18px;
     }
 
@@ -505,6 +490,7 @@ a-scene{
 }
 
 </style>
+
 </head>
 
 
@@ -516,7 +502,9 @@ a-scene{
 ===================================================== -->
 
 <div id="versionBadge">
-    BUILD v60.0 • R-090-270-000
+
+    BUILD v61.0 • DR-001 BASELINE
+
 </div>
 
 
@@ -527,11 +515,15 @@ a-scene{
 <div id="topUI">
 
     <div class="logo">
+
         CARD <span>BEAST</span> AR
+
     </div>
 
     <div id="status">
-        BOOTING v60.0...
+
+        BOOTING v61.0...
+
     </div>
 
 </div>
@@ -544,11 +536,15 @@ a-scene{
 <div id="debugPanel">
 
     <div class="debugTitle">
-        DR-001 • ROTATION TEST
+
+        DR-001 • BASELINE LOCK
+
     </div>
 
     <div class="debugSub">
-        PATCH v60.0 • NEW TEST
+
+        Stable baseline before NEXT CARD
+
     </div>
 
 
@@ -624,92 +620,53 @@ a-scene{
     </div>
 
 
-    <!-- TEST -->
+    <!-- BASELINE -->
 
-    <div class="testBox">
+    <div class="baselineBox">
 
-        <div class="testTitle">
-            CURRENT ROTATION TEST
+        <div class="baselineTitle">
+
+            🔒 CURRENT LOCKED BASELINE
+
         </div>
 
         <div class="rotation">
-            90 270 0
+
+            90 0 0
+
         </div>
 
-        <div class="testID">
-            TEST ID: R-090-270-000
-        </div>
+        <div class="locked">
 
-    </div>
-
-
-    <!-- LOCKED -->
-
-    <div class="locked">
-
-        <div class="lockedTitle">
-            🔒 BASELINE LOCKED
-        </div>
-
-        <div>
             Position:
-            <b>0 -0.25 0</b>
-        </div>
+            <b>0 -0.25 0</b><br>
 
-        <div>
             Scale:
-            <b>2.5</b>
-        </div>
+            <b>2.5</b><br>
 
-        <div>
             Parent Rotation:
-            <b>0 0 0</b>
-        </div>
+            <b>0 0 0</b><br>
 
-        <div>
             Forward:
-            <b>local -X</b>
-        </div>
+            <b>local -X</b><br>
 
-    </div>
-
-
-    <!-- MODEL -->
-
-    <div class="locked">
-
-        <div>
-            Model:
-            <b>ember-dragon.glb</b>
-        </div>
-
-        <div>
             Target Index:
             <b>0</b>
-        </div>
 
-        <div>
-            Build:
-            <b>v60.0</b>
         </div>
 
     </div>
 
-</div>
 
+    <!-- NEXT CARD -->
 
-<!-- =====================================================
-     LIVE LOG
-===================================================== -->
+    <div class="nextCard">
 
-<div id="logPanel">
+        NEXT CARD MODE READY<br>
 
-    <div class="logTitle">
-        LIVE DEBUG LOG
-    </div>
+        Target / GLB boleh ditukar kemudian
+        tanpa mengubah baseline ini.
 
-    <div id="logs">
-        Starting...
     </div>
 
 </div>
@@ -755,7 +712,7 @@ a-scene{
     "
 
     mindar-image="
-        imageTargetSrc:./targets.mind?v=60.0;
+        imageTargetSrc:./targets.mind?v=61.0;
         autoStart:true;
         uiScanning:false;
         uiLoading:false;
@@ -801,10 +758,7 @@ a-scene{
         <!-- =============================================
              BEAST ROOT
 
-             LOCKED:
-             Position = 0 -0.25 0
-             Parent Rotation = 0 0 0
-             Scale = 2.5
+             LOCKED
         ============================================== -->
 
         <a-entity
@@ -831,9 +785,8 @@ a-scene{
             <!-- =========================================
                  EMBER DRAGON
 
-                 ONLY TEST CHANGE:
-
-                 90 270 0
+                 LOCKED BASELINE
+                 90 0 0
             ========================================== -->
 
             <a-entity
@@ -841,7 +794,7 @@ a-scene{
                 id="dragonModel"
 
                 gltf-model="
-                    url(./models/ember-dragon.glb?v=60.0)
+                    url(./models/ember-dragon.glb?v=61.0)
                 "
 
                 position="
@@ -849,7 +802,7 @@ a-scene{
                 "
 
                 rotation="
-                    90 270 0
+                    90 0 0
                 "
 
                 scale="
@@ -872,11 +825,8 @@ a-scene{
 
 /* =====================================================
    CARD BEAST AR
-   DR-001
-   PATCH v60.0
-
-   TEST:
-   90 270 0
+   BUILD v61.0
+   DR-001 BASELINE
 ===================================================== */
 
 (function(){
@@ -885,14 +835,15 @@ a-scene{
 
 
     /* =================================================
-       VERSION
+       BUILD
     ================================================= */
 
     const BUILD_VERSION =
-        'v60.0';
+        'v61.0';
+
 
     const TEST_ID =
-        'R-090-270-000';
+        'DR-001-BASELINE-90-0-0';
 
 
     /* =================================================
@@ -949,11 +900,6 @@ a-scene{
             'targetState'
         );
 
-    const logs =
-        document.getElementById(
-            'logs'
-        );
-
 
     /* =================================================
        STATE
@@ -973,58 +919,7 @@ a-scene{
 
 
     /* =================================================
-       DEBUG LOG
-    ================================================= */
-
-    function log(
-        message
-    ){
-
-        console.log(
-            '[CARD BEAST ' +
-            BUILD_VERSION +
-            ']',
-            message
-        );
-
-
-        const line =
-            document.createElement(
-                'div'
-            );
-
-
-        line.textContent =
-
-            new Date()
-            .toLocaleTimeString()
-            +
-
-            ' • ' +
-
-            message;
-
-
-        logs.appendChild(
-            line
-        );
-
-
-        while(
-            logs.children.length > 10
-        ){
-
-            logs.removeChild(
-                logs.firstChild
-            );
-
-        }
-
-    }
-
-
-    /* =================================================
-       STATE
+       UI STATE
     ================================================= */
 
     function setState(
@@ -1043,10 +938,6 @@ a-scene{
     }
 
 
-    /* =================================================
-       STATUS
-    ================================================= */
-
     function setStatus(
         text
     ){
@@ -1056,10 +947,6 @@ a-scene{
 
     }
 
-
-    /* =================================================
-       INFO
-    ================================================= */
 
     function setInfo(
         html
@@ -1072,10 +959,9 @@ a-scene{
 
 
     /* =================================================
-       LOCK BASELINE
+       LOCKED BASELINE
        
-       ONLY ROTATION CHANGED FROM BASELINE:
-       Y = 270
+       DO NOT CHANGE
     ================================================= */
 
     function applyBaseline(){
@@ -1087,7 +973,9 @@ a-scene{
         beast.object3D.position.set(
 
             0,
+
             -0.25,
+
             0
 
         );
@@ -1100,7 +988,9 @@ a-scene{
         beast.object3D.rotation.set(
 
             0,
+
             0,
+
             0
 
         );
@@ -1113,7 +1003,9 @@ a-scene{
         beast.object3D.scale.set(
 
             2.5,
+
             2.5,
+
             2.5
 
         );
@@ -1122,9 +1014,9 @@ a-scene{
         /*
          * Dragon rotation
          *
-         * TEST:
+         * LOCKED:
          *
-         * 90 270 0
+         * 90 0 0
          */
 
         dragon.object3D.rotation.set(
@@ -1134,7 +1026,7 @@ a-scene{
             ),
 
             THREE.MathUtils.degToRad(
-                270
+                0
             ),
 
             THREE.MathUtils.degToRad(
@@ -1161,18 +1053,9 @@ a-scene{
 
     function tryActivate(){
 
-        log(
-            'Checking activation...'
-        );
-
-
         if(
             !sceneReady
         ){
-
-            log(
-                'WAIT → SCENE'
-            );
 
             return;
 
@@ -1183,10 +1066,6 @@ a-scene{
             !cameraReady
         ){
 
-            log(
-                'WAIT → CAMERA'
-            );
-
             return;
 
         }
@@ -1195,10 +1074,6 @@ a-scene{
         if(
             !modelLoaded
         ){
-
-            log(
-                'WAIT → GLB'
-            );
 
             return;
 
@@ -1209,31 +1084,31 @@ a-scene{
             !targetDetected
         ){
 
-            log(
-                'WAIT → DR-001'
-            );
-
             return;
 
         }
 
 
-        log(
-            'ALL SYSTEMS READY'
-        );
-
+        /*
+         * Everything ready.
+         */
 
         applyBaseline();
 
 
         beast.setAttribute(
+
             'visible',
+
             'true'
+
         );
 
 
         setStatus(
-            'DR-001 FOUND • v60.0'
+
+            'DR-001 ACTIVE • v61.0'
+
         );
 
 
@@ -1241,11 +1116,11 @@ a-scene{
 
             '🐉 <b>EMBER DRAGON ACTIVE</b><br>' +
 
-            'TEST: ' +
-            '<b>90 270 0</b><br>' +
+            'Baseline Rotation: ' +
 
-            'ID: ' +
-            TEST_ID
+            '<b>90 0 0</b><br>' +
+
+            'DR-001 locked for now.'
 
         );
 
@@ -1253,7 +1128,7 @@ a-scene{
 
 
     /* =================================================
-       SCENE READY
+       SCENE
     ================================================= */
 
     scene.addEventListener(
@@ -1277,13 +1152,10 @@ a-scene{
             );
 
 
-            log(
-                'SCENE READY'
-            );
-
-
             setStatus(
-                'SCENE READY • v60.0'
+
+                'SCENE READY • v61.0'
+
             );
 
 
@@ -1296,6 +1168,11 @@ a-scene{
             );
 
 
+            console.log(
+                '[v61.0] SCENE READY'
+            );
+
+
             tryActivate();
 
         }
@@ -1304,7 +1181,7 @@ a-scene{
 
 
     /* =================================================
-       CAMERA READY
+       CAMERA
     ================================================= */
 
     scene.addEventListener(
@@ -1328,13 +1205,10 @@ a-scene{
             );
 
 
-            log(
-                'CAMERA READY'
-            );
-
-
             setStatus(
-                'CAMERA READY • v60.0'
+
+                'CAMERA READY • v61.0'
+
             );
 
 
@@ -1344,6 +1218,11 @@ a-scene{
 
                 'Point camera at DR-001.'
 
+            );
+
+
+            console.log(
+                '[v61.0] CAMERA READY'
             );
 
 
@@ -1381,27 +1260,25 @@ a-scene{
             );
 
 
-            log(
-                'CAMERA / AR ERROR'
-            );
-
-
-            console.error(
-                event
-            );
-
-
             setStatus(
-                'CAMERA ERROR • v60.0'
+
+                'CAMERA ERROR • v61.0'
+
             );
 
 
             setInfo(
 
-                '❌ Camera / AR error.<br>' +
+                '❌ AR / Camera error.<br>' +
 
                 'Check camera permission.'
 
+            );
+
+
+            console.error(
+                '[v61.0] AR ERROR',
+                event
             );
 
         }
@@ -1410,7 +1287,7 @@ a-scene{
 
 
     /* =================================================
-       GLB LOADED
+       GLB
     ================================================= */
 
     dragon.addEventListener(
@@ -1434,12 +1311,12 @@ a-scene{
             );
 
 
-            log(
-                'GLB LOADED'
-            );
-
-
             applyBaseline();
+
+
+            console.log(
+                '[v61.0] GLB LOADED'
+            );
 
 
             setInfo(
@@ -1485,27 +1362,23 @@ a-scene{
             );
 
 
-            log(
-                'GLB LOAD ERROR'
-            );
-
-
-            console.error(
-                event
-            );
-
-
             setStatus(
-                'GLB ERROR • v60.0'
+
+                'GLB ERROR • v61.0'
+
             );
 
 
             setInfo(
 
-                '❌ Failed to load ' +
+                '❌ ember-dragon.glb gagal dimuat.'
 
-                '<b>ember-dragon.glb</b>'
+            );
 
+
+            console.error(
+                '[v61.0] GLB ERROR',
+                event
             );
 
         }
@@ -1521,9 +1394,7 @@ a-scene{
 
         'targetFound',
 
-        function(
-            event
-        ){
+        function(){
 
             targetDetected =
                 true;
@@ -1540,24 +1411,15 @@ a-scene{
             );
 
 
-            log(
-                'DR-001 FOUND'
-            );
-
-
-            log(
-                'targetIndex = 0'
-            );
-
-
-            log(
-                'TEST = ' +
-                TEST_ID
+            console.log(
+                '[v61.0] DR-001 FOUND'
             );
 
 
             setStatus(
-                'DR-001 FOUND • v60.0'
+
+                'DR-001 FOUND • v61.0'
+
             );
 
 
@@ -1565,9 +1427,7 @@ a-scene{
 
                 '🎯 <b>DR-001 DETECTED ✓</b><br>' +
 
-                'Rotation test: ' +
-
-                '<b>90 270 0</b>'
+                'Baseline: 90 0 0'
 
             );
 
@@ -1604,11 +1464,6 @@ a-scene{
             );
 
 
-            log(
-                'DR-001 LOST'
-            );
-
-
             beast.setAttribute(
 
                 'visible',
@@ -1618,8 +1473,13 @@ a-scene{
             );
 
 
+            applyBaseline();
+
+
             setStatus(
-                'CAMERA READY • v60.0'
+
+                'CAMERA READY • v61.0'
+
             );
 
 
@@ -1627,8 +1487,13 @@ a-scene{
 
                 'DR-001 lost.<br>' +
 
-                'Point camera at card.'
+                'Point camera at the card.'
 
+            );
+
+
+            console.log(
+                '[v61.0] DR-001 LOST'
             );
 
         }
@@ -1637,56 +1502,56 @@ a-scene{
 
 
     /* =================================================
-       STARTUP LOG
+       STARTUP DEBUG
     ================================================= */
 
-    log(
+    console.log(
         '================================'
     );
 
-    log(
-        'BUILD ' +
+    console.log(
+        'CARD BEAST AR'
+    );
+
+    console.log(
+        'BUILD:',
         BUILD_VERSION
     );
 
-    log(
-        'TEST ID ' +
+    console.log(
+        'TEST:',
         TEST_ID
     );
 
-    log(
+    console.log(
         '================================'
     );
 
-    log(
+    console.log(
         'Position = 0 -0.25 0'
     );
 
-    log(
+    console.log(
         'Scale = 2.5'
     );
 
-    log(
+    console.log(
         'Parent Rotation = 0 0 0'
     );
 
-    log(
-        'Dragon Rotation = 90 270 0'
+    console.log(
+        'Dragon Rotation = 90 0 0'
     );
 
-    log(
+    console.log(
         'Forward = local -X'
     );
 
-    log(
+    console.log(
         'Target Index = 0'
     );
 
-    log(
-        'Yaw Pivot = NONE'
-    );
-
-    log(
+    console.log(
         '================================'
     );
 
@@ -1703,9 +1568,7 @@ a-scene{
             )
             .forEach(
 
-                function(
-                    video
-                ){
+                function(video){
 
                     video.setAttribute(
                         'playsinline',
