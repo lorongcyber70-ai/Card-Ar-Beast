@@ -10,11 +10,14 @@
   content="width=device-width,initial-scale=1,viewport-fit=cover"
 >
 
-<title>Card Beast AR — DR-001 Center Baseline v47</title>
+<meta name="theme-color" content="#05000c">
+
+<title>Card Beast AR — DR-001 Center X 0.14 v48</title>
 
 <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
+
 
 <style>
 
@@ -28,6 +31,7 @@
 
 html,
 body{
+
   margin:0;
   padding:0;
 
@@ -38,12 +42,18 @@ body{
 
   background:#000;
 
-  font-family:Arial,sans-serif;
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
 }
 
 body{
+
   position:fixed;
+
   inset:0;
+
 }
 
 
@@ -52,6 +62,7 @@ body{
 ========================================= */
 
 video{
+
   position:fixed!important;
 
   inset:0!important;
@@ -59,13 +70,19 @@ video{
   width:100%!important;
   height:100%!important;
 
+  max-width:none!important;
+  max-height:none!important;
+
   object-fit:cover!important;
 
-  z-index:0!important;
+  object-position:center center!important;
 
   display:block!important;
 
+  z-index:0!important;
+
   background:#000!important;
+
 }
 
 
@@ -88,8 +105,8 @@ a-scene{
 
 }
 
-.a-canvas,
-canvas{
+canvas,
+.a-canvas{
 
   background:transparent!important;
 
@@ -106,13 +123,18 @@ canvas{
 
   z-index:20;
 
-  top:18px;
+  top:
+    max(
+      14px,
+      env(safe-area-inset-top)
+    );
 
   left:0;
 
   width:100%;
 
-  padding:0 12px;
+  padding:
+    0 12px;
 
   text-align:center;
 
@@ -122,11 +144,18 @@ canvas{
 
 .logo{
 
-  font-size:28px;
+  font-size:
+    clamp(
+      23px,
+      7vw,
+      30px
+    );
 
   font-weight:900;
 
   color:#fff;
+
+  line-height:1.1;
 
   text-shadow:
     0 2px 8px #000,
@@ -141,28 +170,74 @@ canvas{
 }
 
 
+/* =========================================
+   STATUS
+========================================= */
+
 #status{
 
   display:inline-block;
 
-  max-width:90%;
+  max-width:92vw;
 
-  margin-top:12px;
+  margin-top:11px;
 
-  padding:10px 20px;
+  padding:
+    9px 18px;
 
-  border:1px solid #b75cff;
+  border:
+    1px solid
+    #b75cff;
 
   border-radius:30px;
 
-  color:#68ff9b;
+  color:#ffd86b;
 
-  background:rgba(5,0,12,.78);
+  background:
+    rgba(
+      5,
+      0,
+      12,
+      .78
+    );
+
+  font-size:
+    clamp(
+      12px,
+      3.5vw,
+      15px
+    );
 
   font-weight:800;
 
+  line-height:1.2;
+
   box-shadow:
-    0 0 12px rgba(183,92,255,.25);
+    0 0 12px
+    rgba(
+      183,
+      92,
+      255,
+      .25
+    );
+
+}
+
+#status.ok{
+
+  color:#68ff9b;
+
+}
+
+#status.err{
+
+  color:#ff6b6b;
+
+}
+
+#status.warn{
+
+  color:#ffd86b;
 
 }
 
@@ -177,74 +252,191 @@ canvas{
 
   z-index:20;
 
-  left:5%;
+  left:
+    max(
+      14px,
+      env(safe-area-inset-left)
+    );
 
-  right:5%;
+  right:
+    max(
+      14px,
+      env(safe-area-inset-right)
+    );
 
-  bottom:20px;
+  bottom:
+    max(
+      16px,
+      env(safe-area-inset-bottom)
+    );
 
-  padding:14px 18px;
+  padding:
+    13px 17px;
 
-  border:1px solid #7d35b8;
+  border:
+    1px solid
+    #7d35b8;
 
-  border-radius:24px;
+  border-radius:22px;
 
-  background:rgba(5,0,12,.84);
+  background:
+    rgba(
+      5,
+      0,
+      12,
+      .84
+    );
 
   color:#fff;
 
   text-align:center;
 
-  font-size:17px;
+  font-size:
+    clamp(
+      13px,
+      4vw,
+      17px
+    );
 
   line-height:1.45;
 
   pointer-events:none;
 
   box-shadow:
-    0 0 18px rgba(125,53,184,.20);
+    0 0 18px
+    rgba(
+      125,
+      53,
+      184,
+      .2
+    );
 
-}
+  max-height:30vh;
 
-.ok{
-  color:#68ff9b;
-}
+  overflow:hidden;
 
-.err{
-  color:#ff6b6b;
 }
 
 
 /* =========================================
-   MOBILE RESPONSIVE
+   LOADING
+========================================= */
+
+#loading{
+
+  position:fixed;
+
+  inset:0;
+
+  z-index:30;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  padding:30px;
+
+  background:
+    rgba(
+      0,
+      0,
+      0,
+      .72
+    );
+
+  color:#fff;
+
+  text-align:center;
+
+  pointer-events:none;
+
+  opacity:1;
+
+  transition:
+    opacity .25s ease;
+
+}
+
+#loading.hidden{
+
+  opacity:0;
+
+}
+
+.loading-box{
+
+  width:
+    min(
+      360px,
+      90vw
+    );
+
+  padding:
+    25px 20px;
+
+  border:
+    1px solid
+    #7d35b8;
+
+  border-radius:22px;
+
+  background:
+    rgba(
+      5,
+      0,
+      12,
+      .94
+    );
+
+  box-shadow:
+    0 0 30px
+    rgba(
+      183,
+      92,
+      255,
+      .2
+    );
+
+}
+
+.loading-title{
+
+  font-size:20px;
+
+  font-weight:900;
+
+  margin-bottom:10px;
+
+}
+
+.loading-text{
+
+  font-size:14px;
+
+  line-height:1.5;
+
+  color:#ccc;
+
+}
+
+
+/* =========================================
+   MOBILE
 ========================================= */
 
 @media(max-width:600px){
 
   .logo{
-    font-size:28px;
-  }
 
-  #status{
-    font-size:15px;
-    padding:9px 17px;
+    font-size:26px;
+
   }
 
   #info{
 
-    left:5%;
-
-    right:5%;
-
-    bottom:
-      calc(
-        18px +
-        env(safe-area-inset-bottom)
-      );
-
-    font-size:17px;
-
-    padding:14px 15px;
+    border-radius:18px;
 
   }
 
@@ -252,28 +444,43 @@ canvas{
 
 
 /* =========================================
-   SMALL HEIGHT DEVICES
+   LANDSCAPE
 ========================================= */
 
-@media(max-height:650px){
+@media(
+  orientation:landscape
+) and (max-height:500px){
 
   #ui{
-    top:10px;
+
+    top:8px;
+
   }
 
   .logo{
-    font-size:24px;
+
+    font-size:22px;
+
   }
 
   #status{
-    margin-top:8px;
-    padding:8px 15px;
+
+    margin-top:5px;
+
+    padding:
+      7px 14px;
+
   }
 
   #info{
-    bottom:10px;
-    font-size:15px;
-    padding:10px 13px;
+
+    bottom:8px;
+
+    padding:
+      8px 12px;
+
+    font-size:13px;
+
   }
 
 }
@@ -284,6 +491,34 @@ canvas{
 
 
 <body>
+
+
+<!-- =========================================
+     LOADING
+========================================= -->
+
+<div id="loading">
+
+  <div class="loading-box">
+
+    <div class="loading-title">
+
+      CARD BEAST AR
+
+    </div>
+
+    <div
+      id="loadingText"
+      class="loading-text"
+    >
+
+      Initialising camera and AR…
+
+    </div>
+
+  </div>
+
+</div>
 
 
 <!-- =========================================
@@ -301,14 +536,16 @@ canvas{
   </div>
 
 
-  <div id="status">
+  <div
+    id="status"
+    class="warn"
+  >
 
     INITIALISING CAMERA…
 
   </div>
 
 </div>
-
 
 
 <!-- =========================================
@@ -323,7 +560,6 @@ canvas{
 </div>
 
 
-
 <!-- =========================================
      A-FRAME + MINDAR
 ========================================= -->
@@ -334,18 +570,23 @@ canvas{
 
   embedded
 
-  vr-mode-ui="enabled:false"
+  vr-mode-ui="
+    enabled:false
+  "
 
-  device-orientation-permission-ui="enabled:false"
+  device-orientation-permission-ui="
+    enabled:false
+  "
 
   renderer="
     alpha:true;
     colorManagement:true;
-    physicallyCorrectLights:true
+    physicallyCorrectLights:true;
+    antialias:true
   "
 
   mindar-image="
-    imageTargetSrc:./targets.mind?v=47;
+    imageTargetSrc:./targets.mind?v=48;
     autoStart:true;
     uiScanning:false;
     uiLoading:false;
@@ -363,47 +604,49 @@ canvas{
 
   <!-- =======================================
        CAMERA
-       KEKAL
   ======================================== -->
 
   <a-camera
 
+    id="camera"
+
     position="0 0 0"
 
-    look-controls="enabled:false"
+    look-controls="
+      enabled:false
+    "
 
-  >
-  </a-camera>
-
+  ></a-camera>
 
 
   <!-- =======================================
        DR-001 TARGET
        
-       targetIndex:
-       0
+       TARGET INDEX 0
   ======================================== -->
 
   <a-entity
 
     id="target"
 
-    mindar-image-target="targetIndex:0"
+    mindar-image-target="
+      targetIndex:0
+    "
 
   >
 
 
     <!-- =====================================
-         BEAST
+         BEAST PARENT
          
-         CENTER BASELINE
+         ROTATION:
+         0 0 0
          
-         X = 0
-         Y = -0.25
-         Z = 0
+         SCALE:
+         2.5
          
-         ROTATION = 0 0 0
-         SCALE = 2.5
+         POSITION:
+         0 0 0
     ====================================== -->
 
     <a-entity
@@ -412,7 +655,7 @@ canvas{
 
       visible="false"
 
-      position="0 -0.25 0"
+      position="0 0 0"
 
       rotation="0 0 0"
 
@@ -424,30 +667,38 @@ canvas{
       <!-- ===================================
            DRAGON MODEL
            
-           ROTATION WAJIB KEKAL:
+           CENTER TEST:
+           X = 0.14
+           
+           Y = -0.25
+           
+           Z = 0
+           
+           ROTATION LOCK:
            90 0 0
-           
-           SCALE MODEL:
-           1 1 1
-           
-           Parent beast:
-           2.5
       ==================================== -->
 
       <a-entity
 
         id="dragonModel"
 
-        gltf-model="./models/ember-dragon.glb?v=47"
+        gltf-model="
+          ./models/ember-dragon.glb?v=48
+        "
 
-        position="0 0 0"
+        position="
+          0.14 -0.25 0
+        "
 
-        rotation="90 0 0"
+        rotation="
+          90 0 0
+        "
 
-        scale="1 1 1"
+        scale="
+          1 1 1
+        "
 
-      >
-      </a-entity>
+      ></a-entity>
 
 
     </a-entity>
@@ -459,185 +710,740 @@ canvas{
 </a-scene>
 
 
-
 <script>
 
 (function(){
 
-
-  /* =========================================
-     ELEMENTS
-  ========================================= */
-
-  const scene =
-    document.getElementById('scene');
+"use strict";
 
 
-  const target =
-    document.getElementById('target');
+/* =========================================
+   ELEMENTS
+========================================= */
+
+const scene =
+  document.getElementById(
+    "scene"
+  );
 
 
-  const beast =
-    document.getElementById('beast');
+const target =
+  document.getElementById(
+    "target"
+  );
 
 
-  const dragonModel =
-    document.getElementById('dragonModel');
+const beast =
+  document.getElementById(
+    "beast"
+  );
 
 
-  const status =
-    document.getElementById('status');
+const dragonModel =
+  document.getElementById(
+    "dragonModel"
+  );
 
 
-  const info =
-    document.getElementById('info');
+const status =
+  document.getElementById(
+    "status"
+  );
 
 
-  /* =========================================
-     BASELINE
+const info =
+  document.getElementById(
+    "info"
+  );
+
+
+const loading =
+  document.getElementById(
+    "loading"
+  );
+
+
+const loadingText =
+  document.getElementById(
+    "loadingText"
+  );
+
+
+/* =========================================
+   VERSION
+========================================= */
+
+const VERSION =
+  "48";
+
+
+/* =========================================
+   TARGET
+========================================= */
+
+const TARGET_ID =
+  "DR-001";
+
+
+const TARGET_INDEX =
+  0;
+
+
+/* =========================================
+   MODEL
+========================================= */
+
+const MODEL_PATH =
+  "./models/ember-dragon.glb?v=" +
+  VERSION;
+
+
+/* =========================================
+   LOCKED DRAGON BASELINE
+========================================= */
+
+const DRAGON_X =
+  0.14;
+
+
+const DRAGON_Y =
+  -0.25;
+
+
+const DRAGON_Z =
+  0;
+
+
+/*
+  ROTATION JANGAN UBAH.
+*/
+
+const DRAGON_ROT_X =
+  90;
+
+const DRAGON_ROT_Y =
+  0;
+
+const DRAGON_ROT_Z =
+  0;
+
+
+/* =========================================
+   BEAST BASELINE
+========================================= */
+
+const BEAST_ROT_X =
+  0;
+
+const BEAST_ROT_Y =
+  0;
+
+const BEAST_ROT_Z =
+  0;
+
+
+const BEAST_SCALE =
+  2.5;
+
+
+/* =========================================
+   EPIC EMERGENCE
      
-     JANGAN UBAH ROTATION NAGA
-  ========================================= */
+   X DAN Y TIDAK DIANIMATE.
 
-  const BASE_X = 0;
+   Z sahaja bergerak sedikit.
+========================================= */
 
-  const BASE_Y = -0.25;
-
-  const BASE_Z = 0;
-
-
-  const DRAGON_ROTATION =
-    '90 0 0';
+const START_Z =
+  0;
 
 
-  const FINAL_SCALE = 2.5;
+const PEAK_Z =
+  0.035;
 
 
-  /* =========================================
-     EPIC EMERGENCE
+const START_SCALE =
+  0.45;
+
+
+const PEAK_SCALE =
+  2.65;
+
+
+const FINAL_SCALE =
+  2.5;
+
+
+const EMERGENCE_DURATION =
+  850;
+
+
+/* =========================================
+   STATE
+========================================= */
+
+let modelReady =
+  false;
+
+
+let targetFound =
+  false;
+
+
+let animationPlayed =
+  false;
+
+
+let animationRunning =
+  false;
+
+
+let animationFrame =
+  null;
+
+
+/* =========================================
+   UI
+========================================= */
+
+function setStatus(
+  text,
+  cls
+){
+
+  status.textContent =
+    text;
+
+  status.className =
+    cls || "warn";
+
+}
+
+
+function setInfo(
+  html
+){
+
+  info.innerHTML =
+    html;
+
+}
+
+
+function hideLoading(){
+
+  loading.classList.add(
+    "hidden"
+  );
+
+}
+
+
+function showLoading(
+  text
+){
+
+  loadingText.textContent =
+    text;
+
+  loading.classList.remove(
+    "hidden"
+  );
+
+}
+
+
+/* =========================================
+   LOCK DRAGON ROTATION
      
-     Z SAHAJA DIGUNAKAN
-     
-     Rotation tidak disentuh.
-     
-     Animation hanya sekali
-     untuk setiap targetFound.
-  ========================================= */
+   IMPORTANT:
+   90 0 0
+========================================= */
 
-  const EMERGE_START_Z = 0;
+function lockDragonRotation(){
 
-  const EMERGE_PEAK_Z = 0.035;
-
-  const EMERGE_START_SCALE = 0.45;
-
-  const EMERGE_PEAK_SCALE = 2.65;
-
-  const EMERGE_FINAL_SCALE = 2.5;
-
-
-  let animationPlayed = false;
-
-  let animationRunning = false;
-
-
-  /* =========================================
-     STATUS
-  ========================================= */
-
-  function setStatus(
-    text,
-    cls
+  if(
+    !dragonModel ||
+    !dragonModel.object3D
   ){
 
-    status.textContent =
-      text;
-
-    status.className =
-      cls || '';
+    return;
 
   }
 
 
-  /* =========================================
-     INFO
-  ========================================= */
+  const obj =
+    dragonModel.object3D;
 
-  function setInfo(
-    html
+
+  obj.rotation.set(
+
+    THREE.MathUtils.degToRad(
+      DRAGON_ROT_X
+    ),
+
+    THREE.MathUtils.degToRad(
+      DRAGON_ROT_Y
+    ),
+
+    THREE.MathUtils.degToRad(
+      DRAGON_ROT_Z
+    )
+
+  );
+
+
+  obj.updateMatrixWorld(
+    true
+  );
+
+}
+
+
+/* =========================================
+   RESET BASELINE
+========================================= */
+
+function resetBaseline(){
+
+  if(
+    !dragonModel ||
+    !dragonModel.object3D
   ){
 
-    info.innerHTML =
-      html;
+    return;
 
   }
 
 
-  /* =========================================
-     RESET BASELINE
+  /*
+    BEAST
+  */
+
+  beast.object3D.position.set(
+
+    0,
+    0,
+    0
+
+  );
+
+
+  beast.object3D.rotation.set(
+
+    BEAST_ROT_X,
+    BEAST_ROT_Y,
+    BEAST_ROT_Z
+
+  );
+
+
+  beast.object3D.scale.set(
+
+    BEAST_SCALE,
+    BEAST_SCALE,
+    BEAST_SCALE
+
+  );
+
+
+  /*
+    DRAGON
+  */
+
+  dragonModel.object3D.position.set(
+
+    DRAGON_X,
+    DRAGON_Y,
+    DRAGON_Z
+
+  );
+
+
+  dragonModel.object3D.scale.set(
+
+    1,
+    1,
+    1
+
+  );
+
+
+  lockDragonRotation();
+
+
+  beast.object3D.updateMatrixWorld(
+    true
+  );
+
+
+  dragonModel.object3D.updateMatrixWorld(
+    true
+  );
+
+}
+
+
+/* =========================================
+   EASING
+========================================= */
+
+function easeOutCubic(
+  t
+){
+
+  return 1 -
+    Math.pow(
+      1 - t,
+      3
+    );
+
+}
+
+
+function easeOutBack(
+  t
+){
+
+  const c1 =
+    1.70158;
+
+
+  const c3 =
+    c1 + 1;
+
+
+  return 1 +
+    c3 *
+    Math.pow(
+      t - 1,
+      3
+    ) +
+    c1 *
+    Math.pow(
+      t - 1,
+      2
+    );
+
+}
+
+
+/* =========================================
+   CANCEL ANIMATION
+========================================= */
+
+function cancelAnimation(){
+
+  if(
+    animationFrame !== null
+  ){
+
+    cancelAnimationFrame(
+      animationFrame
+    );
+
+  }
+
+
+  animationFrame =
+    null;
+
+
+  animationRunning =
+    false;
+
+}
+
+
+/* =========================================
+   EPIC EMERGENCE
      
-     Ini memastikan setiap kali
-     target baru dikesan,
-     posisi kembali tepat.
-  ========================================= */
+   ONLY Z MOVEMENT
+     
+   X = 0.14
+   Y = -0.25
+     
+   ROTATION = 90 0 0
+========================================= */
 
-  function resetBaseline(){
+function playEpicEmergence(){
 
-    beast.object3D.position.set(
+  if(
+    !modelReady ||
+    !targetFound ||
+    animationPlayed ||
+    animationRunning
+  ){
 
-      BASE_X,
+    return;
 
-      BASE_Y,
-
-      BASE_Z
-
-    );
-
-
-    beast.object3D.rotation.set(
-
-      0,
-
-      0,
-
-      0
-
-    );
+  }
 
 
-    beast.object3D.scale.set(
+  animationPlayed =
+    true;
 
-      FINAL_SCALE,
 
-      FINAL_SCALE,
+  animationRunning =
+    true;
 
-      FINAL_SCALE
+
+  /*
+    Start state.
+  */
+
+  dragonModel.object3D.position.set(
+
+    DRAGON_X,
+    DRAGON_Y,
+    START_Z
+
+  );
+
+
+  dragonModel.object3D.scale.set(
+
+    START_SCALE,
+    START_SCALE,
+    START_SCALE
+
+  );
+
+
+  /*
+    Rotation LOCK.
+  */
+
+  lockDragonRotation();
+
+
+  const startTime =
+    performance.now();
+
+
+  function animate(
+    now
+  ){
+
+    if(
+      !targetFound ||
+      !animationRunning
+    ){
+
+      return;
+
+    }
+
+
+    const elapsed =
+      now -
+      startTime;
+
+
+    let t =
+      Math.min(
+        elapsed /
+        EMERGENCE_DURATION,
+        1
+      );
+
+
+    /*
+      Main growth.
+    */
+
+    let growth;
+
+
+    if(
+      t < 0.82
+    ){
+
+      const p =
+        t / 0.82;
+
+
+      growth =
+        easeOutCubic(
+          p
+        );
+
+    }else{
+
+      const p =
+        (
+          t - 0.82
+        ) /
+        0.18;
+
+
+      growth =
+        1 +
+        (
+          0.06 *
+          Math.sin(
+            p *
+            Math.PI
+          )
+        );
+
+    }
+
+
+    let scale;
+
+
+    if(
+      t < 0.82
+    ){
+
+      scale =
+        START_SCALE +
+        (
+          PEAK_SCALE -
+          START_SCALE
+        ) *
+        growth;
+
+    }else{
+
+      const settle =
+        (
+          t - 0.82
+        ) /
+        0.18;
+
+
+      scale =
+        PEAK_SCALE +
+        (
+          FINAL_SCALE -
+          PEAK_SCALE
+        ) *
+        settle;
+
+    }
+
+
+    /*
+      Z hanya bergerak
+      sangat sedikit.
+    */
+
+    const zProgress =
+      easeOutCubic(
+        t
+      );
+
+
+    const currentZ =
+      START_Z +
+      (
+        PEAK_Z -
+        START_Z
+      ) *
+      zProgress;
+
+
+    /*
+      X LOCK
+    */
+
+    dragonModel.object3D.position.x =
+      DRAGON_X;
+
+
+    /*
+      Y LOCK
+    */
+
+    dragonModel.object3D.position.y =
+      DRAGON_Y;
+
+
+    /*
+      Z ANIMATION SAHAJA
+    */
+
+    dragonModel.object3D.position.z =
+      currentZ;
+
+
+    /*
+      SCALE
+    */
+
+    dragonModel.object3D.scale.set(
+
+      scale,
+      scale,
+      scale
 
     );
 
 
     /*
-      PASTIKAN DRAGON ROTATION
-      KEKAL 90 0 0.
+      ROTATION LOCK
     */
 
-    dragonModel.object3D.rotation.set(
+    lockDragonRotation();
 
-      THREE.MathUtils.degToRad(90),
 
+    /*
+      BEAST LOCK
+    */
+
+    beast.object3D.position.set(
       0,
-
+      0,
       0
+    );
+
+
+    beast.object3D.rotation.set(
+      0,
+      0,
+      0
+    );
+
+
+    beast.object3D.scale.set(
+
+      BEAST_SCALE,
+      BEAST_SCALE,
+      BEAST_SCALE
 
     );
 
 
+    beast.object3D.updateMatrixWorld(
+      true
+    );
+
+
+    if(
+      t < 1
+    ){
+
+      animationFrame =
+        requestAnimationFrame(
+          animate
+        );
+
+      return;
+
+    }
+
+
+    /*
+      FINAL HARD LOCK
+    */
+
     dragonModel.object3D.position.set(
 
-      0,
-
-      0,
-
-      0
+      DRAGON_X,
+      DRAGON_Y,
+      PEAK_Z
 
     );
 
@@ -645,10 +1451,20 @@ canvas{
     dragonModel.object3D.scale.set(
 
       1,
-
       1,
-
       1
+
+    );
+
+
+    lockDragonRotation();
+
+
+    beast.object3D.scale.set(
+
+      BEAST_SCALE,
+      BEAST_SCALE,
+      BEAST_SCALE
 
     );
 
@@ -662,948 +1478,782 @@ canvas{
       true
     );
 
+
+    animationFrame =
+      null;
+
+
+    animationRunning =
+      false;
+
+
+    console.log(
+      "Epic Emergence completed."
+    );
+
+
+    console.log(
+      "Final dragon position:",
+      DRAGON_X,
+      DRAGON_Y,
+      PEAK_Z
+    );
+
+
+    console.log(
+      "Final dragon rotation:",
+      "90 0 0"
+    );
+
+
+    setInfo(
+
+      "🔥 <b>EMBER DRAGON ACTIVE</b><br>" +
+
+      "Epic Emergence complete.<br>" +
+
+      "Center X: 0.14<br>" +
+
+      "Y: -0.25<br>" +
+
+      "Rotation: 90 0 0<br>" +
+
+      "Scale: 2.5"
+
+    );
+
   }
 
 
-  /* =========================================
-     EPIC EMERGENCE
-     
-     Naga bermula kecil
-     kemudian naik sedikit
-     kemudian membesar
-     kemudian bounce ringkas.
-     
-     Z sahaja bergerak.
-     
-     Y KEKAL -0.25.
-     
-     ROTATION KEKAL 90 0 0.
-  ========================================= */
-
-  function playEpicEmergence(){
-
-    if(
-      animationPlayed ||
-      animationRunning
-    ){
-
-      return;
-
-    }
-
-
-    animationPlayed =
-      true;
-
-    animationRunning =
-      true;
-
-
-    const startTime =
-      performance.now();
-
-
-    const duration =
-      850;
-
-
-    const startZ =
-      EMERGE_START_Z;
-
-
-    const peakZ =
-      EMERGE_PEAK_Z;
-
-
-    /*
-      Mulakan kecil.
-    */
-
-    beast.object3D.position.set(
-
-      BASE_X,
-
-      BASE_Y,
-
-      startZ
-
-    );
-
-
-    beast.object3D.scale.set(
-
-      EMERGE_START_SCALE,
-
-      EMERGE_START_SCALE,
-
-      EMERGE_START_SCALE
-
-    );
-
-
-    /*
-      Pastikan rotation parent
-      tidak berubah.
-    */
-
-    beast.object3D.rotation.set(
-
-      0,
-
-      0,
-
-      0
-
-    );
-
-
-    /*
-      Pastikan dragon rotation
-      masih 90 0 0.
-    */
-
-    dragonModel.object3D.rotation.set(
-
-      THREE.MathUtils.degToRad(90),
-
-      0,
-
-      0
-
-    );
-
-
-    function easeOutBack(t){
-
-      const c1 =
-        1.70158;
-
-      const c3 =
-        c1 + 1;
-
-      return (
-
-        1 +
-
-        c3 *
-        Math.pow(t - 1,3) +
-
-        c1 *
-        Math.pow(t - 1,2)
-
-      );
-
-    }
-
-
-    function animate(
-      currentTime
-    ){
-
-      if(
-        !animationRunning
-      ){
-
-        return;
-
-      }
-
-
-      const elapsed =
-        currentTime -
-        startTime;
-
-
-      let t =
-        Math.min(
-          elapsed / duration,
-          1
-        );
-
-
-      /*
-        Ease-out-back
-        memberikan sedikit bounce.
-      */
-
-      const eased =
-        easeOutBack(t);
-
-
-      /*
-        Z bergerak sedikit sahaja.
-      */
-
-      const currentZ =
-        startZ +
-        (
-          peakZ -
-          startZ
-        ) *
-        eased;
-
-
-      /*
-        Scale:
-        kecil → besar → sedikit overshoot
-      */
-
-      let currentScale;
-
-
-      if(t < 0.82){
-
-        const grow =
-          t / 0.82;
-
-
-        const smoothGrow =
-          1 -
-          Math.pow(
-            1 - grow,
-            3
-          );
-
-
-        currentScale =
-          EMERGE_START_SCALE +
-
-          (
-            EMERGE_PEAK_SCALE -
-            EMERGE_START_SCALE
-          ) *
-          smoothGrow;
-
-      }else{
-
-        const settle =
-          (
-            t - 0.82
-          ) /
-          0.18;
-
-
-        currentScale =
-          EMERGE_PEAK_SCALE +
-
-          (
-            EMERGE_FINAL_SCALE -
-            EMERGE_PEAK_SCALE
-          ) *
-          settle;
-
-      }
-
-
-      /*
-        X KEKAL 0.
-        
-        Y KEKAL -0.25.
-        
-        HANYA Z BERGERAK.
-      */
-
-      beast.object3D.position.set(
-
-        BASE_X,
-
-        BASE_Y,
-
-        currentZ
-
-      );
-
-
-      beast.object3D.scale.set(
-
-        currentScale,
-
-        currentScale,
-
-        currentScale
-
-      );
-
-
-      /*
-        Jangan sesekali rotate beast.
-      */
-
-      beast.object3D.rotation.set(
-
-        0,
-
-        0,
-
-        0
-
-      );
-
-
-      /*
-        Jangan sesekali ubah
-        dragonModel rotation.
-      */
-
-      dragonModel.object3D.rotation.set(
-
-        THREE.MathUtils.degToRad(90),
-
-        0,
-
-        0
-
-      );
-
-
-      beast.object3D.updateMatrixWorld(
-        true
-      );
-
-
-      if(t < 1){
-
-        requestAnimationFrame(
-          animate
-        );
-
-      }else{
-
-        /*
-          FINAL BASELINE
-        */
-
-        beast.object3D.position.set(
-
-          BASE_X,
-
-          BASE_Y,
-
-          peakZ
-
-        );
-
-
-        beast.object3D.scale.set(
-
-          FINAL_SCALE,
-
-          FINAL_SCALE,
-
-          FINAL_SCALE
-
-        );
-
-
-        beast.object3D.rotation.set(
-
-          0,
-
-          0,
-
-          0
-
-        );
-
-
-        dragonModel.object3D.rotation.set(
-
-          THREE.MathUtils.degToRad(90),
-
-          0,
-
-          0
-
-        );
-
-
-        beast.object3D.updateMatrixWorld(
-          true
-        );
-
-
-        animationRunning =
-          false;
-
-
-        setInfo(
-
-          '🔥 <b>EMBER DRAGON ACTIVE</b><br>' +
-
-          'Epic Emergence complete.<br>' +
-
-          'Position X: 0<br>' +
-
-          'Position Y: -0.25<br>' +
-
-          'Position Z: 0.035<br>' +
-
-          'Rotation: 90 0 0<br>' +
-
-          'Scale: 2.5'
-
-        );
-
-      }
-
-    }
-
-
+  animationFrame =
     requestAnimationFrame(
       animate
     );
 
-  }
+}
 
 
-  /* =========================================
-     A-FRAME LOADED
-  ========================================= */
+/* =========================================
+   A-FRAME LOADED
+========================================= */
 
-  scene.addEventListener(
+scene.addEventListener(
 
-    'loaded',
+  "loaded",
 
-    function(){
+  function(){
 
-      setStatus(
-        'CAMERA / AR INITIALISING…'
-      );
+    setStatus(
+      "CAMERA / AR INITIALISING…",
+      "warn"
+    );
 
 
-      setInfo(
+    setInfo(
 
-        'Loading MindAR target ' +
+      "Loading MindAR target " +
 
-        '<b>DR-001</b>…'
+      "<b>" +
+      TARGET_ID +
+      "</b>…"
 
-      );
+    );
 
 
-      console.log(
-        'A-Frame loaded.'
-      );
-
-    }
-
-  );
-
-
-  /* =========================================
-     AR READY
-  ========================================= */
-
-  scene.addEventListener(
-
-    'arReady',
-
-    function(){
-
-      setStatus(
-
-        'CAMERA ACTIVE ✓',
-
-        'ok'
-
-      );
-
-
-      setInfo(
-
-        'Point the rear camera at ' +
-
-        '<b>DR-001 Ember Dragon</b>.'
-
-      );
-
-
-      console.log(
-        'MindAR arReady.'
-      );
-
-    }
-
-  );
-
-
-  /* =========================================
-     MODEL LOADED
-  ========================================= */
-
-  dragonModel.addEventListener(
-
-    'model-loaded',
-
-    function(){
-
-      console.log(
-        '================================'
-      );
-
-
-      console.log(
-        'CARD BEAST AR — v47'
-      );
-
-
-      console.log(
-        '================================'
-      );
-
-
-      console.log(
-        'Target ID: DR-001'
-      );
-
-
-      console.log(
-        'Target file: ./targets.mind?v=47'
-      );
-
-
-      console.log(
-        'Target index: 0'
-      );
-
-
-      console.log(
-        'Model: ./models/ember-dragon.glb?v=47'
-      );
-
-
-      console.log(
-        'Beast position:',
-        '0 -0.25 0'
-      );
-
-
-      console.log(
-        'Beast rotation:',
-        '0 0 0'
-      );
-
-
-      console.log(
-        'Dragon rotation:',
-        '90 0 0'
-      );
-
-
-      console.log(
-        'Scale:',
-        '2.5'
-      );
-
-
-      console.log(
-        'X CENTER BASELINE: 0'
-      );
-
-
-      console.log(
-        'Epic emergence:',
-        'Z axis only'
-      );
-
-
-      resetBaseline();
-
-
-      setInfo(
-
-        '🔥 <b>EMBER DRAGON READY</b><br>' +
-
-        '🟣 3D model loaded successfully.<br>' +
-
-        'Center baseline ready.'
-
-      );
-
-    }
-
-  );
-
-
-  /* =========================================
-     MODEL ERROR
-  ========================================= */
-
-  dragonModel.addEventListener(
-
-    'model-error',
-
-    function(event){
-
-      console.error(
-        'GLB model error:',
-        event
-      );
-
-
-      setStatus(
-
-        'MODEL ERROR',
-
-        'err'
-
-      );
-
-
-      setInfo(
-
-        '❌ Failed to load ' +
-
-        '<b>ember-dragon.glb</b>.<br>' +
-
-        'Check the models folder and filename.'
-
-      );
-
-    }
-
-  );
-
-
-  /* =========================================
-     TARGET FOUND
-  ========================================= */
-
-  target.addEventListener(
-
-    'targetFound',
-
-    function(){
-
-      console.log(
-        'DR-001 targetFound.'
-      );
-
-
-      /*
-        Reset setiap kali
-        target dikesan semula.
-      */
-
-      animationPlayed =
-        false;
-
-
-      animationRunning =
-        false;
-
-
-      resetBaseline();
-
-
-      beast.setAttribute(
-        'visible',
-        'true'
-      );
-
-
-      setStatus(
-
-        'CARD CONFIRMED • DR-001',
-
-        'ok'
-
-      );
-
-
-      setInfo(
-
-        '🔥 <b>EMBER DRAGON DETECTED</b><br>' +
-
-        '🟣 Epic Emergence starting...'
-
-      );
-
-
-      /*
-        Play sekali untuk
-        targetFound ini.
-      */
-
-      playEpicEmergence();
-
-    }
-
-  );
-
-
-  /* =========================================
-     TARGET LOST
-  ========================================= */
-
-  target.addEventListener(
-
-    'targetLost',
-
-    function(){
-
-      console.log(
-        'DR-001 targetLost.'
-      );
-
-
-      animationRunning =
-        false;
-
-
-      beast.setAttribute(
-
-        'visible',
-
-        'false'
-
-      );
-
-
-      /*
-        Reset animation state
-        supaya targetFound
-        seterusnya boleh main
-        sekali lagi.
-      */
-
-      animationPlayed =
-        false;
-
-
-      resetBaseline();
-
-
-      setStatus(
-
-        'CAMERA ACTIVE ✓',
-
-        'ok'
-
-      );
-
-
-      setInfo(
-
-        'Point the rear camera at ' +
-
-        '<b>DR-001 Ember Dragon</b>.'
-
-      );
-
-    }
-
-  );
-
-
-  /* =========================================
-     AR ERROR
-  ========================================= */
-
-  scene.addEventListener(
-
-    'arError',
-
-    function(event){
-
-      console.error(
-
-        'MindAR error:',
-
-        event
-
-      );
-
-
-      setStatus(
-
-        'AR ERROR',
-
-        'err'
-
-      );
-
-
-      setInfo(
-
-        'MindAR gagal dimulakan. ' +
-
-        'Kamera mungkin tersedia, ' +
-
-        'tetapi AR tidak aktif.'
-
-      );
-
-    }
-
-  );
-
-
-  /* =========================================
-     CAMERA VIDEO FIX
-  ========================================= */
-
-  function fixVideoLayer(){
-
-    document
-      .querySelectorAll('video')
-      .forEach(
-
-        function(video){
-
-          video.setAttribute(
-            'playsinline',
-            ''
-          );
-
-
-          video.setAttribute(
-            'autoplay',
-            ''
-          );
-
-
-          video.muted =
-            true;
-
-
-          Object.assign(
-
-            video.style,
-
-            {
-
-              position:'fixed',
-
-              inset:'0',
-
-              width:'100%',
-
-              height:'100%',
-
-              objectFit:'cover',
-
-              zIndex:'0',
-
-              display:'block',
-
-              background:'#000'
-
-            }
-
-          );
-
-        }
-
-      );
+    console.log(
+      "A-Frame loaded."
+    );
 
   }
 
-
-  /* =========================================
-     WATCH MINDAR VIDEO
-  ========================================= */
-
-  new MutationObserver(
-
-    fixVideoLayer
-
-  ).observe(
-
-    document.documentElement,
-
-    {
-
-      childList:true,
-
-      subtree:true
-
-    }
-
-  );
+);
 
 
-  /* =========================================
-     INITIAL VIDEO FIX
-  ========================================= */
+/* =========================================
+   AR READY
+========================================= */
+
+scene.addEventListener(
+
+  "arReady",
+
+  function(){
+
+    hideLoading();
+
+
+    setStatus(
+      "CAMERA ACTIVE ✓",
+      "ok"
+    );
+
+
+    setInfo(
+
+      "Point the rear camera at " +
+
+      "<b>DR-001 Ember Dragon</b>."
+
+    );
+
+
+    console.log(
+      "MindAR arReady."
+    );
+
+  }
+
+);
+
+
+/* =========================================
+   MODEL LOADED
+========================================= */
+
+dragonModel.addEventListener(
+
+  "model-loaded",
+
+  function(){
+
+    modelReady =
+      true;
+
+
+    resetBaseline();
+
+
+    console.log(
+      "========================================"
+    );
+
+
+    console.log(
+      "CARD BEAST AR — DR-001 v48"
+    );
+
+
+    console.log(
+      "========================================"
+    );
+
+
+    console.log(
+      "Target ID:",
+      TARGET_ID
+    );
+
+
+    console.log(
+      "Target index:",
+      TARGET_INDEX
+    );
+
+
+    console.log(
+      "Target file:",
+      "./targets.mind?v=48"
+    );
+
+
+    console.log(
+      "Model:",
+      MODEL_PATH
+    );
+
+
+    console.log(
+      "Dragon position:",
+      "0.14 -0.25 0"
+    );
+
+
+    console.log(
+      "Dragon rotation:",
+      "90 0 0"
+    );
+
+
+    console.log(
+      "Beast rotation:",
+      "0 0 0"
+    );
+
+
+    console.log(
+      "Beast scale:",
+      "2.5"
+    );
+
+
+    console.log(
+      "Epic Emergence:",
+      "Z only"
+    );
+
+
+    console.log(
+      "World Y rotation:",
+      "OFF"
+    );
+
+
+    console.log(
+      "========================================"
+    );
+
+
+    setInfo(
+
+      "🔥 <b>EMBER DRAGON READY</b><br>" +
+
+      "3D model loaded successfully.<br>" +
+
+      "Testing center X = 0.14."
+
+    );
+
+  }
+
+);
+
+
+/* =========================================
+   MODEL ERROR
+========================================= */
+
+dragonModel.addEventListener(
+
+  "model-error",
+
+  function(event){
+
+    modelReady =
+      false;
+
+
+    console.error(
+      "GLB model error:",
+      event
+    );
+
+
+    setStatus(
+      "MODEL ERROR",
+      "err"
+    );
+
+
+    setInfo(
+
+      "❌ Failed to load " +
+
+      "<b>ember-dragon.glb</b>.<br>" +
+
+      "Check the models folder and filename."
+
+    );
+
+
+    showLoading(
+      "Failed to load 3D model."
+    );
+
+  }
+
+);
+
+
+/* =========================================
+   TARGET FOUND
+========================================= */
+
+target.addEventListener(
+
+  "targetFound",
+
+  function(){
+
+    targetFound =
+      true;
+
+
+    animationPlayed =
+      false;
+
+
+    cancelAnimation();
+
+
+    /*
+      Reset sebelum emergence.
+    */
+
+    resetBaseline();
+
+
+    beast.setAttribute(
+      "visible",
+      "true"
+    );
+
+
+    setStatus(
+
+      "CARD CONFIRMED • DR-001",
+
+      "ok"
+
+    );
+
+
+    setInfo(
+
+      "🔥 <b>EMBER DRAGON DETECTED</b><br>" +
+
+      "Epic Emergence starting…"
+
+    );
+
+
+    console.log(
+      "DR-001 targetFound."
+    );
+
+
+    /*
+      Main sekali setiap
+      targetFound.
+    */
+
+    playEpicEmergence();
+
+  }
+
+);
+
+
+/* =========================================
+   TARGET LOST
+========================================= */
+
+target.addEventListener(
+
+  "targetLost",
+
+  function(){
+
+    targetFound =
+      false;
+
+
+    cancelAnimation();
+
+
+    animationPlayed =
+      false;
+
+
+    beast.setAttribute(
+
+      "visible",
+
+      "false"
+
+    );
+
+
+    resetBaseline();
+
+
+    setStatus(
+
+      "CAMERA ACTIVE ✓",
+
+      "ok"
+
+    );
+
+
+    setInfo(
+
+      "Point the rear camera at " +
+
+      "<b>DR-001 Ember Dragon</b>."
+
+    );
+
+
+    console.log(
+      "DR-001 targetLost."
+    );
+
+  }
+
+);
+
+
+/* =========================================
+   AR ERROR
+========================================= */
+
+scene.addEventListener(
+
+  "arError",
+
+  function(event){
+
+    console.error(
+      "MindAR error:",
+      event
+    );
+
+
+    targetFound =
+      false;
+
+
+    cancelAnimation();
+
+
+    beast.setAttribute(
+
+      "visible",
+
+      "false"
+
+    );
+
+
+    setStatus(
+      "AR ERROR",
+      "err"
+    );
+
+
+    setInfo(
+
+      "❌ MindAR gagal dimulakan.<br>" +
+
+      "Pastikan permission kamera " +
+
+      "diberikan."
+
+    );
+
+  }
+
+);
+
+
+/* =========================================
+   CAMERA VIDEO
+========================================= */
+
+function fixVideoLayer(){
+
+  document
+    .querySelectorAll(
+      "video"
+    )
+    .forEach(
+
+      function(video){
+
+        video.setAttribute(
+          "playsinline",
+          ""
+        );
+
+
+        video.setAttribute(
+          "webkit-playsinline",
+          ""
+        );
+
+
+        video.setAttribute(
+          "autoplay",
+          ""
+        );
+
+
+        video.muted =
+          true;
+
+
+        Object.assign(
+
+          video.style,
+
+          {
+
+            position:
+              "fixed",
+
+            inset:
+              "0",
+
+            width:
+              "100%",
+
+            height:
+              "100%",
+
+            maxWidth:
+              "none",
+
+            maxHeight:
+              "none",
+
+            objectFit:
+              "cover",
+
+            objectPosition:
+              "center center",
+
+            zIndex:
+              "0",
+
+            display:
+              "block",
+
+            background:
+              "#000"
+
+          }
+
+        );
+
+      }
+
+    );
+
+}
+
+
+/* =========================================
+   VIDEO OBSERVER
+========================================= */
+
+new MutationObserver(
+
+  function(){
+
+    fixVideoLayer();
+
+  }
+
+).observe(
+
+  document.documentElement,
+
+  {
+
+    childList:
+      true,
+
+    subtree:
+      true
+
+  }
+
+);
+
+
+/* =========================================
+   INITIAL VIDEO FIX
+========================================= */
+
+fixVideoLayer();
+
+
+/* =========================================
+   RESIZE
+========================================= */
+
+function handleResize(){
 
   fixVideoLayer();
 
+}
 
-  /* =========================================
-     DEBUG
-  ========================================= */
 
-  console.log(
-    '================================'
-  );
+window.addEventListener(
 
-  console.log(
-    'CARD BEAST AR — CENTER BASELINE v47'
-  );
+  "resize",
 
-  console.log(
-    '================================'
-  );
+  handleResize
 
-  console.log(
-    'DR-001'
-  );
+);
 
-  console.log(
-    'targets.mind'
-  );
 
-  console.log(
-    'targetIndex: 0'
-  );
+window.addEventListener(
 
-  console.log(
-    'Model: ember-dragon.glb'
-  );
+  "orientationchange",
 
-  console.log(
-    'Position X: 0'
-  );
+  function(){
 
-  console.log(
-    'Position Y: -0.25'
-  );
+    setTimeout(
 
-  console.log(
-    'Position Z: 0'
-  );
+      handleResize,
 
-  console.log(
-    'Beast rotation: 0 0 0'
-  );
+      250
 
-  console.log(
-    'Dragon rotation: 90 0 0'
-  );
+    );
 
-  console.log(
-    'Scale: 2.5'
-  );
+  }
 
-  console.log(
-    'Epic emergence: Z only'
-  );
+);
 
-  console.log(
-    'Tracking: MindAR'
-  );
 
-  console.log(
-    'Cache bust: v47'
-  );
+/* =========================================
+   VISIBILITY
+========================================= */
 
-  console.log(
-    '================================'
-  );
+document.addEventListener(
+
+  "visibilitychange",
+
+  function(){
+
+    if(
+      document.hidden
+    ){
+
+      cancelAnimation();
+
+
+      beast.setAttribute(
+        "visible",
+        "false"
+      );
+
+    }
+
+  }
+
+);
+
+
+/* =========================================
+   GLOBAL ERROR
+========================================= */
+
+window.addEventListener(
+
+  "error",
+
+  function(event){
+
+    console.error(
+
+      "Page error:",
+
+      event.error ||
+      event.message
+
+    );
+
+  }
+
+);
+
+
+window.addEventListener(
+
+  "unhandledrejection",
+
+  function(event){
+
+    console.error(
+
+      "Unhandled promise:",
+
+      event.reason
+
+    );
+
+  }
+
+);
+
+
+/* =========================================
+   FINAL DEBUG
+========================================= */
+
+console.log(
+  "========================================"
+);
+
+
+console.log(
+  "CARD BEAST AR — CENTER X 0.14 v48"
+);
+
+
+console.log(
+  "========================================"
+);
+
+
+console.log(
+  "Target: DR-001"
+);
+
+
+console.log(
+  "targetIndex: 0"
+);
+
+
+console.log(
+  "Position: 0.14 -0.25 0"
+);
+
+
+console.log(
+  "Rotation: 90 0 0"
+);
+
+
+console.log(
+  "Beast rotation: 0 0 0"
+);
+
+
+console.log(
+  "Beast scale: 2.5"
+);
+
+
+console.log(
+  "Epic Emergence: ON"
+);
+
+
+console.log(
+  "Emergence axis: Z only"
+);
+
+
+console.log(
+  "World-Y rotation: OFF"
+);
+
+
+console.log(
+  "Cache bust: v48"
+);
+
+
+console.log(
+  "========================================"
+);
 
 
 })();
-
 </script>
 
 </body>
