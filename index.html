@@ -2,6 +2,7 @@
 <html lang="ms">
 
 <head>
+
 <meta charset="utf-8">
 
 <meta
@@ -9,11 +10,12 @@
   content="width=device-width,initial-scale=1,viewport-fit=cover"
 >
 
-<title>Card Beast AR — Clean Yaw v42</title>
+<title>Card Beast AR — Baseline Vertical</title>
 
 <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
+
 
 <style>
 
@@ -36,12 +38,14 @@ body{
   inset:0;
 }
 
+
 /* =========================================
    CAMERA VIDEO
 ========================================= */
 
 video{
   position:fixed!important;
+
   inset:0!important;
 
   width:100%!important;
@@ -56,12 +60,15 @@ video{
   background:#000!important;
 }
 
+
 /* =========================================
    A-FRAME
 ========================================= */
 
 a-scene{
+
   position:fixed!important;
+
   inset:0!important;
 
   width:100%!important;
@@ -70,23 +77,29 @@ a-scene{
   z-index:1!important;
 
   background:transparent!important;
+
 }
 
 .a-canvas,
 canvas{
+
   background:transparent!important;
+
 }
+
 
 /* =========================================
    TOP UI
 ========================================= */
 
 #ui{
+
   position:fixed;
 
   z-index:20;
 
   top:18px;
+
   left:0;
 
   width:100%;
@@ -94,21 +107,30 @@ canvas{
   text-align:center;
 
   pointer-events:none;
+
 }
 
+
 .logo{
+
   font-size:28px;
+
   font-weight:900;
 
   color:#fff;
 
   text-shadow:
     0 2px 8px #000;
+
 }
 
+
 .logo span{
+
   color:#b75cff;
+
 }
+
 
 #status{
 
@@ -130,7 +152,9 @@ canvas{
 
   box-shadow:
     0 0 12px rgba(183,92,255,.25);
+
 }
+
 
 /* =========================================
    INFO
@@ -143,6 +167,7 @@ canvas{
   z-index:20;
 
   left:5%;
+
   right:5%;
 
   bottom:20px;
@@ -167,17 +192,22 @@ canvas{
 
   box-shadow:
     0 0 18px rgba(125,53,184,.2);
+
 }
+
 
 .ok{
   color:#68ff9b;
 }
 
+
 .err{
   color:#ff6b6b;
 }
 
+
 </style>
+
 </head>
 
 
@@ -191,14 +221,20 @@ canvas{
 <div id="ui">
 
   <div class="logo">
+
     CARD <span>BEAST</span> AR
+
   </div>
 
+
   <div id="status">
+
     INITIALISING CAMERA…
+
   </div>
 
 </div>
+
 
 
 <!-- =========================================
@@ -206,9 +242,12 @@ canvas{
 ========================================= -->
 
 <div id="info">
+
   Point the rear camera at
   <b>DR-001 Ember Dragon</b>.
+
 </div>
+
 
 
 <!-- =========================================
@@ -232,7 +271,7 @@ canvas{
   "
 
   mindar-image="
-    imageTargetSrc:./targets.mind?v=42;
+    imageTargetSrc:./targets.mind;
     autoStart:true;
     uiScanning:false;
     uiLoading:false;
@@ -248,15 +287,20 @@ canvas{
 >
 
 
+
   <!-- =======================================
        CAMERA
        KEKAL
   ======================================== -->
 
   <a-camera
+
     position="0 0 0"
+
     look-controls="enabled:false">
+
   </a-camera>
+
 
 
   <!-- =======================================
@@ -265,18 +309,25 @@ canvas{
   ======================================== -->
 
   <a-entity
+
     id="target"
+
     mindar-image-target="targetIndex:0"
+
   >
 
 
+
     <!-- =====================================
-         BEAST
-         
-         KEKAL:
-         position 0 0 0
-         rotation 0 0 0
-         scale 2.5
+         BEAST PARENT
+
+         ROTATION:
+         0 0 0
+
+         SCALE:
+         2.5
+
+         TIADA ROTATION TAMBAHAN
     ====================================== -->
 
     <a-entity
@@ -294,49 +345,31 @@ canvas{
     >
 
 
+
       <!-- ===================================
-           CLEAN YAW PIVOT
+           DRAGON MODEL
 
-           PUSING KE KANAN PADA WORLD Y
+           BASE ROTATION:
+           90 0 0
 
-           TIDAK SENTUH ROTATION GLB
+           INI BASELINE TEGAK
+
+           JANGAN TAMBAH WORLD ROTATION
       ==================================== -->
 
       <a-entity
 
-        id="yawPivot"
+        id="dragonModel"
+
+        gltf-model="./models/ember-dragon.glb"
 
         position="0 0 0"
 
-        rotation="0 90 0"
+        rotation="90 0 0"
 
         scale="1 1 1"
 
       >
-
-
-        <!-- =================================
-             DRAGON MODEL
-
-             WAJIB KEKAL:
-             rotation="90 0 0"
-        ================================== -->
-
-        <a-entity
-
-          id="dragonModel"
-
-          gltf-model="./models/ember-dragon.glb?v=42"
-
-          position="0 0 0"
-
-          rotation="90 0 0"
-
-          scale="1 1 1"
-
-        >
-        </a-entity>
-
 
       </a-entity>
 
@@ -348,6 +381,7 @@ canvas{
 
 
 </a-scene>
+
 
 
 <script>
@@ -362,32 +396,26 @@ canvas{
   const scene =
     document.getElementById('scene');
 
+
   const target =
     document.getElementById('target');
+
 
   const beast =
     document.getElementById('beast');
 
-  const yawPivot =
-    document.getElementById('yawPivot');
 
   const dragonModel =
     document.getElementById('dragonModel');
 
+
   const status =
     document.getElementById('status');
+
 
   const info =
     document.getElementById('info');
 
-
-  /* =========================================
-     FIXED SETTINGS
-  ========================================= */
-
-  const VERSION = 'v42';
-
-  const WORLD_Y_ROTATION = 90;
 
 
   /* =========================================
@@ -403,6 +431,7 @@ canvas{
   }
 
 
+
   /* =========================================
      INFO
   ========================================= */
@@ -412,6 +441,7 @@ canvas{
     info.innerHTML = html;
 
   }
+
 
 
   /* =========================================
@@ -430,21 +460,13 @@ canvas{
 
 
       setInfo(
-        'Loading MindAR target <b>DR-001</b>…'
+
+        'Loading MindAR target ' +
+
+        '<b>DR-001</b>…'
+
       );
 
-
-      console.log(
-        '========================================'
-      );
-
-      console.log(
-        'CARD BEAST AR — CLEAN YAW v42'
-      );
-
-      console.log(
-        '========================================'
-      );
 
       console.log(
         'A-Frame loaded.'
@@ -453,6 +475,7 @@ canvas{
     }
 
   );
+
 
 
   /* =========================================
@@ -466,14 +489,20 @@ canvas{
     function(){
 
       setStatus(
+
         'CAMERA ACTIVE ✓',
+
         'ok'
+
       );
 
 
       setInfo(
+
         'Point the rear camera at ' +
+
         '<b>DR-001 Ember Dragon</b>.'
+
       );
 
 
@@ -484,6 +513,7 @@ canvas{
     }
 
   );
+
 
 
   /* =========================================
@@ -500,59 +530,66 @@ canvas{
         '========================================'
       );
 
+
       console.log(
-        'CARD BEAST AR — CLEAN YAW v42'
+        'CARD BEAST AR — BASELINE VERTICAL'
       );
+
 
       console.log(
         '========================================'
       );
 
+
       console.log(
         'Target ID: DR-001'
       );
 
+
       console.log(
-        'Target file: ./targets.mind?v=42'
+        'Target file: ./targets.mind'
       );
+
 
       console.log(
         'Target index: 0'
       );
 
-      console.log(
-        'Model: ./models/ember-dragon.glb?v=42'
-      );
 
       console.log(
-        'Beast position: 0 0 0'
+        'Model: ./models/ember-dragon.glb'
       );
+
 
       console.log(
         'Beast rotation: 0 0 0'
       );
 
-      console.log(
-        'Beast scale: 2.5'
-      );
 
       console.log(
-        'Yaw pivot rotation:',
-        '0 90 0'
+        'Dragon rotation: 90 0 0'
       );
 
-      console.log(
-        'Dragon model rotation:',
-        '90 0 0'
-      );
 
       console.log(
-        'NO quaternion manipulation'
+        'Scale: 2.5'
       );
 
+
       console.log(
-        'NO rotateOnWorldAxis'
+        'World Y rotation: NONE'
       );
+
+
+      console.log(
+        'Quaternion rotation: NONE'
+      );
+
+
+      console.log(
+        'Tracking: MindAR'
+      );
+
 
       console.log(
         '========================================'
@@ -563,9 +600,9 @@ canvas{
 
         '🔥 <b>EMBER DRAGON READY</b><br>' +
 
-        '🟣 3D Ember Dragon active.<br>' +
+        '🟣 3D model loaded successfully.<br>' +
 
-        'Rotation: Right 90°<br>' +
+        'Rotation: Vertical baseline<br>' +
 
         'Scale: 2.5'
 
@@ -574,6 +611,7 @@ canvas{
     }
 
   );
+
 
 
   /* =========================================
@@ -587,14 +625,20 @@ canvas{
     function(event){
 
       console.error(
+
         'GLB model error:',
+
         event
+
       );
 
 
       setStatus(
+
         'MODEL ERROR',
+
         'err'
+
       );
 
 
@@ -602,9 +646,15 @@ canvas{
 
         '❌ Failed to load ' +
 
-        '<b>ember-dragon.glb</b>.<br>' +
+        '<b>ember-dragon.glb</b>.<br><br>' +
 
-        'Check the models folder and filename.'
+        'Check:<br>' +
+
+        '1. Folder <b>models</b><br>' +
+
+        '2. Filename <b>ember-dragon.glb</b><br>' +
+
+        '3. File path on GitHub Pages.'
 
       );
 
@@ -613,9 +663,10 @@ canvas{
   );
 
 
+
   /* =========================================
      TARGET FOUND
-  ========================================= */
+========================================= */
 
   target.addEventListener(
 
@@ -624,14 +675,20 @@ canvas{
     function(){
 
       beast.setAttribute(
+
         'visible',
+
         'true'
+
       );
 
 
       setStatus(
+
         'CARD CONFIRMED • DR-001',
+
         'ok'
+
       );
 
 
@@ -641,7 +698,7 @@ canvas{
 
         '🟣 3D Ember Dragon active.<br>' +
 
-        'Rotation: Right 90°<br>' +
+        'Rotation: Vertical<br>' +
 
         'Scale: 2.5'
 
@@ -649,13 +706,9 @@ canvas{
 
 
       console.log(
-        'DR-001 targetFound.'
-      );
 
-      console.log(
-        'Yaw pivot:',
-        WORLD_Y_ROTATION,
-        'degrees'
+        'DR-001 targetFound.'
+
       );
 
     }
@@ -663,9 +716,10 @@ canvas{
   );
 
 
+
   /* =========================================
      TARGET LOST
-  ========================================= */
+========================================= */
 
   target.addEventListener(
 
@@ -674,14 +728,20 @@ canvas{
     function(){
 
       beast.setAttribute(
+
         'visible',
+
         'false'
+
       );
 
 
       setStatus(
+
         'CAMERA ACTIVE ✓',
+
         'ok'
+
       );
 
 
@@ -695,7 +755,9 @@ canvas{
 
 
       console.log(
+
         'DR-001 targetLost.'
+
       );
 
     }
@@ -703,9 +765,10 @@ canvas{
   );
 
 
+
   /* =========================================
      AR ERROR
-  ========================================= */
+========================================= */
 
   scene.addEventListener(
 
@@ -714,14 +777,20 @@ canvas{
     function(event){
 
       console.error(
+
         'MindAR error:',
+
         event
+
       );
 
 
       setStatus(
+
         'AR ERROR',
+
         'err'
+
       );
 
 
@@ -740,6 +809,7 @@ canvas{
   );
 
 
+
   /* =========================================
      CAMERA VIDEO LAYER
   ========================================= */
@@ -747,20 +817,28 @@ canvas{
   function fixVideoLayer(){
 
     document
+
       .querySelectorAll('video')
+
       .forEach(
 
         function(video){
 
           video.setAttribute(
+
             'playsinline',
+
             ''
+
           );
 
 
           video.setAttribute(
+
             'autoplay',
+
             ''
+
           );
 
 
@@ -800,6 +878,7 @@ canvas{
   }
 
 
+
   /* =========================================
      WATCH FOR MINDAR VIDEO
   ========================================= */
@@ -823,6 +902,7 @@ canvas{
   );
 
 
+
   /* =========================================
      INITIAL VIDEO FIX
   ========================================= */
@@ -830,57 +910,80 @@ canvas{
   fixVideoLayer();
 
 
+
   /* =========================================
-     FINAL DEBUG
+     DEBUG
   ========================================= */
 
   console.log(
     '========================================'
   );
 
+
   console.log(
-    'CARD BEAST AR — CLEAN YAW v42'
+    'CARD BEAST AR — BASELINE VERTICAL'
   );
+
 
   console.log(
     '========================================'
   );
 
-  console.log(
-    'DR-001'
-  );
 
   console.log(
-    'targets.mind?v=42'
+    'Target ID: DR-001'
   );
+
+
+  console.log(
+    'targets.mind'
+  );
+
 
   console.log(
     'targetIndex: 0'
   );
 
-  console.log(
-    'ember-dragon.glb?v=42'
-  );
 
   console.log(
-    'beast rotation: 0 0 0'
+    './models/ember-dragon.glb'
   );
 
-  console.log(
-    'beast scale: 2.5'
-  );
 
   console.log(
-    'yawPivot rotation: 0 90 0'
+    'Beast position: 0 0 0'
   );
 
+
   console.log(
-    'dragonModel rotation: 90 0 0'
+    'Beast rotation: 0 0 0'
   );
+
+
+  console.log(
+    'Dragon model rotation: 90 0 0'
+  );
+
+
+  console.log(
+    'Beast scale: 2.5'
+  );
+
+
+  console.log(
+    'World Y rotation: DISABLED'
+  );
+
+
+  console.log(
+    'Quaternion rotation: DISABLED'
+  );
+
 
   console.log(
     'Tracking: MindAR'
   );
+
 
   console.log(
     '========================================'
@@ -893,4 +996,5 @@ canvas{
 
 
 </body>
+
 </html>
