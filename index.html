@@ -8,7 +8,7 @@
     content="width=device-width, initial-scale=1.0"
 >
 
-<title>Card Beast AR — DR-001 YAW TEST</title>
+<title>Card Beast AR - DR-001 Baseline</title>
 
 <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
 
@@ -85,7 +85,7 @@ a-scene{
 
 
 /* =====================================================
-   TOP UI
+   TOP
 ===================================================== */
 
 #topUI{
@@ -135,7 +135,7 @@ a-scene{
     border:1px solid #b84cff;
 
     background:
-        rgba(5,0,12,.84);
+        rgba(5,0,12,.86);
 
     color:#68ff9b;
 
@@ -163,11 +163,11 @@ a-scene{
 
     left:14px;
 
-    min-width:270px;
+    min-width:260px;
 
     max-width:340px;
 
-    padding:14px 16px;
+    padding:15px 16px;
 
     border-radius:16px;
 
@@ -193,7 +193,7 @@ a-scene{
 
     color:#d06aff;
 
-    font-size:16px;
+    font-size:17px;
 
     font-weight:900;
 
@@ -207,29 +207,22 @@ a-scene{
     font-weight:600;
 }
 
-.testTitle{
+.rotation{
 
     margin-top:10px;
 
     color:#ffd84d;
 
-    font-weight:900;
-}
-
-.yaw{
-
-    color:#fff;
-
-    font-size:18px;
+    font-size:19px;
 
     font-weight:900;
 }
 
 .forward{
 
-    margin-top:8px;
+    margin-top:9px;
 
-    color:#ff6868;
+    color:#ff5757;
 
     font-weight:900;
 }
@@ -242,18 +235,21 @@ a-scene{
 }
 
 .axis{
-    margin-top:7px;
+
+    margin-top:9px;
+
+    line-height:1.7;
 }
 
-.axisX{
+.x{
     color:#ff4141;
 }
 
-.axisY{
+.y{
     color:#73e34a;
 }
 
-.axisZ{
+.z{
     color:#4d9dff;
 }
 
@@ -274,7 +270,7 @@ a-scene{
 
     bottom:20px;
 
-    padding:16px 18px;
+    padding:17px 18px;
 
     border-radius:24px;
 
@@ -341,8 +337,8 @@ a-scene{
         padding:11px 12px;
     }
 
-    .yaw{
-        font-size:16px;
+    .rotation{
+        font-size:17px;
     }
 
     #info{
@@ -383,21 +379,17 @@ a-scene{
 
 
 <!-- =====================================================
-     DEBUG
+     DEBUG PANEL
 ===================================================== -->
 
 <div id="debugPanel">
 
     <div class="debugTitle">
-        DR-001 • YAW PIVOT TEST
+        DR-001 • BASELINE TEST
     </div>
 
     <div class="locked">
         ✓ Position locked
-    </div>
-
-    <div class="locked">
-        ✓ Dragon X/Z rotation locked
     </div>
 
     <div class="locked">
@@ -416,42 +408,33 @@ a-scene{
         ✓ Epic Emergence locked
     </div>
 
-    <div class="testTitle">
-        ONLY YAW PIVOT CHANGES
-    </div>
-
-    <div class="yaw">
-        Yaw Pivot: 90°
-    </div>
-
-    <div class="note">
-        Dragon itself:
-        <b>90 0 0</b>
+    <div class="rotation">
+        Rotation: 90 0 0
     </div>
 
     <div class="axis">
 
-        <span class="axisX">● +X</span>
-
+        <span class="x">● +X</span>
         &nbsp;
-
-        <span class="axisY">● +Y</span>
-
+        <span class="y">● +Y</span>
         &nbsp;
-
-        <span class="axisZ">● +Z</span>
+        <span class="z">● +Z</span>
 
     </div>
 
     <div class="forward">
-        Head / Forward = local -X
+        🔴 Forward / Head = local -X
+    </div>
+
+    <div class="note">
+        Baseline sahaja — tiada yaw tambahan.
     </div>
 
 </div>
 
 
 <!-- =====================================================
-     INFO
+     BOTTOM INFO
 ===================================================== -->
 
 <div id="info">
@@ -534,9 +517,12 @@ a-scene{
 
 
         <!-- =============================================
-             MAIN BEAST PARENT
+             DRAGON CONTAINER
 
-             POSITION + SCALE LOCKED
+             LOCKED:
+             Position = 0 -0.25 0
+             Parent Rotation = 0 0 0
+             Scale = 2.5
         ============================================== -->
 
         <a-entity
@@ -561,63 +547,141 @@ a-scene{
 
 
             <!-- =========================================
-                 YAW PIVOT
+                 EMBER DRAGON
 
-                 THIS rotates the WHOLE dragon
-                 horizontally.
+                 ONLY ROTATION:
 
-                 DOES NOT alter dragon pose.
+                 90 0 0
+
+                 DO NOT ADD YAW.
+                 DO NOT ADD Z ROTATION.
             ========================================== -->
 
             <a-entity
 
-                id="dragonYaw"
+                id="dragonModel"
+
+                gltf-model="
+                    ./models/ember-dragon.glb
+                "
 
                 position="
                     0 0 0
                 "
 
                 rotation="
-                    0 90 0
+                    90 0 0
+                "
+
+                scale="
+                    1 1 1
+                "
+
+            ></a-entity>
+
+
+            <!-- =========================================
+                 FORWARD MARKER
+
+                 LOCAL -X
+
+                 RED = HEAD/FORWARD
+
+                 This marker is ONLY for checking direction.
+                 It does NOT rotate the dragon.
+            ========================================== -->
+
+            <a-entity
+
+                id="forwardMarker"
+
+                position="
+                    -0.55 0 0
                 "
 
             >
 
+                <!-- Marker sphere -->
 
-                <!-- =====================================
-                     EMBER DRAGON
+                <a-sphere
 
-                     LOCKED ORIENTATION
+                    radius="0.055"
 
-                     X = 90
-                     Y = 0
-                     Z = 0
+                    color="#ff2020"
 
-                     DO NOT CHANGE THIS.
-                ====================================== -->
-
-                <a-entity
-
-                    id="dragonModel"
-
-                    gltf-model="
-                        ./models/ember-dragon.glb
+                    material="
+                        shader:standard;
+                        emissive:#ff0000;
+                        emissiveIntensity:3
                     "
 
+                ></a-sphere>
+
+
+                <!-- Direction line -->
+
+                <a-cylinder
+
                     position="
-                        0 0 0
+                        -0.27 0 0
                     "
 
                     rotation="
-                        90 0 0
+                        0 0 90
                     "
 
-                    scale="
-                        1 1 1
+                    radius="
+                        0.018
                     "
 
-                ></a-entity>
+                    height="
+                        0.55
+                    "
 
+                    color="#ff2020"
+
+                    material="
+                        shader:standard;
+                        emissive:#ff0000;
+                        emissiveIntensity:2
+                    "
+
+                ></a-cylinder>
+
+
+                <!-- Arrow tip -->
+
+                <a-cone
+
+                    position="
+                        -0.57 0 0
+                    "
+
+                    rotation="
+                        0 0 -90
+                    "
+
+                    radius-bottom="
+                        0.075
+                    "
+
+                    radius-top="
+                        0
+                    "
+
+                    height="
+                        0.18
+                    "
+
+                    color="#ff2020"
+
+                    material="
+                        shader:standard;
+                        emissive:#ff0000;
+                        emissiveIntensity:2
+                    "
+
+                ></a-cone>
 
             </a-entity>
 
@@ -635,8 +699,8 @@ a-scene{
 
 /* =====================================================
    CARD BEAST AR
-   DR-001
-   YAW PIVOT TEST
+   DR-001 BASELINE
+   ROTATION = 90 0 0
 ===================================================== */
 
 (function(){
@@ -663,14 +727,14 @@ a-scene{
             'beast'
         );
 
-    const dragonYaw =
-        document.getElementById(
-            'dragonYaw'
-        );
-
     const dragon =
         document.getElementById(
             'dragonModel'
+        );
+
+    const forwardMarker =
+        document.getElementById(
+            'forwardMarker'
         );
 
     const status =
@@ -720,9 +784,7 @@ a-scene{
 
             z:0
 
-        },
-
-        yaw:90
+        }
 
     };
 
@@ -743,10 +805,6 @@ a-scene{
 
     };
 
-
-    /* =================================================
-       STATE
-    ================================================= */
 
     let modelLoaded =
         false;
@@ -794,7 +852,7 @@ a-scene{
 
 
     /* =================================================
-       APPLY POSITION
+       BASELINE POSITION
     ================================================= */
 
     function applyPosition(){
@@ -813,7 +871,7 @@ a-scene{
 
 
     /* =================================================
-       APPLY PARENT ROTATION
+       BASELINE PARENT ROTATION
     ================================================= */
 
     function applyParentRotation(){
@@ -838,31 +896,12 @@ a-scene{
 
 
     /* =================================================
-       APPLY YAW PIVOT
-    ================================================= */
-
-    function applyYaw(){
-
-        dragonYaw.object3D.rotation.set(
-
-            0,
-
-            THREE.MathUtils.degToRad(
-                BASELINE.yaw
-            ),
-
-            0
-
-        );
-
-    }
-
-
-    /* =================================================
-       APPLY DRAGON ORIENTATION
+       DRAGON ROTATION
        
-       LOCKED:
+       EXACTLY:
+
        90 0 0
+
     ================================================= */
 
     function applyDragonRotation(){
@@ -887,7 +926,7 @@ a-scene{
 
 
     /* =================================================
-       APPLY SCALE
+       SCALE
     ================================================= */
 
     function applyScale(){
@@ -951,7 +990,7 @@ a-scene{
 
 
     /* =================================================
-       RESTORE EXACT BASELINE
+       RESTORE BASELINE
     ================================================= */
 
     function restoreBaseline(){
@@ -962,18 +1001,30 @@ a-scene{
 
         applyParentRotation();
 
-        applyYaw();
-
         applyDragonRotation();
 
         applyScale();
 
 
-        dragonYaw.object3D.updateMatrixWorld(
-            true
+        /*
+         * IMPORTANT:
+         *
+         * No Yaw.
+         * No extra rotation.
+         */
+
+        forwardMarker.object3D.position.set(
+
+            -0.55,
+
+            0,
+
+            0
+
         );
 
-        dragon.object3D.updateMatrixWorld(
+
+        beast.object3D.updateMatrixWorld(
             true
         );
 
@@ -981,26 +1032,7 @@ a-scene{
 
 
     /* =================================================
-       SET SCALE
-    ================================================= */
-
-    function setScale(
-        value
-    ){
-
-        beast.object3D.scale.set(
-
-            value,
-            value,
-            value
-
-        );
-
-    }
-
-
-    /* =================================================
-       EPIC EMERGENCE
+       EMERGENCE
     ================================================= */
 
     function playEpicEmergence(){
@@ -1021,24 +1053,16 @@ a-scene{
         clearAnimations();
 
 
-        /*
-         * Restore everything first.
-         */
-
-        applyPosition();
-
-        applyParentRotation();
-
-        applyYaw();
-
-        applyDragonRotation();
+        restoreBaseline();
 
 
         /*
          * Start small.
          */
 
-        setScale(
+        beast.object3D.scale.set(
+            EMERGENCE.startScale,
+            EMERGENCE.startScale,
             EMERGENCE.startScale
         );
 
@@ -1084,9 +1108,9 @@ a-scene{
 
             '🔥 <b>EMBER DRAGON EMERGING</b><br>' +
 
-            'DR-001 • Yaw Pivot Test<br>' +
+            'DR-001 • BASELINE 90 0 0<br>' +
 
-            'Dragon = 90 0 0 • Yaw = 90°'
+            '🔴 Marker = local -X'
 
         );
 
@@ -1159,11 +1183,11 @@ a-scene{
 
                         'Position: 0 -0.25 0<br>' +
 
-                        'Dragon Rotation: 90 0 0<br>' +
+                        'Rotation: 90 0 0<br>' +
 
-                        'Yaw Pivot: 90°<br>' +
+                        'Scale: 2.5<br>' +
 
-                        'Scale: 2.5'
+                        '🔴 Forward / Head = local -X'
 
                     );
 
@@ -1218,413 +1242,4 @@ a-scene{
 
             setInfo(
 
-                'Point camera at ' +
-
-                '<b>DR-001 Ember Dragon</b>.'
-
-            );
-
-        }
-
-    );
-
-
-    /* =================================================
-       MODEL LOADED
-    ================================================= */
-
-    dragon.addEventListener(
-
-        'model-loaded',
-
-        function(){
-
-            modelLoaded =
-                true;
-
-
-            restoreBaseline();
-
-
-            console.log(
-                '================================'
-            );
-
-            console.log(
-                'CARD BEAST AR — DR-001'
-            );
-
-            console.log(
-                'YAW PIVOT TEST'
-            );
-
-            console.log(
-                'Position: 0 -0.25 0'
-            );
-
-            console.log(
-                'Parent Rotation: 0 0 0'
-            );
-
-            console.log(
-                'Dragon Rotation: 90 0 0'
-            );
-
-            console.log(
-                'Yaw Pivot: 90 0'
-            );
-
-            console.log(
-                'Scale: 2.5'
-            );
-
-            console.log(
-                'Forward / Head: local -X'
-            );
-
-            console.log(
-                '================================'
-            );
-
-
-            setInfo(
-
-                '🐉 <b>EMBER DRAGON READY</b><br>' +
-
-                'Dragon = 90 0 0<br>' +
-
-                'Yaw Pivot = 90°'
-
-            );
-
-        }
-
-    );
-
-
-    /* =================================================
-       MODEL ERROR
-    ================================================= */
-
-    dragon.addEventListener(
-
-        'model-error',
-
-        function(
-            event
-        ){
-
-            console.error(
-                'EMBER DRAGON GLB ERROR:',
-                event
-            );
-
-
-            setStatus(
-
-                'MODEL ERROR',
-
-                'error'
-
-            );
-
-
-            setInfo(
-
-                '❌ Gagal load ' +
-
-                '<b>ember-dragon.glb</b>.'
-
-            );
-
-        }
-
-    );
-
-
-    /* =================================================
-       TARGET FOUND
-    ================================================= */
-
-    target.addEventListener(
-
-        'targetFound',
-
-        function(){
-
-            console.log(
-                'DR-001 targetFound'
-            );
-
-
-            if(
-                !modelLoaded
-            ){
-
-                console.warn(
-                    'Target found tetapi GLB belum ready.'
-                );
-
-                return;
-
-            }
-
-
-            restoreBaseline();
-
-
-            beast.setAttribute(
-                'visible',
-                'true'
-            );
-
-
-            playEpicEmergence();
-
-
-            setStatus(
-
-                'CARD CONFIRMED • DR-001',
-
-                'ok'
-
-            );
-
-        }
-
-    );
-
-
-    /* =================================================
-       TARGET LOST
-    ================================================= */
-
-    target.addEventListener(
-
-        'targetLost',
-
-        function(){
-
-            console.log(
-                'DR-001 targetLost'
-            );
-
-
-            clearAnimations();
-
-
-            beast.setAttribute(
-                'visible',
-                'false'
-            );
-
-
-            emergencePlayed =
-                false;
-
-
-            restoreBaseline();
-
-
-            setStatus(
-
-                'CAMERA ACTIVE ✓',
-
-                'ok'
-
-            );
-
-
-            setInfo(
-
-                'Point camera at ' +
-
-                '<b>DR-001 Ember Dragon</b>.'
-
-            );
-
-        }
-
-    );
-
-
-    /* =================================================
-       AR ERROR
-    ================================================= */
-
-    scene.addEventListener(
-
-        'arError',
-
-        function(
-            event
-        ){
-
-            console.error(
-                'MindAR AR error:',
-                event
-            );
-
-
-            setStatus(
-
-                'AR ERROR',
-
-                'error'
-
-            );
-
-
-            setInfo(
-
-                '❌ AR gagal dimulakan.<br>' +
-
-                'Pastikan permission kamera diberikan.'
-
-            );
-
-        }
-
-    );
-
-
-    /* =================================================
-       CAMERA VIDEO FIX
-    ================================================= */
-
-    function fixVideoLayer(){
-
-        document
-            .querySelectorAll(
-                'video'
-            )
-            .forEach(
-
-                function(
-                    video
-                ){
-
-                    video.setAttribute(
-                        'playsinline',
-                        ''
-                    );
-
-                    video.setAttribute(
-                        'autoplay',
-                        ''
-                    );
-
-                    video.muted =
-                        true;
-
-
-                    Object.assign(
-
-                        video.style,
-
-                        {
-
-                            position:'fixed',
-
-                            inset:'0',
-
-                            width:'100%',
-
-                            height:'100%',
-
-                            objectFit:'cover',
-
-                            zIndex:'0',
-
-                            display:'block',
-
-                            background:'#000'
-
-                        }
-
-                    );
-
-                }
-
-            );
-
-    }
-
-
-    new MutationObserver(
-
-        fixVideoLayer
-
-    ).observe(
-
-        document.documentElement,
-
-        {
-
-            childList:true,
-
-            subtree:true
-
-        }
-
-    );
-
-
-    fixVideoLayer();
-
-
-    /* =================================================
-       FINAL CONFIG
-    ================================================= */
-
-    console.log(
-        '--------------------------------'
-    );
-
-    console.log(
-        'DR-001 YAW TEST'
-    );
-
-    console.log(
-        'Position       = 0 -0.25 0'
-    );
-
-    console.log(
-        'Parent         = 0 0 0'
-    );
-
-    console.log(
-        'Dragon         = 90 0 0'
-    );
-
-    console.log(
-        'Yaw Pivot      = 90 0'
-    );
-
-    console.log(
-        'Scale          = 2.5'
-    );
-
-    console.log(
-        'Forward        = local -X'
-    );
-
-    console.log(
-        'Tracking       = DR-001'
-    );
-
-    console.log(
-        'Emergence      = ON'
-    );
-
-    console.log(
-        '--------------------------------'
-    );
-
-
-})();
-
-</script>
-
-</body>
-</html>
+                'Poin
