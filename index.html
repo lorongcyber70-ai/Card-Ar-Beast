@@ -8,19 +8,13 @@
     content="width=device-width, initial-scale=1.0"
 >
 
-<title>Card Beast AR — DR-001 v58</title>
+<title>Card Beast AR — DR-001 YAW TEST</title>
 
-<!-- A-Frame -->
 <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
 
-<!-- MindAR -->
 <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
 
 <style>
-
-/* =====================================================
-   GENERAL
-===================================================== */
 
 *{
     box-sizing:border-box;
@@ -46,13 +40,12 @@ body{
 
 body{
     position:fixed;
-
     inset:0;
 }
 
 
 /* =====================================================
-   CAMERA VIDEO
+   CAMERA
 ===================================================== */
 
 video{
@@ -74,7 +67,7 @@ video{
 
 
 /* =====================================================
-   A-FRAME
+   AR SCENE
 ===================================================== */
 
 a-scene{
@@ -92,7 +85,7 @@ a-scene{
 
 
 /* =====================================================
-   TOP HEADER
+   TOP UI
 ===================================================== */
 
 #topUI{
@@ -112,7 +105,6 @@ a-scene{
     pointer-events:none;
 }
 
-
 .logo{
 
     font-size:30px;
@@ -121,19 +113,14 @@ a-scene{
 
     color:#fff;
 
-    letter-spacing:-1px;
-
     text-shadow:
         0 3px 8px rgba(0,0,0,.95),
         0 0 15px rgba(0,0,0,.8);
 }
 
-
 .logo span{
-
     color:#b84cff;
 }
-
 
 #status{
 
@@ -176,9 +163,9 @@ a-scene{
 
     left:14px;
 
-    min-width:260px;
+    min-width:270px;
 
-    max-width:330px;
+    max-width:340px;
 
     padding:14px 16px;
 
@@ -189,7 +176,7 @@ a-scene{
         rgba(255,255,255,.35);
 
     background:
-        rgba(0,0,0,.82);
+        rgba(0,0,0,.84);
 
     color:#fff;
 
@@ -200,12 +187,7 @@ a-scene{
     pointer-events:none;
 
     backdrop-filter:blur(8px);
-
-    box-shadow:
-        0 0 20px
-        rgba(0,0,0,.35);
 }
-
 
 .debugTitle{
 
@@ -215,9 +197,8 @@ a-scene{
 
     font-weight:900;
 
-    margin-bottom:7px;
+    margin-bottom:8px;
 }
-
 
 .locked{
 
@@ -226,28 +207,23 @@ a-scene{
     font-weight:600;
 }
 
+.testTitle{
 
-.test{
-
-    margin-top:8px;
+    margin-top:10px;
 
     color:#ffd84d;
 
     font-weight:900;
 }
 
-
-.rotation{
+.yaw{
 
     color:#fff;
 
-    font-size:16px;
+    font-size:18px;
 
     font-weight:900;
-
-    margin-top:2px;
 }
-
 
 .forward{
 
@@ -258,24 +234,24 @@ a-scene{
     font-weight:900;
 }
 
+.note{
 
-.axis{
+    margin-top:6px;
 
-    margin-top:7px;
-
-    font-weight:700;
+    color:#ddd;
 }
 
+.axis{
+    margin-top:7px;
+}
 
 .axisX{
     color:#ff4141;
 }
 
-
 .axisY{
     color:#73e34a;
 }
-
 
 .axisZ{
     color:#4d9dff;
@@ -324,11 +300,9 @@ a-scene{
         rgba(141,50,202,.25);
 }
 
-
 .ok{
     color:#68ff9b !important;
 }
-
 
 .error{
     color:#ff6868 !important;
@@ -349,8 +323,7 @@ a-scene{
 
         font-size:15px;
 
-        padding:
-            10px 18px;
+        padding:10px 18px;
     }
 
     #debugPanel{
@@ -361,16 +334,15 @@ a-scene{
 
         min-width:235px;
 
-        max-width:285px;
+        max-width:300px;
 
         font-size:12px;
 
-        padding:
-            11px 12px;
+        padding:11px 12px;
     }
 
-    .rotation{
-        font-size:15px;
+    .yaw{
+        font-size:16px;
     }
 
     #info{
@@ -394,7 +366,7 @@ a-scene{
 
 
 <!-- =====================================================
-     TOP UI
+     HEADER
 ===================================================== -->
 
 <div id="topUI">
@@ -411,17 +383,21 @@ a-scene{
 
 
 <!-- =====================================================
-     DEBUG PANEL — v58
+     DEBUG
 ===================================================== -->
 
 <div id="debugPanel">
 
     <div class="debugTitle">
-        DR-001 • PATCH v58
+        DR-001 • YAW PIVOT TEST
     </div>
 
     <div class="locked">
         ✓ Position locked
+    </div>
+
+    <div class="locked">
+        ✓ Dragon X/Z rotation locked
     </div>
 
     <div class="locked">
@@ -440,13 +416,17 @@ a-scene{
         ✓ Epic Emergence locked
     </div>
 
-    <div class="test">
-        ONLY CHANGE
+    <div class="testTitle">
+        ONLY YAW PIVOT CHANGES
     </div>
 
-    <div class="rotation">
-        Rotation:
-        90 315 0
+    <div class="yaw">
+        Yaw Pivot: 90°
+    </div>
+
+    <div class="note">
+        Dragon itself:
+        <b>90 0 0</b>
     </div>
 
     <div class="axis">
@@ -464,14 +444,14 @@ a-scene{
     </div>
 
     <div class="forward">
-        Forward / Head = local -X
+        Head / Forward = local -X
     </div>
 
 </div>
 
 
 <!-- =====================================================
-     BOTTOM INFO
+     INFO
 ===================================================== -->
 
 <div id="info">
@@ -554,9 +534,9 @@ a-scene{
 
 
         <!-- =============================================
-             DRAGON PARENT
+             MAIN BEAST PARENT
 
-             LOCKED BASELINE
+             POSITION + SCALE LOCKED
         ============================================== -->
 
         <a-entity
@@ -581,38 +561,65 @@ a-scene{
 
 
             <!-- =========================================
-                 EMBER DRAGON
+                 YAW PIVOT
 
-                 v58 ROTATION TEST
+                 THIS rotates the WHOLE dragon
+                 horizontally.
 
-                 X = 90
-                 Y = 315
-                 Z = 0
-
-                 Forward / Head = LOCAL -X
+                 DOES NOT alter dragon pose.
             ========================================== -->
 
             <a-entity
 
-                id="dragonModel"
-
-                gltf-model="
-                    ./models/ember-dragon.glb
-                "
+                id="dragonYaw"
 
                 position="
                     0 0 0
                 "
 
                 rotation="
-                    90 315 0
+                    0 90 0
                 "
 
-                scale="
-                    1 1 1
-                "
+            >
 
-            ></a-entity>
+
+                <!-- =====================================
+                     EMBER DRAGON
+
+                     LOCKED ORIENTATION
+
+                     X = 90
+                     Y = 0
+                     Z = 0
+
+                     DO NOT CHANGE THIS.
+                ====================================== -->
+
+                <a-entity
+
+                    id="dragonModel"
+
+                    gltf-model="
+                        ./models/ember-dragon.glb
+                    "
+
+                    position="
+                        0 0 0
+                    "
+
+                    rotation="
+                        90 0 0
+                    "
+
+                    scale="
+                        1 1 1
+                    "
+
+                ></a-entity>
+
+
+            </a-entity>
 
 
         </a-entity>
@@ -629,7 +636,7 @@ a-scene{
 /* =====================================================
    CARD BEAST AR
    DR-001
-   PATCH v58
+   YAW PIVOT TEST
 ===================================================== */
 
 (function(){
@@ -656,6 +663,11 @@ a-scene{
             'beast'
         );
 
+    const dragonYaw =
+        document.getElementById(
+            'dragonYaw'
+        );
+
     const dragon =
         document.getElementById(
             'dragonModel'
@@ -673,22 +685,7 @@ a-scene{
 
 
     /* =================================================
-       BASELINE v58
-
-       Position:
-       0 -0.25 0
-
-       Parent:
-       0 0 0
-
-       Dragon:
-       90 315 0
-
-       Scale:
-       2.5
-
-       Forward:
-       local -X
+       LOCKED BASELINE
     ================================================= */
 
     const BASELINE = {
@@ -703,7 +700,6 @@ a-scene{
 
         },
 
-
         parentRotation:{
 
             x:0,
@@ -714,19 +710,19 @@ a-scene{
 
         },
 
+        scale:2.5,
 
         dragonRotation:{
 
             x:90,
 
-            y:315,
+            y:0,
 
             z:0
 
         },
 
-
-        scale:2.5
+        yaw:90
 
     };
 
@@ -842,10 +838,31 @@ a-scene{
 
 
     /* =================================================
-       APPLY DRAGON ROTATION
+       APPLY YAW PIVOT
+    ================================================= */
 
-       v58:
-       90 315 0
+    function applyYaw(){
+
+        dragonYaw.object3D.rotation.set(
+
+            0,
+
+            THREE.MathUtils.degToRad(
+                BASELINE.yaw
+            ),
+
+            0
+
+        );
+
+    }
+
+
+    /* =================================================
+       APPLY DRAGON ORIENTATION
+       
+       LOCKED:
+       90 0 0
     ================================================= */
 
     function applyDragonRotation(){
@@ -873,7 +890,7 @@ a-scene{
        APPLY SCALE
     ================================================= */
 
-    function applyFinalScale(){
+    function applyScale(){
 
         beast.object3D.scale.set(
 
@@ -934,7 +951,7 @@ a-scene{
 
 
     /* =================================================
-       RESTORE BASELINE
+       RESTORE EXACT BASELINE
     ================================================= */
 
     function restoreBaseline(){
@@ -945,10 +962,16 @@ a-scene{
 
         applyParentRotation();
 
+        applyYaw();
+
         applyDragonRotation();
 
-        applyFinalScale();
+        applyScale();
 
+
+        dragonYaw.object3D.updateMatrixWorld(
+            true
+        );
 
         dragon.object3D.updateMatrixWorld(
             true
@@ -958,7 +981,7 @@ a-scene{
 
 
     /* =================================================
-       SCALE
+       SET SCALE
     ================================================= */
 
     function setScale(
@@ -998,22 +1021,22 @@ a-scene{
         clearAnimations();
 
 
-        /* ---------------------------------------------
-           IMPORTANT
-
-           Restore exact baseline first.
-        --------------------------------------------- */
+        /*
+         * Restore everything first.
+         */
 
         applyPosition();
 
         applyParentRotation();
 
+        applyYaw();
+
         applyDragonRotation();
 
 
-        /* ---------------------------------------------
-           START
-        --------------------------------------------- */
+        /*
+         * Start small.
+         */
 
         setScale(
             EMERGENCE.startScale
@@ -1061,9 +1084,9 @@ a-scene{
 
             '🔥 <b>EMBER DRAGON EMERGING</b><br>' +
 
-            'DR-001 • PATCH v58<br>' +
+            'DR-001 • Yaw Pivot Test<br>' +
 
-            'Rotation: 90 315 0'
+            'Dragon = 90 0 0 • Yaw = 90°'
 
         );
 
@@ -1136,7 +1159,9 @@ a-scene{
 
                         'Position: 0 -0.25 0<br>' +
 
-                        'Rotation: 90 315 0<br>' +
+                        'Dragon Rotation: 90 0 0<br>' +
+
+                        'Yaw Pivot: 90°<br>' +
 
                         'Scale: 2.5'
 
@@ -1154,7 +1179,7 @@ a-scene{
 
 
     /* =================================================
-       SCENE LOADED
+       SCENE READY
     ================================================= */
 
     scene.addEventListener(
@@ -1222,11 +1247,15 @@ a-scene{
 
 
             console.log(
-                '===================================='
+                '================================'
             );
 
             console.log(
-                'CARD BEAST AR — DR-001 v58'
+                'CARD BEAST AR — DR-001'
+            );
+
+            console.log(
+                'YAW PIVOT TEST'
             );
 
             console.log(
@@ -1238,7 +1267,11 @@ a-scene{
             );
 
             console.log(
-                'Dragon Rotation: 90 315 0'
+                'Dragon Rotation: 90 0 0'
+            );
+
+            console.log(
+                'Yaw Pivot: 90 0'
             );
 
             console.log(
@@ -1250,11 +1283,7 @@ a-scene{
             );
 
             console.log(
-                'ONLY TEST CHANGE: Heading Y = 315°'
-            );
-
-            console.log(
-                '===================================='
+                '================================'
             );
 
 
@@ -1262,7 +1291,9 @@ a-scene{
 
                 '🐉 <b>EMBER DRAGON READY</b><br>' +
 
-                'v58 • Rotation Y = 315°'
+                'Dragon = 90 0 0<br>' +
+
+                'Yaw Pivot = 90°'
 
             );
 
@@ -1322,7 +1353,7 @@ a-scene{
         function(){
 
             console.log(
-                'DR-001 targetFound — v58'
+                'DR-001 targetFound'
             );
 
 
@@ -1338,11 +1369,6 @@ a-scene{
 
             }
 
-
-            /*
-             * Reset semua baseline
-             * sebelum emergence.
-             */
 
             restoreBaseline();
 
@@ -1548,15 +1574,15 @@ a-scene{
 
 
     /* =================================================
-       FINAL CONFIG LOG
+       FINAL CONFIG
     ================================================= */
 
     console.log(
-        '------------------------------------'
+        '--------------------------------'
     );
 
     console.log(
-        'DR-001 v58 CONFIG'
+        'DR-001 YAW TEST'
     );
 
     console.log(
@@ -1564,35 +1590,35 @@ a-scene{
     );
 
     console.log(
-        'Parent Rotation = 0 0 0'
+        'Parent         = 0 0 0'
     );
 
     console.log(
-        'Dragon Rotation = 90 315 0'
+        'Dragon         = 90 0 0'
     );
 
     console.log(
-        'Scale           = 2.5'
+        'Yaw Pivot      = 90 0'
     );
 
     console.log(
-        'Forward         = local -X'
+        'Scale          = 2.5'
     );
 
     console.log(
-        'Tracking        = DR-001'
+        'Forward        = local -X'
     );
 
     console.log(
-        'Emergence       = ON'
+        'Tracking       = DR-001'
     );
 
     console.log(
-        'ONLY Y HEADING CHANGED'
+        'Emergence      = ON'
     );
 
     console.log(
-        '------------------------------------'
+        '--------------------------------'
     );
 
 
