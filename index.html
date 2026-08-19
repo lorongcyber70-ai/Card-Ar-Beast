@@ -2,7 +2,6 @@
 <html lang="ms">
 
 <head>
-
 <meta charset="utf-8">
 
 <meta
@@ -10,17 +9,13 @@
   content="width=device-width,initial-scale=1,viewport-fit=cover"
 >
 
-<title>Card Beast AR — DR-001 v51</title>
+<title>Card Beast AR — DR-001 v52</title>
 
 <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
 
 <style>
-
-/* =========================================
-   GENERAL
-========================================= */
 
 *{
   box-sizing:border-box;
@@ -43,7 +38,7 @@ body{
 
 
 /* =========================================
-   CAMERA VIDEO
+   CAMERA
 ========================================= */
 
 video{
@@ -265,7 +260,7 @@ canvas{
   "
 
   mindar-image="
-    imageTargetSrc:./targets.mind?v51;
+    imageTargetSrc:./targets.mind?v52;
     autoStart:true;
     uiScanning:false;
     uiLoading:false;
@@ -307,14 +302,10 @@ canvas{
     <!-- =====================================
          BEAST
 
-         BASELINE:
-         POSITION  = 0 -0.25 0
-         ROTATION  = 0 0 0
-         SCALE     = 2.5
-
-         IMPORTANT:
-         Beast rotation TIDAK digunakan
-         untuk membetulkan arah naga.
+         LOCKED:
+         Position = 0 -0.25 0
+         Rotation = 0 0 0
+         Scale = 2.5
     ====================================== -->
 
     <a-entity
@@ -335,31 +326,21 @@ canvas{
       <!-- ===================================
            EMBER DRAGON
 
-           ROTATION TEST:
-           90 0 180
+           CURRENT TEST:
+           90 0 90
 
-           BASE X ROTATION:
-           90
-
-           Z ROTATION:
-           180
-
-           POSITION:
-           0 0 0
-
-           SCALE:
-           1 1 1
+           THIS HAS NOT BEEN TESTED BEFORE.
       ==================================== -->
 
       <a-entity
 
         id="dragonModel"
 
-        gltf-model="./models/ember-dragon.glb?v51"
+        gltf-model="./models/ember-dragon.glb?v52"
 
         position="0 0 0"
 
-        rotation="90 0 180"
+        rotation="90 0 90"
 
         scale="1 1 1"
 
@@ -404,7 +385,7 @@ canvas{
 
 
   /* =========================================
-     LOCKED BASELINE
+     LOCKED POSITION
   ========================================= */
 
   const BASE_X = 0;
@@ -414,24 +395,34 @@ canvas{
   const BASE_Z = 0;
 
 
-  /*
-    IMPORTANT:
+  /* =========================================
+     CURRENT ROTATION TEST
+     
+     TEST #5
 
-    Ini satu-satunya rotation
-    yang sedang diuji.
+     90 0 90
 
-    Jangan ubah beast rotation.
-  */
+     PREVIOUS TESTS:
+     
+     90 0 0
+     0 90 0
+     0 180 0
+     90 0 180
+  ========================================= */
 
   const DRAGON_ROTATION =
-    '90 0 180';
+    '90 0 90';
 
+
+  /* =========================================
+     FINAL SCALE
+  ========================================= */
 
   const FINAL_SCALE = 2.5;
 
 
   /* =========================================
-     EPIC EMERGENCE SETTINGS
+     EPIC EMERGENCE
   ========================================= */
 
   const START_SCALE = 0.35;
@@ -498,10 +489,7 @@ canvas{
 
 
   /* =========================================
-     DRAGON ROTATION LOCK
-     
-     IMPORTANT:
-     Rotation model sahaja.
+     ROTATION LOCK
   ========================================= */
 
   function resetDragonRotation(){
@@ -595,9 +583,10 @@ canvas{
   /* =========================================
      EPIC EMERGENCE
      
+     ONLY SCALE ANIMATES
+     
      POSITION LOCKED
      ROTATION LOCKED
-     ONLY SCALE ANIMATES
   ========================================= */
 
   function playEpicEmergence(){
@@ -615,22 +604,13 @@ canvas{
     clearAnimations();
 
 
-    /*
-      Lock position.
-    */
-
     resetPosition();
-
-
-    /*
-      Lock rotation.
-    */
 
     resetDragonRotation();
 
 
     /*
-      Start small.
+      Start kecil.
     */
 
     setScale(
@@ -677,7 +657,9 @@ canvas{
 
       'Position: Center of card<br>' +
 
-      'Y: -0.25'
+      'Y: -0.25<br>' +
+
+      'Rotation test: 90 0 90'
 
     );
 
@@ -735,9 +717,7 @@ canvas{
           FINAL_SCALE
         );
 
-
         resetPosition();
-
 
         resetDragonRotation();
 
@@ -752,7 +732,7 @@ canvas{
 
           'Y: -0.25<br>' +
 
-          'Rotation: 90 0 180<br>' +
+          'Rotation: 90 0 90<br>' +
 
           'Scale: 2.5'
 
@@ -764,7 +744,11 @@ canvas{
         );
 
         console.log(
-          'EPIC EMERGENCE COMPLETE'
+          'CARD BEAST AR — DR-001 v52'
+        );
+
+        console.log(
+          'ROTATION TEST: 90 0 90'
         );
 
         console.log(
@@ -772,11 +756,6 @@ canvas{
           BASE_X,
           BASE_Y,
           BASE_Z
-        );
-
-        console.log(
-          'Dragon Rotation:',
-          DRAGON_ROTATION
         );
 
         console.log(
@@ -886,50 +865,23 @@ canvas{
       );
 
       console.log(
-        'CARD BEAST AR — DR-001 v51'
+        'CARD BEAST AR — DR-001 v52'
       );
 
       console.log(
-        '========================================'
+        'Rotation TEST = 90 0 90'
       );
 
       console.log(
-        'Target: DR-001'
+        'Position = 0 -0.25 0'
       );
 
       console.log(
-        'Target index: 0'
+        'Beast Rotation = 0 0 0'
       );
 
       console.log(
-        'Position:',
-        BASE_X,
-        BASE_Y,
-        BASE_Z
-      );
-
-      console.log(
-        'Beast rotation: 0 0 0'
-      );
-
-      console.log(
-        'Dragon rotation:',
-        DRAGON_ROTATION
-      );
-
-      console.log(
-        'Scale:',
-        FINAL_SCALE
-      );
-
-      console.log(
-        'Target file:',
-        './targets.mind?v51'
-      );
-
-      console.log(
-        'Model file:',
-        './models/ember-dragon.glb?v51'
+        'Scale = 2.5'
       );
 
       console.log(
@@ -1016,26 +968,14 @@ canvas{
       }
 
 
-      /*
-        Reset semuanya dahulu.
-      */
-
       restoreBaseline();
 
-
-      /*
-        Paparkan naga.
-      */
 
       beast.setAttribute(
         'visible',
         'true'
       );
 
-
-      /*
-        Mainkan emergence sekali.
-      */
 
       playEpicEmergence();
 
@@ -1065,27 +1005,14 @@ canvas{
       );
 
 
-      /*
-        Hilangkan naga.
-      */
-
       beast.setAttribute(
         'visible',
         'false'
       );
 
 
-      /*
-        Boleh play semula
-        apabila card ditemui lagi.
-      */
-
       emergencePlayed = false;
 
-
-      /*
-        Reset baseline.
-      */
 
       restoreBaseline();
 
@@ -1161,12 +1088,10 @@ canvas{
             ''
           );
 
-
           video.setAttribute(
             'autoplay',
             ''
           );
-
 
           video.muted = true;
 
@@ -1205,7 +1130,7 @@ canvas{
 
 
   /* =========================================
-     WATCH FOR CAMERA
+     CAMERA WATCHER
   ========================================= */
 
   new MutationObserver(
@@ -1217,25 +1142,22 @@ canvas{
     document.documentElement,
 
     {
-
       childList:true,
-
       subtree:true
-
     }
 
   );
 
 
   /* =========================================
-     INITIAL VIDEO FIX
+     INITIAL CAMERA FIX
   ========================================= */
 
   fixVideoLayer();
 
 
   /* =========================================
-     DEBUG
+     DEBUG / TEST LOG
   ========================================= */
 
   console.log(
@@ -1243,41 +1165,56 @@ canvas{
   );
 
   console.log(
-    'CARD BEAST AR — DR-001 v51'
-  );
-
-  console.log(
-    'BASELINE LOCKED'
-  );
-
-  console.log(
-    'Position = 0 -0.25 0'
-  );
-
-  console.log(
-    'Beast Rotation = 0 0 0'
-  );
-
-  console.log(
-    'Dragon Rotation = 90 0 180'
-  );
-
-  console.log(
-    'Scale = 2.5'
-  );
-
-  console.log(
-    'Epic Emergence = ON'
-  );
-
-  console.log(
-    'Target = DR-001'
+    'CARD BEAST AR — ROTATION TEST LOG'
   );
 
   console.log(
     '========================================'
   );
 
+  console.log(
+    'TEST 1: 90 0 0'
+  );
+
+  console.log(
+    'RESULT: BASELINE / MELINTANG'
+  );
+
+  console.log(
+    'TEST 2: Parent 0 90 0'
+  );
+
+  console.log(
+    'RESULT: MENEGAK / SALAH'
+  );
+
+  console.log(
+    'TEST 3: Parent 0 180 0'
+  );
+
+  console.log(
+    'RESULT: TERBONGKANG / SALAH'
+  );
+
+  console.log(
+    'TEST 4: 90 0 180'
+  );
+
+  console.log(
+    'RESULT: MELINTANG / ARAH TERBALIK'
+  );
+
+  console.log(
+    'TEST 5: 90 0 90'
+  );
+
+  console.log(
+    'RESULT: CURRENT TEST'
+  );
+
+  console.log(
+    '========================================'
+  );
 
 })();
 
