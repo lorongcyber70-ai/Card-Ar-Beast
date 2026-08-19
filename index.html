@@ -9,7 +9,7 @@
   content="width=device-width,initial-scale=1,viewport-fit=cover"
 >
 
-<title>Card Beast AR — DR-001 v52</title>
+<title>Card Beast AR — DR-001 v54</title>
 
 <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
 
@@ -86,6 +86,7 @@ canvas{
 
 #ui{
   position:fixed;
+
   z-index:20;
 
   top:18px;
@@ -136,7 +137,7 @@ canvas{
 
 
 /* =========================================
-   INFO
+   INFO PANEL
 ========================================= */
 
 #info{
@@ -155,7 +156,7 @@ canvas{
 
   border-radius:24px;
 
-  background:rgba(5,0,12,.86);
+  background:rgba(5,0,12,.88);
 
   color:#fff;
 
@@ -260,7 +261,7 @@ canvas{
   "
 
   mindar-image="
-    imageTargetSrc:./targets.mind?v52;
+    imageTargetSrc:./targets.mind?v54;
     autoStart:true;
     uiScanning:false;
     uiLoading:false;
@@ -272,7 +273,6 @@ canvas{
   loading-screen="
     enabled:false
   "
-
 >
 
 
@@ -291,21 +291,17 @@ canvas{
   ======================================== -->
 
   <a-entity
-
     id="target"
-
     mindar-image-target="targetIndex:0"
-
   >
 
 
     <!-- =====================================
          BEAST
 
-         LOCKED:
-         Position = 0 -0.25 0
-         Rotation = 0 0 0
-         Scale = 2.5
+         POSITION = 0 -0.25 0
+         ROTATION = 0 0 0
+         SCALE    = 2.5
     ====================================== -->
 
     <a-entity
@@ -326,21 +322,24 @@ canvas{
       <!-- ===================================
            EMBER DRAGON
 
-           CURRENT TEST:
-           90 0 90
+           CURRENT DIRECTION TEST
 
-           THIS HAS NOT BEEN TESTED BEFORE.
+           ROTATION = 90 0 135
+
+           X = 90
+           Y = 0
+           Z = 135
       ==================================== -->
 
       <a-entity
 
         id="dragonModel"
 
-        gltf-model="./models/ember-dragon.glb?v52"
+        gltf-model="./models/ember-dragon.glb?v54"
 
         position="0 0 0"
 
-        rotation="90 0 90"
+        rotation="90 0 135"
 
         scale="1 1 1"
 
@@ -360,6 +359,7 @@ canvas{
 <script>
 
 (function(){
+
 
   /* =========================================
      ELEMENTS
@@ -385,7 +385,7 @@ canvas{
 
 
   /* =========================================
-     LOCKED POSITION
+     LOCKED BASELINE
   ========================================= */
 
   const BASE_X = 0;
@@ -397,21 +397,13 @@ canvas{
 
   /* =========================================
      CURRENT ROTATION TEST
-     
-     TEST #5
-
-     90 0 90
-
-     PREVIOUS TESTS:
-     
-     90 0 0
-     0 90 0
-     0 180 0
-     90 0 180
   ========================================= */
 
-  const DRAGON_ROTATION =
-    '90 0 90';
+  const DRAGON_ROTATION = {
+    x:90,
+    y:0,
+    z:135
+  };
 
 
   /* =========================================
@@ -472,10 +464,10 @@ canvas{
 
 
   /* =========================================
-     POSITION LOCK
+     APPLY BASE POSITION
   ========================================= */
 
-  function resetPosition(){
+  function applyBasePosition(){
 
     beast.object3D.position.set(
 
@@ -489,16 +481,29 @@ canvas{
 
 
   /* =========================================
-     ROTATION LOCK
+     APPLY BASE ROTATION
+     
+     IMPORTANT:
+     NO PARENT Y ROTATION
+     
+     ONLY DRAGON MODEL ROTATION
   ========================================= */
 
-  function resetDragonRotation(){
+  function applyDragonRotation(){
 
-    dragonModel.setAttribute(
+    dragonModel.object3D.rotation.set(
 
-      'rotation',
+      THREE.MathUtils.degToRad(
+        DRAGON_ROTATION.x
+      ),
 
-      DRAGON_ROTATION
+      THREE.MathUtils.degToRad(
+        DRAGON_ROTATION.y
+      ),
+
+      THREE.MathUtils.degToRad(
+        DRAGON_ROTATION.z
+      )
 
     );
 
@@ -506,17 +511,44 @@ canvas{
 
 
   /* =========================================
-     SCALE
+     APPLY BASE SCALE
   ========================================= */
 
-  function setScale(value){
+  function applyFinalScale(){
 
     beast.object3D.scale.set(
 
-      value,
-      value,
-      value
+      FINAL_SCALE,
+      FINAL_SCALE,
+      FINAL_SCALE
 
+    );
+
+  }
+
+
+  /* =========================================
+     RESTORE BASELINE
+  ========================================= */
+
+  function restoreBaseline(){
+
+    clearAnimations();
+
+    applyBasePosition();
+
+    beast.object3D.rotation.set(
+      0,
+      0,
+      0
+    );
+
+    applyDragonRotation();
+
+    applyFinalScale();
+
+    beast.object3D.updateMatrixWorld(
+      true
     );
 
   }
@@ -562,19 +594,17 @@ canvas{
 
 
   /* =========================================
-     RESTORE BASELINE
+     SET SCALE
   ========================================= */
 
-  function restoreBaseline(){
+  function setScale(value){
 
-    clearAnimations();
+    beast.object3D.scale.set(
 
-    resetPosition();
+      value,
+      value,
+      value
 
-    resetDragonRotation();
-
-    setScale(
-      FINAL_SCALE
     );
 
   }
@@ -583,10 +613,10 @@ canvas{
   /* =========================================
      EPIC EMERGENCE
      
-     ONLY SCALE ANIMATES
-     
-     POSITION LOCKED
-     ROTATION LOCKED
+     ONLY SCALE ANIMATES.
+
+     POSITION LOCKED.
+     ROTATION LOCKED.
   ========================================= */
 
   function playEpicEmergence(){
@@ -604,13 +634,18 @@ canvas{
     clearAnimations();
 
 
-    resetPosition();
+    /*
+      Make sure the dragon begins
+      from the exact selected orientation.
+    */
 
-    resetDragonRotation();
+    applyBasePosition();
+
+    applyDragonRotation();
 
 
     /*
-      Start kecil.
+      Start small.
     */
 
     setScale(
@@ -619,7 +654,7 @@ canvas{
 
 
     /* =====================================
-       EMERGE
+       GROW
     ===================================== */
 
     beast.setAttribute(
@@ -657,9 +692,7 @@ canvas{
 
       'Position: Center of card<br>' +
 
-      'Y: -0.25<br>' +
-
-      'Rotation test: 90 0 90'
+      'Rotation: 90 0 135'
 
     );
 
@@ -713,13 +746,14 @@ canvas{
 
       function(){
 
-        setScale(
-          FINAL_SCALE
-        );
+        clearAnimations();
 
-        resetPosition();
 
-        resetDragonRotation();
+        applyBasePosition();
+
+        applyDragonRotation();
+
+        applyFinalScale();
 
 
         setInfo(
@@ -728,11 +762,9 @@ canvas{
 
           'Epic Emergence complete.<br>' +
 
-          'Position: Center of card<br>' +
+          'Position: 0 -0.25 0<br>' +
 
-          'Y: -0.25<br>' +
-
-          'Rotation: 90 0 90<br>' +
+          'Rotation: 90 0 135<br>' +
 
           'Scale: 2.5'
 
@@ -744,35 +776,30 @@ canvas{
         );
 
         console.log(
-          'CARD BEAST AR — DR-001 v52'
+          'DR-001 ROTATION TEST'
         );
 
         console.log(
-          'ROTATION TEST: 90 0 90'
+          'Rotation = 90 0 135'
         );
 
         console.log(
-          'Position:',
-          BASE_X,
-          BASE_Y,
-          BASE_Z
+          'Position = 0 -0.25 0'
         );
 
         console.log(
-          'Scale:',
-          FINAL_SCALE
+          'Scale = 2.5'
         );
 
         console.log(
           '========================================'
         );
 
-
       },
 
       GROW_DURATION +
       BOUNCE_DURATION +
-      80
+      100
 
     );
 
@@ -801,11 +828,6 @@ canvas{
 
       );
 
-
-      console.log(
-        'A-Frame loaded.'
-      );
-
     }
 
   );
@@ -830,13 +852,9 @@ canvas{
       setInfo(
 
         'Point the rear camera at ' +
+
         '<b>DR-001 Ember Dragon</b>.'
 
-      );
-
-
-      console.log(
-        'MindAR arReady.'
       );
 
     }
@@ -845,7 +863,7 @@ canvas{
 
 
   /* =========================================
-     GLB LOADED
+     MODEL LOADED
   ========================================= */
 
   dragonModel.addEventListener(
@@ -865,23 +883,27 @@ canvas{
       );
 
       console.log(
-        'CARD BEAST AR — DR-001 v52'
+        'CARD BEAST AR — DR-001 v54'
       );
 
       console.log(
-        'Rotation TEST = 90 0 90'
+        'CURRENT ROTATION TEST: 90 0 135'
       );
 
       console.log(
-        'Position = 0 -0.25 0'
+        'Position: 0 -0.25 0'
       );
 
       console.log(
-        'Beast Rotation = 0 0 0'
+        'Beast Rotation: 0 0 0'
       );
 
       console.log(
-        'Scale = 2.5'
+        'Dragon Rotation: 90 0 135'
+      );
+
+      console.log(
+        'Scale: 2.5'
       );
 
       console.log(
@@ -903,7 +925,7 @@ canvas{
 
 
   /* =========================================
-     GLB ERROR
+     MODEL ERROR
   ========================================= */
 
   dragonModel.addEventListener(
@@ -960,13 +982,17 @@ canvas{
       if(!modelLoaded){
 
         console.warn(
-          'Target found but GLB not ready.'
+          'Target found but model is not ready.'
         );
 
         return;
 
       }
 
+
+      /*
+        Reset exactly before showing.
+      */
 
       restoreBaseline();
 
@@ -981,8 +1007,11 @@ canvas{
 
 
       setStatus(
+
         'CARD CONFIRMED • DR-001',
+
         'ok'
+
       );
 
     }
@@ -1005,6 +1034,9 @@ canvas{
       );
 
 
+      clearAnimations();
+
+
       beast.setAttribute(
         'visible',
         'false'
@@ -1018,8 +1050,11 @@ canvas{
 
 
       setStatus(
+
         'CAMERA ACTIVE ✓',
+
         'ok'
+
       );
 
 
@@ -1149,15 +1184,11 @@ canvas{
   );
 
 
-  /* =========================================
-     INITIAL CAMERA FIX
-  ========================================= */
-
   fixVideoLayer();
 
 
   /* =========================================
-     DEBUG / TEST LOG
+     ROTATION TEST HISTORY
   ========================================= */
 
   console.log(
@@ -1165,56 +1196,37 @@ canvas{
   );
 
   console.log(
-    'CARD BEAST AR — ROTATION TEST LOG'
+    'DR-001 ROTATION TEST HISTORY'
+  );
+
+  console.log(
+    '90 0 0 = BASELINE / STABLE'
+  );
+
+  console.log(
+    'Parent Y 90 = WRONG / VERTICAL'
+  );
+
+  console.log(
+    'Parent Y 180 = WRONG / TUMBLED'
+  );
+
+  console.log(
+    '90 0 180 = WRONG DIRECTION'
+  );
+
+  console.log(
+    '90 0 90 = WRONG'
+  );
+
+  console.log(
+    'CURRENT TEST = 90 0 135'
   );
 
   console.log(
     '========================================'
   );
 
-  console.log(
-    'TEST 1: 90 0 0'
-  );
-
-  console.log(
-    'RESULT: BASELINE / MELINTANG'
-  );
-
-  console.log(
-    'TEST 2: Parent 0 90 0'
-  );
-
-  console.log(
-    'RESULT: MENEGAK / SALAH'
-  );
-
-  console.log(
-    'TEST 3: Parent 0 180 0'
-  );
-
-  console.log(
-    'RESULT: TERBONGKANG / SALAH'
-  );
-
-  console.log(
-    'TEST 4: 90 0 180'
-  );
-
-  console.log(
-    'RESULT: MELINTANG / ARAH TERBALIK'
-  );
-
-  console.log(
-    'TEST 5: 90 0 90'
-  );
-
-  console.log(
-    'RESULT: CURRENT TEST'
-  );
-
-  console.log(
-    '========================================'
-  );
 
 })();
 
