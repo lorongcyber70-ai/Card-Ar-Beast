@@ -8,7 +8,7 @@
   name="viewport"
   content="width=device-width,initial-scale=1,viewport-fit=cover">
 
-<title>Card Beast AR — DR-001 v55 DEBUG</title>
+<title>Card Beast AR — DR-001 v56 Axis Debug</title>
 
 <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
@@ -191,29 +191,45 @@ canvas{
   top:105px;
   left:12px;
 
+  min-width:205px;
+
   padding:12px 14px;
 
-  min-width:180px;
+  border:1px solid rgba(255,255,255,.35);
 
-  border:1px solid rgba(255,70,70,.8);
+  border-radius:14px;
 
-  border-radius:12px;
-
-  background:rgba(20,0,0,.78);
+  background:rgba(0,0,0,.78);
 
   color:#fff;
 
   font-size:13px;
 
-  line-height:1.5;
+  line-height:1.55;
 
   pointer-events:none;
 
   text-align:left;
 }
 
-#debugPanel strong{
-  color:#ff5555;
+.debugTitle{
+  font-weight:900;
+
+  margin-bottom:5px;
+
+  color:#fff;
+}
+
+.xAxis{
+  color:#ff3333;
+}
+
+.yAxis{
+  color:#45ff75;
+}
+
+.zAxis{
+  color:#3b8cff;
 }
 
 
@@ -240,6 +256,8 @@ canvas{
   #debugPanel{
     top:105px;
     left:8px;
+
+    min-width:190px;
 
     font-size:12px;
 
@@ -279,15 +297,25 @@ canvas{
 
 <div id="debugPanel">
 
-  <strong>FORWARD DEBUG</strong><br>
+  <div class="debugTitle">
+    3-AXIS FORWARD DEBUG
+  </div>
 
-  Rotation: 90 180 0<br>
+  <div class="xAxis">
+    🔴 +X = RED
+  </div>
 
-  Position: 0 -0.25 0<br>
+  <div class="yAxis">
+    🟢 +Y = GREEN
+  </div>
 
-  Scale: 2.5<br>
+  <div class="zAxis">
+    🔵 +Z = BLUE
+  </div>
 
-  Marker: waiting…
+  <div>
+    Follow the axis from body → head
+  </div>
 
 </div>
 
@@ -325,7 +353,7 @@ canvas{
   "
 
   mindar-image="
-    imageTargetSrc:./targets.mind?v55debug;
+    imageTargetSrc:./targets.mind?v56;
     autoStart:true;
     uiScanning:false;
     uiLoading:false;
@@ -389,7 +417,7 @@ canvas{
 
 
       <!-- ===================================
-           DRAGON MODEL
+           EMBER DRAGON
 
            V55 ROTATION — UNCHANGED
 
@@ -400,7 +428,7 @@ canvas{
 
         id="dragonModel"
 
-        gltf-model="./models/ember-dragon.glb?v55debug"
+        gltf-model="./models/ember-dragon.glb?v56"
 
         position="0 0 0"
 
@@ -412,30 +440,33 @@ canvas{
 
 
         <!-- =================================
-             DEBUG MARKER
+             V56 3-AXIS DEBUG ROOT
 
-             This is a CHILD of dragonModel.
+             Child of dragonModel.
 
-             It does NOT alter the dragon.
+             DOES NOT CHANGE MODEL.
         ================================== -->
 
         <a-entity
-          id="forwardDebug"
+          id="axisDebug"
           visible="false"
         >
 
-          <!-- CENTER POINT -->
+
+          <!-- =================================
+               ORIGIN
+
+               WHITE CENTER
+          ================================== -->
 
           <a-sphere
 
-            id="forwardOrigin"
-
             position="0 0 0"
 
-            radius="0.06"
+            radius="0.045"
 
             material="
-              color:#ff0000;
+              color:#ffffff;
               shader:flat;
               opacity:1
             "
@@ -445,33 +476,27 @@ canvas{
 
 
           <!-- =================================
-               FORWARD ARROW
+               +X AXIS — RED
 
-               +Z direction
+               Direction:
+               LOCAL +X
           ================================== -->
 
           <a-entity
-
-            id="forwardArrow"
-
-            position="0 0 0"
-
-            rotation="0 0 0"
-
+            id="axisX"
+            rotation="0 0 -90"
           >
-
-            <!-- shaft -->
 
             <a-cylinder
 
-              position="0 0 -0.22"
+              position="0 0.28 0"
 
-              radius="0.025"
+              radius="0.018"
 
-              height="0.44"
+              height="0.56"
 
               material="
-                color:#ff0000;
+                color:#ff2222;
                 shader:flat
               "
 
@@ -479,20 +504,18 @@ canvas{
             </a-cylinder>
 
 
-            <!-- arrow head -->
-
             <a-cone
 
-              position="0 0 0.05"
+              position="0 0.62 0"
 
-              radius-bottom="0.09"
+              radius-bottom="0.075"
 
               radius-top="0"
 
-              height="0.18"
+              height="0.16"
 
               material="
-                color:#ff0000;
+                color:#ff2222;
                 shader:flat
               "
 
@@ -500,29 +523,159 @@ canvas{
             </a-cone>
 
 
+            <a-text
+
+              value="+X"
+
+              position="0 0.77 0"
+
+              align="center"
+
+              width="0.7"
+
+              color="#ff3333"
+
+              side="double"
+
+            >
+            </a-text>
+
           </a-entity>
 
 
           <!-- =================================
-               LABEL
+               +Y AXIS — GREEN
+
+               Direction:
+               LOCAL +Y
           ================================== -->
 
-          <a-text
-
-            value="FORWARD"
-
-            position="0 0.18 0"
-
-            align="center"
-
-            width="1"
-
-            color="#ff3333"
-
-            side="double"
-
+          <a-entity
+            id="axisY"
           >
-          </a-text>
+
+            <a-cylinder
+
+              position="0 0.28 0"
+
+              radius="0.018"
+
+              height="0.56"
+
+              material="
+                color:#35ff65;
+                shader:flat
+              "
+
+            >
+            </a-cylinder>
+
+
+            <a-cone
+
+              position="0 0.62 0"
+
+              radius-bottom="0.075"
+
+              radius-top="0"
+
+              height="0.16"
+
+              material="
+                color:#35ff65;
+                shader:flat
+              "
+
+            >
+            </a-cone>
+
+
+            <a-text
+
+              value="+Y"
+
+              position="0 0.77 0"
+
+              align="center"
+
+              width="0.7"
+
+              color="#35ff65"
+
+              side="double"
+
+            >
+            </a-text>
+
+          </a-entity>
+
+
+          <!-- =================================
+               +Z AXIS — BLUE
+
+               Direction:
+               LOCAL +Z
+          ================================== -->
+
+          <a-entity
+            id="axisZ"
+            rotation="90 0 0"
+          >
+
+            <a-cylinder
+
+              position="0 0.28 0"
+
+              radius="0.018"
+
+              height="0.56"
+
+              material="
+                color:#3388ff;
+                shader:flat
+              "
+
+            >
+            </a-cylinder>
+
+
+            <a-cone
+
+              position="0 0.62 0"
+
+              radius-bottom="0.075"
+
+              radius-top="0"
+
+              height="0.16"
+
+              material="
+                color:#3388ff;
+                shader:flat
+              "
+
+            >
+            </a-cone>
+
+
+            <a-text
+
+              value="+Z"
+
+              position="0 0.77 0"
+
+              align="center"
+
+              width="0.7"
+
+              color="#3388ff"
+
+              side="double"
+
+            >
+            </a-text>
+
+          </a-entity>
 
 
         </a-entity>
@@ -561,11 +714,8 @@ canvas{
   const dragonModel =
     document.getElementById('dragonModel');
 
-  const forwardDebug =
-    document.getElementById('forwardDebug');
-
-  const debugPanel =
-    document.getElementById('debugPanel');
+  const axisDebug =
+    document.getElementById('axisDebug');
 
   const status =
     document.getElementById('status');
@@ -576,16 +726,13 @@ canvas{
 
   /* =========================================
      DEBUG SWITCH
-
-     TRUE = SHOW MARKER
-     FALSE = HIDE MARKER
   ========================================= */
 
-  const DEBUG_FORWARD = true;
+  const DEBUG_AXIS = true;
 
 
   /* =========================================
-     V55 LOCKED POSITION
+     V55 POSITION — LOCKED
   ========================================= */
 
   const BASE_X = 0;
@@ -594,33 +741,40 @@ canvas{
 
 
   /* =========================================
-     V55 LOCKED ROTATION
-
-     DO NOT CHANGE
+     V55 PARENT ROTATION — LOCKED
   ========================================= */
 
-  const DRAGON_ROTATION = {
+  const PARENT_ROTATION = {
 
-    x:90,
-
-    y:180,
-
+    x:0,
+    y:0,
     z:0
 
   };
 
 
   /* =========================================
-     V55 SCALE
+     V55 DRAGON ROTATION — LOCKED
+  ========================================= */
+
+  const DRAGON_ROTATION = {
+
+    x:90,
+    y:180,
+    z:0
+
+  };
+
+
+  /* =========================================
+     V55 FINAL SCALE
   ========================================= */
 
   const FINAL_SCALE = 2.5;
 
 
   /* =========================================
-     EPIC EMERGENCE
-
-     UNCHANGED
+     V55 EPIC EMERGENCE
   ========================================= */
 
   const START_SCALE = 0.35;
@@ -670,21 +824,6 @@ canvas{
 
 
   /* =========================================
-     DEBUG PANEL
-  ========================================= */
-
-  function setDebug(text){
-
-    debugPanel.innerHTML =
-
-      '<strong>FORWARD DEBUG</strong><br>' +
-
-      text;
-
-  }
-
-
-  /* =========================================
      POSITION
   ========================================= */
 
@@ -703,17 +842,23 @@ canvas{
 
   /* =========================================
      PARENT ROTATION
-     
-     LOCKED
   ========================================= */
 
   function applyParentRotation(){
 
     beast.object3D.rotation.set(
 
-      0,
-      0,
-      0
+      THREE.MathUtils.degToRad(
+        PARENT_ROTATION.x
+      ),
+
+      THREE.MathUtils.degToRad(
+        PARENT_ROTATION.y
+      ),
+
+      THREE.MathUtils.degToRad(
+        PARENT_ROTATION.z
+      )
 
     );
 
@@ -722,8 +867,6 @@ canvas{
 
   /* =========================================
      DRAGON ROTATION
-     
-     V55 UNCHANGED
   ========================================= */
 
   function applyDragonRotation(){
@@ -748,7 +891,7 @@ canvas{
 
 
   /* =========================================
-     SCALE
+     FINAL SCALE
   ========================================= */
 
   function applyFinalScale(){
@@ -765,14 +908,14 @@ canvas{
 
 
   /* =========================================
-     DEBUG MARKER
+     AXIS DEBUG
   ========================================= */
 
-  function updateDebugMarker(){
+  function updateAxisDebug(){
 
-    if(!DEBUG_FORWARD){
+    if(!DEBUG_AXIS){
 
-      forwardDebug.setAttribute(
+      axisDebug.setAttribute(
         'visible',
         'false'
       );
@@ -782,59 +925,39 @@ canvas{
     }
 
 
-    forwardDebug.setAttribute(
+    axisDebug.setAttribute(
       'visible',
       'true'
     );
 
 
-    setDebug(
-
-      'Rotation: 90 180 0<br>' +
-
-      'Position: 0 -0.25 0<br>' +
-
-      'Scale: 2.5<br>' +
-
-      '🔴 Arrow = +Z forward<br>' +
-
-      'Marker: ACTIVE'
-
-    );
-
-
     console.log(
-      'FORWARD DEBUG MARKER ACTIVE'
+      '========================================'
     );
 
     console.log(
-      'Arrow direction = local +Z'
+      'DR-001 v56 AXIS DEBUG'
     );
 
-  }
-
-
-  /* =========================================
-     BASELINE RESET
-  ========================================= */
-
-  function restoreBaseline(){
-
-    clearAnimations();
-
-    applyBasePosition();
-
-    applyParentRotation();
-
-    applyDragonRotation();
-
-    applyFinalScale();
-
-    dragonModel.object3D.updateMatrixWorld(
-      true
+    console.log(
+      '🔴 RED   = local +X'
     );
 
-    updateDebugMarker();
+    console.log(
+      '🟢 GREEN = local +Y'
+    );
+
+    console.log(
+      '🔵 BLUE  = local +Z'
+    );
+
+    console.log(
+      'Find which coloured arrow points BODY → HEAD'
+    );
+
+    console.log(
+      '========================================'
+    );
 
   }
 
@@ -879,6 +1002,31 @@ canvas{
 
 
   /* =========================================
+     RESTORE BASELINE
+  ========================================= */
+
+  function restoreBaseline(){
+
+    clearAnimations();
+
+    applyBasePosition();
+
+    applyParentRotation();
+
+    applyDragonRotation();
+
+    applyFinalScale();
+
+    dragonModel.object3D.updateMatrixWorld(
+      true
+    );
+
+    updateAxisDebug();
+
+  }
+
+
+  /* =========================================
      SCALE
   ========================================= */
 
@@ -898,7 +1046,7 @@ canvas{
   /* =========================================
      EPIC EMERGENCE
      
-     V55 LOGIC UNCHANGED
+     V55 UNCHANGED
   ========================================= */
 
   function playEpicEmergence(){
@@ -922,7 +1070,7 @@ canvas{
 
     applyDragonRotation();
 
-    updateDebugMarker();
+    updateAxisDebug();
 
 
     setScale(
@@ -965,9 +1113,9 @@ canvas{
 
       '🔥 <b>EMBER DRAGON EMERGING</b><br>' +
 
-      'Debug forward marker active.<br>' +
+      '3-axis debug active.<br>' +
 
-      '🔴 Arrow = local +Z'
+      '🔴 +X &nbsp; 🟢 +Y &nbsp; 🔵 +Z'
 
     );
 
@@ -1031,16 +1179,16 @@ canvas{
 
         applyFinalScale();
 
-        updateDebugMarker();
+        updateAxisDebug();
 
 
         setInfo(
 
           '🔥 <b>EMBER DRAGON ACTIVE</b><br>' +
 
-          '🔴 Forward marker = local +Z<br>' +
+          '🔴 +X &nbsp; 🟢 +Y &nbsp; 🔵 +Z<br>' +
 
-          'Compare marker direction with card arrow.'
+          'Cari paksi yang menghala BODY → HEAD.'
 
         );
 
@@ -1056,7 +1204,7 @@ canvas{
 
 
   /* =========================================
-     A-FRAME LOADED
+     SCENE READY
   ========================================= */
 
   scene.addEventListener(
@@ -1073,6 +1221,7 @@ canvas{
       setInfo(
 
         'Loading MindAR target ' +
+
         '<b>DR-001</b>…'
 
       );
@@ -1128,15 +1277,7 @@ canvas{
 
 
       console.log(
-        '========================================'
-      );
-
-      console.log(
-        'DR-001 v55 FORWARD DEBUG'
-      );
-
-      console.log(
-        'Rotation = 90 180 0'
+        'DR-001 v56 MODEL READY'
       );
 
       console.log(
@@ -1148,15 +1289,15 @@ canvas{
       );
 
       console.log(
+        'Dragon Rotation = 90 180 0'
+      );
+
+      console.log(
         'Scale = 2.5'
       );
 
       console.log(
-        'Forward marker = LOCAL +Z'
-      );
-
-      console.log(
-        '========================================'
+        'DEBUG AXES = +X / +Y / +Z'
       );
 
 
@@ -1214,7 +1355,7 @@ canvas{
   /* =========================================
      TARGET FOUND
      
-     V55 TRACKING UNCHANGED
+     UNCHANGED
   ========================================= */
 
   target.addEventListener(
@@ -1267,7 +1408,7 @@ canvas{
   /* =========================================
      TARGET LOST
      
-     V55 TRACKING UNCHANGED
+     UNCHANGED
   ========================================= */
 
   target.addEventListener(
@@ -1354,7 +1495,7 @@ canvas{
 
 
   /* =========================================
-     CAMERA FIX
+     CAMERA VIDEO FIX
   ========================================= */
 
   function fixVideoLayer(){
@@ -1412,7 +1553,7 @@ canvas{
 
 
   /* =========================================
-     CAMERA WATCHER
+     VIDEO WATCHER
   ========================================= */
 
   new MutationObserver(
@@ -1435,7 +1576,7 @@ canvas{
 
 
   /* =========================================
-     DEBUG LOG
+     FINAL DEBUG LOG
   ========================================= */
 
   console.log(
@@ -1443,27 +1584,23 @@ canvas{
   );
 
   console.log(
-    'FORWARD DEBUG PATCH'
+    'CARD BEAST AR — DR-001 v56'
   );
 
   console.log(
-    'V55 PARAMETERS PRESERVED'
+    'V55 BASELINE PRESERVED'
   );
 
   console.log(
-    'Dragon rotation = 90 180 0'
+    'Position = 0 -0.25 0'
   );
 
   console.log(
-    'Dragon position = 0 0 0'
+    'Parent Rotation = 0 0 0'
   );
 
   console.log(
-    'Beast position = 0 -0.25 0'
-  );
-
-  console.log(
-    'Beast rotation = 0 0 0'
+    'Dragon Rotation = 90 180 0'
   );
 
   console.log(
@@ -1471,7 +1608,15 @@ canvas{
   );
 
   console.log(
-    'Forward marker = local +Z'
+    'Epic Emergence = ON'
+  );
+
+  console.log(
+    'Tracking = DR-001'
+  );
+
+  console.log(
+    'Axis Debug = RED +X / GREEN +Y / BLUE +Z'
   );
 
   console.log(
