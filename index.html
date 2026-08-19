@@ -2,15 +2,25 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
 
-<title>Card Beast AR — DR-001 v57</title>
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
 
+<title>Card Beast AR — DR-001 v58</title>
+
+<!-- A-Frame -->
 <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+
+<!-- MindAR -->
 <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
 
 <style>
+
+/* =====================================================
+   GENERAL
+===================================================== */
 
 *{
     box-sizing:border-box;
@@ -19,64 +29,80 @@
 html,
 body{
     margin:0;
+    padding:0;
+
     width:100%;
     height:100%;
+
     overflow:hidden;
+
     background:#000;
-    font-family:Arial,Helvetica,sans-serif;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
 }
 
 body{
     position:fixed;
+
     inset:0;
 }
 
-/* =========================================
-   CAMERA BACKGROUND
-========================================= */
+
+/* =====================================================
+   CAMERA VIDEO
+===================================================== */
 
 video{
-    position:fixed!important;
-    inset:0!important;
+    position:fixed !important;
 
-    width:100%!important;
-    height:100%!important;
+    inset:0 !important;
 
-    object-fit:cover!important;
+    width:100% !important;
+    height:100% !important;
 
-    z-index:0!important;
+    object-fit:cover !important;
 
-    display:block!important;
+    z-index:0 !important;
 
-    background:#000!important;
+    display:block !important;
+
+    background:#000 !important;
 }
 
-/* =========================================
-   AR SCENE
-========================================= */
+
+/* =====================================================
+   A-FRAME
+===================================================== */
 
 a-scene{
-    position:fixed!important;
-    inset:0!important;
+    position:fixed !important;
 
-    width:100%!important;
-    height:100%!important;
+    inset:0 !important;
 
-    z-index:1!important;
+    width:100% !important;
+    height:100% !important;
 
-    background:transparent!important;
+    z-index:1 !important;
+
+    background:transparent !important;
 }
 
-/* =========================================
-   TOP UI
-========================================= */
+
+/* =====================================================
+   TOP HEADER
+===================================================== */
 
 #topUI{
+
     position:fixed;
 
     z-index:20;
 
     top:18px;
+
     left:0;
 
     width:100%;
@@ -86,8 +112,11 @@ a-scene{
     pointer-events:none;
 }
 
+
 .logo{
+
     font-size:30px;
+
     font-weight:900;
 
     color:#fff;
@@ -95,26 +124,31 @@ a-scene{
     letter-spacing:-1px;
 
     text-shadow:
-        0 3px 8px rgba(0,0,0,.9),
+        0 3px 8px rgba(0,0,0,.95),
         0 0 15px rgba(0,0,0,.8);
 }
 
+
 .logo span{
-    color:#b94dff;
+
+    color:#b84cff;
 }
 
+
 #status{
+
     display:inline-block;
 
     margin-top:12px;
 
     padding:10px 22px;
 
-    border:1px solid #b84cff;
-
     border-radius:30px;
 
-    background:rgba(5,0,12,.82);
+    border:1px solid #b84cff;
+
+    background:
+        rgba(5,0,12,.84);
 
     color:#68ff9b;
 
@@ -123,30 +157,39 @@ a-scene{
     font-weight:900;
 
     box-shadow:
-        0 0 14px rgba(184,76,255,.35);
+        0 0 15px
+        rgba(184,76,255,.35);
 }
 
-/* =========================================
+
+/* =====================================================
    DEBUG PANEL
-========================================= */
+===================================================== */
 
 #debugPanel{
+
     position:fixed;
 
     z-index:25;
 
     top:105px;
+
     left:14px;
 
-    min-width:245px;
+    min-width:260px;
 
-    padding:13px 15px;
+    max-width:330px;
 
-    border:1px solid rgba(255,255,255,.35);
+    padding:14px 16px;
 
-    border-radius:15px;
+    border-radius:16px;
 
-    background:rgba(0,0,0,.78);
+    border:
+        1px solid
+        rgba(255,255,255,.35);
+
+    background:
+        rgba(0,0,0,.82);
 
     color:#fff;
 
@@ -157,71 +200,114 @@ a-scene{
     pointer-events:none;
 
     backdrop-filter:blur(8px);
+
+    box-shadow:
+        0 0 20px
+        rgba(0,0,0,.35);
 }
 
-.debugTitle{
-    color:#d66cff;
 
-    font-size:15px;
+.debugTitle{
+
+    color:#d06aff;
+
+    font-size:16px;
 
     font-weight:900;
 
-    margin-bottom:6px;
+    margin-bottom:7px;
 }
+
 
 .locked{
+
     color:#68ff9b;
+
+    font-weight:600;
 }
 
-.heading{
+
+.test{
+
+    margin-top:8px;
+
     color:#ffd84d;
 
     font-weight:900;
 }
 
-.axis{
-    margin-top:7px;
+
+.rotation{
+
+    color:#fff;
+
+    font-size:16px;
+
+    font-weight:900;
+
+    margin-top:2px;
 }
 
-.axisX{
-    color:#ff4141;
-}
-
-.axisY{
-    color:#73e34a;
-}
-
-.axisZ{
-    color:#4d9dff;
-}
 
 .forward{
+
+    margin-top:8px;
+
     color:#ff6868;
 
     font-weight:900;
 }
 
-/* =========================================
+
+.axis{
+
+    margin-top:7px;
+
+    font-weight:700;
+}
+
+
+.axisX{
+    color:#ff4141;
+}
+
+
+.axisY{
+    color:#73e34a;
+}
+
+
+.axisZ{
+    color:#4d9dff;
+}
+
+
+/* =====================================================
    BOTTOM INFO
-========================================= */
+===================================================== */
 
 #info{
+
     position:fixed;
 
     z-index:20;
 
     left:5%;
+
     right:5%;
 
     bottom:20px;
 
     padding:16px 18px;
 
-    border:1px solid #8d32ca;
-
     border-radius:24px;
 
-    background:rgba(5,0,12,.90);
+    border:
+        1px solid
+        #8d32ca;
+
+    background:
+        rgba(5,0,12,.90);
 
     color:#fff;
 
@@ -234,16 +320,24 @@ a-scene{
     pointer-events:none;
 
     box-shadow:
-        0 0 18px rgba(141,50,202,.25);
+        0 0 18px
+        rgba(141,50,202,.25);
 }
+
 
 .ok{
-    color:#68ff9b!important;
+    color:#68ff9b !important;
 }
 
+
 .error{
-    color:#ff6868!important;
+    color:#ff6868 !important;
 }
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
 
 @media(max-width:600px){
 
@@ -252,24 +346,39 @@ a-scene{
     }
 
     #status{
+
         font-size:15px;
-        padding:10px 18px;
+
+        padding:
+            10px 18px;
     }
 
     #debugPanel{
+
         top:104px;
+
         left:9px;
 
-        min-width:220px;
+        min-width:235px;
+
+        max-width:285px;
 
         font-size:12px;
 
-        padding:10px 12px;
+        padding:
+            11px 12px;
+    }
+
+    .rotation{
+        font-size:15px;
     }
 
     #info{
+
         left:4%;
+
         right:4%;
+
         bottom:18px;
 
         font-size:16px;
@@ -284,9 +393,9 @@ a-scene{
 <body>
 
 
-<!-- =========================================
+<!-- =====================================================
      TOP UI
-========================================= -->
+===================================================== -->
 
 <div id="topUI">
 
@@ -301,14 +410,14 @@ a-scene{
 </div>
 
 
-<!-- =========================================
-     v57 DEBUG
-========================================= -->
+<!-- =====================================================
+     DEBUG PANEL — v58
+===================================================== -->
 
 <div id="debugPanel">
 
     <div class="debugTitle">
-        DR-001 • PATCH v57
+        DR-001 • PATCH v58
     </div>
 
     <div class="locked">
@@ -331,23 +440,27 @@ a-scene{
         ✓ Epic Emergence locked
     </div>
 
-    <br>
-
-    <div class="heading">
+    <div class="test">
         ONLY CHANGE
     </div>
 
-    <div>
-        Dragon Rotation:
-        <b>90 135 0</b>
+    <div class="rotation">
+        Rotation:
+        90 315 0
     </div>
 
     <div class="axis">
+
         <span class="axisX">● +X</span>
+
         &nbsp;
+
         <span class="axisY">● +Y</span>
+
         &nbsp;
+
         <span class="axisZ">● +Z</span>
+
     </div>
 
     <div class="forward">
@@ -357,9 +470,9 @@ a-scene{
 </div>
 
 
-<!-- =========================================
+<!-- =====================================================
      BOTTOM INFO
-========================================= -->
+===================================================== -->
 
 <div id="info">
 
@@ -369,9 +482,9 @@ a-scene{
 </div>
 
 
-<!-- =========================================
+<!-- =====================================================
      AR SCENE
-========================================= -->
+===================================================== -->
 
 <a-scene
 
@@ -379,7 +492,9 @@ a-scene{
 
     embedded
 
-    vr-mode-ui="enabled:false"
+    vr-mode-ui="
+        enabled:false
+    "
 
     device-orientation-permission-ui="
         enabled:false
@@ -392,7 +507,7 @@ a-scene{
     "
 
     mindar-image="
-        imageTargetSrc:./targets.mind?v57;
+        imageTargetSrc:./targets.mind;
         autoStart:true;
         uiScanning:false;
         uiLoading:false;
@@ -408,9 +523,9 @@ a-scene{
 >
 
 
-    <!-- =====================================
+    <!-- =================================================
          CAMERA
-    ====================================== -->
+    ================================================== -->
 
     <a-camera
 
@@ -423,9 +538,9 @@ a-scene{
     ></a-camera>
 
 
-    <!-- =====================================
+    <!-- =================================================
          DR-001 TARGET
-    ====================================== -->
+    ================================================== -->
 
     <a-entity
 
@@ -438,11 +553,11 @@ a-scene{
     >
 
 
-        <!-- =================================
+        <!-- =============================================
              DRAGON PARENT
 
-             v56 BASELINE — LOCKED
-        ================================== -->
+             LOCKED BASELINE
+        ============================================== -->
 
         <a-entity
 
@@ -465,25 +580,24 @@ a-scene{
         >
 
 
-            <!-- =============================
+            <!-- =========================================
                  EMBER DRAGON
 
-                 v57
+                 v58 ROTATION TEST
 
-                 ONLY CHANGE:
-                 Y = 135°
+                 X = 90
+                 Y = 315
+                 Z = 0
 
-                 X = 90°
-                 Y = 135°
-                 Z = 0°
-            ============================== -->
+                 Forward / Head = LOCAL -X
+            ========================================== -->
 
             <a-entity
 
                 id="dragonModel"
 
                 gltf-model="
-                    ./models/ember-dragon.glb?v57
+                    ./models/ember-dragon.glb
                 "
 
                 position="
@@ -491,7 +605,7 @@ a-scene{
                 "
 
                 rotation="
-                    90 135 0
+                    90 315 0
                 "
 
                 scale="
@@ -513,7 +627,9 @@ a-scene{
 <script>
 
 /* =====================================================
-   CARD BEAST AR — DR-001 v57
+   CARD BEAST AR
+   DR-001
+   PATCH v58
 ===================================================== */
 
 (function(){
@@ -521,9 +637,9 @@ a-scene{
     'use strict';
 
 
-    /* =========================================
-       ELEMENT REFERENCES
-    ========================================= */
+    /* =================================================
+       ELEMENTS
+    ================================================= */
 
     const scene =
         document.getElementById(
@@ -556,39 +672,68 @@ a-scene{
         );
 
 
-    /* =========================================
-       v57 BASELINE
-       DO NOT CHANGE
-    ========================================= */
+    /* =================================================
+       BASELINE v58
+
+       Position:
+       0 -0.25 0
+
+       Parent:
+       0 0 0
+
+       Dragon:
+       90 315 0
+
+       Scale:
+       2.5
+
+       Forward:
+       local -X
+    ================================================= */
 
     const BASELINE = {
 
         position:{
+
             x:0,
+
             y:-0.25,
+
             z:0
+
         },
+
 
         parentRotation:{
+
             x:0,
+
             y:0,
+
             z:0
+
         },
 
+
         dragonRotation:{
+
             x:90,
-            y:135,
+
+            y:315,
+
             z:0
+
         },
+
 
         scale:2.5
 
     };
 
 
-    /* =========================================
-       EMERGENCE SETTINGS
-    ========================================= */
+    /* =================================================
+       EMERGENCE
+    ================================================= */
 
     const EMERGENCE = {
 
@@ -603,22 +748,26 @@ a-scene{
     };
 
 
-    /* =========================================
+    /* =================================================
        STATE
-    ========================================= */
+    ================================================= */
 
-    let modelLoaded = false;
+    let modelLoaded =
+        false;
 
-    let emergencePlayed = false;
+    let emergencePlayed =
+        false;
 
-    let growTimer = null;
+    let growTimer =
+        null;
 
-    let bounceTimer = null;
+    let bounceTimer =
+        null;
 
 
-    /* =========================================
+    /* =================================================
        STATUS
-    ========================================= */
+    ================================================= */
 
     function setStatus(
         text,
@@ -634,9 +783,9 @@ a-scene{
     }
 
 
-    /* =========================================
+    /* =================================================
        INFO
-    ========================================= */
+    ================================================= */
 
     function setInfo(
         html
@@ -648,9 +797,9 @@ a-scene{
     }
 
 
-    /* =========================================
+    /* =================================================
        APPLY POSITION
-    ========================================= */
+    ================================================= */
 
     function applyPosition(){
 
@@ -667,9 +816,9 @@ a-scene{
     }
 
 
-    /* =========================================
+    /* =================================================
        APPLY PARENT ROTATION
-    ========================================= */
+    ================================================= */
 
     function applyParentRotation(){
 
@@ -692,13 +841,12 @@ a-scene{
     }
 
 
-    /* =========================================
+    /* =================================================
        APPLY DRAGON ROTATION
-       
-       v57
-       
-       90 135 0
-    ========================================= */
+
+       v58:
+       90 315 0
+    ================================================= */
 
     function applyDragonRotation(){
 
@@ -721,9 +869,9 @@ a-scene{
     }
 
 
-    /* =========================================
+    /* =================================================
        APPLY SCALE
-    ========================================= */
+    ================================================= */
 
     function applyFinalScale(){
 
@@ -740,9 +888,9 @@ a-scene{
     }
 
 
-    /* =========================================
-       CLEAR ANIMATION
-    ========================================= */
+    /* =================================================
+       CLEAR ANIMATIONS
+    ================================================= */
 
     function clearAnimations(){
 
@@ -763,7 +911,8 @@ a-scene{
                 growTimer
             );
 
-            growTimer = null;
+            growTimer =
+                null;
 
         }
 
@@ -776,16 +925,17 @@ a-scene{
                 bounceTimer
             );
 
-            bounceTimer = null;
+            bounceTimer =
+                null;
 
         }
 
     }
 
 
-    /* =========================================
-       RESTORE v57 BASELINE
-    ========================================= */
+    /* =================================================
+       RESTORE BASELINE
+    ================================================= */
 
     function restoreBaseline(){
 
@@ -807,9 +957,9 @@ a-scene{
     }
 
 
-    /* =========================================
-       SET SCALE
-    ========================================= */
+    /* =================================================
+       SCALE
+    ================================================= */
 
     function setScale(
         value
@@ -826,9 +976,9 @@ a-scene{
     }
 
 
-    /* =========================================
+    /* =================================================
        EPIC EMERGENCE
-    ========================================= */
+    ================================================= */
 
     function playEpicEmergence(){
 
@@ -848,12 +998,11 @@ a-scene{
         clearAnimations();
 
 
-        /*
-         * IMPORTANT:
-         *
-         * Reapply all baseline values
-         * before animation.
-         */
+        /* ---------------------------------------------
+           IMPORTANT
+
+           Restore exact baseline first.
+        --------------------------------------------- */
 
         applyPosition();
 
@@ -862,18 +1011,18 @@ a-scene{
         applyDragonRotation();
 
 
-        /*
-         * Start small
-         */
+        /* ---------------------------------------------
+           START
+        --------------------------------------------- */
 
         setScale(
             EMERGENCE.startScale
         );
 
 
-        /* =====================================
+        /* ---------------------------------------------
            GROW
-        ===================================== */
+        --------------------------------------------- */
 
         beast.setAttribute(
 
@@ -912,16 +1061,16 @@ a-scene{
 
             '🔥 <b>EMBER DRAGON EMERGING</b><br>' +
 
-            'Patch v57 • Heading Y = 135°<br>' +
+            'DR-001 • PATCH v58<br>' +
 
-            'Forward / Head = local -X'
+            'Rotation: 90 315 0'
 
         );
 
 
-        /* =====================================
+        /* ---------------------------------------------
            BOUNCE
-        ===================================== */
+        --------------------------------------------- */
 
         growTimer =
             setTimeout(
@@ -967,9 +1116,9 @@ a-scene{
             );
 
 
-        /* =====================================
+        /* ---------------------------------------------
            FINAL LOCK
-        ===================================== */
+        --------------------------------------------- */
 
         bounceTimer =
             setTimeout(
@@ -987,7 +1136,7 @@ a-scene{
 
                         'Position: 0 -0.25 0<br>' +
 
-                        'Rotation: 90 135 0<br>' +
+                        'Rotation: 90 315 0<br>' +
 
                         'Scale: 2.5'
 
@@ -1004,9 +1153,9 @@ a-scene{
     }
 
 
-    /* =========================================
-       SCENE READY
-    ========================================= */
+    /* =================================================
+       SCENE LOADED
+    ================================================= */
 
     scene.addEventListener(
 
@@ -1023,9 +1172,9 @@ a-scene{
     );
 
 
-    /* =========================================
+    /* =================================================
        AR READY
-    ========================================= */
+    ================================================= */
 
     scene.addEventListener(
 
@@ -1055,9 +1204,9 @@ a-scene{
     );
 
 
-    /* =========================================
+    /* =================================================
        MODEL LOADED
-    ========================================= */
+    ================================================= */
 
     dragon.addEventListener(
 
@@ -1073,11 +1222,11 @@ a-scene{
 
 
             console.log(
-                '================================'
+                '===================================='
             );
 
             console.log(
-                'CARD BEAST AR — DR-001 v57'
+                'CARD BEAST AR — DR-001 v58'
             );
 
             console.log(
@@ -1089,7 +1238,7 @@ a-scene{
             );
 
             console.log(
-                'Dragon Rotation: 90 135 0'
+                'Dragon Rotation: 90 315 0'
             );
 
             console.log(
@@ -1101,11 +1250,11 @@ a-scene{
             );
 
             console.log(
-                'ONLY CHANGED PARAMETER: Y'
+                'ONLY TEST CHANGE: Heading Y = 315°'
             );
 
             console.log(
-                '================================'
+                '===================================='
             );
 
 
@@ -1113,7 +1262,7 @@ a-scene{
 
                 '🐉 <b>EMBER DRAGON READY</b><br>' +
 
-                'v57 • Rotation Y = 135°'
+                'v58 • Rotation Y = 315°'
 
             );
 
@@ -1122,9 +1271,9 @@ a-scene{
     );
 
 
-    /* =========================================
+    /* =================================================
        MODEL ERROR
-    ========================================= */
+    ================================================= */
 
     dragon.addEventListener(
 
@@ -1162,9 +1311,9 @@ a-scene{
     );
 
 
-    /* =========================================
+    /* =================================================
        TARGET FOUND
-    ========================================= */
+    ================================================= */
 
     target.addEventListener(
 
@@ -1173,7 +1322,7 @@ a-scene{
         function(){
 
             console.log(
-                'DR-001 targetFound — v57'
+                'DR-001 targetFound — v58'
             );
 
 
@@ -1182,7 +1331,7 @@ a-scene{
             ){
 
                 console.warn(
-                    'Target found but model belum ready.'
+                    'Target found tetapi GLB belum ready.'
                 );
 
                 return;
@@ -1191,8 +1340,8 @@ a-scene{
 
 
             /*
-             * IMPORTANT:
-             * Reset baseline BEFORE emergence.
+             * Reset semua baseline
+             * sebelum emergence.
              */
 
             restoreBaseline();
@@ -1220,9 +1369,9 @@ a-scene{
     );
 
 
-    /* =========================================
+    /* =================================================
        TARGET LOST
-    ========================================= */
+    ================================================= */
 
     target.addEventListener(
 
@@ -1273,9 +1422,9 @@ a-scene{
     );
 
 
-    /* =========================================
+    /* =================================================
        AR ERROR
-    ========================================= */
+    ================================================= */
 
     scene.addEventListener(
 
@@ -1313,9 +1462,9 @@ a-scene{
     );
 
 
-    /* =========================================
+    /* =================================================
        CAMERA VIDEO FIX
-    ========================================= */
+    ================================================= */
 
     function fixVideoLayer(){
 
@@ -1398,44 +1547,44 @@ a-scene{
     fixVideoLayer();
 
 
-    /* =========================================
-       FINAL CONFIG CHECK
-    ========================================= */
+    /* =================================================
+       FINAL CONFIG LOG
+    ================================================= */
 
     console.log(
-        '--------------------------------'
+        '------------------------------------'
     );
 
     console.log(
-        'DR-001 v57 CONFIG CHECK'
+        'DR-001 v58 CONFIG'
     );
 
     console.log(
-        'Position     = 0 -0.25 0'
+        'Position       = 0 -0.25 0'
     );
 
     console.log(
-        'Parent       = 0 0 0'
+        'Parent Rotation = 0 0 0'
     );
 
     console.log(
-        'Dragon       = 90 135 0'
+        'Dragon Rotation = 90 315 0'
     );
 
     console.log(
-        'Scale        = 2.5'
+        'Scale           = 2.5'
     );
 
     console.log(
-        'Forward      = -X'
+        'Forward         = local -X'
     );
 
     console.log(
-        'Tracking     = DR-001'
+        'Tracking        = DR-001'
     );
 
     console.log(
-        'Emergence    = ON'
+        'Emergence       = ON'
     );
 
     console.log(
@@ -1443,7 +1592,7 @@ a-scene{
     );
 
     console.log(
-        '--------------------------------'
+        '------------------------------------'
     );
 
 
