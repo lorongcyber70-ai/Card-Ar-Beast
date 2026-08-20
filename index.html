@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-<title>Card Beast AR — v65.5 Full 5-Track</title>
+<title>Card Beast AR — v65.6 Camera Layer Fix</title>
 
 <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
@@ -196,10 +196,55 @@ body{
    Do NOT override MindAR video/canvas layers.
 ========================================= */
 
+/* =========================================
+   CAMERA / A-FRAME LAYER FIX v65.6
+   Video = behind transparent AR canvas
+========================================= */
+
 a-scene{
+    position:fixed !important;
+    inset:0 !important;
     width:100vw !important;
     height:100vh !important;
+    z-index:1 !important;
+    background:transparent !important;
 }
+
+a-scene canvas,
+canvas.a-canvas{
+    position:fixed !important;
+    inset:0 !important;
+    width:100vw !important;
+    height:100vh !important;
+    z-index:2 !important;
+    background:transparent !important;
+    pointer-events:none !important;
+}
+
+body > video,
+body video.mindar-video,
+body video[class*="mindar"],
+video[id*="mindar"]{
+    position:fixed !important;
+    inset:0 !important;
+    width:100vw !important;
+    height:100vh !important;
+    min-width:100vw !important;
+    min-height:100vh !important;
+    max-width:none !important;
+    max-height:none !important;
+    object-fit:cover !important;
+    object-position:center center !important;
+    z-index:0 !important;
+    display:block !important;
+    visibility:visible !important;
+    opacity:1 !important;
+    pointer-events:none !important;
+    background:#000 !important;
+}
+
+/* Any video MindAR creates dynamically gets fixed by JS too. */
+
 
 /* =========================================
    MOBILE
@@ -240,7 +285,7 @@ a-scene{
     </div>
 
     <div id="build">
-        v65.5 • 5-BEAST MULTI-TRACK
+        v65.6 • CAMERA LAYER FIX • 5-BEAST
     </div>
 
 </div>
@@ -515,7 +560,7 @@ a-scene{
 <script>
 
 /* =========================================================
-   CARD BEAST AR v65.5
+   CARD BEAST AR v65.6
 
    5 TARGETS
    maxTrack: 5
@@ -527,6 +572,105 @@ a-scene{
    MindAR + A-Frame.
 ========================================================= */
 
+
+/* =========================================
+   CAMERA VIDEO LAYER FIX
+========================================= */
+
+function applyCameraVideoLayer(video){
+
+    if(!video || video.tagName !== "VIDEO") return;
+
+    video.classList.add("mindar-video");
+
+    video.style.position = "fixed";
+    video.style.inset = "0";
+    video.style.width = "100vw";
+    video.style.height = "100vh";
+    video.style.minWidth = "100vw";
+    video.style.minHeight = "100vh";
+    video.style.maxWidth = "none";
+    video.style.maxHeight = "none";
+    video.style.objectFit = "cover";
+    video.style.objectPosition = "center center";
+    video.style.zIndex = "0";
+    video.style.display = "block";
+    video.style.visibility = "visible";
+    video.style.opacity = "1";
+    video.style.pointerEvents = "none";
+}
+
+function applyCameraLayer(){
+
+    /* MindAR may create the video after A-Frame starts. */
+    document.querySelectorAll("video").forEach(
+        applyCameraVideoLayer
+    );
+
+    const canvas =
+        document.querySelector("a-scene canvas");
+
+    if(canvas){
+
+        canvas.style.position = "fixed";
+        canvas.style.inset = "0";
+        canvas.style.width = "100vw";
+        canvas.style.height = "100vh";
+        canvas.style.zIndex = "2";
+        canvas.style.background = "transparent";
+        canvas.style.pointerEvents = "none";
+    }
+
+    const sceneEl =
+        document.getElementById("scene");
+
+    if(sceneEl){
+
+        sceneEl.style.position = "fixed";
+        sceneEl.style.inset = "0";
+        sceneEl.style.width = "100vw";
+        sceneEl.style.height = "100vh";
+        sceneEl.style.zIndex = "1";
+        sceneEl.style.background = "transparent";
+    }
+}
+
+/*
+ * Watch for the MindAR video being inserted/replaced.
+ * This does not reload the camera or touch AR targets.
+ */
+const cameraObserver =
+    new MutationObserver(() => {
+
+        document.querySelectorAll("video").forEach(
+            applyCameraVideoLayer
+        );
+
+        const canvas =
+            document.querySelector("a-scene canvas");
+
+        if(canvas){
+
+            canvas.style.background =
+                "transparent";
+
+            canvas.style.zIndex =
+                "2";
+        }
+    });
+
+cameraObserver.observe(
+    document.documentElement,
+    {
+        childList:true,
+        subtree:true
+    }
+);
+
+window.addEventListener(
+    "resize",
+    applyCameraLayer
+);
 
 /* =========================================
    BEAST DATA
@@ -896,7 +1040,7 @@ scene.addEventListener(
     () => {
 
         console.log(
-            "CARD BEAST AR v65.5 SCENE LOADED"
+            "CARD BEAST AR v65.6 SCENE LOADED"
         );
 
 
@@ -930,6 +1074,26 @@ scene.addEventListener(
 scene.addEventListener(
     "arReady",
     () => {
+
+        /*
+         * Camera is already initialized here.
+         * Only fix the visual layer; do not restart AR.
+         */
+        applyCameraLayer();
+
+        requestAnimationFrame(() => {
+            applyCameraLayer();
+        });
+
+        setTimeout(
+            applyCameraLayer,
+            250
+        );
+
+        setTimeout(
+            applyCameraLayer,
+            1000
+        );
 
         cameraState.textContent =
             "READY";
@@ -1003,6 +1167,16 @@ beasts.forEach(
 );
 
 
+window.addEventListener(
+    "load",
+    () => {
+        setTimeout(
+            applyCameraLayer,
+            100
+        );
+    }
+);
+
 /* =========================================
    DEBUG
 ========================================= */
@@ -1012,7 +1186,11 @@ console.log(
 );
 
 console.log(
-    "CARD BEAST AR v65.5"
+    "CARD BEAST AR v65.6"
+);
+
+console.log(
+    "CAMERA VIDEO LAYER FIX = ENABLED"
 );
 
 console.log(
