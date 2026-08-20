@@ -1,232 +1,1519 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Card Beast AR — v65.2</title>
+
+<meta name="viewport"
+      content="width=device-width,
+               initial-scale=1.0,
+               maximum-scale=1.0,
+               user-scalable=no">
+
+<title>Card Beast AR — v65.4</title>
+
+<!-- =========================================
+     A-FRAME
+========================================= -->
+
 <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+
+<!-- =========================================
+     MIND-AR
+========================================= -->
+
 <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
+
+
 <style>
-*{box-sizing:border-box}
-html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#050505;font-family:Arial,Helvetica,sans-serif}
-body{position:relative}
-#header{position:fixed;top:12px;left:0;width:100%;z-index:20;text-align:center;pointer-events:none}
-#title{font-size:clamp(28px,7vw,52px);font-weight:900;color:#fff;text-shadow:0 0 8px rgba(255,255,255,.5),0 4px 12px #000}
-#title span{color:#b83cff}
-#build{position:absolute;right:12px;top:0;padding:8px 12px;border:1px solid #42ff91;border-radius:16px;color:#55ff9b;background:rgba(0,0,0,.55);font-size:11px;font-weight:800;white-space:nowrap}
-#mainStatus{position:fixed;top:76px;left:50%;transform:translateX(-50%);z-index:20;min-width:250px;max-width:90%;padding:8px 16px;text-align:center;color:#58ff9c;border:1px solid #a93cff;border-radius:22px;background:rgba(0,0,0,.55);box-shadow:0 0 12px rgba(168,60,255,.35);font-weight:900;font-size:14px}
-#debug{position:fixed;top:128px;left:12px;z-index:20;padding:8px 11px;border:1px solid rgba(255,255,255,.18);border-radius:12px;background:rgba(0,0,0,.38);backdrop-filter:blur(5px);color:#fff;font-size:11px;line-height:1.45;pointer-events:none;min-width:150px;max-width:calc(100vw - 24px)}
-.debug-head{color:#d05cff;font-weight:900;margin-bottom:3px}
-.debug-line{display:flex;gap:6px;justify-content:space-between}
-.on{color:#59ff9b;font-weight:900}.off{color:#aaa}.wait{color:#ffd84a}.err{color:#ff6565}
-#bottom{position:fixed;left:50%;bottom:14px;transform:translateX(-50%);z-index:20;width:min(560px,calc(100vw - 40px));padding:10px 14px;text-align:center;color:#fff;background:rgba(0,0,0,.48);border:1px solid #a93cff;border-radius:18px;backdrop-filter:blur(6px);font-size:13px;pointer-events:none}
+
+/* =========================================
+   GENERAL
+========================================= */
+
+*{
+    box-sizing:border-box;
+}
+
+html,
+body{
+
+    margin:0;
+
+    width:100%;
+    height:100%;
+
+    overflow:hidden;
+
+    background:#050505;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+}
+
+body{
+
+    position:relative;
+
+}
+
+
+/* =========================================
+   HEADER
+========================================= */
+
+#header{
+
+    position:fixed;
+
+    top:12px;
+    left:0;
+
+    width:100%;
+
+    z-index:20;
+
+    text-align:center;
+
+    pointer-events:none;
+
+}
+
+
+#title{
+
+    font-size:
+        clamp(28px,7vw,52px);
+
+    font-weight:900;
+
+    color:#fff;
+
+    text-shadow:
+        0 0 8px rgba(255,255,255,.5),
+        0 4px 12px #000;
+
+}
+
+
+#title span{
+
+    color:#b83cff;
+
+}
+
+
+#build{
+
+    position:absolute;
+
+    right:12px;
+    top:0;
+
+    padding:8px 12px;
+
+    border:
+        1px solid #42ff91;
+
+    border-radius:16px;
+
+    color:#55ff9b;
+
+    background:
+        rgba(0,0,0,.55);
+
+    font-size:11px;
+
+    font-weight:800;
+
+    white-space:nowrap;
+
+}
+
+
+/* =========================================
+   MAIN STATUS
+========================================= */
+
+#mainStatus{
+
+    position:fixed;
+
+    top:76px;
+    left:50%;
+
+    transform:
+        translateX(-50%);
+
+    z-index:20;
+
+    min-width:250px;
+
+    max-width:90%;
+
+    padding:8px 16px;
+
+    text-align:center;
+
+    color:#58ff9c;
+
+    border:
+        1px solid #a93cff;
+
+    border-radius:22px;
+
+    background:
+        rgba(0,0,0,.55);
+
+    box-shadow:
+        0 0 12px
+        rgba(168,60,255,.35);
+
+    font-weight:900;
+
+    font-size:14px;
+
+}
+
+
+/* =========================================
+   DEBUG
+========================================= */
+
+#debug{
+
+    position:fixed;
+
+    top:128px;
+    left:12px;
+
+    z-index:20;
+
+    padding:8px 11px;
+
+    border:
+        1px solid
+        rgba(255,255,255,.18);
+
+    border-radius:12px;
+
+    background:
+        rgba(0,0,0,.38);
+
+    backdrop-filter:
+        blur(5px);
+
+    color:#fff;
+
+    font-size:11px;
+
+    line-height:1.45;
+
+    pointer-events:none;
+
+    min-width:150px;
+
+    max-width:
+        calc(100vw - 24px);
+
+}
+
+
+.debug-head{
+
+    color:#d05cff;
+
+    font-weight:900;
+
+    margin-bottom:3px;
+
+}
+
+
+.debug-line{
+
+    display:flex;
+
+    gap:6px;
+
+    justify-content:space-between;
+
+}
+
+
+.on{
+
+    color:#59ff9b;
+
+    font-weight:900;
+
+}
+
+
+.off{
+
+    color:#aaa;
+
+}
+
+
+.wait{
+
+    color:#ffd84a;
+
+}
+
+
+.err{
+
+    color:#ff6565;
+
+}
+
+
+/* =========================================
+   BOTTOM
+========================================= */
+
+#bottom{
+
+    position:fixed;
+
+    left:50%;
+
+    bottom:14px;
+
+    transform:
+        translateX(-50%);
+
+    z-index:20;
+
+    width:
+        min(560px,
+        calc(100vw - 40px));
+
+    padding:10px 14px;
+
+    text-align:center;
+
+    color:#fff;
+
+    background:
+        rgba(0,0,0,.48);
+
+    border:
+        1px solid #a93cff;
+
+    border-radius:18px;
+
+    backdrop-filter:
+        blur(6px);
+
+    font-size:13px;
+
+    pointer-events:none;
+
+}
+
+
+/* =========================================
+   MIND-AR / A-FRAME
+========================================= */
+
+/*
+   IMPORTANT:
+   Jangan paksa position/z-index canvas
+   atau video MindAR.
+
+   MindAR akan mengurus camera feed
+   dan AR canvas sendiri.
+*/
+
 a-scene{
-  position:fixed!important;
-  inset:0!important;
-  width:100vw!important;
-  height:100vh!important;
-  z-index:1!important;
-  background:transparent!important;
+
+    width:100vw !important;
+
+    height:100vh !important;
+
 }
-a-scene canvas{
-  position:fixed!important;
-  inset:0!important;
-  width:100vw!important;
-  height:100vh!important;
-  z-index:2!important;
-  background:transparent!important;
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media(max-width:600px){
+
+    #build{
+
+        font-size:9px;
+
+        padding:6px 8px;
+
+        right:7px;
+
+    }
+
+
+    #debug{
+
+        top:124px;
+
+        font-size:10px;
+
+        padding:7px 9px;
+
+    }
+
+
+    #bottom{
+
+        font-size:12px;
+
+        padding:8px 11px;
+
+    }
+
 }
-video.mindar-video{
-  position:fixed!important;
-  inset:0!important;
-  width:100vw!important;
-  height:100vh!important;
-  object-fit:cover!important;
-  z-index:0!important;
-  display:block!important;
-}
-.ar-ui-layer{z-index:20!important}
-@media(max-width:600px){#build{font-size:9px;padding:6px 8px;right:7px}#debug{top:124px;font-size:10px;padding:7px 9px}#bottom{font-size:12px;padding:8px 11px}}
+
 </style>
+
 </head>
+
+
 <body>
 
+
+<!-- =========================================
+     HEADER
+========================================= -->
+
 <div id="header">
-  <div id="title">CARD <span>BEAST</span> AR</div>
-  <div id="build">v65.2 • 5-BEAST</div>
+
+    <div id="title">
+
+        CARD
+        <span>BEAST</span>
+        AR
+
+    </div>
+
+
+    <div id="build">
+
+        v65.4 • 5-BEAST
+
+    </div>
+
 </div>
 
-<div id="mainStatus">CAMERA READY • SEARCHING</div>
+
+<!-- =========================================
+     MAIN STATUS
+========================================= -->
+
+<div id="mainStatus">
+
+    CAMERA STARTING...
+
+</div>
+
+
+<!-- =========================================
+     DEBUG
+========================================= -->
 
 <div id="debug">
-  <div class="debug-head">TRACKING DEBUG</div>
-  <div class="debug-line"><span>CAMERA</span><span id="cameraState" class="on">READY</span></div>
-  <div class="debug-line"><span>DR-001</span><span id="target0" class="wait">WAIT</span></div>
-  <div class="debug-line"><span>DR-002</span><span id="target1" class="wait">WAIT</span></div>
-  <div class="debug-line"><span>DR-003</span><span id="target2" class="wait">WAIT</span></div>
-  <div class="debug-line"><span>DR-004</span><span id="target3" class="wait">WAIT</span></div>
-  <div class="debug-line"><span>DR-005</span><span id="target4" class="wait">WAIT</span></div>
+
+    <div class="debug-head">
+
+        TRACKING DEBUG
+
+    </div>
+
+
+    <div class="debug-line">
+
+        <span>CAMERA</span>
+
+        <span
+            id="cameraState"
+            class="wait">
+
+            STARTING
+
+        </span>
+
+    </div>
+
+
+    <div class="debug-line">
+
+        <span>DR-001</span>
+
+        <span
+            id="target0"
+            class="wait">
+
+            WAIT
+
+        </span>
+
+    </div>
+
+
+    <div class="debug-line">
+
+        <span>DR-002</span>
+
+        <span
+            id="target1"
+            class="wait">
+
+            WAIT
+
+        </span>
+
+    </div>
+
+
+    <div class="debug-line">
+
+        <span>DR-003</span>
+
+        <span
+            id="target2"
+            class="wait">
+
+            WAIT
+
+        </span>
+
+    </div>
+
+
+    <div class="debug-line">
+
+        <span>DR-004</span>
+
+        <span
+            id="target3"
+            class="wait">
+
+            WAIT
+
+        </span>
+
+    </div>
+
+
+    <div class="debug-line">
+
+        <span>DR-005</span>
+
+        <span
+            id="target4"
+            class="wait">
+
+            WAIT
+
+        </span>
+
+    </div>
+
 </div>
 
-<div id="bottom">📷 Point camera at any Card Beast target.</div>
 
-<a-scene id="scene"
-  mindar-image="imageTargetSrc:./targets.mind;maxTrack:5;filterMinCF:0.0001;filterBeta:0.01;warmupTolerance:5;missTolerance:5;"
-  color-space="sRGB"
-  renderer="colorManagement:true;physicallyCorrectLights:true;antialias:true;alpha:true;"
-  vr-mode-ui="enabled:false"
-  device-orientation-permission-ui="enabled:true">
+<!-- =========================================
+     BOTTOM MESSAGE
+========================================= -->
 
-  <a-assets timeout="30000" id="assets">
-    <a-asset-item id="dragonAsset" src="./models/ember-dragon.glb"></a-asset-item>
-    <a-asset-item id="tigerAsset" src="./models/abyss-tiger.glb"></a-asset-item>
-    <a-asset-item id="phoenixAsset" src="./models/Frost-phoenix.glb"></a-asset-item>
-    <a-asset-item id="mantisAsset" src="./models/puppet-mantis.glb"></a-asset-item>
-    <a-asset-item id="leviathanAsset" src="./models/tidal-leviathan.glb"></a-asset-item>
-  </a-assets>
+<div id="bottom">
 
-  <a-camera position="0 0 0" look-controls="enabled:false"></a-camera>
+    📷 Point camera at any Card Beast target.
 
-  <a-entity id="beast0" mindar-image-target="targetIndex:0" visible="false">
-    <a-entity id="dragonModel" gltf-model="#dragonAsset" position="0 -0.25 0" rotation="90 0 0" scale="2.5 2.5 2.5"></a-entity>
-  </a-entity>
+</div>
 
-  <a-entity id="beast1" mindar-image-target="targetIndex:1" visible="false">
-    <a-entity id="tigerModel" gltf-model="#tigerAsset" position="0 -0.25 0" rotation="90 0 0" scale="1.5 1.5 1.5"></a-entity>
-  </a-entity>
 
-  <a-entity id="beast2" mindar-image-target="targetIndex:2" visible="false">
-    <a-entity id="phoenixModel" gltf-model="#phoenixAsset" position="0 -0.25 0" rotation="90 0 0" scale="1.6 1.6 1.6"></a-entity>
-  </a-entity>
+<!-- =========================================
+     AR SCENE
+========================================= -->
 
-  <a-entity id="beast3" mindar-image-target="targetIndex:3" visible="false">
-    <a-entity id="mantisModel" gltf-model="#mantisAsset" position="0 -0.25 0" rotation="90 0 0" scale="1.3 1.3 1.3"></a-entity>
-  </a-entity>
+<a-scene
 
-  <a-entity id="beast4" mindar-image-target="targetIndex:4" visible="false">
-    <a-entity id="leviathanModel" gltf-model="#leviathanAsset" position="0 -0.25 0" rotation="90 0 0" scale="1.2 1.2 1.2"></a-entity>
-  </a-entity>
+    id="scene"
+
+    mindar-image="
+        imageTargetSrc:./targets.mind;
+        maxTrack:5;
+        filterMinCF:0.0001;
+        filterBeta:0.01;
+        warmupTolerance:5;
+        missTolerance:5;
+    "
+
+    color-space="sRGB"
+
+    renderer="
+        colorManagement:true;
+        physicallyCorrectLights:true;
+        antialias:true;
+        alpha:true;
+    "
+
+    vr-mode-ui="
+        enabled:false
+    "
+
+    device-orientation-permission-ui="
+        enabled:true
+    "
+>
+
+
+<!-- =========================================
+     ASSETS
+========================================= -->
+
+<a-assets
+
+    timeout="30000"
+
+    id="assets"
+>
+
+
+    <!-- DR-001 -->
+
+    <a-asset-item
+
+        id="dragonAsset"
+
+        src="./models/ember-dragon.glb">
+
+    </a-asset-item>
+
+
+    <!-- DR-002 -->
+
+    <a-asset-item
+
+        id="tigerAsset"
+
+        src="./models/abyss-tiger.glb">
+
+    </a-asset-item>
+
+
+    <!-- DR-003 -->
+
+    <a-asset-item
+
+        id="phoenixAsset"
+
+        src="./models/Frost-phoenix.glb">
+
+    </a-asset-item>
+
+
+    <!-- DR-004 -->
+
+    <a-asset-item
+
+        id="mantisAsset"
+
+        src="./models/puppet-mantis.glb">
+
+    </a-asset-item>
+
+
+    <!-- DR-005 -->
+
+    <a-asset-item
+
+        id="leviathanAsset"
+
+        src="./models/tidal-leviathan.glb">
+
+    </a-asset-item>
+
+
+</a-assets>
+
+
+<!-- =========================================
+     CAMERA
+========================================= -->
+
+<a-camera
+
+    position="0 0 0"
+
+    look-controls="
+        enabled:false
+    ">
+
+</a-camera>
+
+
+<!-- =========================================
+     DR-001
+     EMBER DRAGON
+     TARGET 0
+========================================= -->
+
+<a-entity
+
+    id="beast0"
+
+    mindar-image-target="
+        targetIndex:0
+    "
+
+    visible="false"
+>
+
+
+    <a-entity
+
+        id="dragonModel"
+
+        gltf-model="#dragonAsset"
+
+        position="
+            0 -0.25 0
+        "
+
+        rotation="
+            90 0 0
+        "
+
+        scale="
+            2.5 2.5 2.5
+        ">
+
+    </a-entity>
+
+
+</a-entity>
+
+
+<!-- =========================================
+     DR-002
+     ABYSS TIGER
+     TARGET 1
+========================================= -->
+
+<a-entity
+
+    id="beast1"
+
+    mindar-image-target="
+        targetIndex:1
+    "
+
+    visible="false"
+>
+
+
+    <a-entity
+
+        id="tigerModel"
+
+        gltf-model="#tigerAsset"
+
+        position="
+            0 -0.25 0
+        "
+
+        rotation="
+            90 0 0
+        "
+
+        scale="
+            1.5 1.5 1.5
+        ">
+
+    </a-entity>
+
+
+</a-entity>
+
+
+<!-- =========================================
+     DR-003
+     FROST PHOENIX
+     TARGET 2
+========================================= -->
+
+<a-entity
+
+    id="beast2"
+
+    mindar-image-target="
+        targetIndex:2
+    "
+
+    visible="false"
+>
+
+
+    <a-entity
+
+        id="phoenixModel"
+
+        gltf-model="#phoenixAsset"
+
+        position="
+            0 -0.25 0
+        "
+
+        rotation="
+            90 0 0
+        "
+
+        scale="
+            1.6 1.6 1.6
+        ">
+
+    </a-entity>
+
+
+</a-entity>
+
+
+<!-- =========================================
+     DR-004
+     PUPPET MANTIS
+     TARGET 3
+========================================= -->
+
+<a-entity
+
+    id="beast3"
+
+    mindar-image-target="
+        targetIndex:3
+    "
+
+    visible="false"
+>
+
+
+    <a-entity
+
+        id="mantisModel"
+
+        gltf-model="#mantisAsset"
+
+        position="
+            0 -0.25 0
+        "
+
+        rotation="
+            90 0 0
+        "
+
+        scale="
+            1.3 1.3 1.3
+        ">
+
+    </a-entity>
+
+
+</a-entity>
+
+
+<!-- =========================================
+     DR-005
+     TIDAL LEVIATHAN
+     TARGET 4
+========================================= -->
+
+<a-entity
+
+    id="beast4"
+
+    mindar-image-target="
+        targetIndex:4
+    "
+
+    visible="false"
+>
+
+
+    <a-entity
+
+        id="leviathanModel"
+
+        gltf-model="#leviathanAsset"
+
+        position="
+            0 -0.25 0
+        "
+
+        rotation="
+            90 0 0
+        "
+
+        scale="
+            1.2 1.2 1.2
+        ">
+
+    </a-entity>
+
+
+</a-entity>
+
+
 </a-scene>
 
+
 <script>
-const beasts=[
- {id:"DR-001",name:"Ember Dragon",emoji:"🔥",target:0,model:"dragonModel",asset:"dragonAsset"},
- {id:"DR-002",name:"Abyss Tiger",emoji:"🐯",target:1,model:"tigerModel",asset:"tigerAsset"},
- {id:"DR-003",name:"Frost Phoenix",emoji:"❄️",target:2,model:"phoenixModel",asset:"phoenixAsset"},
- {id:"DR-004",name:"Puppet Mantis",emoji:"🦗",target:3,model:"mantisModel",asset:"mantisAsset"},
- {id:"DR-005",name:"Tidal Leviathan",emoji:"🌊",target:4,model:"leviathanModel",asset:"leviathanAsset"}
+
+/* =========================================================
+   CARD BEAST AR v65.4
+   CAMERA FIX
+   5 TARGETS
+   MULTI-TRACK
+   PRELOAD ONCE
+   INDEPENDENT TARGET LOST
+
+   IMPORTANT:
+   AR LOGIC FROM v65.2 RETAINED.
+   CAMERA LAYER OVERRIDES REMOVED.
+========================================================= */
+
+
+/* =========================================
+   BEAST DATA
+========================================= */
+
+const beasts = [
+
+    {
+        id: "DR-001",
+        name: "Ember Dragon",
+        emoji: "🔥",
+        target: 0,
+        model: "dragonModel",
+        asset: "dragonAsset"
+    },
+
+
+    {
+        id: "DR-002",
+        name: "Abyss Tiger",
+        emoji: "🐯",
+        target: 1,
+        model: "tigerModel",
+        asset: "tigerAsset"
+    },
+
+
+    {
+        id: "DR-003",
+        name: "Frost Phoenix",
+        emoji: "❄️",
+        target: 2,
+        model: "phoenixModel",
+        asset: "phoenixAsset"
+    },
+
+
+    {
+        id: "DR-004",
+        name: "Puppet Mantis",
+        emoji: "🦗",
+        target: 3,
+        model: "mantisModel",
+        asset: "mantisAsset"
+    },
+
+
+    {
+        id: "DR-005",
+        name: "Tidal Leviathan",
+        emoji: "🌊",
+        target: 4,
+        model: "leviathanModel",
+        asset: "leviathanAsset"
+    }
+
 ];
 
-const state=beasts.map(()=>({found:false,loaded:false}));
 
-function fixCameraLayer(){
-  document.querySelectorAll("video").forEach(video=>{
-    if(video.classList.contains("mindar-video") || video.id === "mindar-video"){
-      video.classList.add("mindar-video");
-      video.style.position="fixed";
-      video.style.inset="0";
-      video.style.width="100vw";
-      video.style.height="100vh";
-      video.style.objectFit="cover";
-      video.style.zIndex="0";
-      video.style.display="block";
-    }
-  });
+/* =========================================
+   STATE
+========================================= */
 
-  const canvas=document.querySelector("a-scene canvas");
-  if(canvas){
-    canvas.style.position="fixed";
-    canvas.style.inset="0";
-    canvas.style.width="100vw";
-    canvas.style.height="100vh";
-    canvas.style.zIndex="2";
-    canvas.style.background="transparent";
-  }
+const state =
+    beasts.map(() => ({
+
+        found:false,
+
+        loaded:false,
+
+        loadCount:0
+
+    }));
+
+
+/* =========================================
+   DOM
+========================================= */
+
+const scene =
+    document.getElementById(
+        "scene"
+    );
+
+
+const mainStatus =
+    document.getElementById(
+        "mainStatus"
+    );
+
+
+const bottom =
+    document.getElementById(
+        "bottom"
+    );
+
+
+/* =========================================
+   BADGE
+========================================= */
+
+function badge(
+    index,
+    text,
+    cls
+){
+
+    const el =
+        document.getElementById(
+            "target" + index
+        );
+
+
+    if(!el) return;
+
+
+    el.textContent =
+        text;
+
+
+    el.className =
+        cls;
+
 }
 
-const scene=document.getElementById("scene");
-const mainStatus=document.getElementById("mainStatus");
-const bottom=document.getElementById("bottom");
 
-function badge(index,text,cls){
- const el=document.getElementById("target"+index);
- if(el){el.textContent=text;el.className=cls}
-}
+/* =========================================
+   UPDATE UI
+========================================= */
+
 function updateUI(){
- const active=beasts.filter((b,i)=>state[i].found);
- if(!active.length){
-   mainStatus.textContent="CAMERA READY • SEARCHING";
-   bottom.textContent="📷 Point camera at any Card Beast target.";
- }else{
-   mainStatus.textContent=active.length===1
-     ? `${active[0].id} FOUND • ${active[0].name.toUpperCase()}`
-     : `${active.length} CARDS ACTIVE • ${active.map(b=>b.id).join(" + ")}`;
-   bottom.innerHTML=active.length===1
-     ? `${active[0].emoji} <b>${active[0].name.toUpperCase()} ACTIVE</b> • ${active[0].id}`
-     : `${active.map(b=>b.emoji+" "+b.id).join(" + ")} ACTIVE`;
- }
+
+    const active =
+        beasts.filter(
+            (b,i) =>
+                state[i].found
+        );
+
+
+    /* -------------------------------------
+       NO TARGET
+    ------------------------------------- */
+
+    if(!active.length){
+
+        mainStatus.textContent =
+            "CAMERA READY • SEARCHING";
+
+
+        bottom.textContent =
+            "📷 Point camera at any Card Beast target.";
+
+
+        return;
+
+    }
+
+
+    /* -------------------------------------
+       ONE TARGET
+    ------------------------------------- */
+
+    if(active.length === 1){
+
+        const beast =
+            active[0];
+
+
+        mainStatus.textContent =
+
+            `${beast.id} FOUND • ` +
+            `${beast.name.toUpperCase()}`;
+
+
+        bottom.innerHTML =
+
+            `${beast.emoji} ` +
+            `<b>${beast.name.toUpperCase()} ACTIVE</b> ` +
+            `• ${beast.id}`;
+
+
+        return;
+
+    }
+
+
+    /* -------------------------------------
+       MULTIPLE TARGETS
+    ------------------------------------- */
+
+    mainStatus.textContent =
+
+        `${active.length} CARDS ACTIVE • ` +
+        active
+            .map(b => b.id)
+            .join(" + ");
+
+
+    bottom.innerHTML =
+
+        active
+            .map(
+                b =>
+                    b.emoji +
+                    " " +
+                    b.id
+            )
+            .join(" + ") +
+
+        " ACTIVE";
+
 }
+
+
+/* =========================================
+   TARGET SETUP
+========================================= */
 
 function setupTarget(index){
- const beast=beasts[index],target=document.getElementById("beast"+index);
- if(!target)return;
- target.addEventListener("targetFound",()=>{
-   state[index].found=true;
-   target.setAttribute("visible","true");
-   badge(index,"FOUND","on");
-   updateUI();
-   console.log(beast.id,"targetFound");
- });
- target.addEventListener("targetLost",()=>{
-   state[index].found=false;
-   target.setAttribute("visible","false");
-   badge(index,"LOST","wait");
-   updateUI();
-   console.log(beast.id,"targetLost");
- });
+
+    const beast =
+        beasts[index];
+
+
+    const target =
+        document.getElementById(
+            "beast" + index
+        );
+
+
+    if(!target){
+
+        console.error(
+            beast.id +
+            " target entity missing"
+        );
+
+        return;
+
+    }
+
+
+    /* =====================================
+       TARGET FOUND
+    ===================================== */
+
+    target.addEventListener(
+        "targetFound",
+        () => {
+
+
+            state[index].found =
+                true;
+
+
+            /*
+             * ONLY THIS TARGET
+             * BECOMES VISIBLE.
+             *
+             * No hideAll.
+             * No reset of other targets.
+             */
+
+            target.setAttribute(
+                "visible",
+                "true"
+            );
+
+
+            badge(
+                index,
+                "FOUND",
+                "on"
+            );
+
+
+            updateUI();
+
+
+            console.log(
+                beast.id,
+                "targetFound"
+            );
+
+        }
+    );
+
+
+    /* =====================================
+       TARGET LOST
+    ===================================== */
+
+    target.addEventListener(
+        "targetLost",
+        () => {
+
+
+            state[index].found =
+                false;
+
+
+            /*
+             * ONLY THIS TARGET
+             * IS HIDDEN.
+             *
+             * Other active targets
+             * remain untouched.
+             */
+
+            target.setAttribute(
+                "visible",
+                "false"
+            );
+
+
+            badge(
+                index,
+                "LOST",
+                "wait"
+            );
+
+
+            updateUI();
+
+
+            console.log(
+                beast.id,
+                "targetLost"
+            );
+
+        }
+    );
+
 }
+
+
+/* =========================================
+   PRELOAD
+========================================= */
 
 function setupPreload(){
- beasts.forEach((beast,index)=>{
-   const model=document.getElementById(beast.model);
-   if(!model)return;
-   model.addEventListener("model-loaded",()=>{
-     if(!state[index].loaded){
-       state[index].loaded=true;
-       console.log(beast.id,"GLB preloaded once");
-     }
-   },{once:true});
-   model.addEventListener("model-error",e=>{
-     badge(index,"GLB ERROR","err");
-     console.error(beast.id,"GLB LOAD ERROR",e);
-   });
- });
+
+    beasts.forEach(
+        (beast,index) => {
+
+
+            const model =
+                document.getElementById(
+                    beast.model
+                );
+
+
+            if(!model){
+
+                console.error(
+                    beast.id +
+                    " model entity missing"
+                );
+
+                return;
+
+            }
+
+
+            /* ---------------------------------
+               MODEL LOADED
+            --------------------------------- */
+
+            model.addEventListener(
+                "model-loaded",
+                () => {
+
+
+                    /*
+                     * LOAD ONCE ONLY.
+                     */
+
+                    if(
+                        !state[index].loaded
+                    ){
+
+                        state[index].loaded =
+                            true;
+
+
+                        state[index].loadCount =
+                            1;
+
+
+                        console.log(
+                            beast.id +
+                            " GLB preloaded once"
+                        );
+
+                    }
+
+                },
+                {
+                    once:true
+                }
+            );
+
+
+            /* ---------------------------------
+               MODEL ERROR
+            --------------------------------- */
+
+            model.addEventListener(
+                "model-error",
+                event => {
+
+
+                    badge(
+                        index,
+                        "GLB ERROR",
+                        "err"
+                    );
+
+
+                    console.error(
+                        beast.id +
+                        " GLB LOAD ERROR",
+                        event
+                    );
+
+                }
+            );
+
+        }
+    );
+
 }
 
-scene.addEventListener("loaded",()=>{
- document.getElementById("cameraState").textContent="READY";
- beasts.forEach((_,i)=>setupTarget(i));
- setupPreload();
-});
 
-scene.addEventListener("arReady",()=>{
- fixCameraLayer();
- setTimeout(fixCameraLayer,300);
- setTimeout(fixCameraLayer,1000);
- document.getElementById("cameraState").textContent="READY";
- mainStatus.textContent="CAMERA READY • SEARCHING";
-});
+/* =========================================
+   SCENE LOADED
+========================================= */
 
-window.addEventListener("load",()=>{
-  setTimeout(fixCameraLayer,500);
-});
+scene.addEventListener(
+    "loaded",
+    () => {
 
-scene.addEventListener("arError",e=>{
- document.getElementById("cameraState").textContent="ERROR";
- mainStatus.textContent="CAMERA ERROR";
- bottom.textContent="Camera could not start.";
- console.error("AR ERROR",e);
-});
+
+        console.log(
+            "CARD BEAST AR v65.4 SCENE LOADED"
+        );
+
+
+        /*
+         * CAMERA STATUS
+         */
+
+        const cameraState =
+            document.getElementById(
+                "cameraState"
+            );
+
+
+        if(cameraState){
+
+            cameraState.textContent =
+                "STARTING";
+
+            cameraState.className =
+                "wait";
+
+        }
+
+
+        /*
+         * SETUP TARGET EVENTS
+         */
+
+        beasts.forEach(
+            (_,index) => {
+
+                setupTarget(index);
+
+            }
+        );
+
+
+        /*
+         * SETUP GLB PRELOAD
+         */
+
+        setupPreload();
+
+    }
+);
+
+
+/* =========================================
+   AR READY
+========================================= */
+
+scene.addEventListener(
+    "arReady",
+    () => {
+
+
+        console.log(
+            "AR CAMERA READY"
+        );
+
+
+        const cameraState =
+            document.getElementById(
+                "cameraState"
+            );
+
+
+        if(cameraState){
+
+            cameraState.textContent =
+                "READY";
+
+            cameraState.className =
+                "on";
+
+        }
+
+
+        mainStatus.textContent =
+            "CAMERA READY • SEARCHING";
+
+
+        bottom.textContent =
+            "📷 Point camera at any Card Beast target.";
+
+    }
+);
+
+
+/* =========================================
+   AR ERROR
+========================================= */
+
+scene.addEventListener(
+    "arError",
+    event => {
+
+
+        console.error(
+            "AR ERROR",
+            event
+        );
+
+
+        const cameraState =
+            document.getElementById(
+                "cameraState"
+            );
+
+
+        if(cameraState){
+
+            cameraState.textContent =
+                "ERROR";
+
+            cameraState.className =
+                "err";
+
+        }
+
+
+        mainStatus.textContent =
+            "CAMERA ERROR";
+
+
+        bottom.textContent =
+            "Camera could not start.";
+
+    }
+);
+
+
+/* =========================================
+   INITIAL TARGET STATE
+========================================= */
+
+beasts.forEach(
+    (_,index) => {
+
+
+        badge(
+            index,
+            "WAIT",
+            "wait"
+        );
+
+    }
+);
+
+
+/* =========================================
+   DEBUG
+========================================= */
+
+console.log(
+    "----------------------------------"
+);
+
+console.log(
+    "CARD BEAST AR v65.4"
+);
+
+console.log(
+    "5 TARGET MULTI-TRACK"
+);
+
+console.log(
+    "PRELOAD ONCE"
+);
+
+console.log(
+    "TARGET LOST INDEPENDENT"
+);
+
+console.log(
+    "CAMERA LAYER OVERRIDE DISABLED"
+);
+
+console.log(
+    "----------------------------------"
+);
+
 </script>
+
 </body>
 </html>
