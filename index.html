@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Card Beast AR — v65.5 Camera Diagnostic</title>
+
+<title>Card Beast AR — DR-001 Target 0 Test</title>
 
 <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
@@ -25,22 +26,17 @@ body{
     inset:0;
 }
 
-/*
- * Keep the A-Frame/MindAR camera rendering untouched.
- * Only the diagnostic UI is layered above it.
- */
-
-#diagnostic{
+#ui{
     position:fixed;
-    top:14px;
+    top:12px;
     left:50%;
     transform:translateX(-50%);
-    z-index:1000;
-    width:min(420px,calc(100vw - 28px));
-    padding:14px 16px;
-    border:1px solid rgba(255,255,255,.22);
+    z-index:20;
+    width:min(420px,calc(100vw - 24px));
+    padding:12px 15px;
+    border:1px solid rgba(184,60,255,.75);
     border-radius:16px;
-    background:rgba(0,0,0,.55);
+    background:rgba(0,0,0,.50);
     color:#fff;
     text-align:center;
     backdrop-filter:blur(6px);
@@ -57,17 +53,33 @@ body{
 }
 
 #status{
-    margin-top:8px;
+    margin-top:7px;
+    color:#ffd84a;
     font-size:14px;
     font-weight:900;
-    color:#ffd84a;
 }
 
-#details{
-    margin-top:7px;
-    font-size:11px;
-    color:#ccc;
-    line-height:1.5;
+#targetStatus{
+    margin-top:5px;
+    color:#aaa;
+    font-size:12px;
+}
+
+#bottom{
+    position:fixed;
+    left:50%;
+    bottom:15px;
+    transform:translateX(-50%);
+    z-index:20;
+    width:min(520px,calc(100vw - 30px));
+    padding:10px 14px;
+    border:1px solid rgba(184,60,255,.65);
+    border-radius:16px;
+    background:rgba(0,0,0,.50);
+    color:#fff;
+    text-align:center;
+    font-size:13px;
+    pointer-events:none;
 }
 
 .ok{
@@ -76,23 +88,6 @@ body{
 
 .error{
     color:#ff6565!important;
-}
-
-#bottom{
-    position:fixed;
-    left:50%;
-    bottom:18px;
-    transform:translateX(-50%);
-    z-index:1000;
-    width:min(500px,calc(100vw - 36px));
-    padding:11px 14px;
-    border:1px solid rgba(184,60,255,.75);
-    border-radius:16px;
-    background:rgba(0,0,0,.5);
-    color:#fff;
-    text-align:center;
-    font-size:13px;
-    pointer-events:none;
 }
 
 a-scene{
@@ -104,23 +99,24 @@ a-scene{
 
 <body>
 
-<div id="diagnostic">
+<div id="ui">
+
     <div id="title">
         CARD <span>BEAST</span> AR
     </div>
 
     <div id="status">
-        STARTING CAMERA...
+        STARTING...
     </div>
 
-    <div id="details">
-        Camera diagnostic v65.5<br>
-        No targets • No GLB • No tracking test
+    <div id="targetStatus">
+        DR-001 • Target Index 0 • maxTrack 1
     </div>
+
 </div>
 
 <div id="bottom">
-    📷 Allow camera permission if requested.
+    📷 Point the camera at DR-001 Ember Dragon.
 </div>
 
 
@@ -131,10 +127,11 @@ a-scene{
 
     mindar-image="
         imageTargetSrc:./targets.mind;
-        autoStart:true;
-        uiScanning:false;
-        uiLoading:false;
-        uiError:false;
+        maxTrack:1;
+        filterMinCF:0.0001;
+        filterBeta:0.01;
+        warmupTolerance:5;
+        missTolerance:5;
     "
 
     color-space="sRGB"
@@ -145,10 +142,12 @@ a-scene{
         alpha:true;
     "
 
-    vr-mode-ui="enabled:false"
+    vr-mode-ui="
+        enabled:false
+    "
 
     device-orientation-permission-ui="
-        enabled:false
+        enabled:true
     "
 
     loading-screen="
@@ -156,32 +155,96 @@ a-scene{
     "
 >
 
+    <a-assets timeout="30000">
+
+        <!-- DR-001 GLB ONLY -->
+        <a-asset-item
+            id="dragonAsset"
+            src="./models/ember-dragon.glb">
+        </a-asset-item>
+
+    </a-assets>
+
+
     <a-camera
         position="0 0 0"
         look-controls="enabled:false">
     </a-camera>
+
+
+    <!-- =====================================
+         DR-001
+         TARGET INDEX 0
+         ===================================== -->
+
+    <a-entity
+        id="beast0"
+        mindar-image-target="targetIndex:0"
+        visible="false"
+    >
+
+        <!--
+            GLB / position / rotation / scale
+            copied from the working setup.
+        -->
+
+        <a-entity
+            id="dragonModel"
+            gltf-model="#dragonAsset"
+            position="0 -0.25 0"
+            rotation="90 0 0"
+            scale="2.5 2.5 2.5"
+        >
+        </a-entity>
+
+    </a-entity>
 
 </a-scene>
 
 
 <script>
 
+/* =========================================================
+   DR-001 ISOLATION TEST
+
+   TARGET:
+       DR-001
+       targetIndex: 0
+       maxTrack: 1
+
+   PURPOSE:
+       Separate image-target matching problems
+       from MindAR detection problems.
+
+   DO NOT CHANGE:
+       GLB
+       targetFound logic
+       targetLost logic
+       position
+       rotation
+       scale
+========================================================= */
+
+
 const scene =
     document.getElementById("scene");
 
+const target =
+    document.getElementById("beast0");
+
+const dragon =
+    document.getElementById("dragonModel");
+
 const status =
     document.getElementById("status");
-
-const details =
-    document.getElementById("details");
 
 const bottom =
     document.getElementById("bottom");
 
 
-/*
- * Scene loaded
- */
+/* =========================================
+   SCENE LOADED
+========================================= */
 
 scene.addEventListener(
     "loaded",
@@ -192,70 +255,161 @@ scene.addEventListener(
 
         status.className = "";
 
-        details.innerHTML =
-            "A-Frame scene loaded.<br>" +
-            "Waiting for MindAR camera.";
-
         console.log(
-            "v65.5 scene loaded"
+            "DR-001 TEST: scene loaded"
         );
 
     }
 );
 
 
-/*
- * AR ready
- */
+/* =========================================
+   AR READY
+========================================= */
 
 scene.addEventListener(
     "arReady",
     () => {
 
         status.textContent =
-            "CAMERA FEED READY ✓";
+            "CAMERA READY • SEARCHING";
 
         status.className =
             "ok";
 
-        details.innerHTML =
-            "MindAR camera initialized.<br>" +
-            "If you can see the live camera now, camera rendering is OK.";
-
-        bottom.textContent =
-            "✅ Camera test passed — live feed should be visible.";
+        bottom.innerHTML =
+            "📷 Scan the <b>DR-001 Ember Dragon</b> card.";
 
         console.log(
-            "v65.5 arReady"
+            "DR-001 TEST: arReady"
         );
 
     }
 );
 
 
-/*
- * AR error
- */
+/* =========================================
+   TARGET FOUND
+========================================= */
+
+target.addEventListener(
+    "targetFound",
+    () => {
+
+        target.setAttribute(
+            "visible",
+            "true"
+        );
+
+        status.textContent =
+            "DR-001 FOUND ✓";
+
+        status.className =
+            "ok";
+
+        bottom.innerHTML =
+            "🐉 <b>EMBER DRAGON DETECTED</b><br>" +
+            "Target Index 0 • maxTrack 1";
+
+        console.log(
+            "DR-001 TEST: targetFound"
+        );
+
+    }
+);
+
+
+/* =========================================
+   TARGET LOST
+========================================= */
+
+target.addEventListener(
+    "targetLost",
+    () => {
+
+        target.setAttribute(
+            "visible",
+            "false"
+        );
+
+        status.textContent =
+            "CAMERA READY • DR-001 LOST";
+
+        status.className =
+            "";
+
+        bottom.innerHTML =
+            "📷 Put DR-001 back in the camera frame.";
+
+        console.log(
+            "DR-001 TEST: targetLost"
+        );
+
+    }
+);
+
+
+/* =========================================
+   GLB LOADED
+========================================= */
+
+dragon.addEventListener(
+    "model-loaded",
+    () => {
+
+        console.log(
+            "DR-001 TEST: Ember Dragon GLB loaded once"
+        );
+
+    },
+    {
+        once:true
+    }
+);
+
+
+/* =========================================
+   GLB ERROR
+========================================= */
+
+dragon.addEventListener(
+    "model-error",
+    event => {
+
+        console.error(
+            "DR-001 GLB ERROR",
+            event
+        );
+
+        /*
+         * This does NOT mean target detection
+         * failed. It only means the model failed
+         * to load.
+         */
+
+    }
+);
+
+
+/* =========================================
+   AR ERROR
+========================================= */
 
 scene.addEventListener(
     "arError",
     event => {
 
         status.textContent =
-            "CAMERA / MINDAR ERROR";
+            "MINDAR ERROR";
 
         status.className =
             "error";
 
-        details.innerHTML =
-            "MindAR reported an error.<br>" +
-            "Check browser camera permission and HTTPS.";
-
         bottom.textContent =
-            "❌ Camera initialization failed.";
+            "MindAR failed to initialize.";
 
         console.error(
-            "v65.5 arError",
+            "DR-001 TEST: arError",
             event
         );
 
@@ -263,21 +417,32 @@ scene.addEventListener(
 );
 
 
-/*
- * Extra browser-level diagnostics.
- * Does not modify camera/video rendering.
- */
+/* =========================================
+   STARTUP LOG
+========================================= */
 
-window.addEventListener(
-    "error",
-    event => {
+console.log(
+    "===================================="
+);
 
-        console.error(
-            "Browser error:",
-            event.error || event.message
-        );
+console.log(
+    "CARD BEAST AR — DR-001 TEST"
+);
 
-    }
+console.log(
+    "Target Index: 0"
+);
+
+console.log(
+    "maxTrack: 1"
+);
+
+console.log(
+    "GLB: ember-dragon.glb"
+);
+
+console.log(
+    "===================================="
 );
 
 </script>
