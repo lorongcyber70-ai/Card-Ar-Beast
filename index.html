@@ -20,7 +20,32 @@ body{position:relative}
 .debug-line{display:flex;gap:6px;justify-content:space-between}
 .on{color:#59ff9b;font-weight:900}.off{color:#aaa}.wait{color:#ffd84a}.err{color:#ff6565}
 #bottom{position:fixed;left:50%;bottom:14px;transform:translateX(-50%);z-index:20;width:min(560px,calc(100vw - 40px));padding:10px 14px;text-align:center;color:#fff;background:rgba(0,0,0,.48);border:1px solid #a93cff;border-radius:18px;backdrop-filter:blur(6px);font-size:13px;pointer-events:none}
-a-scene{width:100vw!important;height:100vh!important}
+a-scene{
+  position:fixed!important;
+  inset:0!important;
+  width:100vw!important;
+  height:100vh!important;
+  z-index:1!important;
+  background:transparent!important;
+}
+a-scene canvas{
+  position:fixed!important;
+  inset:0!important;
+  width:100vw!important;
+  height:100vh!important;
+  z-index:2!important;
+  background:transparent!important;
+}
+video.mindar-video{
+  position:fixed!important;
+  inset:0!important;
+  width:100vw!important;
+  height:100vh!important;
+  object-fit:cover!important;
+  z-index:0!important;
+  display:block!important;
+}
+.ar-ui-layer{z-index:20!important}
 @media(max-width:600px){#build{font-size:9px;padding:6px 8px;right:7px}#debug{top:124px;font-size:10px;padding:7px 9px}#bottom{font-size:12px;padding:8px 11px}}
 </style>
 </head>
@@ -93,6 +118,32 @@ const beasts=[
 ];
 
 const state=beasts.map(()=>({found:false,loaded:false}));
+
+function fixCameraLayer(){
+  document.querySelectorAll("video").forEach(video=>{
+    if(video.classList.contains("mindar-video") || video.id === "mindar-video"){
+      video.classList.add("mindar-video");
+      video.style.position="fixed";
+      video.style.inset="0";
+      video.style.width="100vw";
+      video.style.height="100vh";
+      video.style.objectFit="cover";
+      video.style.zIndex="0";
+      video.style.display="block";
+    }
+  });
+
+  const canvas=document.querySelector("a-scene canvas");
+  if(canvas){
+    canvas.style.position="fixed";
+    canvas.style.inset="0";
+    canvas.style.width="100vw";
+    canvas.style.height="100vh";
+    canvas.style.zIndex="2";
+    canvas.style.background="transparent";
+  }
+}
+
 const scene=document.getElementById("scene");
 const mainStatus=document.getElementById("mainStatus");
 const bottom=document.getElementById("bottom");
@@ -159,8 +210,15 @@ scene.addEventListener("loaded",()=>{
 });
 
 scene.addEventListener("arReady",()=>{
+ fixCameraLayer();
+ setTimeout(fixCameraLayer,300);
+ setTimeout(fixCameraLayer,1000);
  document.getElementById("cameraState").textContent="READY";
  mainStatus.textContent="CAMERA READY • SEARCHING";
+});
+
+window.addEventListener("load",()=>{
+  setTimeout(fixCameraLayer,500);
 });
 
 scene.addEventListener("arError",e=>{
