@@ -5,27 +5,19 @@
 
 <meta charset="UTF-8">
 
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
->
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
 
-<meta
-    http-equiv="Cache-Control"
-    content="no-cache, no-store, must-revalidate"
->
+<meta http-equiv="Cache-Control"
+      content="no-cache, no-store, must-revalidate">
 
-<meta
-    http-equiv="Pragma"
-    content="no-cache"
->
+<meta http-equiv="Pragma"
+      content="no-cache">
 
-<meta
-    http-equiv="Expires"
-    content="0"
->
+<meta http-equiv="Expires"
+      content="0">
 
-<title>Card Beast AR • v64.0</title>
+<title>Card Beast AR • v65.1</title>
 
 
 <!-- =====================================================
@@ -72,7 +64,9 @@ body {
 }
 
 body {
+
     position: fixed;
+
     inset: 0;
 }
 
@@ -122,7 +116,7 @@ a-scene {
 
 
 /* =====================================================
-   HEADER
+   TOP UI
 ===================================================== */
 
 #topUI {
@@ -147,7 +141,7 @@ a-scene {
 
     display: inline-block;
 
-    font-size: 26px;
+    font-size: 28px;
 
     font-weight: 900;
 
@@ -170,7 +164,7 @@ a-scene {
 
     margin-top: 6px;
 
-    padding: 7px 16px;
+    padding: 8px 17px;
 
     border-radius: 24px;
 
@@ -186,7 +180,7 @@ a-scene {
 
     color: #68ff9b;
 
-    font-size: 12px;
+    font-size: 13px;
 
     font-weight: 900;
 }
@@ -202,20 +196,20 @@ a-scene {
 
     z-index: 70;
 
-    top: 7px;
+    top: 8px;
 
     right: 7px;
 
-    padding: 5px 8px;
+    padding: 6px 9px;
 
-    border-radius: 9px;
+    border-radius: 10px;
 
     background:
-        rgba(0,0,0,.42);
+        rgba(0,0,0,.45);
 
     border:
         1px solid
-        rgba(104,255,155,.65);
+        rgba(104,255,155,.7);
 
     color: #68ff9b;
 
@@ -231,7 +225,7 @@ a-scene {
 
 
 /* =====================================================
-   TRANSPARENT DEBUG PANEL
+   DEBUG PANEL
 ===================================================== */
 
 #debugPanel {
@@ -240,33 +234,33 @@ a-scene {
 
     z-index: 40;
 
-    top: 91px;
+    top: 92px;
 
     left: 10px;
 
-    width: 270px;
+    width: 430px;
 
     max-width:
         calc(100% - 20px);
 
-    padding: 10px 12px;
+    padding: 13px 16px;
 
-    border-radius: 14px;
+    border-radius: 16px;
 
     border:
         1px solid
-        rgba(255,255,255,.25);
+        rgba(255,255,255,.24);
 
     background:
-        rgba(0,0,0,.35);
+        rgba(0,0,0,.34);
 
     backdrop-filter:
-        blur(4px);
+        blur(5px);
 
     color: #fff;
 
     box-shadow:
-        0 5px 20px
+        0 6px 24px
         rgba(0,0,0,.25);
 
     pointer-events: none;
@@ -277,11 +271,22 @@ a-scene {
 
     color: #d06aff;
 
-    font-size: 14px;
+    font-size: 16px;
 
     font-weight: 900;
 
-    margin-bottom: 6px;
+    margin-bottom: 7px;
+}
+
+
+.debugSub {
+
+    color:
+        rgba(255,255,255,.55);
+
+    font-size: 10px;
+
+    margin-bottom: 8px;
 }
 
 
@@ -293,24 +298,19 @@ a-scene {
 
     justify-content: space-between;
 
-    gap: 8px;
+    gap: 10px;
 
-    min-height: 25px;
+    min-height: 30px;
 
     border-bottom:
         1px solid
-        rgba(255,255,255,.08);
-}
-
-
-.debugRow:last-child {
-    border-bottom: none;
+        rgba(255,255,255,.09);
 }
 
 
 .debugName {
 
-    font-size: 11px;
+    font-size: 12px;
 
     font-weight: 800;
 }
@@ -318,9 +318,9 @@ a-scene {
 
 .debugState {
 
-    padding: 3px 7px;
+    padding: 4px 9px;
 
-    border-radius: 10px;
+    border-radius: 12px;
 
     font-size: 9px;
 
@@ -333,7 +333,7 @@ a-scene {
     color: #ffd84d;
 
     background:
-        rgba(255,216,77,.15);
+        rgba(255,216,77,.14);
 }
 
 
@@ -342,7 +342,7 @@ a-scene {
     color: #68ff9b;
 
     background:
-        rgba(104,255,155,.15);
+        rgba(104,255,155,.14);
 }
 
 
@@ -351,7 +351,7 @@ a-scene {
     color: #ff6464;
 
     background:
-        rgba(255,100,100,.15);
+        rgba(255,100,100,.14);
 }
 
 
@@ -361,13 +361,13 @@ a-scene {
 
 #activeCards {
 
-    margin-top: 5px;
+    margin-top: 8px;
 
-    padding-top: 5px;
+    padding-top: 7px;
 
     border-top:
         1px solid
-        rgba(255,255,255,.12);
+        rgba(255,255,255,.13);
 }
 
 
@@ -375,13 +375,13 @@ a-scene {
 
     display: flex;
 
-    justify-content: space-between;
-
     align-items: center;
 
-    min-height: 23px;
+    justify-content: space-between;
 
-    font-size: 11px;
+    min-height: 27px;
+
+    font-size: 12px;
 
     font-weight: 800;
 }
@@ -408,16 +408,39 @@ a-scene {
 
 #parameters {
 
-    margin-top: 5px;
+    margin-top: 7px;
 
-    padding-top: 5px;
+    padding-top: 7px;
 
     border-top:
         1px solid
         rgba(255,255,255,.12);
 
     color:
-        rgba(255,255,255,.78);
+        rgba(255,255,255,.76);
+
+    font-size: 10px;
+
+    line-height: 1.65;
+}
+
+
+/* =====================================================
+   LOAD INFO
+===================================================== */
+
+#loadInfo {
+
+    margin-top: 5px;
+
+    padding-top: 5px;
+
+    border-top:
+        1px solid
+        rgba(255,255,255,.08);
+
+    color:
+        rgba(255,255,255,.52);
 
     font-size: 9px;
 
@@ -441,16 +464,16 @@ a-scene {
 
     bottom: 12px;
 
-    padding: 9px 13px;
+    padding: 10px 14px;
 
-    border-radius: 17px;
+    border-radius: 18px;
 
     border:
         1px solid
         rgba(184,76,255,.75);
 
     background:
-        rgba(0,0,0,.34);
+        rgba(0,0,0,.36);
 
     backdrop-filter:
         blur(5px);
@@ -459,9 +482,9 @@ a-scene {
 
     text-align: center;
 
-    font-size: 12px;
+    font-size: 13px;
 
-    line-height: 1.4;
+    line-height: 1.45;
 
     pointer-events: none;
 }
@@ -483,25 +506,36 @@ a-scene {
 
     #debugPanel {
 
-        top: 88px;
+        top: 90px;
 
         left: 7px;
 
-        width: 255px;
+        width: 430px;
 
-        padding: 9px 10px;
+        max-width:
+            calc(100% - 14px);
+
+        padding: 10px 12px;
     }
 
     .debugTitle {
-        font-size: 13px;
+        font-size: 14px;
     }
 
     .debugName {
-        font-size: 10px;
+        font-size: 11px;
     }
 
     .debugState {
         font-size: 8px;
+    }
+
+    .cardRow {
+        font-size: 11px;
+    }
+
+    #parameters {
+        font-size: 9px;
     }
 
     #info {
@@ -530,7 +564,7 @@ a-scene {
 ===================================================== -->
 
 <div id="versionBadge">
-    BUILD v64.0 • NEW TARGETS
+    BUILD v65.1 • TIGER SCALE 1.5
 </div>
 
 
@@ -545,20 +579,24 @@ a-scene {
     </div>
 
     <div id="status">
-        INITIALISING CAMERA...
+        INITIALISING...
     </div>
 
 </div>
 
 
 <!-- =====================================================
-     TRANSPARENT DEBUG
+     DEBUG
 ===================================================== -->
 
 <div id="debugPanel">
 
     <div class="debugTitle">
-        MULTI-TRACK DEBUG • v64.0
+        MULTI-TRACK DEBUG • v65.1
+    </div>
+
+    <div class="debugSub">
+        GLB PRELOAD • NO RELOAD • INDEPENDENT TRACKING
     </div>
 
 
@@ -604,7 +642,7 @@ a-scene {
             id="dragonGLBState"
             class="debugState pending"
         >
-            WAIT
+            PRELOAD
         </span>
 
     </div>
@@ -620,7 +658,7 @@ a-scene {
             id="tigerGLBState"
             class="debugState pending"
         >
-            WAIT
+            PRELOAD
         </span>
 
     </div>
@@ -658,10 +696,6 @@ a-scene {
     </div>
 
 
-    <!-- =================================================
-         ACTIVE CARDS
-    ================================================== -->
-
     <div id="activeCards">
 
         <div class="cardRow">
@@ -698,15 +732,25 @@ a-scene {
     </div>
 
 
-    <!-- =================================================
-         LOCKED PARAMETERS
-    ================================================== -->
-
     <div id="parameters">
 
         DR-001 → Target 0 • Pos 0 -0.25 0 • Scale 2.5 • Rot 90 0 0<br>
 
-        DR-002 → Target 1 • Pos 0 -0.25 0 • Scale 2.5 • Rot 90 0 0
+        DR-002 → Target 1 • Pos 0 -0.25 0 • Scale 1.5 • Rot 90 0 0
+
+    </div>
+
+
+    <div id="loadInfo">
+
+        Dragon Load Count:
+        <span id="dragonLoadCount">0</span><br>
+
+        Tiger Load Count:
+        <span id="tigerLoadCount">0</span><br>
+
+        Duplicate Load:
+        <span id="duplicateLoad">NONE</span>
 
     </div>
 
@@ -718,7 +762,7 @@ a-scene {
 ===================================================== -->
 
 <div id="info">
-    Point camera at DR-001 or DR-002.
+    Preparing AR...
 </div>
 
 
@@ -751,7 +795,7 @@ a-scene {
     "
 
     mindar-image="
-        imageTargetSrc:./targets.mind?v=64.0;
+        imageTargetSrc:./targets.mind?v=65.1;
         maxTrack:2;
         autoStart:true;
         uiScanning:false;
@@ -760,6 +804,26 @@ a-scene {
     "
 
 >
+
+
+    <!-- =================================================
+         PRELOAD BOTH GLB ONCE
+    ================================================== -->
+
+    <a-assets timeout="20000">
+
+        <a-asset-item
+            id="dragonAsset"
+            src="./models/ember-dragon.glb?v=65.1">
+        </a-asset-item>
+
+
+        <a-asset-item
+            id="tigerAsset"
+            src="./models/abyss-tiger.glb?v=65.1">
+        </a-asset-item>
+
+    </a-assets>
 
 
     <!-- =================================================
@@ -776,12 +840,12 @@ a-scene {
             enabled:false
         "
 
-    ></a-camera>
+    >
+    </a-camera>
 
 
     <!-- =================================================
          DR-001
-         EMBER DRAGON
          TARGET INDEX 0
     ================================================== -->
 
@@ -819,9 +883,7 @@ a-scene {
 
                 id="dragonModel"
 
-                gltf-model="
-                    url(./models/ember-dragon.glb?v=64.0)
-                "
+                gltf-model="#dragonAsset"
 
                 position="
                     0 0 0
@@ -831,7 +893,10 @@ a-scene {
                     90 0 0
                 "
 
-            ></a-entity>
+                visible="true"
+
+            >
+            </a-entity>
 
         </a-entity>
 
@@ -840,8 +905,8 @@ a-scene {
 
     <!-- =================================================
          DR-002
-         ABYSS TIGER
          TARGET INDEX 1
+         SCALE = 1.5
     ================================================== -->
 
     <a-entity
@@ -869,7 +934,7 @@ a-scene {
             "
 
             scale="
-                2.5 2.5 2.5
+                1.5 1.5 1.5
             "
 
         >
@@ -878,9 +943,7 @@ a-scene {
 
                 id="tigerModel"
 
-                gltf-model="
-                    url(./models/abyss-tiger.glb?v=64.0)
-                "
+                gltf-model="#tigerAsset"
 
                 position="
                     0 0 0
@@ -890,7 +953,10 @@ a-scene {
                     90 0 0
                 "
 
-            ></a-entity>
+                visible="true"
+
+            >
+            </a-entity>
 
         </a-entity>
 
@@ -904,11 +970,18 @@ a-scene {
 
 /* =====================================================
    CARD BEAST AR
-   BUILD v64.0
-   NEW targets.mind
+   BUILD v65.1
+
+   ONLY CHANGE FROM v65.0:
+   ABYSS TIGER SCALE 1.7 → 1.5
+
+   PRELOAD ONCE
+   NO RELOAD
+   NO DUPLICATE ENTITY
+   MULTI-TRACK = 2
 ===================================================== */
 
-(function(){
+(function () {
 
     'use strict';
 
@@ -1023,6 +1096,24 @@ a-scene {
         );
 
 
+    const dragonLoadCount =
+        document.getElementById(
+            'dragonLoadCount'
+        );
+
+
+    const tigerLoadCount =
+        document.getElementById(
+            'tigerLoadCount'
+        );
+
+
+    const duplicateLoad =
+        document.getElementById(
+            'duplicateLoad'
+        );
+
+
     /* =================================================
        TRACK STATE
     ================================================= */
@@ -1031,9 +1122,19 @@ a-scene {
 
     let tigerFound = false;
 
+
+    /* =================================================
+       LOAD STATE
+    ================================================= */
+
     let dragonLoaded = false;
 
     let tigerLoaded = false;
+
+
+    let dragonLoadCounter = 0;
+
+    let tigerLoadCounter = 0;
 
 
     /* =================================================
@@ -1044,7 +1145,7 @@ a-scene {
         element,
         text,
         type
-    ){
+    ) {
 
         element.textContent =
             text;
@@ -1059,12 +1160,12 @@ a-scene {
        MAIN STATUS
     ================================================= */
 
-    function updateStatus(){
+    function updateStatus() {
 
-        if(
+        if (
             dragonFound &&
             tigerFound
-        ){
+        ) {
 
             status.textContent =
                 '2 CARDS ACTIVE • DR-001 + DR-002';
@@ -1078,7 +1179,7 @@ a-scene {
         }
 
 
-        if(dragonFound){
+        if (dragonFound) {
 
             status.textContent =
                 'DR-001 FOUND • EMBER DRAGON ON';
@@ -1091,7 +1192,7 @@ a-scene {
         }
 
 
-        if(tigerFound){
+        if (tigerFound) {
 
             status.textContent =
                 'DR-002 FOUND • ABYSS TIGER ON';
@@ -1115,11 +1216,10 @@ a-scene {
 
     /* =================================================
        DRAGON BASELINE
-       
-       LOCKED
+       UNCHANGED
     ================================================= */
 
-    function applyDragonBaseline(){
+    function applyDragonBaseline() {
 
         dragon.object3D.position.set(
             0,
@@ -1163,10 +1263,11 @@ a-scene {
     /* =================================================
        TIGER BASELINE
        
-       LOCKED
+       ONLY CHANGE:
+       2.5 → 1.5
     ================================================= */
 
-    function applyTigerBaseline(){
+    function applyTigerBaseline() {
 
         tiger.object3D.position.set(
             0,
@@ -1183,9 +1284,9 @@ a-scene {
 
 
         tiger.object3D.scale.set(
-            2.5,
-            2.5,
-            2.5
+            1.5,
+            1.5,
+            1.5
         );
 
 
@@ -1209,11 +1310,11 @@ a-scene {
 
     /* =================================================
        SCENE READY
-    ================================================== */
+    ================================================= */
 
     scene.addEventListener(
         'loaded',
-        function(){
+        function () {
 
             setState(
                 sceneState,
@@ -1223,7 +1324,7 @@ a-scene {
 
 
             console.log(
-                '[v64.0] SCENE READY'
+                '[v65.1] SCENE READY'
             );
 
         }
@@ -1232,11 +1333,11 @@ a-scene {
 
     /* =================================================
        CAMERA READY
-    ================================================== */
+    ================================================= */
 
     scene.addEventListener(
         'arReady',
-        function(){
+        function () {
 
             setState(
                 cameraState,
@@ -1255,7 +1356,7 @@ a-scene {
 
 
             console.log(
-                '[v64.0] CAMERA READY'
+                '[v65.1] CAMERA READY'
             );
 
         }
@@ -1263,12 +1364,12 @@ a-scene {
 
 
     /* =================================================
-       AR ERROR
-    ================================================== */
+       CAMERA ERROR
+    ================================================= */
 
     scene.addEventListener(
         'arError',
-        function(event){
+        function (event) {
 
             setState(
                 cameraState,
@@ -1287,7 +1388,7 @@ a-scene {
 
 
             console.error(
-                '[v64.0] AR ERROR',
+                '[v65.1] AR ERROR',
                 event
             );
 
@@ -1297,18 +1398,44 @@ a-scene {
 
     /* =================================================
        DRAGON GLB
-    ================================================== */
+       LOAD ONCE
+    ================================================= */
 
     dragonModel.addEventListener(
         'model-loaded',
-        function(){
+        function () {
+
+            dragonLoadCounter++;
+
+
+            dragonLoadCount.textContent =
+                dragonLoadCounter;
+
+
+            if (
+                dragonLoadCounter > 1
+            ) {
+
+                duplicateLoad.textContent =
+                    'DRAGON RELOADED';
+
+                duplicateLoad.style.color =
+                    '#ff6464';
+
+                console.warn(
+                    '[v65.1] DRAGON DUPLICATE LOAD'
+                );
+
+                return;
+            }
+
 
             dragonLoaded = true;
 
 
             setState(
                 dragonGLBState,
-                'LOADED',
+                'PRELOADED',
                 'pass'
             );
 
@@ -1317,16 +1444,30 @@ a-scene {
 
 
             console.log(
-                '[v64.0] DR-001 GLB LOADED'
+                '[v65.1] DRAGON GLB PRELOADED ONCE'
             );
+
+
+            if (dragonFound) {
+
+                dragon.setAttribute(
+                    'visible',
+                    'true'
+                );
+
+            }
 
         }
     );
 
 
+    /* =================================================
+       DRAGON GLB ERROR
+    ================================================= */
+
     dragonModel.addEventListener(
         'model-error',
-        function(event){
+        function (event) {
 
             setState(
                 dragonGLBState,
@@ -1336,7 +1477,7 @@ a-scene {
 
 
             console.error(
-                '[v64.0] DR-001 GLB ERROR',
+                '[v65.1] DRAGON GLB ERROR',
                 event
             );
 
@@ -1346,18 +1487,44 @@ a-scene {
 
     /* =================================================
        TIGER GLB
-    ================================================== */
+       LOAD ONCE
+    ================================================= */
 
     tigerModel.addEventListener(
         'model-loaded',
-        function(){
+        function () {
+
+            tigerLoadCounter++;
+
+
+            tigerLoadCount.textContent =
+                tigerLoadCounter;
+
+
+            if (
+                tigerLoadCounter > 1
+            ) {
+
+                duplicateLoad.textContent =
+                    'TIGER RELOADED';
+
+                duplicateLoad.style.color =
+                    '#ff6464';
+
+                console.warn(
+                    '[v65.1] TIGER DUPLICATE LOAD'
+                );
+
+                return;
+            }
+
 
             tigerLoaded = true;
 
 
             setState(
                 tigerGLBState,
-                'LOADED',
+                'PRELOADED',
                 'pass'
             );
 
@@ -1366,16 +1533,30 @@ a-scene {
 
 
             console.log(
-                '[v64.0] DR-002 GLB LOADED'
+                '[v65.1] TIGER GLB PRELOADED ONCE'
             );
+
+
+            if (tigerFound) {
+
+                tiger.setAttribute(
+                    'visible',
+                    'true'
+                );
+
+            }
 
         }
     );
 
 
+    /* =================================================
+       TIGER GLB ERROR
+    ================================================= */
+
     tigerModel.addEventListener(
         'model-error',
-        function(event){
+        function (event) {
 
             setState(
                 tigerGLBState,
@@ -1385,7 +1566,7 @@ a-scene {
 
 
             console.error(
-                '[v64.0] DR-002 GLB ERROR',
+                '[v65.1] TIGER GLB ERROR',
                 event
             );
 
@@ -1396,17 +1577,30 @@ a-scene {
     /* =================================================
        DR-001 FOUND
        
-       ONLY DRAGON IS AFFECTED.
+       NO GLB RELOAD
     ================================================= */
 
     dragonTarget.addEventListener(
         'targetFound',
-        function(){
+        function () {
 
             dragonFound = true;
 
 
-            applyDragonBaseline();
+            if (!dragonLoaded) {
+
+                setState(
+                    dragonState,
+                    'FOUND / LOADING',
+                    'pending'
+                );
+
+                console.warn(
+                    '[v65.1] DR-001 FOUND BEFORE GLB READY'
+                );
+
+                return;
+            }
 
 
             dragon.setAttribute(
@@ -1434,7 +1628,7 @@ a-scene {
 
 
             console.log(
-                '[v64.0] DR-001 FOUND → ON'
+                '[v65.1] DR-001 FOUND → SHOW'
             );
 
         }
@@ -1443,11 +1637,13 @@ a-scene {
 
     /* =================================================
        DR-001 LOST
+       
+       ONLY DRAGON
     ================================================= */
 
     dragonTarget.addEventListener(
         'targetLost',
-        function(){
+        function () {
 
             dragonFound = false;
 
@@ -1477,7 +1673,7 @@ a-scene {
 
 
             console.log(
-                '[v64.0] DR-001 LOST → OFF'
+                '[v65.1] DR-001 LOST → HIDE ONLY DRAGON'
             );
 
         }
@@ -1487,19 +1683,30 @@ a-scene {
     /* =================================================
        DR-002 FOUND
        
-       ONLY TIGER IS AFFECTED.
-       
-       NO hideAllBeasts().
+       NO GLB RELOAD
     ================================================= */
 
     tigerTarget.addEventListener(
         'targetFound',
-        function(){
+        function () {
 
             tigerFound = true;
 
 
-            applyTigerBaseline();
+            if (!tigerLoaded) {
+
+                setState(
+                    tigerState,
+                    'FOUND / LOADING',
+                    'pending'
+                );
+
+                console.warn(
+                    '[v65.1] DR-002 FOUND BEFORE GLB READY'
+                );
+
+                return;
+            }
 
 
             tiger.setAttribute(
@@ -1527,27 +1734,7 @@ a-scene {
 
 
             console.log(
-                '[v64.0] DR-002 FOUND → ON'
-            );
-
-
-            console.log(
-                'Target Index = 1'
-            );
-
-
-            console.log(
-                'Tiger Position = 0 -0.25 0'
-            );
-
-
-            console.log(
-                'Tiger Scale = 2.5'
-            );
-
-
-            console.log(
-                'Tiger Rotation = 90 0 0'
+                '[v65.1] DR-002 FOUND → SHOW'
             );
 
         }
@@ -1557,12 +1744,12 @@ a-scene {
     /* =================================================
        DR-002 LOST
        
-       ONLY TIGER IS AFFECTED.
+       ONLY TIGER
     ================================================= */
 
     tigerTarget.addEventListener(
         'targetLost',
-        function(){
+        function () {
 
             tigerFound = false;
 
@@ -1592,7 +1779,7 @@ a-scene {
 
 
             console.log(
-                '[v64.0] DR-002 LOST → OFF'
+                '[v65.1] DR-002 LOST → HIDE ONLY TIGER'
             );
 
         }
@@ -1603,12 +1790,12 @@ a-scene {
        VIDEO FIX
     ================================================= */
 
-    function fixVideo(){
+    function fixVideo() {
 
         document
             .querySelectorAll('video')
             .forEach(
-                function(video){
+                function (video) {
 
                     video.setAttribute(
                         'playsinline',
@@ -1666,7 +1853,7 @@ a-scene {
 
 
     new MutationObserver(
-        function(){
+        function () {
 
             fixVideo();
 
@@ -1681,7 +1868,39 @@ a-scene {
 
 
     /* =================================================
-       CONSOLE BUILD INFO
+       INITIAL DEBUG
+    ================================================= */
+
+    setState(
+        dragonGLBState,
+        'PRELOAD',
+        'pending'
+    );
+
+
+    setState(
+        tigerGLBState,
+        'PRELOAD',
+        'pending'
+    );
+
+
+    setState(
+        dragonState,
+        'WAIT',
+        'pending'
+    );
+
+
+    setState(
+        tigerState,
+        'WAIT',
+        'pending'
+    );
+
+
+    /* =================================================
+       BUILD INFO
     ================================================= */
 
     console.log(
@@ -1689,11 +1908,15 @@ a-scene {
     );
 
     console.log(
-        'CARD BEAST AR • BUILD v64.0'
+        'CARD BEAST AR • BUILD v65.1'
     );
 
     console.log(
-        'NEW targets.mind'
+        '========================================'
+    );
+
+    console.log(
+        'ONLY CHANGE: TIGER SCALE 1.7 → 1.5'
     );
 
     console.log(
@@ -1705,7 +1928,11 @@ a-scene {
     );
 
     console.log(
-        'DR-001 → Ember Dragon'
+        'DR-002 → Target Index 1'
+    );
+
+    console.log(
+        'maxTrack = 2'
     );
 
     console.log(
@@ -1713,23 +1940,19 @@ a-scene {
     );
 
     console.log(
-        'DR-002 → Target Index 1'
+        'DR-001 Position = 0 -0.25 0'
     );
 
     console.log(
-        'DR-002 → Abyss Tiger'
+        'DR-001 Scale = 2.5'
     );
 
     console.log(
-        'DR-002 → ATK 890'
+        'DR-001 Parent Rotation = 0 0 0'
     );
 
     console.log(
-        'DR-002 → DEF 650'
-    );
-
-    console.log(
-        'DR-002 → HP 1020'
+        'DR-001 Model Rotation = 90 0 0'
     );
 
     console.log(
@@ -1741,7 +1964,7 @@ a-scene {
     );
 
     console.log(
-        'DR-002 Scale = 2.5'
+        'DR-002 Scale = 1.5'
     );
 
     console.log(
@@ -1757,7 +1980,15 @@ a-scene {
     );
 
     console.log(
-        'maxTrack = 2'
+        'GLB preload = ONCE'
+    );
+
+    console.log(
+        'GLB reload on targetFound = NO'
+    );
+
+    console.log(
+        'Duplicate entity = NO'
     );
 
     console.log(
