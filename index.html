@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-<title>Card Beast AR — v65.7 Scale Balance</title>
+<title>Card Beast AR — v65.8 Procedural Animation</title>
 
 <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
@@ -247,6 +247,19 @@ video[id*="mindar"]{
 
 
 /* =========================================
+   v65.8 PROCEDURAL BEAST ANIMATION
+========================================= */
+
+.beast-vfx{
+    pointer-events:none;
+}
+
+@keyframes beastPulse{
+    0%,100%{filter:drop-shadow(0 0 0 rgba(255,255,255,0))}
+    50%{filter:drop-shadow(0 0 8px rgba(255,255,255,.22))}
+}
+
+/* =========================================
    MOBILE
 ========================================= */
 
@@ -285,7 +298,7 @@ video[id*="mindar"]{
     </div>
 
     <div id="build">
-        v65.7 • SCALE BALANCE • 5-BEAST
+        v65.8 • ANIMATION • 5-BEAST
     </div>
 
 </div>
@@ -741,6 +754,438 @@ const state =
 
     }));
 
+/* =========================================
+   PROCEDURAL ANIMATION STATE
+   No GLB animation clips required.
+========================================= */
+
+const animationState =
+    beasts.map(() => ({
+        active:false,
+        raf:0,
+        startTime:0,
+        basePosition:null,
+        baseScale:null
+    }));
+
+/*
+ * Individual motion personalities.
+ * Values are intentionally subtle so the beast
+ * remains anchored to the card.
+ */
+const motionProfiles = [
+    /* DR-001 Ember Dragon — heavy / powerful */
+    {bob:.030, speed:1.55, tilt:.012, sway:.018, phase:0.0},
+
+    /* DR-002 Abyss Tiger — agile / alert */
+    {bob:.022, speed:2.15, tilt:.020, sway:.030, phase:1.0},
+
+    /* DR-003 Frost Phoenix — mystical / floaty */
+    {bob:.040, speed:1.20, tilt:.014, sway:.022, phase:2.2},
+
+    /* DR-004 Puppet Mantis — twitchy */
+    {bob:.026, speed:2.70, tilt:.030, sway:.025, phase:3.1},
+
+    /* DR-005 Tidal Leviathan — slow / massive */
+    {bob:.025, speed:.90, tilt:.010, sway:.015, phase:4.0}
+];
+
+
+/* =========================================
+   ANIMATION HELPERS
+========================================= */
+
+function getModelEntity(index){
+    return document.getElementById(
+        beasts[index].model
+    );
+}
+
+
+function stopProceduralAnimation(index){
+
+    const a =
+        animationState[index];
+
+    if(a.raf){
+
+        cancelAnimationFrame(
+            a.raf
+        );
+
+        a.raf = 0;
+    }
+
+    a.active = false;
+}
+
+
+function startProceduralAnimation(index){
+
+    const model =
+        getModelEntity(index);
+
+    if(!model) return;
+
+    const a =
+        animationState[index];
+
+    const profile =
+        motionProfiles[index];
+
+    stopProceduralAnimation(index);
+
+    const basePosition =
+        model.getAttribute("position");
+
+    const baseScale =
+        model.getAttribute("scale");
+
+    a.basePosition = {
+        x:basePosition.x,
+        y:basePosition.y,
+        z:basePosition.z
+    };
+
+    a.baseScale = {
+        x:baseScale.x,
+        y:baseScale.y,
+        z:baseScale.z
+    };
+
+    a.active = true;
+
+    const now =
+        performance.now();
+
+    a.startTime = now;
+
+
+    function frame(time){
+
+        if(!a.active) return;
+
+        const elapsed =
+            (time - a.startTime) / 1000;
+
+        /*
+         * Smooth floating / breathing motion.
+         */
+        const wave =
+            Math.sin(
+                elapsed *
+                profile.speed *
+                Math.PI *
+                2 +
+                profile.phase
+            );
+
+        const wave2 =
+            Math.sin(
+                elapsed *
+                profile.speed *
+                0.63 *
+                Math.PI *
+                2 +
+                profile.phase
+            );
+
+
+        /*
+         * Very small card-relative movement.
+         */
+        model.object3D.position.y =
+            a.basePosition.y +
+            wave * profile.bob;
+
+        model.object3D.position.x =
+            a.basePosition.x +
+            wave2 * profile.sway;
+
+
+        /*
+         * Subtle natural tilt.
+         */
+        model.object3D.rotation.z =
+            THREE.MathUtils.degToRad(
+                wave2 *
+                profile.tilt *
+                180
+            );
+
+
+        /*
+         * Breathing / energy pulse.
+         * Keeps average scale unchanged.
+         */
+        const pulse =
+            1 +
+            wave *
+            0.008;
+
+        model.object3D.scale.set(
+            a.baseScale.x * pulse,
+            a.baseScale.y * pulse,
+            a.baseScale.z * pulse
+        );
+
+
+        a.raf =
+            requestAnimationFrame(
+                frame
+            );
+    }
+
+
+    a.raf =
+        requestAnimationFrame(
+            frame
+        );
+}
+
+
+/* =========================================
+   SPAWN ANIMATION
+========================================= */
+
+function spawnAnimation(index){
+
+    const model =
+        getModelEntity(index);
+
+    if(!model) return;
+
+
+    const a =
+        animationState[index];
+
+
+    const baseScale =
+        model.getAttribute("scale");
+
+
+    const basePosition =
+        model.getAttribute("position");
+
+
+    /*
+     * Stop any previous loop.
+     */
+    stopProceduralAnimation(index);
+
+
+    /*
+     * Start slightly smaller and lower.
+     */
+    model.object3D.scale.set(
+        baseScale.x * 0.72,
+        baseScale.y * 0.72,
+        baseScale.z * 0.72
+    );
+
+
+    model.object3D.position.y =
+        basePosition.y - 0.12;
+
+
+    /*
+     * Smooth spawn.
+     */
+    const start =
+        performance.now();
+
+
+    const duration =
+        520;
+
+
+    function animateSpawn(time){
+
+        if(!state[index].found){
+
+            return;
+        }
+
+
+        const progress =
+            Math.min(
+                1,
+                (time - start) /
+                duration
+            );
+
+
+        /*
+         * Ease-out cubic.
+         */
+        const eased =
+            1 -
+            Math.pow(
+                1 - progress,
+                3
+            );
+
+
+        /*
+         * Small overshoot for impact.
+         */
+        const overshoot =
+            Math.sin(
+                Math.min(
+                    progress,
+                    1
+                ) *
+                Math.PI
+            ) *
+            0.06;
+
+
+        const scale =
+            0.72 +
+            eased *
+            0.28 +
+            overshoot;
+
+
+        model.object3D.scale.set(
+            baseScale.x * scale,
+            baseScale.y * scale,
+            baseScale.z * scale
+        );
+
+
+        model.object3D.position.y =
+            basePosition.y -
+            0.12 +
+            eased * 0.12;
+
+
+        if(progress < 1){
+
+            requestAnimationFrame(
+                animateSpawn
+            );
+
+        }else{
+
+            model.object3D.scale.set(
+                baseScale.x,
+                baseScale.y,
+                baseScale.z
+            );
+
+            model.object3D.position.set(
+                basePosition.x,
+                basePosition.y,
+                basePosition.z
+            );
+
+            startProceduralAnimation(
+                index
+            );
+        }
+    }
+
+
+    requestAnimationFrame(
+        animateSpawn
+    );
+}
+
+
+/* =========================================
+   SMOOTH HIDE
+========================================= */
+
+function hideAnimation(index){
+
+    const model =
+        getModelEntity(index);
+
+    if(!model) return;
+
+
+    const a =
+        animationState[index];
+
+    stopProceduralAnimation(index);
+
+
+    const baseScale =
+        a.baseScale ||
+        model.getAttribute("scale");
+
+
+    const basePosition =
+        a.basePosition ||
+        model.getAttribute("position");
+
+
+    const start =
+        performance.now();
+
+
+    const duration =
+        220;
+
+
+    function animateHide(time){
+
+        const progress =
+            Math.min(
+                1,
+                (time - start) /
+                duration
+            );
+
+
+        const scale =
+            1 -
+            progress * 0.30;
+
+
+        model.object3D.scale.set(
+            baseScale.x * scale,
+            baseScale.y * scale,
+            baseScale.z * scale
+        );
+
+
+        model.object3D.position.y =
+            basePosition.y -
+            progress * 0.07;
+
+
+        if(progress < 1){
+
+            requestAnimationFrame(
+                animateHide
+            );
+
+        }else{
+
+            model.object3D.scale.set(
+                baseScale.x,
+                baseScale.y,
+                baseScale.z
+            );
+
+            model.object3D.position.set(
+                basePosition.x,
+                basePosition.y,
+                basePosition.z
+            );
+        }
+    }
+
+
+    requestAnimationFrame(
+        animateHide
+    );
+}
+
+
+
 
 /* =========================================
    DOM
@@ -886,6 +1331,12 @@ function setupTarget(index){
                 "true"
             );
 
+            /*
+             * Procedural spawn animation.
+             * Does not reload the GLB.
+             */
+            spawnAnimation(index);
+
 
             badge(
                 index,
@@ -921,6 +1372,12 @@ function setupTarget(index){
              * Hide ONLY this target.
              * Other targets remain active.
              */
+
+            /*
+             * Stop idle motion and smoothly
+             * shrink before hiding this target.
+             */
+            hideAnimation(index);
 
             target.setAttribute(
                 "visible",
@@ -1195,6 +1652,10 @@ console.log(
 
 console.log(
     "SCALE BALANCE: DR-003 1.75 / DR-004 1.55 / DR-005 1.45"
+);
+
+console.log(
+    "PROCEDURAL ANIMATION = ENABLED"
 );
 
 console.log(
