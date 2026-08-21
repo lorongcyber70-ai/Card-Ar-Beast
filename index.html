@@ -2,95 +2,87 @@
 <html lang="en">
 
 <head>
-
 <meta charset="UTF-8">
 
 <meta name="viewport"
-      content="width=device-width,
-               initial-scale=1.0,
-               maximum-scale=1.0,
-               user-scalable=no">
+content="width=device-width,
+initial-scale=1.0,
+maximum-scale=1.0,
+user-scalable=no">
 
-<title>Card Beast AR — v66.0 Camera Fix</title>
+<title>Card Beast AR — v66.1 Element VFX</title>
 
 <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
-
 <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
-
 
 <style>
 
-/* =========================================================
-   GLOBAL
-========================================================= */
-
-* {
-    box-sizing: border-box;
+*{
+box-sizing:border-box;
 }
 
 html,
-body {
+body{
 
-    margin: 0;
-    padding: 0;
+margin:0;
+padding:0;
 
-    width: 100%;
-    height: 100%;
+width:100%;
+height:100%;
 
-    overflow: hidden;
+overflow:hidden;
 
-    background: transparent !important;
+background:transparent !important;
 
-    font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
+font-family:
+Arial,
+Helvetica,
+sans-serif;
 }
 
-body {
+body{
 
-    position: relative;
+position:relative;
 
-    background:
-        transparent !important;
+background:
+transparent !important;
 }
 
 
 /* =========================================================
    CAMERA VIDEO
-   VIDEO MUST BE BEHIND A-FRAME
 ========================================================= */
 
 video.mindar-video,
-video#mindar-video {
+video#mindar-video{
 
-    position: fixed !important;
+position:fixed !important;
 
-    top: 0 !important;
-    left: 0 !important;
+top:0 !important;
+left:0 !important;
 
-    width: 100vw !important;
-    height: 100vh !important;
+width:100vw !important;
+height:100vh !important;
 
-    min-width: 100vw !important;
-    min-height: 100vh !important;
+min-width:100vw !important;
+min-height:100vh !important;
 
-    max-width: none !important;
-    max-height: none !important;
+max-width:none !important;
+max-height:none !important;
 
-    object-fit: cover !important;
+object-fit:cover !important;
 
-    display: block !important;
+display:block !important;
 
-    visibility: visible !important;
+visibility:visible !important;
 
-    opacity: 1 !important;
+opacity:1 !important;
 
-    z-index: 0 !important;
+z-index:0 !important;
 
-    background: transparent !important;
+background:transparent !important;
 
-    pointer-events: none !important;
+pointer-events:none !important;
 }
 
 
@@ -98,194 +90,194 @@ video#mindar-video {
    A-FRAME
 ========================================================= */
 
-a-scene {
+a-scene{
 
-    position: fixed !important;
+position:fixed !important;
 
-    top: 0 !important;
-    left: 0 !important;
+top:0 !important;
+left:0 !important;
 
-    width: 100vw !important;
-    height: 100vh !important;
+width:100vw !important;
+height:100vh !important;
 
-    min-width: 100vw !important;
-    min-height: 100vh !important;
+min-width:100vw !important;
+min-height:100vh !important;
 
-    margin: 0 !important;
-    padding: 0 !important;
+margin:0 !important;
+padding:0 !important;
 
-    z-index: 1 !important;
+z-index:1 !important;
 
-    background:
-        transparent !important;
+background:
+transparent !important;
 
-    background-color:
-        transparent !important;
+background-color:
+transparent !important;
 
-    pointer-events: none !important;
+pointer-events:none !important;
 }
 
 
 /* =========================================================
-   A-FRAME CANVAS
+   CANVAS
 ========================================================= */
 
 a-scene canvas,
-.a-canvas {
+.a-canvas{
 
-    position: fixed !important;
+position:fixed !important;
 
-    top: 0 !important;
-    left: 0 !important;
+top:0 !important;
+left:0 !important;
 
-    width: 100vw !important;
-    height: 100vh !important;
+width:100vw !important;
+height:100vh !important;
 
-    min-width: 100vw !important;
-    min-height: 100vh !important;
+min-width:100vw !important;
+min-height:100vh !important;
 
-    margin: 0 !important;
-    padding: 0 !important;
+margin:0 !important;
+padding:0 !important;
 
-    z-index: 1 !important;
+z-index:1 !important;
 
-    background:
-        transparent !important;
+background:
+transparent !important;
 
-    background-color:
-        transparent !important;
+background-color:
+transparent !important;
 
-    opacity: 1 !important;
+opacity:1 !important;
 
-    pointer-events: none !important;
+pointer-events:none !important;
 }
 
 
 /* =========================================================
-   UI
+   HEADER
 ========================================================= */
 
-#header {
+#header{
 
-    position: fixed;
+position:fixed;
 
-    top: 12px;
-    left: 0;
+top:12px;
+left:0;
 
-    width: 100%;
+width:100%;
 
-    z-index: 20;
+z-index:20;
 
-    text-align: center;
+text-align:center;
 
-    pointer-events: none;
+pointer-events:none;
 }
 
 
-#title {
+#title{
 
-    font-size:
-        clamp(28px, 7vw, 52px);
+font-size:
+clamp(28px,7vw,52px);
 
-    font-weight: 900;
+font-weight:900;
 
-    color: white;
+color:white;
 
-    text-shadow:
-        0 0 8px rgba(255,255,255,.5),
-        0 4px 12px #000;
+text-shadow:
+0 0 8px rgba(255,255,255,.5),
+0 4px 12px #000;
 }
 
 
-#title span {
+#title span{
 
-    color: #b83cff;
+color:#b83cff;
 }
 
 
-#build {
+#build{
 
-    position: absolute;
+position:absolute;
 
-    right: 12px;
-    top: 0;
+right:12px;
+top:0;
 
-    padding:
-        8px 12px;
+padding:
+8px 12px;
 
-    border:
-        1px solid #42ff91;
+border:
+1px solid #42ff91;
 
-    border-radius:
-        16px;
+border-radius:
+16px;
 
-    color:
-        #55ff9b;
+color:
+#55ff9b;
 
-    background:
-        rgba(0,0,0,.60);
+background:
+rgba(0,0,0,.60);
 
-    font-size:
-        11px;
+font-size:
+11px;
 
-    font-weight:
-        800;
+font-weight:
+800;
 
-    white-space:
-        nowrap;
+white-space:
+nowrap;
 }
 
 
 /* =========================================================
-   MAIN STATUS
+   STATUS
 ========================================================= */
 
-#mainStatus {
+#mainStatus{
 
-    position: fixed;
+position:fixed;
 
-    top: 76px;
+top:76px;
 
-    left: 50%;
+left:50%;
 
-    transform:
-        translateX(-50%);
+transform:
+translateX(-50%);
 
-    z-index: 20;
+z-index:20;
 
-    min-width:
-        250px;
+min-width:
+250px;
 
-    max-width:
-        90%;
+max-width:
+90%;
 
-    padding:
-        9px 17px;
+padding:
+9px 17px;
 
-    text-align:
-        center;
+text-align:
+center;
 
-    color:
-        #58ff9c;
+color:
+#58ff9c;
 
-    border:
-        1px solid #a93cff;
+border:
+1px solid #a93cff;
 
-    border-radius:
-        24px;
+border-radius:
+24px;
 
-    background:
-        rgba(0,0,0,.58);
+background:
+rgba(0,0,0,.58);
 
-    box-shadow:
-        0 0 15px
-        rgba(168,60,255,.45);
+box-shadow:
+0 0 15px
+rgba(168,60,255,.45);
 
-    font-weight:
-        900;
+font-weight:
+900;
 
-    font-size:
-        14px;
+font-size:
+14px;
 }
 
 
@@ -293,108 +285,95 @@ a-scene canvas,
    DEBUG
 ========================================================= */
 
-#debug {
+#debug{
 
-    position: fixed;
+position:fixed;
 
-    top: 128px;
-    left: 12px;
+top:128px;
+left:12px;
 
-    z-index: 20;
+z-index:20;
 
-    padding:
-        8px 11px;
+padding:
+8px 11px;
 
-    border:
-        1px solid
-        rgba(255,255,255,.18);
+border:
+1px solid
+rgba(255,255,255,.18);
 
-    border-radius:
-        12px;
+border-radius:
+12px;
 
-    background:
-        rgba(0,0,0,.42);
+background:
+rgba(0,0,0,.42);
 
-    backdrop-filter:
-        blur(5px);
+backdrop-filter:
+blur(5px);
 
-    color:
-        white;
+color:white;
 
-    font-size:
-        11px;
+font-size:
+11px;
 
-    line-height:
-        1.45;
+line-height:
+1.45;
 
-    pointer-events:
-        none;
+pointer-events:
+none;
 
-    min-width:
-        150px;
+min-width:
+150px;
 
-    max-width:
-        calc(100vw - 24px);
+max-width:
+calc(100vw - 24px);
 }
 
 
-.debug-head {
+.debug-head{
 
-    color:
-        #d05cff;
+color:#d05cff;
 
-    font-weight:
-        900;
+font-weight:900;
 
-    margin-bottom:
-        3px;
+margin-bottom:3px;
 }
 
 
-.debug-line {
+.debug-line{
 
-    display:
-        flex;
+display:flex;
 
-    gap:
-        6px;
+gap:6px;
 
-    justify-content:
-        space-between;
+justify-content:space-between;
 }
 
 
-.on {
+.on{
 
-    color:
-        #59ff9b;
+color:#59ff9b;
 
-    font-weight:
-        900;
+font-weight:900;
 }
 
 
-.off {
+.off{
 
-    color:
-        #aaa;
+color:#aaa;
 }
 
 
-.wait {
+.wait{
 
-    color:
-        #ffd84a;
+color:#ffd84a;
 }
 
 
-.err {
+.err{
 
-    color:
-        #ff6565;
+color:#ff6565;
 
-    font-weight:
-        900;
+font-weight:900;
 }
 
 
@@ -402,48 +381,45 @@ a-scene canvas,
    BOTTOM
 ========================================================= */
 
-#bottom {
+#bottom{
 
-    position: fixed;
+position:fixed;
 
-    left: 50%;
+left:50%;
 
-    bottom: 14px;
+bottom:14px;
 
-    transform:
-        translateX(-50%);
+transform:
+translateX(-50%);
 
-    z-index: 20;
+z-index:20;
 
-    width:
-        min(560px, calc(100vw - 40px));
+width:
+min(560px,calc(100vw - 40px));
 
-    padding:
-        10px 14px;
+padding:
+10px 14px;
 
-    text-align:
-        center;
+text-align:center;
 
-    color:
-        white;
+color:white;
 
-    background:
-        rgba(0,0,0,.52);
+background:
+rgba(0,0,0,.52);
 
-    border:
-        1px solid #a93cff;
+border:
+1px solid #a93cff;
 
-    border-radius:
-        18px;
+border-radius:
+18px;
 
-    backdrop-filter:
-        blur(6px);
+backdrop-filter:
+blur(6px);
 
-    font-size:
-        13px;
+font-size:
+13px;
 
-    pointer-events:
-        none;
+pointer-events:none;
 }
 
 
@@ -451,42 +427,38 @@ a-scene canvas,
    MOBILE
 ========================================================= */
 
-@media (max-width:600px) {
+@media(max-width:600px){
 
-    #build {
+#build{
 
-        font-size:
-            9px;
+font-size:9px;
 
-        padding:
-            6px 8px;
+padding:
+6px 8px;
 
-        right:
-            7px;
-    }
+right:7px;
+}
 
 
-    #debug {
+#debug{
 
-        top:
-            124px;
+top:124px;
 
-        font-size:
-            10px;
+font-size:10px;
 
-        padding:
-            7px 9px;
-    }
+padding:
+7px 9px;
+}
 
 
-    #bottom {
+#bottom{
 
-        font-size:
-            12px;
+font-size:12px;
 
-        padding:
-            8px 11px;
-    }
+padding:
+8px 11px;
+}
+
 }
 
 </style>
@@ -503,25 +475,23 @@ a-scene canvas,
 
 <div id="header">
 
-    <div id="title">
-        CARD <span>BEAST</span> AR
-    </div>
+<div id="title">
+CARD <span>BEAST</span> AR
+</div>
 
-    <div id="build">
-        v66.0 • CAMERA FIX • 5-BEAST
-    </div>
+<div id="build">
+v66.1 • ELEMENT VFX • 5-BEAST
+</div>
 
 </div>
 
 
 <!-- =========================================================
-     MAIN STATUS
+     STATUS
 ========================================================= -->
 
 <div id="mainStatus">
-
-    CAMERA STARTING...
-
+CAMERA STARTING...
 </div>
 
 
@@ -531,111 +501,81 @@ a-scene canvas,
 
 <div id="debug">
 
-    <div class="debug-head">
-        TRACKING DEBUG
-    </div>
+<div class="debug-head">
+TRACKING DEBUG
+</div>
 
 
-    <div class="debug-line">
+<div class="debug-line">
+<span>CAMERA</span>
 
-        <span>
-            CAMERA
-        </span>
+<span
+id="cameraState"
+class="wait">
+STARTING
+</span>
 
-        <span
-            id="cameraState"
-            class="wait">
-
-            STARTING
-
-        </span>
-
-    </div>
+</div>
 
 
-    <div class="debug-line">
+<div class="debug-line">
+<span>DR-001</span>
 
-        <span>
-            DR-001
-        </span>
+<span
+id="target0"
+class="wait">
+WAIT
+</span>
 
-        <span
-            id="target0"
-            class="wait">
-
-            WAIT
-
-        </span>
-
-    </div>
+</div>
 
 
-    <div class="debug-line">
+<div class="debug-line">
+<span>DR-002</span>
 
-        <span>
-            DR-002
-        </span>
+<span
+id="target1"
+class="wait">
+WAIT
+</span>
 
-        <span
-            id="target1"
-            class="wait">
-
-            WAIT
-
-        </span>
-
-    </div>
+</div>
 
 
-    <div class="debug-line">
+<div class="debug-line">
+<span>DR-003</span>
 
-        <span>
-            DR-003
-        </span>
+<span
+id="target2"
+class="wait">
+WAIT
+</span>
 
-        <span
-            id="target2"
-            class="wait">
-
-            WAIT
-
-        </span>
-
-    </div>
+</div>
 
 
-    <div class="debug-line">
+<div class="debug-line">
+<span>DR-004</span>
 
-        <span>
-            DR-004
-        </span>
+<span
+id="target3"
+class="wait">
+WAIT
+</span>
 
-        <span
-            id="target3"
-            class="wait">
-
-            WAIT
-
-        </span>
-
-    </div>
+</div>
 
 
-    <div class="debug-line">
+<div class="debug-line">
+<span>DR-005</span>
 
-        <span>
-            DR-005
-        </span>
+<span
+id="target4"
+class="wait">
+WAIT
+</span>
 
-        <span
-            id="target4"
-            class="wait">
-
-            WAIT
-
-        </span>
-
-    </div>
+</div>
 
 </div>
 
@@ -645,11 +585,8 @@ a-scene canvas,
 ========================================================= -->
 
 <div id="bottom">
-
-    📷 Starting camera...
-
+📷 Starting camera...
 </div>
-
 
 
 <!-- =========================================================
@@ -658,34 +595,33 @@ a-scene canvas,
 
 <a-scene
 
-    id="scene"
+id="scene"
 
-    mindar-image="
-        imageTargetSrc: ./targets.mind;
-        maxTrack: 5;
-        filterMinCF: 0.0001;
-        filterBeta: 0.01;
-        warmupTolerance: 5;
-        missTolerance: 5;
-    "
+mindar-image="
+imageTargetSrc: ./targets.mind;
+maxTrack: 5;
+filterMinCF: 0.0001;
+filterBeta: 0.01;
+warmupTolerance: 5;
+missTolerance: 5;
+"
 
-    color-space="sRGB"
+color-space="sRGB"
 
-    renderer="
-        alpha: true;
-        antialias: true;
-        colorManagement: true;
-        physicallyCorrectLights: true;
-    "
+renderer="
+alpha: true;
+antialias: true;
+colorManagement: true;
+physicallyCorrectLights: true;
+"
 
-    vr-mode-ui="
-        enabled: false
-    "
+vr-mode-ui="
+enabled: false
+"
 
-    device-orientation-permission-ui="
-        enabled: true
-    "
->
+device-orientation-permission-ui="
+enabled: true
+">
 
 
 <!-- =========================================================
@@ -693,68 +629,41 @@ a-scene canvas,
 ========================================================= -->
 
 <a-assets
-    id="assets"
-    timeout="30000"
->
+id="assets"
+timeout="30000">
 
 
-    <!-- DR-001 -->
-
-    <a-asset-item
-
-        id="dragonAsset"
-
-        src="./models/ember-dragon.glb">
-
-    </a-asset-item>
+<a-asset-item
+id="dragonAsset"
+src="./models/ember-dragon.glb">
+</a-asset-item>
 
 
-    <!-- DR-002 -->
-
-    <a-asset-item
-
-        id="tigerAsset"
-
-        src="./models/abyss-tiger.glb">
-
-    </a-asset-item>
+<a-asset-item
+id="tigerAsset"
+src="./models/abyss-tiger.glb">
+</a-asset-item>
 
 
-    <!-- DR-003 -->
-
-    <a-asset-item
-
-        id="phoenixAsset"
-
-        src="./models/Frost-phoenix.glb">
-
-    </a-asset-item>
+<a-asset-item
+id="phoenixAsset"
+src="./models/Frost-phoenix.glb">
+</a-asset-item>
 
 
-    <!-- DR-004 -->
-
-    <a-asset-item
-
-        id="mantisAsset"
-
-        src="./models/puppet-mantis.glb">
-
-    </a-asset-item>
+<a-asset-item
+id="mantisAsset"
+src="./models/puppet-mantis.glb">
+</a-asset-item>
 
 
-    <!-- DR-005 -->
-
-    <a-asset-item
-
-        id="leviathanAsset"
-
-        src="./models/tidal-leviathan.glb">
-
-    </a-asset-item>
+<a-asset-item
+id="leviathanAsset"
+src="./models/tidal-leviathan.glb">
+</a-asset-item>
 
 
 </a-assets>
-
 
 
 <!-- =========================================================
@@ -762,220 +671,214 @@ a-scene canvas,
 ========================================================= -->
 
 <a-camera
-
-    position="0 0 0"
-
-    look-controls="
-        enabled: false
-    ">
-
+position="0 0 0"
+look-controls="
+enabled: false
+">
 </a-camera>
-
 
 
 <!-- =========================================================
      DR-001 EMBER DRAGON
-     TARGET 0
 ========================================================= -->
 
 <a-entity
-
-    id="beast0"
-
-    mindar-image-target="
-        targetIndex: 0
-    "
-
-    visible="false"
+id="beast0"
+mindar-image-target="
+targetIndex: 0
+"
+visible="false"
 >
 
 
-    <a-entity
+<a-entity
+id="dragonModel"
+gltf-model="#dragonAsset"
 
-        id="dragonModel"
+position="
+0 -0.25 0
+"
 
-        gltf-model="#dragonAsset"
+rotation="
+90 0 0
+"
 
-        position="
-            0 -0.25 0
-        "
-
-        rotation="
-            90 0 0
-        "
-
-        scale="
-            2.5 2.5 2.5
-        ">
-
-    </a-entity>
+scale="
+2.5 2.5 2.5
+">
 
 </a-entity>
 
+
+<a-entity
+id="vfx0"
+element-vfx="type:fire">
+</a-entity>
+
+
+</a-entity>
 
 
 <!-- =========================================================
      DR-002 ABYSS TIGER
-     TARGET 1
 ========================================================= -->
 
 <a-entity
-
-    id="beast1"
-
-    mindar-image-target="
-        targetIndex: 1
-    "
-
-    visible="false"
+id="beast1"
+mindar-image-target="
+targetIndex: 1
+"
+visible="false"
 >
 
 
-    <a-entity
+<a-entity
+id="tigerModel"
+gltf-model="#tigerAsset"
 
-        id="tigerModel"
+position="
+0 -0.25 0
+"
 
-        gltf-model="#tigerAsset"
+rotation="
+90 0 0
+"
 
-        position="
-            0 -0.25 0
-        "
-
-        rotation="
-            90 0 0
-        "
-
-        scale="
-            1.5 1.5 1.5
-        ">
-
-    </a-entity>
+scale="
+1.5 1.5 1.5
+">
 
 </a-entity>
 
+
+<a-entity
+id="vfx1"
+element-vfx="type:dark">
+</a-entity>
+
+
+</a-entity>
 
 
 <!-- =========================================================
      DR-003 FROST PHOENIX
-     TARGET 2
-     BALANCED SCALE = 1.75
 ========================================================= -->
 
 <a-entity
-
-    id="beast2"
-
-    mindar-image-target="
-        targetIndex: 2
-    "
-
-    visible="false"
+id="beast2"
+mindar-image-target="
+targetIndex: 2
+"
+visible="false"
 >
 
 
-    <a-entity
+<a-entity
+id="phoenixModel"
+gltf-model="#phoenixAsset"
 
-        id="phoenixModel"
+position="
+0 -0.25 0
+"
 
-        gltf-model="#phoenixAsset"
+rotation="
+90 0 0
+"
 
-        position="
-            0 -0.25 0
-        "
-
-        rotation="
-            90 0 0
-        "
-
-        scale="
-            1.75 1.75 1.75
-        ">
-
-    </a-entity>
+scale="
+1.75 1.75 1.75
+">
 
 </a-entity>
 
+
+<a-entity
+id="vfx2"
+element-vfx="type:frost">
+</a-entity>
+
+
+</a-entity>
 
 
 <!-- =========================================================
      DR-004 PUPPET MANTIS
-     TARGET 3
-     BALANCED SCALE = 1.55
 ========================================================= -->
 
 <a-entity
-
-    id="beast3"
-
-    mindar-image-target="
-        targetIndex: 3
-    "
-
-    visible="false"
+id="beast3"
+mindar-image-target="
+targetIndex: 3
+"
+visible="false"
 >
 
 
-    <a-entity
+<a-entity
+id="mantisModel"
+gltf-model="#mantisAsset"
 
-        id="mantisModel"
+position="
+0 -0.25 0
+"
 
-        gltf-model="#mantisAsset"
+rotation="
+90 0 0
+"
 
-        position="
-            0 -0.25 0
-        "
-
-        rotation="
-            90 0 0
-        "
-
-        scale="
-            1.55 1.55 1.55
-        ">
-
-    </a-entity>
+scale="
+1.55 1.55 1.55
+">
 
 </a-entity>
 
 
+<a-entity
+id="vfx3"
+element-vfx="type:mind">
+</a-entity>
+
+
+</a-entity>
+
 
 <!-- =========================================================
      DR-005 TIDAL LEVIATHAN
-     TARGET 4
-     BALANCED SCALE = 1.45
 ========================================================= -->
 
 <a-entity
-
-    id="beast4"
-
-    mindar-image-target="
-        targetIndex: 4
-    "
-
-    visible="false"
+id="beast4"
+mindar-image-target="
+targetIndex: 4
+"
+visible="false"
 >
 
 
-    <a-entity
+<a-entity
+id="leviathanModel"
+gltf-model="#leviathanAsset"
 
-        id="leviathanModel"
+position="
+0 -0.25 0
+"
 
-        gltf-model="#leviathanAsset"
+rotation="
+90 0 0
+"
 
-        position="
-            0 -0.25 0
-        "
+scale="
+1.45 1.45 1.45
+">
 
-        rotation="
-            90 0 0
-        "
+</a-entity>
 
-        scale="
-            1.45 1.45 1.45
-        ">
 
-    </a-entity>
+<a-entity
+id="vfx4"
+element-vfx="type:water">
+</a-entity>
+
 
 </a-entity>
 
@@ -983,18 +886,30 @@ a-scene canvas,
 </a-scene>
 
 
-
 <script>
 
 /* =========================================================
-   CARD BEAST AR v66.0
-   CAMERA LAYER FIX
+   CARD BEAST AR v66.1
+   ELEMENT VFX
 
+   CORE AR:
    5 TARGETS
-   MAX TRACK = 5
+   MAX TRACK 5
    PRELOAD ONCE
    MULTI TRACK
    INDEPENDENT TARGET LOST
+
+   CAMERA:
+   v66.0 CAMERA LAYER
+
+   VFX:
+   DR-001 FIRE
+   DR-002 DARK
+   DR-003 FROST
+   DR-004 MIND
+   DR-005 WATER
+
+   GLB TRANSFORM UNCHANGED
 ========================================================= */
 
 
@@ -1002,695 +917,1163 @@ a-scene canvas,
    BEAST DATA
 ========================================================= */
 
-const beasts = [
+const beasts=[
 
-    {
-        id: "DR-001",
-        name: "Ember Dragon",
-        emoji: "🔥",
-        target: 0,
-        model: "dragonModel",
-        asset: "dragonAsset"
-    },
+{
+id:"DR-001",
+name:"Ember Dragon",
+emoji:"🔥",
+target:0,
+model:"dragonModel",
+asset:"dragonAsset",
+vfx:"fire"
+},
 
-    {
-        id: "DR-002",
-        name: "Abyss Tiger",
-        emoji: "🐯",
-        target: 1,
-        model: "tigerModel",
-        asset: "tigerAsset"
-    },
+{
+id:"DR-002",
+name:"Abyss Tiger",
+emoji:"🌑",
+target:1,
+model:"tigerModel",
+asset:"tigerAsset",
+vfx:"dark"
+},
 
-    {
-        id: "DR-003",
-        name: "Frost Phoenix",
-        emoji: "❄️",
-        target: 2,
-        model: "phoenixModel",
-        asset: "phoenixAsset"
-    },
+{
+id:"DR-003",
+name:"Frost Phoenix",
+emoji:"❄️",
+target:2,
+model:"phoenixModel",
+asset:"phoenixAsset",
+vfx:"frost"
+},
 
-    {
-        id: "DR-004",
-        name: "Puppet Mantis",
-        emoji: "🦗",
-        target: 3,
-        model: "mantisModel",
-        asset: "mantisAsset"
-    },
+{
+id:"DR-004",
+name:"Puppet Mantis",
+emoji:"🧠",
+target:3,
+model:"mantisModel",
+asset:"mantisAsset",
+vfx:"mind"
+},
 
-    {
-        id: "DR-005",
-        name: "Tidal Leviathan",
-        emoji: "🌊",
-        target: 4,
-        model: "leviathanModel",
-        asset: "leviathanAsset"
-    }
+{
+id:"DR-005",
+name:"Tidal Leviathan",
+emoji:"🌊",
+target:4,
+model:"leviathanModel",
+asset:"leviathanAsset",
+vfx:"water"
+}
 
 ];
-
 
 
 /* =========================================================
    STATE
 ========================================================= */
 
-const state = beasts.map(() => ({
+const state=beasts.map(()=>({
 
-    found: false,
+found:false,
 
-    loaded: false,
+loaded:false,
 
-    loadCount: 0
+loadCount:0
 
 }));
-
 
 
 /* =========================================================
    DOM
 ========================================================= */
 
-const scene =
-    document.getElementById("scene");
+const scene=
+document.getElementById("scene");
 
-const mainStatus =
-    document.getElementById("mainStatus");
+const mainStatus=
+document.getElementById("mainStatus");
 
-const bottom =
-    document.getElementById("bottom");
-
+const bottom=
+document.getElementById("bottom");
 
 
 /* =========================================================
-   CAMERA LAYER FIX
+   VFX CONFIG
 ========================================================= */
 
-function forceCameraLayer() {
-
-    /*
-     * Find EVERY video.
-     * MindAR creates the camera video dynamically.
-     */
-
-    const videos =
-        document.querySelectorAll("video");
-
-
-    videos.forEach(video => {
-
-        video.classList.add(
-            "mindar-video"
-        );
-
-
-        video.style.setProperty(
-            "position",
-            "fixed",
-            "important"
-        );
-
-
-        video.style.setProperty(
-            "top",
-            "0",
-            "important"
-        );
-
-
-        video.style.setProperty(
-            "left",
-            "0",
-            "important"
-        );
-
-
-        video.style.setProperty(
-            "width",
-            "100vw",
-            "important"
-        );
-
-
-        video.style.setProperty(
-            "height",
-            "100vh",
-            "important"
-        );
-
-
-        video.style.setProperty(
-            "min-width",
-            "100vw",
-            "important"
-        );
-
-
-        video.style.setProperty(
-            "min-height",
-            "100vh",
-            "important"
-        );
-
-
-        video.style.setProperty(
-            "object-fit",
-            "cover",
-            "important"
-        );
-
-
-        video.style.setProperty(
-            "display",
-            "block",
-            "important"
-        );
-
-
-        video.style.setProperty(
-            "visibility",
-            "visible",
-            "important"
-        );
-
-
-        video.style.setProperty(
-            "opacity",
-            "1",
-            "important"
-        );
-
-
-        video.style.setProperty(
-            "z-index",
-            "0",
-            "important"
-        );
-
-
-        video.style.setProperty(
-            "pointer-events",
-            "none",
-            "important"
-        );
-
-
-        /*
-         * Make sure camera playback continues.
-         */
-
-        if (
-            video.paused &&
-            video.srcObject
-        ) {
-
-            video.play()
-                .catch(() => {});
-
-        }
-
-    });
-
-
-
-    /*
-     * A-FRAME CANVAS
-     */
-
-    const canvas =
-        document.querySelector(
-            "a-scene canvas"
-        );
-
-
-    if (canvas) {
-
-        canvas.style.setProperty(
-            "position",
-            "fixed",
-            "important"
-        );
-
-
-        canvas.style.setProperty(
-            "top",
-            "0",
-            "important"
-        );
-
-
-        canvas.style.setProperty(
-            "left",
-            "0",
-            "important"
-        );
-
-
-        canvas.style.setProperty(
-            "width",
-            "100vw",
-            "important"
-        );
-
-
-        canvas.style.setProperty(
-            "height",
-            "100vh",
-            "important"
-        );
-
-
-        canvas.style.setProperty(
-            "background",
-            "transparent",
-            "important"
-        );
-
-
-        canvas.style.setProperty(
-            "background-color",
-            "transparent",
-            "important"
-        );
-
-
-        canvas.style.setProperty(
-            "z-index",
-            "1",
-            "important"
-        );
-
-    }
-
-
-    /*
-     * Force WebGL transparent clear.
-     */
-
-    try {
-
-        if (
-            scene &&
-            scene.renderer
-        ) {
-
-            const renderer =
-                scene.renderer;
-
-
-            if (
-                renderer.setClearColor
-            ) {
-
-                renderer.setClearColor(
-                    0x000000,
-                    0
-                );
-
-            }
-
-
-            if (
-                renderer.setClearAlpha
-            ) {
-
-                renderer.setClearAlpha(
-                    0
-                );
-
-            }
-
-        }
-
-    }
-
-    catch (error) {
-
-        console.warn(
-            "Renderer transparency patch:",
-            error
-        );
-
-    }
+const VFX_CONFIG={
+
+fire:{
+colors:[
+"#ff3b00",
+"#ff7a00",
+"#ffd21a"
+],
+count:12,
+radius:0.035,
+spread:0.45,
+height:0.75,
+speed:0.55,
+mode:"rise"
+},
+
+dark:{
+colors:[
+"#4d1aff",
+"#7b2cff",
+"#b95cff"
+],
+count:10,
+radius:0.035,
+spread:0.48,
+height:0.55,
+speed:0.35,
+mode:"orbit"
+},
+
+frost:{
+colors:[
+"#8eeaff",
+"#d9fbff",
+"#ffffff"
+],
+count:14,
+radius:0.028,
+spread:0.60,
+height:0.80,
+speed:0.25,
+mode:"snow"
+},
+
+mind:{
+colors:[
+"#ff45e6",
+"#a93cff",
+"#67d8ff"
+],
+count:10,
+radius:0.032,
+spread:0.48,
+height:0.50,
+speed:0.50,
+mode:"orbit"
+},
+
+water:{
+colors:[
+"#00bfff",
+"#22e6ff",
+"#ffffff"
+],
+count:12,
+radius:0.032,
+spread:0.58,
+height:0.70,
+speed:0.38,
+mode:"rise"
+}
+
+};
+
+
+/* =========================================================
+   RANDOM
+========================================================= */
+
+function randomRange(min,max){
+
+return min+
+Math.random()*(max-min);
 
 }
 
 
-
 /* =========================================================
-   MUTATION OBSERVER
-   MindAR VIDEO IS CREATED DYNAMICALLY
+   ELEMENT VFX COMPONENT
 ========================================================= */
 
-const videoObserver =
-    new MutationObserver(() => {
+AFRAME.registerComponent(
 
-        forceCameraLayer();
+"element-vfx",
 
-    });
+{
+
+schema:{
+
+type:{
+type:"string",
+default:"fire"
+}
+
+},
 
 
-videoObserver.observe(
+init:function(){
 
-    document.body,
+this.particles=[];
 
-    {
-        childList: true,
-        subtree: true
-    }
+this.active=false;
+
+this.time=0;
+
+this.config=
+VFX_CONFIG[
+this.data.type
+]||
+VFX_CONFIG.fire;
+
+this.createParticles();
+
+},
+
+
+createParticles:function(){
+
+const config=this.config;
+
+
+for(
+let i=0;
+i<config.count;
+i++
+){
+
+const particle=
+document.createElement(
+"a-sphere"
+);
+
+
+const color=
+config.colors[
+i%config.colors.length
+];
+
+
+const x=
+randomRange(
+-config.spread,
+config.spread
+);
+
+
+const y=
+randomRange(
+0.05,
+config.height
+);
+
+
+const z=
+randomRange(
+-config.spread,
+config.spread
+);
+
+
+const size=
+randomRange(
+config.radius*.65,
+config.radius*1.35
+);
+
+
+particle.setAttribute(
+"radius",
+size
+);
+
+
+particle.setAttribute(
+"position",
+`${x} ${y} ${z}`
+);
+
+
+particle.setAttribute(
+"material",
+{
+
+color:color,
+
+shader:"standard",
+
+transparent:true,
+
+opacity:.85,
+
+roughness:.35,
+
+metalness:.05
+
+}
+);
+
+
+particle.dataset.baseX=x;
+particle.dataset.baseY=y;
+particle.dataset.baseZ=z;
+
+particle.dataset.phase=
+Math.random()*
+Math.PI*2;
+
+particle.dataset.speed=
+randomRange(.7,1.3);
+
+particle.setAttribute(
+"visible",
+"false"
+);
+
+
+this.el.appendChild(
+particle
+);
+
+
+this.particles.push(
+particle
+);
+
+}
+
+},
+
+
+setActive:function(active){
+
+this.active=active;
+
+
+this.particles.forEach(
+particle=>{
+
+particle.setAttribute(
+"visible",
+active
+);
+
+}
+);
+
+},
+
+
+tick:function(time,delta){
+
+if(!this.active){
+
+return;
+
+}
+
+
+const config=this.config;
+
+this.time+=
+delta*.001;
+
+
+this.particles.forEach(
+particle=>{
+
+const baseX=
+Number(
+particle.dataset.baseX
+);
+
+const baseY=
+Number(
+particle.dataset.baseY
+);
+
+const baseZ=
+Number(
+particle.dataset.baseZ
+);
+
+const phase=
+Number(
+particle.dataset.phase
+);
+
+const speed=
+Number(
+particle.dataset.speed
+);
+
+let x=baseX;
+let y=baseY;
+let z=baseZ;
+
+
+/* =========================================
+   RISE
+========================================= */
+
+if(
+config.mode==="rise"
+){
+
+const cycle=
+(
+this.time*
+config.speed*
+speed+
+phase
+)%1;
+
+
+y=
+baseY+
+cycle*.35;
+
+
+x=
+baseX+
+Math.sin(
+this.time*
+2.2*
+speed+
+phase
+)*.045;
+
+
+z=
+baseZ+
+Math.cos(
+this.time*
+1.8*
+speed+
+phase
+)*.045;
+
+
+if(
+y>config.height
+){
+
+y=.05;
+
+}
+
+}
+
+
+/* =========================================
+   ORBIT
+========================================= */
+
+if(
+config.mode==="orbit"
+){
+
+const angle=
+this.time*
+config.speed*
+speed+
+phase;
+
+
+const orbit=
+.18+
+Math.abs(baseX)*.35;
+
+
+x=
+Math.cos(angle)*
+orbit;
+
+
+z=
+Math.sin(angle)*
+orbit;
+
+
+y=
+baseY+
+Math.sin(
+angle*1.7
+)*.08;
+
+}
+
+
+/* =========================================
+   SNOW
+========================================= */
+
+if(
+config.mode==="snow"
+){
+
+const cycle=
+(
+this.time*
+config.speed*
+speed+
+phase
+)%1;
+
+
+y=
+config.height-
+cycle*
+config.height;
+
+
+x=
+baseX+
+Math.sin(
+this.time*1.4+
+phase
+)*.08;
+
+
+z=
+baseZ+
+Math.cos(
+this.time*1.2+
+phase
+)*.08;
+
+
+if(
+y<.02
+){
+
+y=config.height;
+
+}
+
+}
+
+
+particle.object3D.position.set(
+x,
+y,
+z
+);
+
+}
+);
+
+}
+
+}
 
 );
 
 
+/* =========================================================
+   CAMERA LAYER
+   v66.0 BASELINE
+========================================================= */
+
+function forceCameraLayer(){
+
+const videos=
+document.querySelectorAll(
+"video"
+);
+
+
+videos.forEach(
+video=>{
+
+video.classList.add(
+"mindar-video"
+);
+
+
+video.style.setProperty(
+"position",
+"fixed",
+"important"
+);
+
+video.style.setProperty(
+"top",
+"0",
+"important"
+);
+
+video.style.setProperty(
+"left",
+"0",
+"important"
+);
+
+video.style.setProperty(
+"width",
+"100vw",
+"important"
+);
+
+video.style.setProperty(
+"height",
+"100vh",
+"important"
+);
+
+video.style.setProperty(
+"min-width",
+"100vw",
+"important"
+);
+
+video.style.setProperty(
+"min-height",
+"100vh",
+"important"
+);
+
+video.style.setProperty(
+"object-fit",
+"cover",
+"important"
+);
+
+video.style.setProperty(
+"display",
+"block",
+"important"
+);
+
+video.style.setProperty(
+"visibility",
+"visible",
+"important"
+);
+
+video.style.setProperty(
+"opacity",
+"1",
+"important"
+);
+
+video.style.setProperty(
+"z-index",
+"0",
+"important"
+);
+
+video.style.setProperty(
+"pointer-events",
+"none",
+"important"
+);
+
+
+if(
+video.paused &&
+video.srcObject
+){
+
+video.play()
+.catch(
+()=>{}
+);
+
+}
+
+}
+);
+
+
+const canvas=
+document.querySelector(
+"a-scene canvas"
+);
+
+
+if(canvas){
+
+canvas.style.setProperty(
+"position",
+"fixed",
+"important"
+);
+
+canvas.style.setProperty(
+"top",
+"0",
+"important"
+);
+
+canvas.style.setProperty(
+"left",
+"0",
+"important"
+);
+
+canvas.style.setProperty(
+"width",
+"100vw",
+"important"
+);
+
+canvas.style.setProperty(
+"height",
+"100vh",
+"important"
+);
+
+canvas.style.setProperty(
+"background",
+"transparent",
+"important"
+);
+
+canvas.style.setProperty(
+"background-color",
+"transparent",
+"important"
+);
+
+canvas.style.setProperty(
+"z-index",
+"1",
+"important"
+);
+
+}
+
+
+try{
+
+if(
+scene &&
+scene.renderer
+){
+
+const renderer=
+scene.renderer;
+
+
+if(
+renderer.setClearColor
+){
+
+renderer.setClearColor(
+0x000000,
+0
+);
+
+}
+
+
+if(
+renderer.setClearAlpha
+){
+
+renderer.setClearAlpha(
+0
+);
+
+}
+
+}
+
+}
+
+catch(error){
+
+console.warn(
+"Renderer transparency patch:",
+error
+);
+
+}
+
+}
+
 
 /* =========================================================
-   STATUS BADGE
+   VIDEO OBSERVER
+========================================================= */
+
+const videoObserver=
+new MutationObserver(
+()=>{
+
+forceCameraLayer();
+
+}
+);
+
+
+videoObserver.observe(
+
+document.body,
+
+{
+childList:true,
+subtree:true
+}
+
+);
+
+
+/* =========================================================
+   BADGE
 ========================================================= */
 
 function setBadge(
-    index,
-    text,
-    className
-) {
+index,
+text,
+className
+){
 
-    const element =
-        document.getElementById(
-            "target" + index
-        );
-
-
-    if (!element) return;
+const element=
+document.getElementById(
+"target"+index
+);
 
 
-    element.textContent =
-        text;
+if(!element){
 
-
-    element.className =
-        className;
+return;
 
 }
 
+
+element.textContent=
+text;
+
+element.className=
+className;
+
+}
 
 
 /* =========================================================
-   UPDATE MAIN UI
+   VFX CONTROL
 ========================================================= */
 
-function updateUI() {
+function setVFX(
+index,
+active
+){
 
-    const active =
-        beasts.filter(
-            (beast, index) =>
-                state[index].found
-        );
-
-
-    if (
-        active.length === 0
-    ) {
-
-        mainStatus.textContent =
-            "CAMERA READY • SEARCHING";
+const vfx=
+document.getElementById(
+"vfx"+index
+);
 
 
-        bottom.textContent =
-            "📷 Point camera at any Card Beast target.";
+if(
+!vfx ||
+!vfx.components ||
+!vfx.components[
+"element-vfx"
+]
+){
 
-        return;
-
-    }
-
-
-
-    if (
-        active.length === 1
-    ) {
-
-        const beast =
-            active[0];
-
-
-        mainStatus.textContent =
-            `${beast.id} FOUND • ${beast.name.toUpperCase()}`;
-
-
-        bottom.innerHTML =
-            `${beast.emoji} <b>${beast.name.toUpperCase()} ACTIVE</b> • ${beast.id}`;
-
-        return;
-
-    }
-
-
-
-    mainStatus.textContent =
-        `${active.length} CARDS ACTIVE • ` +
-        `${active.map(
-            beast => beast.id
-        ).join(" + ")}`;
-
-
-    bottom.innerHTML =
-        `${active.map(
-            beast =>
-                beast.emoji +
-                " " +
-                beast.id
-        ).join(" + ")} ACTIVE`;
+return;
 
 }
 
+
+vfx.components[
+"element-vfx"
+].setActive(
+active
+);
+
+}
 
 
 /* =========================================================
-   PRELOAD
-   LOAD EACH GLB ONLY ONCE
+   UPDATE UI
 ========================================================= */
 
-function setupPreload() {
+function updateUI(){
 
-    beasts.forEach(
-        (beast, index) => {
-
-            const model =
-                document.getElementById(
-                    beast.model
-                );
+const active=
+beasts.filter(
+(beast,index)=>
+state[index].found
+);
 
 
-            if (!model) {
+if(
+active.length===0
+){
 
-                console.error(
-                    beast.id +
-                    " model element missing"
-                );
+mainStatus.textContent=
+"CAMERA READY • SEARCHING";
 
-                return;
+bottom.textContent=
+"📷 Point camera at any Card Beast target.";
 
-            }
-
-
-            /*
-             * MODEL LOADED
-             */
-
-            model.addEventListener(
-
-                "model-loaded",
-
-                () => {
-
-                    /*
-                     * Prevent duplicate count.
-                     */
-
-                    if (
-                        state[index].loaded
-                    ) {
-
-                        return;
-
-                    }
-
-
-                    state[index].loaded =
-                        true;
-
-
-                    state[index].loadCount++;
-
-
-                    console.log(
-                        beast.id +
-                        " GLB PRELOADED ONCE"
-                    );
-
-                },
-
-                {
-                    once: true
-                }
-
-            );
-
-
-            /*
-             * MODEL ERROR
-             */
-
-            model.addEventListener(
-
-                "model-error",
-
-                event => {
-
-                    console.error(
-                        beast.id +
-                        " GLB LOAD ERROR",
-                        event
-                    );
-
-                    setBadge(
-                        index,
-                        "GLB ERROR",
-                        "err"
-                    );
-
-                }
-
-            );
-
-        }
-    );
+return;
 
 }
 
+
+if(
+active.length===1
+){
+
+const beast=
+active[0];
+
+
+mainStatus.textContent=
+`${beast.id} FOUND • ${beast.name.toUpperCase()}`;
+
+
+bottom.innerHTML=
+`${beast.emoji} <b>${beast.name.toUpperCase()} ACTIVE</b> • ${beast.id}`;
+
+return;
+
+}
+
+
+mainStatus.textContent=
+`${active.length} CARDS ACTIVE • `+
+`${active.map(
+beast=>beast.id
+).join(" + ")}`;
+
+
+bottom.innerHTML=
+`${active.map(
+beast=>
+beast.emoji+
+" "+
+beast.id
+).join(" + ")} ACTIVE`;
+
+}
+
+
+/* =========================================================
+   PRELOAD ONCE
+========================================================= */
+
+function setupPreload(){
+
+beasts.forEach(
+(beast,index)=>{
+
+const model=
+document.getElementById(
+beast.model
+);
+
+
+if(!model){
+
+console.error(
+beast.id+
+" model element missing"
+);
+
+return;
+
+}
+
+
+model.addEventListener(
+
+"model-loaded",
+
+()=>{
+
+if(
+state[index].loaded
+){
+
+return;
+
+}
+
+
+state[index].loaded=
+true;
+
+state[index].loadCount++;
+
+
+console.log(
+beast.id+
+" GLB PRELOADED ONCE"
+);
+
+},
+
+{
+once:true
+}
+
+);
+
+
+model.addEventListener(
+
+"model-error",
+
+event=>{
+
+console.error(
+beast.id+
+" GLB LOAD ERROR",
+event
+);
+
+
+setBadge(
+index,
+"GLB ERROR",
+"err"
+);
+
+}
+
+);
+
+}
+);
+
+}
 
 
 /* =========================================================
    TARGET SETUP
 ========================================================= */
 
-function setupTarget(index) {
+function setupTarget(index){
 
-    const beast =
-        beasts[index];
-
-
-    const target =
-        document.getElementById(
-            "beast" + index
-        );
+const beast=
+beasts[index];
 
 
-    if (!target) {
-
-        console.error(
-            beast.id +
-            " target entity missing"
-        );
-
-        return;
-
-    }
+const target=
+document.getElementById(
+"beast"+index
+);
 
 
+if(!target){
 
-    /* =====================================================
-       TARGET FOUND
-    ===================================================== */
+console.error(
+beast.id+
+" target entity missing"
+);
 
-    target.addEventListener(
-
-        "targetFound",
-
-        () => {
-
-            state[index].found =
-                true;
-
-
-            /*
-             * ONLY THIS TARGET
-             * becomes visible.
-             */
-
-            target.setAttribute(
-                "visible",
-                "true"
-            );
-
-
-            setBadge(
-                index,
-                "FOUND",
-                "on"
-            );
-
-
-            updateUI();
-
-
-            console.log(
-                beast.id +
-                " targetFound"
-            );
-
-        }
-
-    );
-
-
-
-    /* =====================================================
-       TARGET LOST
-    ===================================================== */
-
-    target.addEventListener(
-
-        "targetLost",
-
-        () => {
-
-            state[index].found =
-                false;
-
-
-            /*
-             * ONLY THIS TARGET
-             * becomes invisible.
-             */
-
-            target.setAttribute(
-                "visible",
-                "false"
-            );
-
-
-            setBadge(
-                index,
-                "LOST",
-                "wait"
-            );
-
-
-            updateUI();
-
-
-            console.log(
-                beast.id +
-                " targetLost"
-            );
-
-        }
-
-    );
+return;
 
 }
 
+
+/* =====================================================
+   TARGET FOUND
+===================================================== */
+
+target.addEventListener(
+
+"targetFound",
+
+()=>{
+
+state[index].found=
+true;
+
+
+target.setAttribute(
+"visible",
+"true"
+);
+
+
+/*
+ * Activate only
+ * this VFX.
+ */
+
+setVFX(
+index,
+true
+);
+
+
+setBadge(
+index,
+"FOUND",
+"on"
+);
+
+
+updateUI();
+
+
+console.log(
+beast.id+
+" targetFound"
+);
+
+}
+);
+
+
+/* =====================================================
+   TARGET LOST
+===================================================== */
+
+target.addEventListener(
+
+"targetLost",
+
+()=>{
+
+state[index].found=
+false;
+
+
+target.setAttribute(
+"visible",
+"false"
+);
+
+
+/*
+ * Disable only
+ * this VFX.
+ */
+
+setVFX(
+index,
+false
+);
+
+
+setBadge(
+index,
+"LOST",
+"wait"
+);
+
+
+updateUI();
+
+
+console.log(
+beast.id+
+" targetLost"
+);
+
+}
+);
+
+}
 
 
 /* =========================================================
@@ -1699,47 +2082,33 @@ function setupTarget(index) {
 
 scene.addEventListener(
 
-    "loaded",
+"loaded",
 
-    () => {
+()=>{
 
-        console.log(
-            "CARD BEAST AR v66.0 SCENE LOADED"
-        );
-
-
-        /*
-         * Setup all 5 targets.
-         */
-
-        beasts.forEach(
-            (_, index) => {
-
-                setupTarget(
-                    index
-                );
-
-            }
-        );
-
-
-        /*
-         * Setup GLB preload.
-         */
-
-        setupPreload();
-
-
-        /*
-         * Camera layer.
-         */
-
-        forceCameraLayer();
-
-    }
-
+console.log(
+"CARD BEAST AR v66.1 SCENE LOADED"
 );
 
+
+beasts.forEach(
+(_,index)=>{
+
+setupTarget(
+index
+);
+
+}
+);
+
+
+setupPreload();
+
+
+forceCameraLayer();
+
+}
+);
 
 
 /* =========================================================
@@ -1748,80 +2117,70 @@ scene.addEventListener(
 
 scene.addEventListener(
 
-    "arReady",
+"arReady",
 
-    () => {
+()=>{
 
-        console.log(
-            "MINDAR CAMERA READY"
-        );
-
-
-        const cameraState =
-            document.getElementById(
-                "cameraState"
-            );
-
-
-        if (cameraState) {
-
-            cameraState.textContent =
-                "READY";
-
-            cameraState.className =
-                "on";
-
-        }
-
-
-        mainStatus.textContent =
-            "CAMERA READY • SEARCHING";
-
-
-        bottom.textContent =
-            "📷 Point camera at any Card Beast target.";
-
-
-        /*
-         * Multiple camera layer passes.
-         */
-
-        forceCameraLayer();
-
-
-        setTimeout(
-            forceCameraLayer,
-            100
-        );
-
-
-        setTimeout(
-            forceCameraLayer,
-            300
-        );
-
-
-        setTimeout(
-            forceCameraLayer,
-            700
-        );
-
-
-        setTimeout(
-            forceCameraLayer,
-            1200
-        );
-
-
-        setTimeout(
-            forceCameraLayer,
-            2000
-        );
-
-    }
-
+console.log(
+"MINDAR CAMERA READY"
 );
 
+
+const cameraState=
+document.getElementById(
+"cameraState"
+);
+
+
+if(cameraState){
+
+cameraState.textContent=
+"READY";
+
+cameraState.className=
+"on";
+
+}
+
+
+mainStatus.textContent=
+"CAMERA READY • SEARCHING";
+
+
+bottom.textContent=
+"📷 Point camera at any Card Beast target.";
+
+
+forceCameraLayer();
+
+
+setTimeout(
+forceCameraLayer,
+100
+);
+
+setTimeout(
+forceCameraLayer,
+300
+);
+
+setTimeout(
+forceCameraLayer,
+700
+);
+
+setTimeout(
+forceCameraLayer,
+1200
+);
+
+setTimeout(
+forceCameraLayer,
+2000
+);
+
+}
+);
 
 
 /* =========================================================
@@ -1830,44 +2189,42 @@ scene.addEventListener(
 
 scene.addEventListener(
 
-    "arError",
+"arError",
 
-    event => {
+event=>{
 
-        console.error(
-            "MINDAR AR ERROR",
-            event
-        );
-
-
-        const cameraState =
-            document.getElementById(
-                "cameraState"
-            );
-
-
-        if (cameraState) {
-
-            cameraState.textContent =
-                "ERROR";
-
-            cameraState.className =
-                "err";
-
-        }
-
-
-        mainStatus.textContent =
-            "CAMERA ERROR";
-
-
-        bottom.textContent =
-            "Camera could not start.";
-
-    }
-
+console.error(
+"MINDAR AR ERROR",
+event
 );
 
+
+const cameraState=
+document.getElementById(
+"cameraState"
+);
+
+
+if(cameraState){
+
+cameraState.textContent=
+"ERROR";
+
+cameraState.className=
+"err";
+
+}
+
+
+mainStatus.textContent=
+"CAMERA ERROR";
+
+
+bottom.textContent=
+"Camera could not start.";
+
+}
+);
 
 
 /* =========================================================
@@ -1876,79 +2233,68 @@ scene.addEventListener(
 
 window.addEventListener(
 
-    "load",
+"load",
 
-    () => {
+()=>{
 
-        /*
-         * Initial passes.
-         */
-
-        forceCameraLayer();
+forceCameraLayer();
 
 
-        setTimeout(
-            forceCameraLayer,
-            300
-        );
+setTimeout(
+forceCameraLayer,
+300
+);
 
+setTimeout(
+forceCameraLayer,
+800
+);
 
-        setTimeout(
-            forceCameraLayer,
-            800
-        );
+setTimeout(
+forceCameraLayer,
+1500
+);
 
-
-        setTimeout(
-            forceCameraLayer,
-            1500
-        );
-
-    }
-
+}
 );
 
 
-
 /* =========================================================
-   CONTINUOUS CAMERA LAYER PROTECTION
+   CONTINUOUS CAMERA PROTECTION
 ========================================================= */
 
 setInterval(
 
-    () => {
+()=>{
 
-        forceCameraLayer();
+forceCameraLayer();
 
-    },
+},
 
-    1000
+1000
 
 );
 
 
-
 /* =========================================================
-   INITIAL TARGET UI
+   INITIAL UI
 ========================================================= */
 
 beasts.forEach(
 
-    (_, index) => {
+(_,index)=>{
 
-        setBadge(
-            index,
-            "WAIT",
-            "wait"
-        );
-
-    }
-
+setBadge(
+index,
+"WAIT",
+"wait"
 );
 
+}
+
+);
 
 </script>
 
 </body>
-
 </html>
