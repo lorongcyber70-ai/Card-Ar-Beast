@@ -1,27 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport"
-      content="width=device-width,initial-scale=1.0,
-      maximum-scale=1.0,user-scalable=no">
 
-<title>Card Beast AR — v66.4 Abyss Fire Swirl</title>
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width,
+initial-scale=1.0,
+maximum-scale=1.0,
+user-scalable=no">
+
+<title>Card Beast AR — v66.5 Foot VFX</title>
 
 <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
 
 <style>
-*{box-sizing:border-box}
 
-html,body{
+/* =========================================================
+   GLOBAL
+========================================================= */
+
+*{
+    box-sizing:border-box;
+}
+
+html,
+body{
+
     margin:0;
     padding:0;
+
     width:100%;
     height:100%;
+
     overflow:hidden;
+
     background:transparent!important;
-    font-family:Arial,Helvetica,sans-serif;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
 }
 
 body{
@@ -29,66 +49,137 @@ body{
     background:transparent!important;
 }
 
-/* CAMERA */
+
+/* =========================================================
+   CAMERA VIDEO
+   STABLE CAMERA LAYER
+========================================================= */
+
 video.mindar-video,
 video#mindar-video{
+
     position:fixed!important;
-    inset:0!important;
+
+    top:0!important;
+    left:0!important;
+
     width:100vw!important;
     height:100vh!important;
+
     min-width:100vw!important;
     min-height:100vh!important;
+
     max-width:none!important;
     max-height:none!important;
+
     object-fit:cover!important;
+
     display:block!important;
+
     visibility:visible!important;
+
     opacity:1!important;
+
     z-index:0!important;
+
     background:transparent!important;
+
     pointer-events:none!important;
 }
 
-/* A-FRAME */
+
+/* =========================================================
+   A-FRAME
+========================================================= */
+
 a-scene{
+
     position:fixed!important;
-    inset:0!important;
+
+    top:0!important;
+    left:0!important;
+
     width:100vw!important;
     height:100vh!important;
+
+    min-width:100vw!important;
+    min-height:100vh!important;
+
+    margin:0!important;
+    padding:0!important;
+
     z-index:1!important;
+
     background:transparent!important;
+
     background-color:transparent!important;
+
     pointer-events:none!important;
 }
+
+
+/* =========================================================
+   CANVAS
+========================================================= */
 
 a-scene canvas,
 .a-canvas{
+
     position:fixed!important;
-    inset:0!important;
+
+    top:0!important;
+    left:0!important;
+
     width:100vw!important;
     height:100vh!important;
+
+    min-width:100vw!important;
+    min-height:100vh!important;
+
+    margin:0!important;
+    padding:0!important;
+
     z-index:1!important;
+
     background:transparent!important;
+
     background-color:transparent!important;
+
     opacity:1!important;
+
     pointer-events:none!important;
 }
 
-/* UI */
+
+/* =========================================================
+   HEADER
+========================================================= */
+
 #header{
+
     position:fixed;
+
     top:12px;
     left:0;
+
     width:100%;
+
     z-index:20;
+
     text-align:center;
+
     pointer-events:none;
 }
 
 #title{
-    font-size:clamp(28px,7vw,52px);
+
+    font-size:
+        clamp(28px,7vw,52px);
+
     font-weight:900;
-    color:#fff;
+
+    color:white;
+
     text-shadow:
         0 0 8px rgba(255,255,255,.5),
         0 4px 12px #000;
@@ -99,69 +190,141 @@ a-scene canvas,
 }
 
 #build{
+
     position:absolute;
+
     right:12px;
     top:0;
+
     padding:8px 12px;
-    border:1px solid #42ff91;
+
+    border:
+        1px solid #42ff91;
+
     border-radius:16px;
+
     color:#55ff9b;
-    background:rgba(0,0,0,.60);
+
+    background:
+        rgba(0,0,0,.60);
+
     font-size:11px;
+
     font-weight:800;
+
     white-space:nowrap;
 }
 
+
+/* =========================================================
+   MAIN STATUS
+========================================================= */
+
 #mainStatus{
+
     position:fixed;
+
     top:76px;
+
     left:50%;
-    transform:translateX(-50%);
+
+    transform:
+        translateX(-50%);
+
     z-index:20;
+
     min-width:250px;
+
     max-width:90%;
+
     padding:9px 17px;
+
     text-align:center;
+
     color:#58ff9c;
-    border:1px solid #a93cff;
+
+    border:
+        1px solid #a93cff;
+
     border-radius:24px;
-    background:rgba(0,0,0,.58);
-    box-shadow:0 0 15px rgba(168,60,255,.45);
+
+    background:
+        rgba(0,0,0,.58);
+
+    box-shadow:
+        0 0 15px
+        rgba(168,60,255,.45);
+
     font-weight:900;
+
     font-size:14px;
 }
 
+
+/* =========================================================
+   DEBUG
+========================================================= */
+
 #debug{
+
     position:fixed;
+
     top:128px;
     left:12px;
+
     z-index:20;
+
     padding:8px 11px;
-    border:1px solid rgba(255,255,255,.18);
+
+    border:
+        1px solid
+        rgba(255,255,255,.18);
+
     border-radius:12px;
-    background:rgba(0,0,0,.42);
-    backdrop-filter:blur(5px);
-    color:#fff;
+
+    background:
+        rgba(0,0,0,.42);
+
+    backdrop-filter:
+        blur(5px);
+
+    color:white;
+
     font-size:11px;
+
     line-height:1.45;
+
     pointer-events:none;
+
     min-width:150px;
+
+    max-width:
+        calc(100vw - 24px);
 }
 
 .debug-head{
+
     color:#d05cff;
+
     font-weight:900;
+
     margin-bottom:3px;
 }
 
 .debug-line{
+
     display:flex;
+
     gap:6px;
-    justify-content:space-between;
+
+    justify-content:
+        space-between;
 }
 
 .on{
+
     color:#59ff9b;
+
     font-weight:900;
 }
 
@@ -170,99 +333,208 @@ a-scene canvas,
 }
 
 .err{
+
     color:#ff6565;
+
     font-weight:900;
 }
 
+
+/* =========================================================
+   BOTTOM
+========================================================= */
+
 #bottom{
+
     position:fixed;
+
     left:50%;
+
     bottom:14px;
-    transform:translateX(-50%);
+
+    transform:
+        translateX(-50%);
+
     z-index:20;
-    width:min(560px,calc(100vw - 40px));
+
+    width:
+        min(560px,
+        calc(100vw - 40px));
+
     padding:10px 14px;
+
     text-align:center;
-    color:#fff;
-    background:rgba(0,0,0,.52);
-    border:1px solid #a93cff;
+
+    color:white;
+
+    background:
+        rgba(0,0,0,.52);
+
+    border:
+        1px solid #a93cff;
+
     border-radius:18px;
-    backdrop-filter:blur(6px);
+
+    backdrop-filter:
+        blur(6px);
+
     font-size:13px;
+
     pointer-events:none;
 }
 
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
 @media(max-width:600px){
+
     #build{
+
         font-size:9px;
+
         padding:6px 8px;
+
         right:7px;
     }
 
     #debug{
+
         top:124px;
+
         font-size:10px;
+
         padding:7px 9px;
     }
 
     #bottom{
+
         font-size:12px;
+
         padding:8px 11px;
     }
+
 }
+
 </style>
+
 </head>
+
 
 <body>
 
+
+<!-- =========================================================
+     HEADER
+========================================================= -->
+
 <div id="header">
-    <div id="title">CARD <span>BEAST</span> AR</div>
-    <div id="build">v66.4 • FIRE SWIRL • 5-BEAST</div>
+
+    <div id="title">
+        CARD <span>BEAST</span> AR
+    </div>
+
+    <div id="build">
+        v66.5 • FOOT VFX • 5-BEAST
+    </div>
+
 </div>
 
-<div id="mainStatus">CAMERA STARTING...</div>
+
+<!-- =========================================================
+     STATUS
+========================================================= -->
+
+<div id="mainStatus">
+    CAMERA STARTING...
+</div>
+
+
+<!-- =========================================================
+     DEBUG
+========================================================= -->
 
 <div id="debug">
-    <div class="debug-head">TRACKING DEBUG</div>
+
+    <div class="debug-head">
+        TRACKING DEBUG
+    </div>
 
     <div class="debug-line">
         <span>CAMERA</span>
-        <span id="cameraState" class="wait">STARTING</span>
+        <span
+            id="cameraState"
+            class="wait">
+            STARTING
+        </span>
     </div>
 
     <div class="debug-line">
         <span>DR-001</span>
-        <span id="target0" class="wait">WAIT</span>
+        <span
+            id="target0"
+            class="wait">
+            WAIT
+        </span>
     </div>
 
     <div class="debug-line">
         <span>DR-002</span>
-        <span id="target1" class="wait">WAIT</span>
+        <span
+            id="target1"
+            class="wait">
+            WAIT
+        </span>
     </div>
 
     <div class="debug-line">
         <span>DR-003</span>
-        <span id="target2" class="wait">WAIT</span>
+        <span
+            id="target2"
+            class="wait">
+            WAIT
+        </span>
     </div>
 
     <div class="debug-line">
         <span>DR-004</span>
-        <span id="target3" class="wait">WAIT</span>
+        <span
+            id="target3"
+            class="wait">
+            WAIT
+        </span>
     </div>
 
     <div class="debug-line">
         <span>DR-005</span>
-        <span id="target4" class="wait">WAIT</span>
+        <span
+            id="target4"
+            class="wait">
+            WAIT
+        </span>
     </div>
+
 </div>
+
+
+<!-- =========================================================
+     BOTTOM
+========================================================= -->
 
 <div id="bottom">
     📷 Starting camera...
 </div>
 
 
+<!-- =========================================================
+     AR SCENE
+========================================================= -->
+
 <a-scene
+
     id="scene"
+
     mindar-image="
         imageTargetSrc: ./targets.mind;
         maxTrack: 5;
@@ -271,18 +543,34 @@ a-scene canvas,
         warmupTolerance: 5;
         missTolerance: 5;
     "
+
     color-space="sRGB"
+
     renderer="
         alpha:true;
         antialias:true;
         colorManagement:true;
         physicallyCorrectLights:true;
     "
-    vr-mode-ui="enabled:false"
-    device-orientation-permission-ui="enabled:true"
+
+    vr-mode-ui="
+        enabled:false
+    "
+
+    device-orientation-permission-ui="
+        enabled:true
+    "
 >
 
-<a-assets id="assets" timeout="30000">
+
+<!-- =========================================================
+     ASSETS
+========================================================= -->
+
+<a-assets
+    id="assets"
+    timeout="30000"
+>
 
     <a-asset-item
         id="dragonAsset"
@@ -312,120 +600,246 @@ a-scene canvas,
 </a-assets>
 
 
+<!-- =========================================================
+     CAMERA
+========================================================= -->
+
 <a-camera
+
     position="0 0 0"
-    look-controls="enabled:false">
+
+    look-controls="
+        enabled:false
+    ">
+
 </a-camera>
 
 
-<!-- =====================================================
-     DR-001
-===================================================== -->
+<!-- =========================================================
+     DR-001 EMBER DRAGON
+========================================================= -->
 
 <a-entity
+
     id="beast0"
-    mindar-image-target="targetIndex:0"
-    visible="false">
+
+    mindar-image-target="
+        targetIndex:0
+    "
+
+    visible="false"
+>
 
     <a-entity
+
         id="dragonModel"
+
         gltf-model="#dragonAsset"
-        position="0 -0.25 0"
-        rotation="90 0 0"
-        scale="2.5 2.5 2.5">
+
+        position="
+            0 -0.25 0
+        "
+
+        rotation="
+            90 0 0
+        "
+
+        scale="
+            2.5 2.5 2.5
+        ">
+
     </a-entity>
 
 </a-entity>
 
 
-<!-- =====================================================
+<!-- =========================================================
      DR-002 ABYSS TIGER
-===================================================== -->
+========================================================= -->
 
 <a-entity
+
     id="beast1"
-    mindar-image-target="targetIndex:1"
-    visible="false">
+
+    mindar-image-target="
+        targetIndex:1
+    "
+
+    visible="false"
+>
+
 
     <!-- TIGER -->
 
     <a-entity
+
         id="tigerModel"
+
         gltf-model="#tigerAsset"
-        position="0 -0.25 0"
-        rotation="90 0 0"
-        scale="1.5 1.5 1.5">
+
+        position="
+            0 -0.25 0
+        "
+
+        rotation="
+            90 0 0
+        "
+
+        scale="
+            1.5 1.5 1.5
+        ">
+
     </a-entity>
 
-    <!-- FIRE SWIRL VFX -->
+
+    <!-- =====================================================
+         FOOT VFX
+
+         Positioned underneath Tiger.
+
+         Horizontal plane:
+         faces upward toward camera.
+
+         Slightly below the card target.
+    ====================================================== -->
 
     <a-entity
+
         id="abyssVFX"
-        position="0 -0.43 0"
+
+        position="
+            0 -0.48 0
+        "
+
+        rotation="
+            0 0 0
+        "
+
+        scale="
+            0.72 0.72 0.72
+        "
+
         abyss-fire-swirl>
+
     </a-entity>
+
 
 </a-entity>
 
 
-<!-- =====================================================
-     DR-003
-===================================================== -->
+<!-- =========================================================
+     DR-003 FROST PHOENIX
+========================================================= -->
 
 <a-entity
+
     id="beast2"
-    mindar-image-target="targetIndex:2"
-    visible="false">
+
+    mindar-image-target="
+        targetIndex:2
+    "
+
+    visible="false"
+>
 
     <a-entity
+
         id="phoenixModel"
+
         gltf-model="#phoenixAsset"
-        position="0 -0.25 0"
-        rotation="90 0 0"
-        scale="1.75 1.75 1.75">
+
+        position="
+            0 -0.25 0
+        "
+
+        rotation="
+            90 0 0
+        "
+
+        scale="
+            1.75 1.75 1.75
+        ">
+
     </a-entity>
 
 </a-entity>
 
 
-<!-- =====================================================
-     DR-004
-===================================================== -->
+<!-- =========================================================
+     DR-004 PUPPET MANTIS
+========================================================= -->
 
 <a-entity
+
     id="beast3"
-    mindar-image-target="targetIndex:3"
-    visible="false">
+
+    mindar-image-target="
+        targetIndex:3
+    "
+
+    visible="false"
+>
 
     <a-entity
+
         id="mantisModel"
+
         gltf-model="#mantisAsset"
-        position="0 -0.25 0"
-        rotation="90 0 0"
-        scale="1.55 1.55 1.55">
+
+        position="
+            0 -0.25 0
+        "
+
+        rotation="
+            90 0 0
+        "
+
+        scale="
+            1.55 1.55 1.55
+        ">
+
     </a-entity>
 
 </a-entity>
 
 
-<!-- =====================================================
-     DR-005
-===================================================== -->
+<!-- =========================================================
+     DR-005 TIDAL LEVIATHAN
+========================================================= -->
 
 <a-entity
+
     id="beast4"
-    mindar-image-target="targetIndex:4"
-    visible="false">
+
+    mindar-image-target="
+        targetIndex:4
+    "
+
+    visible="false"
+>
 
     <a-entity
+
         id="leviathanModel"
+
         gltf-model="#leviathanAsset"
-        position="0 -0.25 0"
-        rotation="90 0 0"
-        scale="1.45 1.45 1.45">
+
+        position="
+            0 -0.25 0
+        "
+
+        rotation="
+            90 0 0
+        "
+
+        scale="
+            1.45 1.45 1.45
+        ">
+
     </a-entity>
 
 </a-entity>
+
 
 </a-scene>
 
@@ -433,13 +847,24 @@ a-scene canvas,
 <script>
 
 /* =========================================================
-   CARD BEAST AR v66.4
+   CARD BEAST AR v66.5
 
-   ABYSS TIGER FIRE SWIRL
+   ABYSS TIGER FOOT VFX
 
-   NO GLB CHANGE
-   NO TARGET CHANGE
-   NO CAMERA CHANGE
+   CORE AR:
+   - 5 TARGETS
+   - MAX TRACK 5
+   - PRELOAD ONCE
+   - MULTI TRACK
+   - INDEPENDENT TARGET LOST
+   - CAMERA LAYER FIX
+
+   ONLY DR-002 VFX ADDED
+========================================================= */
+
+
+/* =========================================================
+   DATA
 ========================================================= */
 
 const beasts = [
@@ -487,352 +912,260 @@ const beasts = [
 ];
 
 
-const state = beasts.map(() => ({
-    found:false,
-    loaded:false,
-    loadCount:0
-}));
-
-
-const scene =
-    document.getElementById("scene");
-
-const mainStatus =
-    document.getElementById("mainStatus");
-
-const bottom =
-    document.getElementById("bottom");
-
-
 /* =========================================================
-   CREATE FIRE TEXTURE
+   STATE
 ========================================================= */
 
-function createFireTexture(){
+const state =
+    beasts.map(
+        () => ({
 
-    const canvas =
-        document.createElement("canvas");
+            found:false,
 
-    canvas.width = 512;
-    canvas.height = 512;
+            loaded:false,
 
-    const ctx =
-        canvas.getContext("2d");
+            loadCount:0
 
-    ctx.clearRect(
-        0,
-        0,
-        512,
-        512
+        })
     );
-
-    ctx.save();
-
-    ctx.translate(256,256);
-
-    /*
-     * DARK INNER BRUSH STROKES
-     */
-
-    for(let i=0;i<9;i++){
-
-        ctx.beginPath();
-
-        const start =
-            Math.random()*Math.PI*2;
-
-        const length =
-            1.3 + Math.random()*1.5;
-
-        const radius =
-            60 + Math.random()*80;
-
-        for(
-            let p=0;
-            p<30;
-            p++
-        ){
-
-            const t=p/29;
-
-            const angle =
-                start +
-                t*length;
-
-            const r =
-                radius +
-                Math.sin(t*10+i)*18 +
-                t*45;
-
-            const x =
-                Math.cos(angle)*r;
-
-            const y =
-                Math.sin(angle)*r;
-
-            if(p===0)
-                ctx.moveTo(x,y);
-            else
-                ctx.lineTo(x,y);
-        }
-
-        ctx.strokeStyle =
-            "rgba(20,4,2,.8)";
-
-        ctx.lineWidth =
-            3 + Math.random()*5;
-
-        ctx.lineCap="round";
-
-        ctx.stroke();
-    }
-
-
-    /*
-     * ORANGE FIRE SWIRLS
-     */
-
-    for(let i=0;i<13;i++){
-
-        ctx.beginPath();
-
-        const start =
-            Math.random()*Math.PI*2;
-
-        const direction =
-            i%2===0 ? 1 : -1;
-
-        const length =
-            1.0 +
-            Math.random()*2.0;
-
-        const baseRadius =
-            45 +
-            Math.random()*105;
-
-        for(
-            let p=0;
-            p<42;
-            p++
-        ){
-
-            const t=p/41;
-
-            const angle =
-                start +
-                direction*
-                t*length;
-
-            const wave =
-                Math.sin(
-                    t*16+i*1.7
-                )*12;
-
-            const r =
-                baseRadius +
-                t*65 +
-                wave;
-
-            const x =
-                Math.cos(angle)*r;
-
-            const y =
-                Math.sin(angle)*r;
-
-            if(p===0)
-                ctx.moveTo(x,y);
-            else
-                ctx.lineTo(x,y);
-        }
-
-        /*
-         * outer glow
-         */
-
-        ctx.shadowColor =
-            "rgba(255,75,0,.9)";
-
-        ctx.shadowBlur =
-            16;
-
-        ctx.strokeStyle =
-            i%3===0
-            ? "rgba(255,245,180,.95)"
-            : "rgba(255,105,15,.95)";
-
-        ctx.lineWidth =
-            3 +
-            Math.random()*6;
-
-        ctx.lineCap="round";
-
-        ctx.stroke();
-
-        ctx.shadowBlur=0;
-    }
-
-
-    /*
-     * WHITE HOT CORE
-     */
-
-    for(let i=0;i<7;i++){
-
-        ctx.beginPath();
-
-        const start =
-            Math.random()*Math.PI*2;
-
-        const radius =
-            25 +
-            Math.random()*45;
-
-        for(
-            let p=0;
-            p<25;
-            p++
-        ){
-
-            const t=p/24;
-
-            const angle =
-                start +
-                t*
-                (0.8+
-                 Math.random()*.7);
-
-            const r =
-                radius +
-                t*30;
-
-            const x =
-                Math.cos(angle)*r;
-
-            const y =
-                Math.sin(angle)*r;
-
-            if(p===0)
-                ctx.moveTo(x,y);
-            else
-                ctx.lineTo(x,y);
-        }
-
-        ctx.shadowColor =
-            "#ff6a00";
-
-        ctx.shadowBlur=25;
-
-        ctx.strokeStyle =
-            "rgba(255,245,210,.95)";
-
-        ctx.lineWidth =
-            3+
-            Math.random()*4;
-
-        ctx.stroke();
-
-        ctx.shadowBlur=0;
-    }
-
-    ctx.restore();
-
-    const texture =
-        new THREE.CanvasTexture(canvas);
-
-    texture.needsUpdate=true;
-
-    return texture;
-}
 
 
 /* =========================================================
-   ABYSS FIRE SWIRL COMPONENT
+   DOM
+========================================================= */
+
+const scene =
+    document.getElementById(
+        "scene"
+    );
+
+const mainStatus =
+    document.getElementById(
+        "mainStatus"
+    );
+
+const bottom =
+    document.getElementById(
+        "bottom"
+    );
+
+
+/* =========================================================
+   ABYSS TIGER VFX
 ========================================================= */
 
 AFRAME.registerComponent(
-"abyss-fire-swirl",
-{
 
-init:function(){
+    "abyss-fire-swirl",
 
-    this.active=false;
+    {
 
-    this.time=0;
+        init:function(){
 
-    this.layers=[];
+            this.active =
+                false;
 
-    this.sparks=[];
+            this.time =
+                0;
 
-    this.createVFX();
+            this.layers =
+                [];
 
-},
+            this.sparks =
+                [];
 
+            this.build();
 
-createVFX:function(){
-
-    const texture =
-        createFireTexture();
-
-
-    /*
-     * MAIN SWIRL LAYERS
-     */
-
-    const settings = [
-
-        {
-            scale:1.05,
-            opacity:.95,
-            speed:1.15,
-            y:0.01,
-            z:0
         },
 
-        {
-            scale:.82,
-            opacity:.85,
-            speed:-1.65,
-            y:0.025,
-            z:0.01
+
+        /* =================================================
+           BUILD VFX
+        ================================================= */
+
+        build:function(){
+
+            /*
+             * Central orange glow
+             */
+
+            this.core =
+                this.createDisc(
+                    0.24,
+                    "#ff5a00",
+                    0.35
+                );
+
+
+            /*
+             * White hot center
+             */
+
+            this.hotCore =
+                this.createDisc(
+                    0.12,
+                    "#fff3c4",
+                    0.75
+                );
+
+
+            /*
+             * Main fire layers
+             */
+
+            this.createLayer(
+                0.65,
+                1.0,
+                "#ff5a00",
+                0.90
+            );
+
+            this.createLayer(
+                0.78,
+                -1.25,
+                "#ff9a1f",
+                0.75
+            );
+
+            this.createLayer(
+                0.90,
+                0.75,
+                "#ffd36a",
+                0.48
+            );
+
+            this.createLayer(
+                1.05,
+                -0.48,
+                "#ff3d00",
+                0.38
+            );
+
+
+            /*
+             * Small energy fragments
+             */
+
+            for(
+                let i=0;
+                i<20;
+                i++
+            ){
+
+                const spark =
+                    this.createSpark(
+                        i
+                    );
+
+                this.sparks.push(
+                    spark
+                );
+
+            }
+
         },
 
-        {
-            scale:.63,
-            opacity:.95,
-            speed:2.0,
-            y:0.04,
-            z:0.015
+
+        /* =================================================
+           DISC
+        ================================================= */
+
+        createDisc:function(
+            radius,
+            color,
+            opacity
+        ){
+
+            const mesh =
+                new THREE.Mesh(
+
+                    new THREE.CircleGeometry(
+                        radius,
+                        48
+                    ),
+
+                    new THREE.MeshBasicMaterial({
+
+                        color:color,
+
+                        transparent:true,
+
+                        opacity:opacity,
+
+                        depthWrite:false,
+
+                        depthTest:false,
+
+                        blending:
+                            THREE.AdditiveBlending,
+
+                        side:
+                            THREE.DoubleSide
+
+                    })
+                );
+
+
+            /*
+             * Horizontal surface.
+             *
+             * Camera sees it from above.
+             */
+
+            mesh.rotation.x =
+                -Math.PI/2;
+
+
+            mesh.position.y =
+                0.015;
+
+
+            mesh.visible =
+                false;
+
+
+            this.el.object3D.add(
+                mesh
+            );
+
+
+            return mesh;
+
         },
 
-        {
-            scale:1.28,
-            opacity:.40,
-            speed:-.65,
-            y:0.00,
-            z:-.01
-        }
 
-    ];
+        /* =================================================
+           FIRE LAYER
+        ================================================= */
+
+        createLayer:function(
+            size,
+            speed,
+            color,
+            opacity
+        ){
+
+            const group =
+                new THREE.Group();
 
 
-    settings.forEach(
-    (s,index)=>{
+            const geometry =
+                new THREE.RingGeometry(
+                    0.22,
+                    0.50,
+                    48,
+                    2
+                );
 
-        const mesh =
-            new THREE.Mesh(
 
-                new THREE.PlaneGeometry(
-                    1,
-                    1
-                ),
-
+            const material =
                 new THREE.MeshBasicMaterial({
 
-                    map:texture,
+                    color:color,
 
                     transparent:true,
 
-                    opacity:s.opacity,
+                    opacity:opacity,
 
                     depthWrite:false,
 
@@ -844,328 +1177,368 @@ createVFX:function(){
                     side:
                         THREE.DoubleSide
 
-                })
+                });
 
+
+            const mesh =
+                new THREE.Mesh(
+                    geometry,
+                    material
+                );
+
+
+            mesh.rotation.x =
+                -Math.PI/2;
+
+
+            mesh.scale.set(
+                size,
+                size,
+                size
             );
 
 
-        mesh.rotation.x =
-            -Math.PI/2;
-
-        mesh.position.y =
-            s.y;
-
-        mesh.position.z =
-            s.z;
-
-        mesh.scale.set(
-            s.scale,
-            s.scale,
-            s.scale
-        );
+            mesh.userData.speed =
+                speed;
 
 
-        mesh.userData.speed =
-            s.speed;
-
-        mesh.userData.base =
-            s.scale;
-
-        mesh.userData.index =
-            index;
+            mesh.userData.baseScale =
+                size;
 
 
-        mesh.visible=false;
-
-        this.el.object3D.add(
-            mesh
-        );
-
-        this.layers.push(
-            mesh
-        );
-
-    });
+            mesh.userData.phase =
+                Math.random()*
+                Math.PI*2;
 
 
-    /*
-     * SPARKS
-     */
+            /*
+             * Break the perfect circle
+             * by scaling the ring unevenly.
+             */
 
-    for(let i=0;i<28;i++){
+            mesh.scale.x *=
+                1.0+
+                Math.random()*.18;
 
-        const geometry =
-            new THREE.SphereGeometry(
-                0.006+
-                Math.random()*.012,
-                5,
-                5
+
+            mesh.scale.y *=
+                0.85+
+                Math.random()*.15;
+
+
+            mesh.position.y =
+                0.02+
+                Math.random()*.02;
+
+
+            mesh.visible =
+                false;
+
+
+            this.el.object3D.add(
+                mesh
             );
 
 
-        const material =
-            new THREE.MeshBasicMaterial({
+            this.layers.push(
+                mesh
+            );
 
-                color:
-                    i%4===0
-                    ?0xffffff
-                    :0xff8a16,
-
-                transparent:true,
-
-                opacity:
-                    .4+
-                    Math.random()*.6,
-
-                depthWrite:false,
-
-                depthTest:false,
-
-                blending:
-                    THREE.AdditiveBlending
-
-            });
+        },
 
 
-        const spark =
-            new THREE.Mesh(
-                geometry,
-                material
+        /* =================================================
+           SPARK
+        ================================================= */
+
+        createSpark:function(
+            index
+        ){
+
+            const geometry =
+                new THREE.SphereGeometry(
+                    0.006+
+                    Math.random()*.012,
+                    5,
+                    5
+                );
+
+
+            const material =
+                new THREE.MeshBasicMaterial({
+
+                    color:
+                        index%4===0
+                        ?0xffffff
+                        :0xff7b14,
+
+                    transparent:true,
+
+                    opacity:
+                        0.4+
+                        Math.random()*.5,
+
+                    depthWrite:false,
+
+                    depthTest:false,
+
+                    blending:
+                        THREE.AdditiveBlending
+
+                });
+
+
+            const spark =
+                new THREE.Mesh(
+                    geometry,
+                    material
+                );
+
+
+            spark.userData.angle =
+                Math.random()*
+                Math.PI*2;
+
+
+            spark.userData.radius =
+                0.18+
+                Math.random()*.52;
+
+
+            spark.userData.height =
+                0.025+
+                Math.random()*.13;
+
+
+            spark.userData.speed =
+                0.3+
+                Math.random()*1.4;
+
+
+            spark.userData.phase =
+                Math.random()*
+                Math.PI*2;
+
+
+            spark.visible =
+                false;
+
+
+            this.el.object3D.add(
+                spark
             );
 
 
-        spark.userData.angle =
-            Math.random()*
-            Math.PI*2;
+            return spark;
 
-        spark.userData.radius =
-            .22+
-            Math.random()*.55;
-
-        spark.userData.height =
-            .02+
-            Math.random()*.10;
-
-        spark.userData.speed =
-            .35+
-            Math.random()*1.5;
-
-        spark.userData.phase =
-            Math.random()*Math.PI*2;
-
-        spark.visible=false;
-
-        this.el.object3D.add(
-            spark
-        );
-
-        this.sparks.push(
-            spark
-        );
-
-    }
+        },
 
 
-    /*
-     * CENTRAL GLOW
-     */
+        /* =================================================
+           ACTIVE
+        ================================================= */
 
-    const glow =
-        new THREE.Mesh(
+        setActive:function(
+            active
+        ){
 
-            new THREE.CircleGeometry(
-                .20,
-                32
-            ),
-
-            new THREE.MeshBasicMaterial({
-
-                color:0xff7200,
-
-                transparent:true,
-
-                opacity:.22,
-
-                depthWrite:false,
-
-                depthTest:false,
-
-                blending:
-                    THREE.AdditiveBlending,
-
-                side:
-                    THREE.DoubleSide
-
-            })
-
-        );
-
-    glow.rotation.x =
-        -Math.PI/2;
-
-    glow.position.y=.005;
-
-    glow.visible=false;
-
-    this.el.object3D.add(
-        glow
-    );
-
-    this.glow=glow;
-
-},
+            this.active =
+                active;
 
 
-setActive:function(active){
-
-    this.active=active;
-
-    this.el.object3D.visible=
-        active;
-
-    this.layers.forEach(
-        mesh=>{
-            mesh.visible=active;
-        }
-    );
-
-    this.sparks.forEach(
-        spark=>{
-            spark.visible=active;
-        }
-    );
-
-    if(this.glow)
-        this.glow.visible=active;
-
-},
+            this.el.object3D.visible =
+                active;
 
 
-tick:function(time,delta){
-
-    if(!this.active)
-        return;
-
-    this.time +=
-        delta*.001;
-
-    const t=
-        this.time;
+            this.layers.forEach(
+                layer=>{
+                    layer.visible =
+                        active;
+                }
+            );
 
 
-    /*
-     * SWIRL ROTATION
-     */
-
-    this.layers.forEach(
-        mesh=>{
-
-            mesh.rotation.z +=
-                mesh.userData.speed*
-                delta*.001;
+            this.sparks.forEach(
+                spark=>{
+                    spark.visible =
+                        active;
+                }
+            );
 
 
-            const pulse =
+            this.core.visible =
+                active;
+
+
+            this.hotCore.visible =
+                active;
+
+        },
+
+
+        /* =================================================
+           ANIMATION
+        ================================================= */
+
+        tick:function(
+            time,
+            delta
+        ){
+
+            if(!this.active)
+                return;
+
+
+            this.time +=
+                delta*0.001;
+
+
+            const t =
+                this.time;
+
+
+            /*
+             * Fire ring rotation
+             */
+
+            this.layers.forEach(
+                layer=>{
+
+                    layer.rotation.z +=
+                        layer.userData.speed*
+                        delta*
+                        0.001;
+
+
+                    const pulse =
+                        1+
+                        Math.sin(
+                            t*3+
+                            layer.userData.phase
+                        )*
+                        0.055;
+
+
+                    const base =
+                        layer.userData.baseScale;
+
+
+                    layer.scale.x =
+                        base*
+                        pulse;
+
+
+                    layer.scale.y =
+                        base*
+                        pulse;
+
+                }
+            );
+
+
+            /*
+             * Core pulse
+             */
+
+            const corePulse =
                 1+
                 Math.sin(
-                    t*3+
-                    mesh.userData.index
-                )*.055;
+                    t*5
+                )*.12;
 
-            const size =
-                mesh.userData.base*
-                pulse;
 
-            mesh.scale.x=size;
-            mesh.scale.y=size;
+            this.core.scale.set(
+                corePulse,
+                corePulse,
+                corePulse
+            );
+
+
+            const hotPulse =
+                1+
+                Math.sin(
+                    t*7
+                )*.16;
+
+
+            this.hotCore.scale.set(
+                hotPulse,
+                hotPulse,
+                hotPulse
+            );
+
+
+            /*
+             * Sparks orbit around feet
+             */
+
+            this.sparks.forEach(
+                spark=>{
+
+                    const d =
+                        spark.userData;
+
+
+                    const angle =
+                        d.angle+
+                        t*d.speed;
+
+
+                    const radius =
+                        d.radius+
+                        Math.sin(
+                            t*2+
+                            d.phase
+                        )*.025;
+
+
+                    spark.position.x =
+                        Math.cos(angle)*
+                        radius;
+
+
+                    spark.position.z =
+                        Math.sin(angle)*
+                        radius;
+
+
+                    /*
+                     * Rising from card
+                     */
+
+                    spark.position.y =
+                        d.height+
+                        (
+                            Math.sin(
+                                t*2.5+
+                                d.phase
+                            )+1
+                        )*.08;
+
+
+                    const scale =
+                        0.7+
+                        (
+                            Math.sin(
+                                t*6+
+                                d.phase
+                            )+1
+                        )*.3;
+
+
+                    spark.scale.set(
+                        scale,
+                        scale,
+                        scale
+                    );
+
+                }
+            );
 
         }
-    );
-
-
-    /*
-     * CENTRAL GLOW PULSE
-     */
-
-    if(this.glow){
-
-        const pulse =
-            1+
-            Math.sin(t*5)*.15;
-
-        this.glow.scale.set(
-            pulse,
-            pulse,
-            pulse
-        );
-
-        this.glow.material.opacity =
-            .18+
-            (
-                Math.sin(t*4)+1
-            )*.06;
 
     }
 
-
-    /*
-     * SPARK MOVEMENT
-     */
-
-    this.sparks.forEach(
-    spark=>{
-
-        const d =
-            spark.userData;
-
-        const angle =
-            d.angle+
-            t*d.speed;
-
-        const radius =
-            d.radius+
-            Math.sin(
-                t*2+
-                d.phase
-            )*.025;
-
-        spark.position.x =
-            Math.cos(angle)*
-            radius;
-
-        spark.position.z =
-            Math.sin(angle)*
-            radius;
-
-        spark.position.y =
-            d.height+
-            (
-                Math.sin(
-                    t*2.5+
-                    d.phase
-                )+1
-            )*.08;
-
-        const scale =
-            .7+
-            (
-                Math.sin(
-                    t*6+
-                    d.phase
-                )+1
-            )*.3;
-
-        spark.scale.set(
-            scale,
-            scale,
-            scale
-        );
-
-    });
-
-}
-
-}
 );
 
 
@@ -1175,97 +1548,132 @@ tick:function(time,delta){
 
 function forceCameraLayer(){
 
-    document
-    .querySelectorAll("video")
-    .forEach(video=>{
-
-        video.classList.add(
-            "mindar-video"
+    const videos =
+        document.querySelectorAll(
+            "video"
         );
 
-        video.style.setProperty(
-            "position",
-            "fixed",
-            "important"
-        );
 
-        video.style.setProperty(
-            "top",
-            "0",
-            "important"
-        );
+    videos.forEach(
+        video=>{
 
-        video.style.setProperty(
-            "left",
-            "0",
-            "important"
-        );
+            video.classList.add(
+                "mindar-video"
+            );
 
-        video.style.setProperty(
-            "width",
-            "100vw",
-            "important"
-        );
 
-        video.style.setProperty(
-            "height",
-            "100vh",
-            "important"
-        );
+            video.style.setProperty(
+                "position",
+                "fixed",
+                "important"
+            );
 
-        video.style.setProperty(
-            "object-fit",
-            "cover",
-            "important"
-        );
 
-        video.style.setProperty(
-            "display",
-            "block",
-            "important"
-        );
+            video.style.setProperty(
+                "top",
+                "0",
+                "important"
+            );
 
-        video.style.setProperty(
-            "visibility",
-            "visible",
-            "important"
-        );
 
-        video.style.setProperty(
-            "opacity",
-            "1",
-            "important"
-        );
+            video.style.setProperty(
+                "left",
+                "0",
+                "important"
+            );
 
-        video.style.setProperty(
-            "z-index",
-            "0",
-            "important"
-        );
 
-        video.style.setProperty(
-            "pointer-events",
-            "none",
-            "important"
-        );
+            video.style.setProperty(
+                "width",
+                "100vw",
+                "important"
+            );
 
-        if(
-            video.paused &&
-            video.srcObject
-        ){
 
-            video.play()
-            .catch(()=>{});
+            video.style.setProperty(
+                "height",
+                "100vh",
+                "important"
+            );
+
+
+            video.style.setProperty(
+                "min-width",
+                "100vw",
+                "important"
+            );
+
+
+            video.style.setProperty(
+                "min-height",
+                "100vh",
+                "important"
+            );
+
+
+            video.style.setProperty(
+                "object-fit",
+                "cover",
+                "important"
+            );
+
+
+            video.style.setProperty(
+                "display",
+                "block",
+                "important"
+            );
+
+
+            video.style.setProperty(
+                "visibility",
+                "visible",
+                "important"
+            );
+
+
+            video.style.setProperty(
+                "opacity",
+                "1",
+                "important"
+            );
+
+
+            video.style.setProperty(
+                "z-index",
+                "0",
+                "important"
+            );
+
+
+            video.style.setProperty(
+                "pointer-events",
+                "none",
+                "important"
+            );
+
+
+            if(
+                video.paused &&
+                video.srcObject
+            ){
+
+                video.play()
+                .catch(
+                    ()=>{}
+                );
+
+            }
 
         }
-
-    });
+    );
 
 
     const canvas =
         document.querySelector(
             "a-scene canvas"
         );
+
 
     if(canvas){
 
@@ -1275,11 +1683,20 @@ function forceCameraLayer(){
             "important"
         );
 
+
         canvas.style.setProperty(
-            "inset",
+            "top",
             "0",
             "important"
         );
+
+
+        canvas.style.setProperty(
+            "left",
+            "0",
+            "important"
+        );
+
 
         canvas.style.setProperty(
             "width",
@@ -1287,17 +1704,27 @@ function forceCameraLayer(){
             "important"
         );
 
+
         canvas.style.setProperty(
             "height",
             "100vh",
             "important"
         );
 
+
         canvas.style.setProperty(
             "background",
             "transparent",
             "important"
         );
+
+
+        canvas.style.setProperty(
+            "background-color",
+            "transparent",
+            "important"
+        );
+
 
         canvas.style.setProperty(
             "z-index",
@@ -1320,12 +1747,54 @@ function forceCameraLayer(){
                 0
             );
 
+
+            if(
+                scene.renderer.setClearAlpha
+            ){
+
+                scene.renderer.setClearAlpha(
+                    0
+                );
+
+            }
+
         }
 
     }
-    catch(e){}
+    catch(error){
+
+        console.warn(
+            "Camera layer:",
+            error
+        );
+
+    }
 
 }
+
+
+/* =========================================================
+   VIDEO OBSERVER
+========================================================= */
+
+const videoObserver =
+    new MutationObserver(
+        ()=>{
+            forceCameraLayer();
+        }
+    );
+
+
+videoObserver.observe(
+
+    document.body,
+
+    {
+        childList:true,
+        subtree:true
+    }
+
+);
 
 
 /* =========================================================
@@ -1335,18 +1804,25 @@ function forceCameraLayer(){
 function setBadge(
     index,
     text,
-    cls
+    className
 ){
 
-    const el =
+    const element =
         document.getElementById(
             "target"+index
         );
 
-    if(!el)return;
 
-    el.textContent=text;
-    el.className=cls;
+    if(!element)
+        return;
+
+
+    element.textContent =
+        text;
+
+
+    element.className =
+        className;
 
 }
 
@@ -1359,33 +1835,43 @@ function updateUI(){
 
     const active =
         beasts.filter(
-            (b,i)=>
-                state[i].found
+            (beast,index)=>
+                state[index].found
         );
 
 
-    if(!active.length){
+    if(
+        active.length===0
+    ){
 
         mainStatus.textContent =
             "CAMERA READY • SEARCHING";
 
+
         bottom.textContent =
             "📷 Point camera at any Card Beast target.";
+
 
         return;
 
     }
 
 
-    if(active.length===1){
+    if(
+        active.length===1
+    ){
 
-        const b=active[0];
+        const beast =
+            active[0];
+
 
         mainStatus.textContent =
-            `${b.id} FOUND • ${b.name.toUpperCase()}`;
+            `${beast.id} FOUND • ${beast.name.toUpperCase()}`;
+
 
         bottom.innerHTML =
-            `${b.emoji} <b>${b.name.toUpperCase()} ACTIVE</b> • ${b.id}`;
+            `${beast.emoji} <b>${beast.name.toUpperCase()} ACTIVE</b> • ${beast.id}`;
+
 
         return;
 
@@ -1394,104 +1880,157 @@ function updateUI(){
 
     mainStatus.textContent =
         `${active.length} CARDS ACTIVE • `+
-        active.map(
-            b=>b.id
-        ).join(" + ");
+        `${active.map(
+            beast=>beast.id
+        ).join(" + ")}`;
+
 
     bottom.innerHTML =
-        active.map(
-            b=>b.emoji+" "+b.id
-        ).join(" + ")+
-        " ACTIVE";
+        `${active.map(
+            beast=>
+                beast.emoji+
+                " "+
+                beast.id
+        ).join(" + ")} ACTIVE`;
 
 }
 
 
 /* =========================================================
-   PRELOAD
+   PRELOAD ONCE
 ========================================================= */
 
 function setupPreload(){
 
     beasts.forEach(
-    (beast,index)=>{
+        (beast,index)=>{
 
-        const model =
-            document.getElementById(
-                beast.model
-            );
-
-        if(!model)return;
-
-
-        model.addEventListener(
-            "model-loaded",
-            ()=>{
-
-                if(
-                    state[index].loaded
-                )return;
-
-                state[index].loaded=true;
-
-                state[index].loadCount++;
-
-                console.log(
-                    beast.id+
-                    " GLB PRELOADED ONCE"
+            const model =
+                document.getElementById(
+                    beast.model
                 );
 
-            },
-            {once:true}
-        );
 
-
-        model.addEventListener(
-            "model-error",
-            e=>{
+            if(!model){
 
                 console.error(
                     beast.id+
-                    " GLB LOAD ERROR",
-                    e
+                    " model element missing"
                 );
 
-                setBadge(
-                    index,
-                    "GLB ERROR",
-                    "err"
-                );
+                return;
 
             }
-        );
 
-    });
+
+            model.addEventListener(
+
+                "model-loaded",
+
+                ()=>{
+
+                    if(
+                        state[index].loaded
+                    ){
+
+                        return;
+
+                    }
+
+
+                    state[index].loaded =
+                        true;
+
+
+                    state[index].loadCount++;
+
+
+                    console.log(
+                        beast.id+
+                        " GLB PRELOADED ONCE"
+                    );
+
+                },
+
+                {
+                    once:true
+                }
+
+            );
+
+
+            model.addEventListener(
+
+                "model-error",
+
+                event=>{
+
+                    console.error(
+                        beast.id+
+                        " GLB LOAD ERROR",
+                        event
+                    );
+
+
+                    setBadge(
+                        index,
+                        "GLB ERROR",
+                        "err"
+                    );
+
+                }
+
+            );
+
+        }
+    );
 
 }
 
 
 /* =========================================================
-   TARGETS
+   TARGET SETUP
 ========================================================= */
 
-function setupTarget(index){
+function setupTarget(
+    index
+){
 
     const beast =
         beasts[index];
+
 
     const target =
         document.getElementById(
             "beast"+index
         );
 
-    if(!target)return;
 
+    if(!target){
+
+        console.error(
+            beast.id+
+            " target entity missing"
+        );
+
+        return;
+
+    }
+
+
+    /* =====================================================
+       TARGET FOUND
+    ===================================================== */
 
     target.addEventListener(
+
         "targetFound",
+
         ()=>{
 
-            state[index].found=true;
+            state[index].found =
+                true;
+
 
             target.setAttribute(
                 "visible",
@@ -1500,18 +2039,22 @@ function setupTarget(index){
 
 
             /*
-             * ABYSS TIGER VFX ONLY
+             * ABYSS TIGER ONLY
              */
 
-            if(index===1){
+            if(
+                index===1
+            ){
 
                 const vfx =
                     document.getElementById(
                         "abyssVFX"
                     );
 
+
                 if(
                     vfx &&
+                    vfx.components &&
                     vfx.components[
                         "abyss-fire-swirl"
                     ]
@@ -1519,7 +2062,9 @@ function setupTarget(index){
 
                     vfx.components[
                         "abyss-fire-swirl"
-                    ].setActive(true);
+                    ].setActive(
+                        true
+                    );
 
                 }
 
@@ -1532,7 +2077,9 @@ function setupTarget(index){
                 "on"
             );
 
+
             updateUI();
+
 
             console.log(
                 beast.id+
@@ -1540,14 +2087,23 @@ function setupTarget(index){
             );
 
         }
+
     );
 
 
+    /* =====================================================
+       TARGET LOST
+    ===================================================== */
+
     target.addEventListener(
+
         "targetLost",
+
         ()=>{
 
-            state[index].found=false;
+            state[index].found =
+                false;
+
 
             target.setAttribute(
                 "visible",
@@ -1555,15 +2111,23 @@ function setupTarget(index){
             );
 
 
-            if(index===1){
+            /*
+             * ABYSS TIGER ONLY
+             */
+
+            if(
+                index===1
+            ){
 
                 const vfx =
                     document.getElementById(
                         "abyssVFX"
                     );
 
+
                 if(
                     vfx &&
+                    vfx.components &&
                     vfx.components[
                         "abyss-fire-swirl"
                     ]
@@ -1571,7 +2135,9 @@ function setupTarget(index){
 
                     vfx.components[
                         "abyss-fire-swirl"
-                    ].setActive(false);
+                    ].setActive(
+                        false
+                    );
 
                 }
 
@@ -1584,7 +2150,9 @@ function setupTarget(index){
                 "wait"
             );
 
+
             updateUI();
+
 
             console.log(
                 beast.id+
@@ -1592,6 +2160,7 @@ function setupTarget(index){
             );
 
         }
+
     );
 
 }
@@ -1602,23 +2171,35 @@ function setupTarget(index){
 ========================================================= */
 
 scene.addEventListener(
-"loaded",
-()=>{
 
-    beasts.forEach(
-        (_,i)=>
-            setupTarget(i)
-    );
+    "loaded",
 
-    setupPreload();
+    ()=>{
 
-    forceCameraLayer();
+        console.log(
+            "CARD BEAST AR v66.5 SCENE LOADED"
+        );
 
-    console.log(
-        "CARD BEAST AR v66.4 READY"
-    );
 
-});
+        beasts.forEach(
+            (_,index)=>{
+
+                setupTarget(
+                    index
+                );
+
+            }
+        );
+
+
+        setupPreload();
+
+
+        forceCameraLayer();
+
+    }
+
+);
 
 
 /* =========================================================
@@ -1626,55 +2207,77 @@ scene.addEventListener(
 ========================================================= */
 
 scene.addEventListener(
-"arReady",
-()=>{
 
-    const cameraState =
-        document.getElementById(
-            "cameraState"
+    "arReady",
+
+    ()=>{
+
+        console.log(
+            "MINDAR CAMERA READY"
         );
 
-    if(cameraState){
 
-        cameraState.textContent="READY";
-        cameraState.className="on";
+        const cameraState =
+            document.getElementById(
+                "cameraState"
+            );
+
+
+        if(cameraState){
+
+            cameraState.textContent =
+                "READY";
+
+
+            cameraState.className =
+                "on";
+
+        }
+
+
+        mainStatus.textContent =
+            "CAMERA READY • SEARCHING";
+
+
+        bottom.textContent =
+            "📷 Point camera at any Card Beast target.";
+
+
+        forceCameraLayer();
+
+
+        setTimeout(
+            forceCameraLayer,
+            100
+        );
+
+
+        setTimeout(
+            forceCameraLayer,
+            300
+        );
+
+
+        setTimeout(
+            forceCameraLayer,
+            700
+        );
+
+
+        setTimeout(
+            forceCameraLayer,
+            1200
+        );
+
+
+        setTimeout(
+            forceCameraLayer,
+            2000
+        );
 
     }
 
-    mainStatus.textContent =
-        "CAMERA READY • SEARCHING";
-
-    bottom.textContent =
-        "📷 Point camera at any Card Beast target.";
-
-    forceCameraLayer();
-
-    setTimeout(
-        forceCameraLayer,
-        100
-    );
-
-    setTimeout(
-        forceCameraLayer,
-        300
-    );
-
-    setTimeout(
-        forceCameraLayer,
-        700
-    );
-
-    setTimeout(
-        forceCameraLayer,
-        1200
-    );
-
-    setTimeout(
-        forceCameraLayer,
-        2000
-    );
-
-});
+);
 
 
 /* =========================================================
@@ -1682,50 +2285,44 @@ scene.addEventListener(
 ========================================================= */
 
 scene.addEventListener(
-"arError",
-e=>{
 
-    console.error(
-        "MINDAR AR ERROR",
-        e
-    );
+    "arError",
 
-    const cameraState =
-        document.getElementById(
-            "cameraState"
+    event=>{
+
+        console.error(
+            "MINDAR AR ERROR",
+            event
         );
 
-    if(cameraState){
 
-        cameraState.textContent="ERROR";
-        cameraState.className="err";
+        const cameraState =
+            document.getElementById(
+                "cameraState"
+            );
+
+
+        if(cameraState){
+
+            cameraState.textContent =
+                "ERROR";
+
+
+            cameraState.className =
+                "err";
+
+        }
+
+
+        mainStatus.textContent =
+            "CAMERA ERROR";
+
+
+        bottom.textContent =
+            "Camera could not start.";
 
     }
 
-    mainStatus.textContent =
-        "CAMERA ERROR";
-
-    bottom.textContent =
-        "Camera could not start.";
-
-});
-
-
-/* =========================================================
-   CAMERA OBSERVER
-========================================================= */
-
-const videoObserver =
-    new MutationObserver(
-        ()=>forceCameraLayer()
-    );
-
-videoObserver.observe(
-    document.body,
-    {
-        childList:true,
-        subtree:true
-    }
 );
 
 
@@ -1734,50 +2331,69 @@ videoObserver.observe(
 ========================================================= */
 
 window.addEventListener(
-"load",
-()=>{
 
-    forceCameraLayer();
+    "load",
 
-    setTimeout(
-        forceCameraLayer,
-        300
-    );
+    ()=>{
 
-    setTimeout(
-        forceCameraLayer,
-        800
-    );
-
-    setTimeout(
-        forceCameraLayer,
-        1500
-    );
-
-});
+        forceCameraLayer();
 
 
-/* =========================================================
-   CONTINUOUS PROTECTION
-========================================================= */
+        setTimeout(
+            forceCameraLayer,
+            300
+        );
 
-setInterval(
-    forceCameraLayer,
-    1000
+
+        setTimeout(
+            forceCameraLayer,
+            800
+        );
+
+
+        setTimeout(
+            forceCameraLayer,
+            1500
+        );
+
+    }
+
 );
 
 
 /* =========================================================
-   INITIAL BADGES
+   CONTINUOUS CAMERA PROTECTION
+========================================================= */
+
+setInterval(
+
+    ()=>{
+
+        forceCameraLayer();
+
+    },
+
+    1000
+
+);
+
+
+/* =========================================================
+   INITIAL TARGET UI
 ========================================================= */
 
 beasts.forEach(
-    (_,i)=>
+
+    (_,index)=>{
+
         setBadge(
-            i,
+            index,
             "WAIT",
             "wait"
-        )
+        );
+
+    }
+
 );
 
 </script>
