@@ -7,7 +7,7 @@
 <meta name="viewport"
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-<title>Card Beast AR — v65.9 Scale Balance</title>
+<title>Card Beast AR — v66.0 Camera Stable</title>
 
 <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
@@ -24,7 +24,7 @@ body{
     width:100%;
     height:100%;
     overflow:hidden;
-    background:#050505;
+    background:#000;
     font-family:Arial,Helvetica,sans-serif;
 }
 
@@ -42,14 +42,17 @@ body{
     top:12px;
     left:0;
     width:100%;
-    z-index:20;
+    z-index:1000;
+
     text-align:center;
+
     pointer-events:none;
 }
 
 #title{
     font-size:clamp(28px,7vw,52px);
     font-weight:900;
+
     color:#fff;
 
     text-shadow:
@@ -63,6 +66,7 @@ body{
 
 #build{
     position:absolute;
+
     right:12px;
     top:0;
 
@@ -72,6 +76,7 @@ body{
     border-radius:16px;
 
     color:#55ff9b;
+
     background:rgba(0,0,0,.55);
 
     font-size:11px;
@@ -82,7 +87,7 @@ body{
 
 
 /* =========================================
-   MAIN STATUS
+   STATUS
 ========================================= */
 
 #mainStatus{
@@ -93,7 +98,7 @@ body{
 
     transform:translateX(-50%);
 
-    z-index:20;
+    z-index:1000;
 
     min-width:250px;
     max-width:90%;
@@ -127,7 +132,7 @@ body{
     top:128px;
     left:12px;
 
-    z-index:20;
+    z-index:1000;
 
     padding:8px 11px;
 
@@ -146,17 +151,19 @@ body{
     pointer-events:none;
 
     min-width:150px;
-    max-width:calc(100vw - 24px);
 }
 
 .debug-head{
     color:#d05cff;
+
     font-weight:900;
+
     margin-bottom:3px;
 }
 
 .debug-line{
     display:flex;
+
     gap:6px;
 
     justify-content:space-between;
@@ -167,16 +174,13 @@ body{
     font-weight:900;
 }
 
-.off{
-    color:#aaa;
-}
-
 .wait{
     color:#ffd84a;
 }
 
 .err{
     color:#ff6565;
+    font-weight:900;
 }
 
 
@@ -192,7 +196,7 @@ body{
 
     transform:translateX(-50%);
 
-    z-index:20;
+    z-index:1000;
 
     width:min(560px,calc(100vw - 40px));
 
@@ -205,6 +209,7 @@ body{
     background:rgba(0,0,0,.48);
 
     border:1px solid #a93cff;
+
     border-radius:18px;
 
     backdrop-filter:blur(6px);
@@ -216,62 +221,87 @@ body{
 
 
 /* =========================================
-   A-FRAME
-========================================= */
-
-a-scene{
-    position:fixed!important;
-
-    inset:0!important;
-
-    width:100vw!important;
-    height:100vh!important;
-
-    z-index:1!important;
-
-    background:transparent!important;
-}
-
-a-scene canvas{
-    position:fixed!important;
-
-    inset:0!important;
-
-    width:100vw!important;
-    height:100vh!important;
-
-    z-index:2!important;
-
-    background:transparent!important;
-}
-
-
-/* =========================================
    CAMERA VIDEO
 ========================================= */
 
-video.mindar-video{
-    position:fixed!important;
+/*
+   IMPORTANT:
+   Video = layer paling bawah
+*/
 
-    inset:0!important;
+video.mindar-video,
+video#mindar-video{
 
-    width:100vw!important;
-    height:100vh!important;
+    position:fixed !important;
 
-    object-fit:cover!important;
+    top:0 !important;
+    left:0 !important;
 
-    z-index:0!important;
+    width:100vw !important;
+    height:100vh !important;
 
-    display:block!important;
+    min-width:100vw !important;
+    min-height:100vh !important;
+
+    object-fit:cover !important;
+
+    display:block !important;
+
+    opacity:1 !important;
+
+    visibility:visible !important;
+
+    z-index:1 !important;
+
+    background:#000 !important;
+
+    pointer-events:none !important;
 }
 
 
 /* =========================================
-   AR UI
+   A-FRAME SCENE
 ========================================= */
 
-.ar-ui-layer{
-    z-index:20!important;
+a-scene{
+
+    position:fixed !important;
+
+    top:0 !important;
+    left:0 !important;
+
+    width:100vw !important;
+    height:100vh !important;
+
+    z-index:2 !important;
+
+    background:transparent !important;
+
+    pointer-events:none !important;
+}
+
+
+/* =========================================
+   CANVAS
+========================================= */
+
+a-scene canvas{
+
+    position:fixed !important;
+
+    top:0 !important;
+    left:0 !important;
+
+    width:100vw !important;
+    height:100vh !important;
+
+    z-index:2 !important;
+
+    background:transparent !important;
+
+    opacity:1 !important;
+
+    pointer-events:none !important;
 }
 
 
@@ -319,18 +349,18 @@ video.mindar-video{
     </div>
 
     <div id="build">
-        v65.9 • SCALE BALANCE • 5-BEAST
+        v66.0 • CAMERA STABLE • 5-BEAST
     </div>
 
 </div>
 
 
 <!-- =========================================
-     MAIN STATUS
+     STATUS
 ========================================= -->
 
 <div id="mainStatus">
-    CAMERA READY • SEARCHING
+    CAMERA STARTING • SEARCHING
 </div>
 
 
@@ -346,8 +376,8 @@ video.mindar-video{
 
     <div class="debug-line">
         <span>CAMERA</span>
-        <span id="cameraState" class="on">
-            READY
+        <span id="cameraState" class="wait">
+            STARTING
         </span>
     </div>
 
@@ -438,8 +468,8 @@ video.mindar-video{
 ========================================= -->
 
 <a-assets
-    timeout="30000"
     id="assets"
+    timeout="30000"
 >
 
     <a-asset-item
@@ -481,13 +511,16 @@ video.mindar-video{
 
 
 <!-- =========================================
-     DR-001 EMBER DRAGON
+     DR-001
+     EMBER DRAGON
      SCALE 2.5
 ========================================= -->
 
 <a-entity
     id="beast0"
+
     mindar-image-target="targetIndex:0"
+
     visible="false"
 >
 
@@ -508,13 +541,16 @@ video.mindar-video{
 
 
 <!-- =========================================
-     DR-002 ABYSS TIGER
+     DR-002
+     ABYSS TIGER
      SCALE 2.1
 ========================================= -->
 
 <a-entity
     id="beast1"
+
     mindar-image-target="targetIndex:1"
+
     visible="false"
 >
 
@@ -535,13 +571,16 @@ video.mindar-video{
 
 
 <!-- =========================================
-     DR-003 FROST PHOENIX
+     DR-003
+     FROST PHOENIX
      SCALE 1.75
 ========================================= -->
 
 <a-entity
     id="beast2"
+
     mindar-image-target="targetIndex:2"
+
     visible="false"
 >
 
@@ -562,13 +601,16 @@ video.mindar-video{
 
 
 <!-- =========================================
-     DR-004 PUPPET MANTIS
+     DR-004
+     PUPPET MANTIS
      SCALE 1.55
 ========================================= -->
 
 <a-entity
     id="beast3"
+
     mindar-image-target="targetIndex:3"
+
     visible="false"
 >
 
@@ -589,13 +631,16 @@ video.mindar-video{
 
 
 <!-- =========================================
-     DR-005 TIDAL LEVIATHAN
+     DR-005
+     TIDAL LEVIATHAN
      SCALE 1.45
 ========================================= -->
 
 <a-entity
     id="beast4"
+
     mindar-image-target="targetIndex:4"
+
     visible="false"
 >
 
@@ -621,20 +666,32 @@ video.mindar-video{
 <script>
 
 /* =========================================================
-   CARD BEAST AR v65.9
-   SCALE BALANCE
+   CARD BEAST AR v66.0
+   CAMERA LAYER STABLE
 
-   5 TARGETS
-   MAX TRACK 5
+   TARGETS:
+   0 = DR-001
+   1 = DR-002
+   2 = DR-003
+   3 = DR-004
+   4 = DR-005
+
+   MAX TRACK = 5
    PRELOAD ONCE
-   MULTI-TRACK
+   MULTI TRACK
    INDEPENDENT TARGET LOST
-   CAMERA LAYER v65.6
+
+   SCALE:
+   DR-001 = 2.5
+   DR-002 = 2.1
+   DR-003 = 1.75
+   DR-004 = 1.55
+   DR-005 = 1.45
 ========================================================= */
 
 
 /* =========================================
-   BEAST DATA
+   DATA
 ========================================= */
 
 const beasts = [
@@ -691,13 +748,14 @@ const beasts = [
    STATE
 ========================================= */
 
-const state = beasts.map(() => ({
+const state =
+    beasts.map(() => ({
 
-    found:false,
+        found:false,
 
-    loaded:false
+        loaded:false
 
-}));
+    }));
 
 
 /* =========================================
@@ -705,58 +763,208 @@ const state = beasts.map(() => ({
 ========================================= */
 
 const scene =
-    document.getElementById("scene");
+    document.getElementById(
+        "scene"
+    );
 
 const mainStatus =
-    document.getElementById("mainStatus");
+    document.getElementById(
+        "mainStatus"
+    );
 
 const bottom =
-    document.getElementById("bottom");
+    document.getElementById(
+        "bottom"
+    );
+
+const cameraState =
+    document.getElementById(
+        "cameraState"
+    );
 
 
 /* =========================================
-   CAMERA LAYER FIX
+   FORCE TRANSPARENT RENDERER
+========================================= */
+
+function forceTransparentRenderer(){
+
+    try{
+
+        if(
+            scene &&
+            scene.renderer
+        ){
+
+            const renderer =
+                scene.renderer;
+
+
+            /*
+             * IMPORTANT:
+             * A-Frame canvas must NOT
+             * clear with opaque black.
+             */
+
+            if(
+                renderer.setClearColor
+            ){
+
+                renderer.setClearColor(
+                    0x000000,
+                    0
+                );
+
+            }
+
+
+            if(
+                renderer.setClearAlpha
+            ){
+
+                renderer.setClearAlpha(
+                    0
+                );
+
+            }
+
+
+            if(
+                renderer.domElement
+            ){
+
+                renderer.domElement.style.background =
+                    "transparent";
+
+                renderer.domElement.style.backgroundColor =
+                    "transparent";
+
+                renderer.domElement.style.opacity =
+                    "1";
+            }
+
+        }
+
+    }catch(error){
+
+        console.warn(
+            "Renderer transparency patch:",
+            error
+        );
+
+    }
+
+}
+
+
+/* =========================================
+   CAMERA VIDEO LAYER
 ========================================= */
 
 function fixCameraLayer(){
 
-    document
-        .querySelectorAll("video")
-        .forEach(video => {
+    /*
+     * Find EVERY video.
+     */
 
-            if(
-                video.classList.contains("mindar-video") ||
-                video.id === "mindar-video"
-            ){
+    const videos =
+        document.querySelectorAll(
+            "video"
+        );
 
-                video.classList.add(
+
+    videos.forEach(
+        video => {
+
+            /*
+             * MindAR normally creates
+             * .mindar-video.
+             */
+
+            const isMindARVideo =
+                video.classList.contains(
                     "mindar-video"
-                );
+                ) ||
+                video.id ===
+                    "mindar-video";
 
-                video.style.position =
-                    "fixed";
 
-                video.style.inset =
-                    "0";
+            if(!isMindARVideo){
 
-                video.style.width =
-                    "100vw";
+                return;
 
-                video.style.height =
-                    "100vh";
-
-                video.style.objectFit =
-                    "cover";
-
-                video.style.zIndex =
-                    "0";
-
-                video.style.display =
-                    "block";
             }
 
-        });
 
+            video.classList.add(
+                "mindar-video"
+            );
+
+
+            video.style.position =
+                "fixed";
+
+            video.style.top =
+                "0";
+
+            video.style.left =
+                "0";
+
+            video.style.width =
+                "100vw";
+
+            video.style.height =
+                "100vh";
+
+            video.style.minWidth =
+                "100vw";
+
+            video.style.minHeight =
+                "100vh";
+
+            video.style.objectFit =
+                "cover";
+
+            video.style.display =
+                "block";
+
+            video.style.visibility =
+                "visible";
+
+            video.style.opacity =
+                "1";
+
+            video.style.zIndex =
+                "1";
+
+            video.style.pointerEvents =
+                "none";
+
+
+            /*
+             * Make sure camera video
+             * is actually playing.
+             */
+
+            if(
+                video.paused &&
+                video.srcObject
+            ){
+
+                video.play()
+                    .catch(
+                        () => {}
+                    );
+
+            }
+
+        }
+    );
+
+
+    /*
+     * Fix A-Frame canvas.
+     */
 
     const canvas =
         document.querySelector(
@@ -769,7 +977,10 @@ function fixCameraLayer(){
         canvas.style.position =
             "fixed";
 
-        canvas.style.inset =
+        canvas.style.top =
+            "0";
+
+        canvas.style.left =
             "0";
 
         canvas.style.width =
@@ -783,7 +994,66 @@ function fixCameraLayer(){
 
         canvas.style.background =
             "transparent";
+
+        canvas.style.backgroundColor =
+            "transparent";
+
+        canvas.style.pointerEvents =
+            "none";
+
     }
+
+
+    /*
+     * Re-apply transparent renderer.
+     */
+
+    forceTransparentRenderer();
+
+}
+
+
+/* =========================================
+   VIDEO WATCHER
+========================================= */
+
+function startVideoWatcher(){
+
+    /*
+     * MindAR may create the video
+     * after page load.
+     *
+     * Therefore keep checking.
+     */
+
+    let count = 0;
+
+
+    const timer =
+        setInterval(
+            () => {
+
+                fixCameraLayer();
+
+                count++;
+
+
+                /*
+                 * 30 checks is enough
+                 * for startup.
+                 */
+
+                if(count >= 30){
+
+                    clearInterval(
+                        timer
+                    );
+
+                }
+
+            },
+            250
+        );
 
 }
 
@@ -795,21 +1065,27 @@ function fixCameraLayer(){
 function badge(
     index,
     text,
-    cls
+    className
 ){
 
-    const el =
+    const element =
         document.getElementById(
             "target" + index
         );
 
-    if(!el) return;
 
-    el.textContent =
+    if(!element){
+
+        return;
+
+    }
+
+
+    element.textContent =
         text;
 
-    el.className =
-        cls;
+    element.className =
+        className;
 
 }
 
@@ -822,28 +1098,43 @@ function updateUI(){
 
     const active =
         beasts.filter(
-            (b,index) =>
+            (beast,index) =>
                 state[index].found
         );
 
 
-    if(!active.length){
+    /*
+     * NOTHING FOUND
+     */
+
+    if(
+        active.length === 0
+    ){
 
         mainStatus.textContent =
             "CAMERA READY • SEARCHING";
 
+
         bottom.textContent =
             "📷 Point camera at any Card Beast target.";
+
 
         return;
 
     }
 
 
-    if(active.length === 1){
+    /*
+     * ONE TARGET
+     */
+
+    if(
+        active.length === 1
+    ){
 
         const beast =
             active[0];
+
 
         mainStatus.textContent =
             `${beast.id} FOUND • ${beast.name.toUpperCase()}`;
@@ -852,29 +1143,36 @@ function updateUI(){
         bottom.innerHTML =
             `${beast.emoji} <b>${beast.name.toUpperCase()} ACTIVE</b> • ${beast.id}`;
 
+
         return;
 
     }
 
 
+    /*
+     * MULTI TRACK
+     */
+
     mainStatus.textContent =
         `${active.length} CARDS ACTIVE • ` +
         active
             .map(
-                beast => beast.id
+                beast =>
+                    beast.id
             )
             .join(" + ");
 
 
     bottom.innerHTML =
-        `${active
+        active
             .map(
                 beast =>
                     beast.emoji +
                     " " +
                     beast.id
             )
-            .join(" + ")} ACTIVE`;
+            .join(" + ") +
+        " ACTIVE";
 
 }
 
@@ -895,12 +1193,16 @@ function setupTarget(index){
         );
 
 
-    if(!target) return;
+    if(!target){
+
+        return;
+
+    }
 
 
-    /* -------------------------------------
-       TARGET FOUND
-    ------------------------------------- */
+    /*
+     * TARGET FOUND
+     */
 
     target.addEventListener(
         "targetFound",
@@ -911,8 +1213,8 @@ function setupTarget(index){
 
 
             /*
-             * ONLY THIS TARGET
-             * IS SHOWN.
+             * ONLY THIS BEAST
+             * becomes visible.
              */
 
             target.setAttribute(
@@ -932,17 +1234,17 @@ function setupTarget(index){
 
 
             console.log(
-                beast.id,
-                "targetFound"
+                beast.id +
+                " targetFound"
             );
 
         }
     );
 
 
-    /* -------------------------------------
-       TARGET LOST
-    ------------------------------------- */
+    /*
+     * TARGET LOST
+     */
 
     target.addEventListener(
         "targetLost",
@@ -953,8 +1255,8 @@ function setupTarget(index){
 
 
             /*
-             * ONLY THIS TARGET
-             * IS HIDDEN.
+             * ONLY THIS BEAST
+             * is hidden.
              */
 
             target.setAttribute(
@@ -974,8 +1276,8 @@ function setupTarget(index){
 
 
             console.log(
-                beast.id,
-                "targetLost"
+                beast.id +
+                " targetLost"
             );
 
         }
@@ -999,7 +1301,11 @@ function setupPreload(){
                 );
 
 
-            if(!model) return;
+            if(!model){
+
+                return;
+
+            }
 
 
             model.addEventListener(
@@ -1016,7 +1322,7 @@ function setupPreload(){
 
                         console.log(
                             beast.id +
-                            " GLB preloaded once"
+                            " GLB PRELOADED ONCE"
                         );
 
                     }
@@ -1062,13 +1368,23 @@ scene.addEventListener(
     "loaded",
     () => {
 
-        document
-            .getElementById(
-                "cameraState"
-            )
-            .textContent =
-            "READY";
+        console.log(
+            "A-FRAME SCENE LOADED"
+        );
 
+
+        /*
+         * Fix renderer immediately.
+         */
+
+        forceTransparentRenderer();
+
+        fixCameraLayer();
+
+
+        /*
+         * Setup targets.
+         */
 
         beasts.forEach(
             (_,index) => {
@@ -1081,27 +1397,40 @@ scene.addEventListener(
         );
 
 
+        /*
+         * Setup GLB preload.
+         */
+
         setupPreload();
 
 
-        fixCameraLayer();
+        /*
+         * Start repeated
+         * camera layer protection.
+         */
+
+        startVideoWatcher();
+
+    }
+);
 
 
-        setTimeout(
-            fixCameraLayer,
-            300
-        );
+/* =========================================
+   RENDERER INITIALIZED
+========================================= */
 
-
-        setTimeout(
-            fixCameraLayer,
-            1000
-        );
-
+scene.addEventListener(
+    "renderstart",
+    () => {
 
         console.log(
-            "CARD BEAST AR v65.9 READY"
+            "A-FRAME RENDER START"
         );
+
+
+        forceTransparentRenderer();
+
+        fixCameraLayer();
 
     }
 );
@@ -1115,27 +1444,16 @@ scene.addEventListener(
     "arReady",
     () => {
 
-        fixCameraLayer();
-
-
-        setTimeout(
-            fixCameraLayer,
-            300
+        console.log(
+            "AR CAMERA READY"
         );
 
 
-        setTimeout(
-            fixCameraLayer,
-            1000
-        );
-
-
-        document
-            .getElementById(
-                "cameraState"
-            )
-            .textContent =
+        cameraState.textContent =
             "READY";
+
+        cameraState.className =
+            "on";
 
 
         mainStatus.textContent =
@@ -1146,58 +1464,26 @@ scene.addEventListener(
             "📷 Point camera at any Card Beast target.";
 
 
-        console.log(
-            "AR CAMERA READY"
-        );
+        /*
+         * Camera layer fix.
+         */
 
-    }
-);
+        fixCameraLayer();
 
-
-/* =========================================
-   CAMERA ERROR
-========================================= */
-
-scene.addEventListener(
-    "arError",
-    event => {
-
-        document
-            .getElementById(
-                "cameraState"
-            )
-            .textContent =
-            "ERROR";
-
-
-        mainStatus.textContent =
-            "CAMERA ERROR";
-
-
-        bottom.textContent =
-            "Camera could not start.";
-
-
-        console.error(
-            "AR ERROR",
-            event
-        );
-
-    }
-);
-
-
-/* =========================================
-   WINDOW LOAD
-========================================= */
-
-window.addEventListener(
-    "load",
-    () => {
 
         setTimeout(
             fixCameraLayer,
-            500
+            100
+        );
+
+        setTimeout(
+            fixCameraLayer,
+            300
+        );
+
+        setTimeout(
+            fixCameraLayer,
+            700
         );
 
         setTimeout(
@@ -1215,7 +1501,88 @@ window.addEventListener(
 
 
 /* =========================================
-   INITIAL STATE
+   AR ERROR
+========================================= */
+
+scene.addEventListener(
+    "arError",
+    event => {
+
+        console.error(
+            "AR ERROR",
+            event
+        );
+
+
+        cameraState.textContent =
+            "ERROR";
+
+        cameraState.className =
+            "err";
+
+
+        mainStatus.textContent =
+            "CAMERA ERROR";
+
+
+        bottom.textContent =
+            "Camera could not start.";
+
+    }
+);
+
+
+/* =========================================
+   WINDOW LOAD
+========================================= */
+
+window.addEventListener(
+    "load",
+    () => {
+
+        /*
+         * Initial attempts.
+         */
+
+        fixCameraLayer();
+
+
+        setTimeout(
+            fixCameraLayer,
+            250
+        );
+
+
+        setTimeout(
+            fixCameraLayer,
+            500
+        );
+
+
+        setTimeout(
+            fixCameraLayer,
+            1000
+        );
+
+
+        setTimeout(
+            fixCameraLayer,
+            2000
+        );
+
+
+        /*
+         * Continue watcher.
+         */
+
+        startVideoWatcher();
+
+    }
+);
+
+
+/* =========================================
+   INITIAL BADGES
 ========================================= */
 
 beasts.forEach(
@@ -1227,6 +1594,109 @@ beasts.forEach(
             "wait"
         );
 
+    }
+);
+
+
+/* =========================================
+   EXTRA VIDEO OBSERVER
+========================================= */
+
+/*
+ * If MindAR inserts a video after
+ * startup, detect it automatically.
+ */
+
+const observer =
+    new MutationObserver(
+        mutations => {
+
+            let foundVideo =
+                false;
+
+
+            mutations.forEach(
+                mutation => {
+
+                    mutation.addedNodes.forEach(
+                        node => {
+
+                            if(
+                                node.nodeType !== 1
+                            ){
+
+                                return;
+
+                            }
+
+
+                            if(
+                                node.tagName ===
+                                "VIDEO"
+                            ){
+
+                                foundVideo =
+                                    true;
+
+                            }
+
+
+                            if(
+                                node.querySelector
+                            ){
+
+                                const video =
+                                    node.querySelector(
+                                        "video"
+                                    );
+
+
+                                if(video){
+
+                                    foundVideo =
+                                        true;
+
+                                }
+
+                            }
+
+                        }
+                    );
+
+                }
+            );
+
+
+            if(foundVideo){
+
+                console.log(
+                    "MindAR video detected"
+                );
+
+
+                fixCameraLayer();
+
+                setTimeout(
+                    fixCameraLayer,
+                    100
+                );
+
+                setTimeout(
+                    fixCameraLayer,
+                    500
+                );
+
+            }
+
+        }
+    );
+
+
+observer.observe(
+    document.body,
+    {
+        childList:true,
+        subtree:true
     }
 );
 
