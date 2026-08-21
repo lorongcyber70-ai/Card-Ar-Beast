@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-<title>Card Beast AR — v65.6 Camera Layer Fix</title>
+<title>Card Beast AR — v65.7 Scale Balance</title>
 
 <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
@@ -285,7 +285,7 @@ video[id*="mindar"]{
     </div>
 
     <div id="build">
-        v65.6 • CAMERA LAYER FIX • 5-BEAST
+        v65.7 • SCALE BALANCE • 5-BEAST
     </div>
 
 </div>
@@ -504,7 +504,7 @@ video[id*="mindar"]{
         gltf-model="#phoenixAsset"
         position="0 -0.25 0"
         rotation="90 0 0"
-        scale="1.6 1.6 1.6">
+        scale="1.75 1.75 1.75">
     </a-entity>
 
 </a-entity>
@@ -526,7 +526,7 @@ video[id*="mindar"]{
         gltf-model="#mantisAsset"
         position="0 -0.25 0"
         rotation="90 0 0"
-        scale="1.3 1.3 1.3">
+        scale="1.55 1.55 1.55">
     </a-entity>
 
 </a-entity>
@@ -548,7 +548,7 @@ video[id*="mindar"]{
         gltf-model="#leviathanAsset"
         position="0 -0.25 0"
         rotation="90 0 0"
-        scale="1.2 1.2 1.2">
+        scale="1.45 1.45 1.45">
     </a-entity>
 
 </a-entity>
@@ -560,7 +560,7 @@ video[id*="mindar"]{
 <script>
 
 /* =========================================================
-   CARD BEAST AR v65.6
+   CARD BEAST AR v65.7
 
    5 TARGETS
    maxTrack: 5
@@ -1040,7 +1040,7 @@ scene.addEventListener(
     () => {
 
         console.log(
-            "CARD BEAST AR v65.6 SCENE LOADED"
+            "CARD BEAST AR v65.7 SCENE LOADED"
         );
 
 
@@ -1186,11 +1186,15 @@ console.log(
 );
 
 console.log(
-    "CARD BEAST AR v65.6"
+    "CARD BEAST AR v65.7"
 );
 
 console.log(
     "CAMERA VIDEO LAYER FIX = ENABLED"
+);
+
+console.log(
+    "SCALE BALANCE: DR-003 1.75 / DR-004 1.55 / DR-005 1.45"
 );
 
 console.log(
