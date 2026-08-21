@@ -1,540 +1,200 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-<meta name="viewport"
-content="width=device-width,
-initial-scale=1.0,
-maximum-scale=1.0,
-user-scalable=no">
-
-<title>Card Beast AR — v66.5 Foot VFX</title>
+<title>Card Beast AR — v66.6 Tiger Portal VFX</title>
 
 <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
 
 <style>
+*{box-sizing:border-box}
 
-/* =========================================================
-   GLOBAL
-========================================================= */
-
-*{
-    box-sizing:border-box;
-}
-
-html,
-body{
-
+html,body{
     margin:0;
     padding:0;
-
     width:100%;
     height:100%;
-
     overflow:hidden;
-
     background:transparent!important;
-
-    font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
+    font-family:Arial,Helvetica,sans-serif;
 }
 
-body{
-    position:relative;
-    background:transparent!important;
-}
-
-
-/* =========================================================
-   CAMERA VIDEO
-   STABLE CAMERA LAYER
-========================================================= */
+body{position:relative;background:transparent!important}
 
 video.mindar-video,
 video#mindar-video{
-
     position:fixed!important;
-
-    top:0!important;
-    left:0!important;
-
+    inset:0!important;
     width:100vw!important;
     height:100vh!important;
-
     min-width:100vw!important;
     min-height:100vh!important;
-
     max-width:none!important;
     max-height:none!important;
-
     object-fit:cover!important;
-
     display:block!important;
-
     visibility:visible!important;
-
     opacity:1!important;
-
     z-index:0!important;
-
     background:transparent!important;
-
     pointer-events:none!important;
 }
-
-
-/* =========================================================
-   A-FRAME
-========================================================= */
 
 a-scene{
-
     position:fixed!important;
-
-    top:0!important;
-    left:0!important;
-
+    inset:0!important;
     width:100vw!important;
     height:100vh!important;
-
-    min-width:100vw!important;
-    min-height:100vh!important;
-
     margin:0!important;
     padding:0!important;
-
     z-index:1!important;
-
     background:transparent!important;
-
     background-color:transparent!important;
-
     pointer-events:none!important;
 }
-
-
-/* =========================================================
-   CANVAS
-========================================================= */
 
 a-scene canvas,
 .a-canvas{
-
     position:fixed!important;
-
-    top:0!important;
-    left:0!important;
-
+    inset:0!important;
     width:100vw!important;
     height:100vh!important;
-
-    min-width:100vw!important;
-    min-height:100vh!important;
-
     margin:0!important;
     padding:0!important;
-
     z-index:1!important;
-
     background:transparent!important;
-
     background-color:transparent!important;
-
     opacity:1!important;
-
     pointer-events:none!important;
 }
 
-
-/* =========================================================
-   HEADER
-========================================================= */
-
 #header{
-
     position:fixed;
-
     top:12px;
     left:0;
-
     width:100%;
-
     z-index:20;
-
     text-align:center;
-
     pointer-events:none;
 }
 
 #title{
-
-    font-size:
-        clamp(28px,7vw,52px);
-
+    font-size:clamp(28px,7vw,52px);
     font-weight:900;
-
-    color:white;
-
-    text-shadow:
-        0 0 8px rgba(255,255,255,.5),
-        0 4px 12px #000;
+    color:#fff;
+    text-shadow:0 0 8px rgba(255,255,255,.5),0 4px 12px #000;
 }
 
-#title span{
-    color:#b83cff;
-}
+#title span{color:#b83cff}
 
 #build{
-
     position:absolute;
-
     right:12px;
     top:0;
-
     padding:8px 12px;
-
-    border:
-        1px solid #42ff91;
-
+    border:1px solid #42ff91;
     border-radius:16px;
-
     color:#55ff9b;
-
-    background:
-        rgba(0,0,0,.60);
-
+    background:rgba(0,0,0,.60);
     font-size:11px;
-
     font-weight:800;
-
     white-space:nowrap;
 }
 
-
-/* =========================================================
-   MAIN STATUS
-========================================================= */
-
 #mainStatus{
-
     position:fixed;
-
     top:76px;
-
     left:50%;
-
-    transform:
-        translateX(-50%);
-
+    transform:translateX(-50%);
     z-index:20;
-
     min-width:250px;
-
     max-width:90%;
-
     padding:9px 17px;
-
     text-align:center;
-
     color:#58ff9c;
-
-    border:
-        1px solid #a93cff;
-
+    border:1px solid #a93cff;
     border-radius:24px;
-
-    background:
-        rgba(0,0,0,.58);
-
-    box-shadow:
-        0 0 15px
-        rgba(168,60,255,.45);
-
+    background:rgba(0,0,0,.58);
+    box-shadow:0 0 15px rgba(168,60,255,.45);
     font-weight:900;
-
     font-size:14px;
 }
 
-
-/* =========================================================
-   DEBUG
-========================================================= */
-
 #debug{
-
     position:fixed;
-
     top:128px;
     left:12px;
-
     z-index:20;
-
     padding:8px 11px;
-
-    border:
-        1px solid
-        rgba(255,255,255,.18);
-
+    border:1px solid rgba(255,255,255,.18);
     border-radius:12px;
-
-    background:
-        rgba(0,0,0,.42);
-
-    backdrop-filter:
-        blur(5px);
-
-    color:white;
-
+    background:rgba(0,0,0,.42);
+    backdrop-filter:blur(5px);
+    color:#fff;
     font-size:11px;
-
     line-height:1.45;
-
     pointer-events:none;
-
     min-width:150px;
-
-    max-width:
-        calc(100vw - 24px);
 }
 
-.debug-head{
-
-    color:#d05cff;
-
-    font-weight:900;
-
-    margin-bottom:3px;
-}
-
-.debug-line{
-
-    display:flex;
-
-    gap:6px;
-
-    justify-content:
-        space-between;
-}
-
-.on{
-
-    color:#59ff9b;
-
-    font-weight:900;
-}
-
-.wait{
-    color:#ffd84a;
-}
-
-.err{
-
-    color:#ff6565;
-
-    font-weight:900;
-}
-
-
-/* =========================================================
-   BOTTOM
-========================================================= */
+.debug-head{color:#d05cff;font-weight:900;margin-bottom:3px}
+.debug-line{display:flex;gap:6px;justify-content:space-between}
+.on{color:#59ff9b;font-weight:900}
+.wait{color:#ffd84a}
+.err{color:#ff6565;font-weight:900}
 
 #bottom{
-
     position:fixed;
-
     left:50%;
-
     bottom:14px;
-
-    transform:
-        translateX(-50%);
-
+    transform:translateX(-50%);
     z-index:20;
-
-    width:
-        min(560px,
-        calc(100vw - 40px));
-
+    width:min(560px,calc(100vw - 40px));
     padding:10px 14px;
-
     text-align:center;
-
-    color:white;
-
-    background:
-        rgba(0,0,0,.52);
-
-    border:
-        1px solid #a93cff;
-
+    color:#fff;
+    background:rgba(0,0,0,.52);
+    border:1px solid #a93cff;
     border-radius:18px;
-
-    backdrop-filter:
-        blur(6px);
-
+    backdrop-filter:blur(6px);
     font-size:13px;
-
     pointer-events:none;
 }
 
-
-/* =========================================================
-   MOBILE
-========================================================= */
-
 @media(max-width:600px){
-
-    #build{
-
-        font-size:9px;
-
-        padding:6px 8px;
-
-        right:7px;
-    }
-
-    #debug{
-
-        top:124px;
-
-        font-size:10px;
-
-        padding:7px 9px;
-    }
-
-    #bottom{
-
-        font-size:12px;
-
-        padding:8px 11px;
-    }
-
+    #build{font-size:9px;padding:6px 8px;right:7px}
+    #debug{top:124px;font-size:10px;padding:7px 9px}
+    #bottom{font-size:12px;padding:8px 11px}
 }
-
 </style>
-
 </head>
-
 
 <body>
 
-
-<!-- =========================================================
-     HEADER
-========================================================= -->
-
 <div id="header">
-
-    <div id="title">
-        CARD <span>BEAST</span> AR
-    </div>
-
-    <div id="build">
-        v66.5 • FOOT VFX • 5-BEAST
-    </div>
-
+    <div id="title">CARD <span>BEAST</span> AR</div>
+    <div id="build">v66.6 • TIGER PORTAL • 5-BEAST</div>
 </div>
 
-
-<!-- =========================================================
-     STATUS
-========================================================= -->
-
-<div id="mainStatus">
-    CAMERA STARTING...
-</div>
-
-
-<!-- =========================================================
-     DEBUG
-========================================================= -->
+<div id="mainStatus">CAMERA STARTING...</div>
 
 <div id="debug">
-
-    <div class="debug-head">
-        TRACKING DEBUG
-    </div>
-
-    <div class="debug-line">
-        <span>CAMERA</span>
-        <span
-            id="cameraState"
-            class="wait">
-            STARTING
-        </span>
-    </div>
-
-    <div class="debug-line">
-        <span>DR-001</span>
-        <span
-            id="target0"
-            class="wait">
-            WAIT
-        </span>
-    </div>
-
-    <div class="debug-line">
-        <span>DR-002</span>
-        <span
-            id="target1"
-            class="wait">
-            WAIT
-        </span>
-    </div>
-
-    <div class="debug-line">
-        <span>DR-003</span>
-        <span
-            id="target2"
-            class="wait">
-            WAIT
-        </span>
-    </div>
-
-    <div class="debug-line">
-        <span>DR-004</span>
-        <span
-            id="target3"
-            class="wait">
-            WAIT
-        </span>
-    </div>
-
-    <div class="debug-line">
-        <span>DR-005</span>
-        <span
-            id="target4"
-            class="wait">
-            WAIT
-        </span>
-    </div>
-
+    <div class="debug-head">TRACKING DEBUG</div>
+    <div class="debug-line"><span>CAMERA</span><span id="cameraState" class="wait">STARTING</span></div>
+    <div class="debug-line"><span>DR-001</span><span id="target0" class="wait">WAIT</span></div>
+    <div class="debug-line"><span>DR-002</span><span id="target1" class="wait">WAIT</span></div>
+    <div class="debug-line"><span>DR-003</span><span id="target2" class="wait">WAIT</span></div>
+    <div class="debug-line"><span>DR-004</span><span id="target3" class="wait">WAIT</span></div>
+    <div class="debug-line"><span>DR-005</span><span id="target4" class="wait">WAIT</span></div>
 </div>
 
-
-<!-- =========================================================
-     BOTTOM
-========================================================= -->
-
-<div id="bottom">
-    📷 Starting camera...
-</div>
-
-
-<!-- =========================================================
-     AR SCENE
-========================================================= -->
+<div id="bottom">📷 Starting camera...</div>
 
 <a-scene
-
     id="scene"
-
     mindar-image="
         imageTargetSrc: ./targets.mind;
         maxTrack: 5;
@@ -543,1004 +203,334 @@ a-scene canvas,
         warmupTolerance: 5;
         missTolerance: 5;
     "
-
     color-space="sRGB"
-
-    renderer="
-        alpha:true;
-        antialias:true;
-        colorManagement:true;
-        physicallyCorrectLights:true;
-    "
-
-    vr-mode-ui="
-        enabled:false
-    "
-
-    device-orientation-permission-ui="
-        enabled:true
-    "
+    renderer="alpha:true; antialias:true; colorManagement:true; physicallyCorrectLights:true;"
+    vr-mode-ui="enabled:false"
+    device-orientation-permission-ui="enabled:true"
 >
 
-
-<!-- =========================================================
-     ASSETS
-========================================================= -->
-
-<a-assets
-    id="assets"
-    timeout="30000"
->
-
-    <a-asset-item
-        id="dragonAsset"
-        src="./models/ember-dragon.glb">
-    </a-asset-item>
-
-    <a-asset-item
-        id="tigerAsset"
-        src="./models/abyss-tiger.glb">
-    </a-asset-item>
-
-    <a-asset-item
-        id="phoenixAsset"
-        src="./models/Frost-phoenix.glb">
-    </a-asset-item>
-
-    <a-asset-item
-        id="mantisAsset"
-        src="./models/puppet-mantis.glb">
-    </a-asset-item>
-
-    <a-asset-item
-        id="leviathanAsset"
-        src="./models/tidal-leviathan.glb">
-    </a-asset-item>
-
+<a-assets id="assets" timeout="30000">
+    <a-asset-item id="dragonAsset" src="./models/ember-dragon.glb"></a-asset-item>
+    <a-asset-item id="tigerAsset" src="./models/abyss-tiger.glb"></a-asset-item>
+    <a-asset-item id="phoenixAsset" src="./models/Frost-phoenix.glb"></a-asset-item>
+    <a-asset-item id="mantisAsset" src="./models/puppet-mantis.glb"></a-asset-item>
+    <a-asset-item id="leviathanAsset" src="./models/tidal-leviathan.glb"></a-asset-item>
 </a-assets>
 
+<a-camera position="0 0 0" look-controls="enabled:false"></a-camera>
 
-<!-- =========================================================
-     CAMERA
-========================================================= -->
-
-<a-camera
-
-    position="0 0 0"
-
-    look-controls="
-        enabled:false
-    ">
-
-</a-camera>
-
-
-<!-- =========================================================
-     DR-001 EMBER DRAGON
-========================================================= -->
-
-<a-entity
-
-    id="beast0"
-
-    mindar-image-target="
-        targetIndex:0
-    "
-
-    visible="false"
->
-
-    <a-entity
-
-        id="dragonModel"
-
+<!-- DR-001 -->
+<a-entity id="beast0" mindar-image-target="targetIndex:0" visible="false">
+    <a-entity id="dragonModel"
         gltf-model="#dragonAsset"
-
-        position="
-            0 -0.25 0
-        "
-
-        rotation="
-            90 0 0
-        "
-
-        scale="
-            2.5 2.5 2.5
-        ">
-
+        position="0 -0.25 0"
+        rotation="90 0 0"
+        scale="2.5 2.5 2.5">
     </a-entity>
-
 </a-entity>
 
+<!-- DR-002 -->
+<a-entity id="beast1" mindar-image-target="targetIndex:1" visible="false">
 
-<!-- =========================================================
-     DR-002 ABYSS TIGER
-========================================================= -->
-
-<a-entity
-
-    id="beast1"
-
-    mindar-image-target="
-        targetIndex:1
-    "
-
-    visible="false"
->
-
-
-    <!-- TIGER -->
-
-    <a-entity
-
-        id="tigerModel"
-
+    <a-entity id="tigerModel"
         gltf-model="#tigerAsset"
-
-        position="
-            0 -0.25 0
-        "
-
-        rotation="
-            90 0 0
-        "
-
-        scale="
-            1.5 1.5 1.5
-        ">
-
+        position="0 -0.25 0"
+        rotation="90 0 0"
+        scale="1.5 1.5 1.5">
     </a-entity>
 
-
-    <!-- =====================================================
-         FOOT VFX
-
-         Positioned underneath Tiger.
-
-         Horizontal plane:
-         faces upward toward camera.
-
-         Slightly below the card target.
-    ====================================================== -->
-
-    <a-entity
-
-        id="abyssVFX"
-
-        position="
-            0 -0.48 0
-        "
-
-        rotation="
-            0 0 0
-        "
-
-        scale="
-            0.72 0.72 0.72
-        "
-
-        abyss-fire-swirl>
-
+    <!--
+      VFX LOCAL COORDINATES:
+      MindAR image target lies in the XY plane.
+      Therefore the fire vortex stays FLAT on the card:
+      no -90 degree rotation.
+      Z is the direction coming out of the card.
+    -->
+    <a-entity id="abyssVFX"
+        position="0 -0.43 0.035"
+        scale="0.62 0.62 0.62"
+        tiger-portal-vfx>
     </a-entity>
-
 
 </a-entity>
 
-
-<!-- =========================================================
-     DR-003 FROST PHOENIX
-========================================================= -->
-
-<a-entity
-
-    id="beast2"
-
-    mindar-image-target="
-        targetIndex:2
-    "
-
-    visible="false"
->
-
-    <a-entity
-
-        id="phoenixModel"
-
+<!-- DR-003 -->
+<a-entity id="beast2" mindar-image-target="targetIndex:2" visible="false">
+    <a-entity id="phoenixModel"
         gltf-model="#phoenixAsset"
-
-        position="
-            0 -0.25 0
-        "
-
-        rotation="
-            90 0 0
-        "
-
-        scale="
-            1.75 1.75 1.75
-        ">
-
+        position="0 -0.25 0"
+        rotation="90 0 0"
+        scale="1.75 1.75 1.75">
     </a-entity>
-
 </a-entity>
 
-
-<!-- =========================================================
-     DR-004 PUPPET MANTIS
-========================================================= -->
-
-<a-entity
-
-    id="beast3"
-
-    mindar-image-target="
-        targetIndex:3
-    "
-
-    visible="false"
->
-
-    <a-entity
-
-        id="mantisModel"
-
+<!-- DR-004 -->
+<a-entity id="beast3" mindar-image-target="targetIndex:3" visible="false">
+    <a-entity id="mantisModel"
         gltf-model="#mantisAsset"
-
-        position="
-            0 -0.25 0
-        "
-
-        rotation="
-            90 0 0
-        "
-
-        scale="
-            1.55 1.55 1.55
-        ">
-
+        position="0 -0.25 0"
+        rotation="90 0 0"
+        scale="1.55 1.55 1.55">
     </a-entity>
-
 </a-entity>
 
-
-<!-- =========================================================
-     DR-005 TIDAL LEVIATHAN
-========================================================= -->
-
-<a-entity
-
-    id="beast4"
-
-    mindar-image-target="
-        targetIndex:4
-    "
-
-    visible="false"
->
-
-    <a-entity
-
-        id="leviathanModel"
-
+<!-- DR-005 -->
+<a-entity id="beast4" mindar-image-target="targetIndex:4" visible="false">
+    <a-entity id="leviathanModel"
         gltf-model="#leviathanAsset"
-
-        position="
-            0 -0.25 0
-        "
-
-        rotation="
-            90 0 0
-        "
-
-        scale="
-            1.45 1.45 1.45
-        ">
-
+        position="0 -0.25 0"
+        rotation="90 0 0"
+        scale="1.45 1.45 1.45">
     </a-entity>
-
 </a-entity>
-
 
 </a-scene>
 
-
 <script>
-
 /* =========================================================
-   CARD BEAST AR v66.5
+   CARD BEAST AR v66.6
+   TIGER PORTAL VFX
 
-   ABYSS TIGER FOOT VFX
+   KEPT:
+   - 5 targets
+   - maxTrack 5
+   - preload once
+   - multi-track
+   - independent targetLost
+   - camera layer fix
 
-   CORE AR:
-   - 5 TARGETS
-   - MAX TRACK 5
-   - PRELOAD ONCE
-   - MULTI TRACK
-   - INDEPENDENT TARGET LOST
-   - CAMERA LAYER FIX
-
-   ONLY DR-002 VFX ADDED
-========================================================= */
-
-
-/* =========================================================
-   DATA
+   CHANGED:
+   - DR-002 VFX only
+   - correct XY target-plane orientation
+   - no GLB changes
 ========================================================= */
 
 const beasts = [
-
-    {
-        id:"DR-001",
-        name:"Ember Dragon",
-        emoji:"🔥",
-        target:0,
-        model:"dragonModel"
-    },
-
-    {
-        id:"DR-002",
-        name:"Abyss Tiger",
-        emoji:"🐯",
-        target:1,
-        model:"tigerModel"
-    },
-
-    {
-        id:"DR-003",
-        name:"Frost Phoenix",
-        emoji:"❄️",
-        target:2,
-        model:"phoenixModel"
-    },
-
-    {
-        id:"DR-004",
-        name:"Puppet Mantis",
-        emoji:"🦗",
-        target:3,
-        model:"mantisModel"
-    },
-
-    {
-        id:"DR-005",
-        name:"Tidal Leviathan",
-        emoji:"🌊",
-        target:4,
-        model:"leviathanModel"
-    }
-
+    {id:"DR-001",name:"Ember Dragon",emoji:"🔥",target:0,model:"dragonModel"},
+    {id:"DR-002",name:"Abyss Tiger",emoji:"🐯",target:1,model:"tigerModel"},
+    {id:"DR-003",name:"Frost Phoenix",emoji:"❄️",target:2,model:"phoenixModel"},
+    {id:"DR-004",name:"Puppet Mantis",emoji:"🦗",target:3,model:"mantisModel"},
+    {id:"DR-005",name:"Tidal Leviathan",emoji:"🌊",target:4,model:"leviathanModel"}
 ];
 
+const state = beasts.map(()=>({found:false,loaded:false,loadCount:0}));
+
+const scene = document.getElementById("scene");
+const mainStatus = document.getElementById("mainStatus");
+const bottom = document.getElementById("bottom");
 
 /* =========================================================
-   STATE
+   TIGER PORTAL VFX
+   All rings are created directly in XY plane.
 ========================================================= */
 
-const state =
-    beasts.map(
-        () => ({
-
-            found:false,
-
-            loaded:false,
-
-            loadCount:0
-
-        })
-    );
-
-
-/* =========================================================
-   DOM
-========================================================= */
-
-const scene =
-    document.getElementById(
-        "scene"
-    );
-
-const mainStatus =
-    document.getElementById(
-        "mainStatus"
-    );
-
-const bottom =
-    document.getElementById(
-        "bottom"
-    );
-
-
-/* =========================================================
-   ABYSS TIGER VFX
-========================================================= */
-
-AFRAME.registerComponent(
-
-    "abyss-fire-swirl",
-
-    {
-
-        init:function(){
-
-            this.active =
-                false;
-
-            this.time =
-                0;
-
-            this.layers =
-                [];
-
-            this.sparks =
-                [];
-
-            this.build();
-
-        },
-
-
-        /* =================================================
-           BUILD VFX
-        ================================================= */
-
-        build:function(){
-
-            /*
-             * Central orange glow
-             */
-
-            this.core =
-                this.createDisc(
-                    0.24,
-                    "#ff5a00",
-                    0.35
-                );
-
-
-            /*
-             * White hot center
-             */
-
-            this.hotCore =
-                this.createDisc(
-                    0.12,
-                    "#fff3c4",
-                    0.75
-                );
-
-
-            /*
-             * Main fire layers
-             */
-
-            this.createLayer(
-                0.65,
-                1.0,
-                "#ff5a00",
-                0.90
-            );
-
-            this.createLayer(
-                0.78,
-                -1.25,
-                "#ff9a1f",
-                0.75
-            );
-
-            this.createLayer(
-                0.90,
-                0.75,
-                "#ffd36a",
-                0.48
-            );
-
-            this.createLayer(
-                1.05,
-                -0.48,
-                "#ff3d00",
-                0.38
-            );
-
-
-            /*
-             * Small energy fragments
-             */
-
-            for(
-                let i=0;
-                i<20;
-                i++
-            ){
-
-                const spark =
-                    this.createSpark(
-                        i
-                    );
-
-                this.sparks.push(
-                    spark
-                );
-
-            }
-
-        },
-
-
-        /* =================================================
-           DISC
-        ================================================= */
-
-        createDisc:function(
-            radius,
-            color,
-            opacity
-        ){
-
-            const mesh =
-                new THREE.Mesh(
-
-                    new THREE.CircleGeometry(
-                        radius,
-                        48
-                    ),
-
-                    new THREE.MeshBasicMaterial({
-
-                        color:color,
-
-                        transparent:true,
-
-                        opacity:opacity,
-
-                        depthWrite:false,
-
-                        depthTest:false,
-
-                        blending:
-                            THREE.AdditiveBlending,
-
-                        side:
-                            THREE.DoubleSide
-
-                    })
-                );
-
-
-            /*
-             * Horizontal surface.
-             *
-             * Camera sees it from above.
-             */
-
-            mesh.rotation.x =
-                -Math.PI/2;
-
-
-            mesh.position.y =
-                0.015;
-
-
-            mesh.visible =
-                false;
-
-
-            this.el.object3D.add(
-                mesh
-            );
-
-
-            return mesh;
-
-        },
-
-
-        /* =================================================
-           FIRE LAYER
-        ================================================= */
-
-        createLayer:function(
-            size,
-            speed,
-            color,
-            opacity
-        ){
-
-            const group =
-                new THREE.Group();
-
-
-            const geometry =
-                new THREE.RingGeometry(
-                    0.22,
-                    0.50,
-                    48,
-                    2
-                );
-
-
-            const material =
-                new THREE.MeshBasicMaterial({
-
-                    color:color,
-
-                    transparent:true,
-
-                    opacity:opacity,
-
-                    depthWrite:false,
-
-                    depthTest:false,
-
-                    blending:
-                        THREE.AdditiveBlending,
-
-                    side:
-                        THREE.DoubleSide
-
-                });
-
-
-            const mesh =
-                new THREE.Mesh(
-                    geometry,
-                    material
-                );
-
-
-            mesh.rotation.x =
-                -Math.PI/2;
-
-
-            mesh.scale.set(
-                size,
-                size,
-                size
-            );
-
-
-            mesh.userData.speed =
-                speed;
-
-
-            mesh.userData.baseScale =
-                size;
-
-
-            mesh.userData.phase =
-                Math.random()*
-                Math.PI*2;
-
-
-            /*
-             * Break the perfect circle
-             * by scaling the ring unevenly.
-             */
-
-            mesh.scale.x *=
-                1.0+
-                Math.random()*.18;
-
-
-            mesh.scale.y *=
-                0.85+
-                Math.random()*.15;
-
-
-            mesh.position.y =
-                0.02+
-                Math.random()*.02;
-
-
-            mesh.visible =
-                false;
-
-
-            this.el.object3D.add(
-                mesh
-            );
-
-
-            this.layers.push(
-                mesh
-            );
-
-        },
-
-
-        /* =================================================
-           SPARK
-        ================================================= */
-
-        createSpark:function(
-            index
-        ){
-
-            const geometry =
-                new THREE.SphereGeometry(
-                    0.006+
-                    Math.random()*.012,
-                    5,
-                    5
-                );
-
-
-            const material =
-                new THREE.MeshBasicMaterial({
-
-                    color:
-                        index%4===0
-                        ?0xffffff
-                        :0xff7b14,
-
-                    transparent:true,
-
-                    opacity:
-                        0.4+
-                        Math.random()*.5,
-
-                    depthWrite:false,
-
-                    depthTest:false,
-
-                    blending:
-                        THREE.AdditiveBlending
-
-                });
-
-
-            const spark =
-                new THREE.Mesh(
-                    geometry,
-                    material
-                );
-
-
-            spark.userData.angle =
-                Math.random()*
-                Math.PI*2;
-
-
-            spark.userData.radius =
-                0.18+
-                Math.random()*.52;
-
-
-            spark.userData.height =
-                0.025+
-                Math.random()*.13;
-
-
-            spark.userData.speed =
-                0.3+
-                Math.random()*1.4;
-
-
-            spark.userData.phase =
-                Math.random()*
-                Math.PI*2;
-
-
-            spark.visible =
-                false;
-
-
-            this.el.object3D.add(
-                spark
-            );
-
-
-            return spark;
-
-        },
-
-
-        /* =================================================
-           ACTIVE
-        ================================================= */
-
-        setActive:function(
-            active
-        ){
-
-            this.active =
-                active;
-
-
-            this.el.object3D.visible =
-                active;
-
-
-            this.layers.forEach(
-                layer=>{
-                    layer.visible =
-                        active;
-                }
-            );
-
-
-            this.sparks.forEach(
-                spark=>{
-                    spark.visible =
-                        active;
-                }
-            );
-
-
-            this.core.visible =
-                active;
-
-
-            this.hotCore.visible =
-                active;
-
-        },
-
-
-        /* =================================================
-           ANIMATION
-        ================================================= */
-
-        tick:function(
-            time,
-            delta
-        ){
-
-            if(!this.active)
-                return;
-
-
-            this.time +=
-                delta*0.001;
-
-
-            const t =
-                this.time;
-
-
-            /*
-             * Fire ring rotation
-             */
-
-            this.layers.forEach(
-                layer=>{
-
-                    layer.rotation.z +=
-                        layer.userData.speed*
-                        delta*
-                        0.001;
-
-
-                    const pulse =
-                        1+
-                        Math.sin(
-                            t*3+
-                            layer.userData.phase
-                        )*
-                        0.055;
-
-
-                    const base =
-                        layer.userData.baseScale;
-
-
-                    layer.scale.x =
-                        base*
-                        pulse;
-
-
-                    layer.scale.y =
-                        base*
-                        pulse;
-
-                }
-            );
-
-
-            /*
-             * Core pulse
-             */
-
-            const corePulse =
-                1+
-                Math.sin(
-                    t*5
-                )*.12;
-
-
-            this.core.scale.set(
-                corePulse,
-                corePulse,
-                corePulse
-            );
-
-
-            const hotPulse =
-                1+
-                Math.sin(
-                    t*7
-                )*.16;
-
-
-            this.hotCore.scale.set(
-                hotPulse,
-                hotPulse,
-                hotPulse
-            );
-
-
-            /*
-             * Sparks orbit around feet
-             */
-
-            this.sparks.forEach(
-                spark=>{
-
-                    const d =
-                        spark.userData;
-
-
-                    const angle =
-                        d.angle+
-                        t*d.speed;
-
-
-                    const radius =
-                        d.radius+
-                        Math.sin(
-                            t*2+
-                            d.phase
-                        )*.025;
-
-
-                    spark.position.x =
-                        Math.cos(angle)*
-                        radius;
-
-
-                    spark.position.z =
-                        Math.sin(angle)*
-                        radius;
-
-
-                    /*
-                     * Rising from card
-                     */
-
-                    spark.position.y =
-                        d.height+
-                        (
-                            Math.sin(
-                                t*2.5+
-                                d.phase
-                            )+1
-                        )*.08;
-
-
-                    const scale =
-                        0.7+
-                        (
-                            Math.sin(
-                                t*6+
-                                d.phase
-                            )+1
-                        )*.3;
-
-
-                    spark.scale.set(
-                        scale,
-                        scale,
-                        scale
-                    );
-
-                }
-            );
-
+AFRAME.registerComponent("tiger-portal-vfx",{
+    init:function(){
+        this.active=false;
+        this.time=0;
+        this.rings=[];
+        this.sparks=[];
+        this.glows=[];
+        this.build();
+        this.setActive(false);
+    },
+
+    build:function(){
+
+        /* soft center glow */
+        this.center = this.makeDisc(
+            0.27, 0xff5a00, 0.24, 64
+        );
+
+        this.centerHot = this.makeDisc(
+            0.13, 0xfff4c2, 0.62, 48
+        );
+
+        /* main vortex rings */
+        this.makeRing(0.25,0.47,0xff5a00,0.92, 1.15);
+        this.makeRing(0.34,0.58,0xff9b1c,0.78,-0.82);
+        this.makeRing(0.44,0.70,0xffd15b,0.48, 0.55);
+        this.makeRing(0.53,0.80,0xff3b00,0.36,-0.36);
+
+        /* broken hot arcs */
+        for(let i=0;i<10;i++){
+            this.makeArc(i);
         }
 
+        /* rising embers */
+        for(let i=0;i<28;i++){
+            this.makeSpark(i);
+        }
+    },
+
+    makeDisc:function(radius,color,opacity,segments){
+        const g = new THREE.CircleGeometry(radius,segments);
+        const m = new THREE.MeshBasicMaterial({
+            color,
+            transparent:true,
+            opacity,
+            depthWrite:false,
+            depthTest:false,
+            blending:THREE.AdditiveBlending,
+            side:THREE.DoubleSide
+        });
+        const mesh = new THREE.Mesh(g,m);
+
+        /* IMPORTANT: XY plane, no rotation */
+        mesh.position.z=0.012;
+        this.el.object3D.add(mesh);
+        return mesh;
+    },
+
+    makeRing:function(inner,outer,color,opacity,speed){
+        const g = new THREE.RingGeometry(inner,outer,64,2);
+        const m = new THREE.MeshBasicMaterial({
+            color,
+            transparent:true,
+            opacity,
+            depthWrite:false,
+            depthTest:false,
+            blending:THREE.AdditiveBlending,
+            side:THREE.DoubleSide
+        });
+
+        const mesh = new THREE.Mesh(g,m);
+        mesh.userData.speed=speed;
+        mesh.userData.baseScale=1;
+        mesh.userData.phase=Math.random()*Math.PI*2;
+
+        mesh.position.z=0.018+Math.random()*0.012;
+
+        this.el.object3D.add(mesh);
+        this.rings.push(mesh);
+    },
+
+    makeArc:function(index){
+        const points=[];
+        const start=Math.random()*Math.PI*2;
+        const length=0.45+Math.random()*0.9;
+        const radius=0.35+Math.random()*0.40;
+
+        const segments=18;
+
+        for(let i=0;i<=segments;i++){
+            const a=start+(i/segments)*length;
+            points.push(
+                new THREE.Vector3(
+                    Math.cos(a)*radius,
+                    Math.sin(a)*radius,
+                    0
+                )
+            );
+        }
+
+        const geometry=new THREE.BufferGeometry().setFromPoints(points);
+
+        const material=new THREE.LineBasicMaterial({
+            color:index%3===0?0xffffff:0xff6a00,
+            transparent:true,
+            opacity:0.55+Math.random()*0.35,
+            depthWrite:false,
+            depthTest:false,
+            blending:THREE.AdditiveBlending
+        });
+
+        const line=new THREE.Line(geometry,material);
+
+        line.userData.speed=(Math.random()*.8+.25)*
+            (index%2===0?1:-1);
+
+        line.userData.phase=Math.random()*Math.PI*2;
+        line.position.z=0.035+Math.random()*0.02;
+
+        this.el.object3D.add(line);
+        this.rings.push(line);
+    },
+
+    makeSpark:function(index){
+        const g=new THREE.SphereGeometry(
+            0.006+Math.random()*0.012,5,5
+        );
+
+        const m=new THREE.MeshBasicMaterial({
+            color:index%5===0?0xffffff:0xff7614,
+            transparent:true,
+            opacity:0.55+Math.random()*0.4,
+            depthWrite:false,
+            depthTest:false,
+            blending:THREE.AdditiveBlending
+        });
+
+        const s=new THREE.Mesh(g,m);
+
+        s.userData.angle=Math.random()*Math.PI*2;
+        s.userData.radius=.20+Math.random()*.55;
+        s.userData.height=.035+Math.random()*.14;
+        s.userData.speed=.25+Math.random()*1.0;
+        s.userData.phase=Math.random()*Math.PI*2;
+        s.userData.lift=.08+Math.random()*.16;
+
+        this.el.object3D.add(s);
+        this.sparks.push(s);
+    },
+
+    setActive:function(active){
+        this.active=active;
+        this.el.object3D.visible=active;
+
+        this.rings.forEach(x=>x.visible=active);
+        this.sparks.forEach(x=>x.visible=active);
+        this.center.visible=active;
+        this.centerHot.visible=active;
+    },
+
+    tick:function(time,delta){
+
+        if(!this.active) return;
+
+        const dt=delta*.001;
+        this.time+=dt;
+        const t=this.time;
+
+        this.rings.forEach((ring,i)=>{
+            const speed=ring.userData.speed||.4;
+            ring.rotation.z += speed*dt;
+
+            const pulse=1+
+                Math.sin(t*3+
+                (ring.userData.phase||0))*0.055;
+
+            ring.scale.set(pulse,pulse,1);
+        });
+
+        const cp=1+Math.sin(t*5)*.12;
+        this.center.scale.set(cp,cp,1);
+
+        const hp=1+Math.sin(t*7)*.16;
+        this.centerHot.scale.set(hp,hp,1);
+
+        this.sparks.forEach(s=>{
+            const d=s.userData;
+            const a=d.angle+t*d.speed;
+
+            const r=d.radius+
+                Math.sin(t*2+d.phase)*.025;
+
+            s.position.x=Math.cos(a)*r;
+            s.position.y=Math.sin(a)*r;
+
+            /* rise out from the card */
+            s.position.z=
+                d.height+
+                (Math.sin(t*2.5+d.phase)+1)*d.lift;
+
+            const pulse=.65+
+                (Math.sin(t*6+d.phase)+1)*.35;
+
+            s.scale.set(pulse,pulse,pulse);
+        });
     }
-
-);
-
+});
 
 /* =========================================================
    CAMERA LAYER
@@ -1548,353 +538,110 @@ AFRAME.registerComponent(
 
 function forceCameraLayer(){
 
-    const videos =
-        document.querySelectorAll(
-            "video"
-        );
+    document.querySelectorAll("video").forEach(video=>{
 
+        video.classList.add("mindar-video");
 
-    videos.forEach(
-        video=>{
+        const props={
+            position:"fixed",
+            top:"0",
+            left:"0",
+            width:"100vw",
+            height:"100vh",
+            "min-width":"100vw",
+            "min-height":"100vh",
+            "object-fit":"cover",
+            display:"block",
+            visibility:"visible",
+            opacity:"1",
+            "z-index":"0",
+            "pointer-events":"none"
+        };
 
-            video.classList.add(
-                "mindar-video"
-            );
+        Object.entries(props).forEach(([key,value])=>{
+            video.style.setProperty(key,value,"important");
+        });
 
-
-            video.style.setProperty(
-                "position",
-                "fixed",
-                "important"
-            );
-
-
-            video.style.setProperty(
-                "top",
-                "0",
-                "important"
-            );
-
-
-            video.style.setProperty(
-                "left",
-                "0",
-                "important"
-            );
-
-
-            video.style.setProperty(
-                "width",
-                "100vw",
-                "important"
-            );
-
-
-            video.style.setProperty(
-                "height",
-                "100vh",
-                "important"
-            );
-
-
-            video.style.setProperty(
-                "min-width",
-                "100vw",
-                "important"
-            );
-
-
-            video.style.setProperty(
-                "min-height",
-                "100vh",
-                "important"
-            );
-
-
-            video.style.setProperty(
-                "object-fit",
-                "cover",
-                "important"
-            );
-
-
-            video.style.setProperty(
-                "display",
-                "block",
-                "important"
-            );
-
-
-            video.style.setProperty(
-                "visibility",
-                "visible",
-                "important"
-            );
-
-
-            video.style.setProperty(
-                "opacity",
-                "1",
-                "important"
-            );
-
-
-            video.style.setProperty(
-                "z-index",
-                "0",
-                "important"
-            );
-
-
-            video.style.setProperty(
-                "pointer-events",
-                "none",
-                "important"
-            );
-
-
-            if(
-                video.paused &&
-                video.srcObject
-            ){
-
-                video.play()
-                .catch(
-                    ()=>{}
-                );
-
-            }
-
+        if(video.paused && video.srcObject){
+            video.play().catch(()=>{});
         }
-    );
+    });
 
-
-    const canvas =
-        document.querySelector(
-            "a-scene canvas"
-        );
-
+    const canvas=document.querySelector("a-scene canvas");
 
     if(canvas){
+        const props={
+            position:"fixed",
+            top:"0",
+            left:"0",
+            width:"100vw",
+            height:"100vh",
+            background:"transparent",
+            "background-color":"transparent",
+            "z-index":"1"
+        };
 
-        canvas.style.setProperty(
-            "position",
-            "fixed",
-            "important"
-        );
-
-
-        canvas.style.setProperty(
-            "top",
-            "0",
-            "important"
-        );
-
-
-        canvas.style.setProperty(
-            "left",
-            "0",
-            "important"
-        );
-
-
-        canvas.style.setProperty(
-            "width",
-            "100vw",
-            "important"
-        );
-
-
-        canvas.style.setProperty(
-            "height",
-            "100vh",
-            "important"
-        );
-
-
-        canvas.style.setProperty(
-            "background",
-            "transparent",
-            "important"
-        );
-
-
-        canvas.style.setProperty(
-            "background-color",
-            "transparent",
-            "important"
-        );
-
-
-        canvas.style.setProperty(
-            "z-index",
-            "1",
-            "important"
-        );
-
+        Object.entries(props).forEach(([key,value])=>{
+            canvas.style.setProperty(key,value,"important");
+        });
     }
-
 
     try{
-
-        if(
-            scene &&
-            scene.renderer
-        ){
-
-            scene.renderer.setClearColor(
-                0x000000,
-                0
-            );
-
-
-            if(
-                scene.renderer.setClearAlpha
-            ){
-
-                scene.renderer.setClearAlpha(
-                    0
-                );
-
+        if(scene && scene.renderer){
+            scene.renderer.setClearColor(0x000000,0);
+            if(scene.renderer.setClearAlpha){
+                scene.renderer.setClearAlpha(0);
             }
-
         }
-
+    }catch(e){
+        console.warn("Renderer transparency patch:",e);
     }
-    catch(error){
-
-        console.warn(
-            "Camera layer:",
-            error
-        );
-
-    }
-
 }
 
-
-/* =========================================================
-   VIDEO OBSERVER
-========================================================= */
-
-const videoObserver =
-    new MutationObserver(
-        ()=>{
-            forceCameraLayer();
-        }
-    );
-
-
-videoObserver.observe(
-
-    document.body,
-
-    {
-        childList:true,
-        subtree:true
-    }
-
-);
-
-
-/* =========================================================
-   BADGE
-========================================================= */
-
-function setBadge(
-    index,
-    text,
-    className
-){
-
-    const element =
-        document.getElementById(
-            "target"+index
-        );
-
-
-    if(!element)
-        return;
-
-
-    element.textContent =
-        text;
-
-
-    element.className =
-        className;
-
-}
-
+const videoObserver=new MutationObserver(forceCameraLayer);
+videoObserver.observe(document.body,{childList:true,subtree:true});
 
 /* =========================================================
    UI
 ========================================================= */
 
-function updateUI(){
-
-    const active =
-        beasts.filter(
-            (beast,index)=>
-                state[index].found
-        );
-
-
-    if(
-        active.length===0
-    ){
-
-        mainStatus.textContent =
-            "CAMERA READY • SEARCHING";
-
-
-        bottom.textContent =
-            "📷 Point camera at any Card Beast target.";
-
-
-        return;
-
-    }
-
-
-    if(
-        active.length===1
-    ){
-
-        const beast =
-            active[0];
-
-
-        mainStatus.textContent =
-            `${beast.id} FOUND • ${beast.name.toUpperCase()}`;
-
-
-        bottom.innerHTML =
-            `${beast.emoji} <b>${beast.name.toUpperCase()} ACTIVE</b> • ${beast.id}`;
-
-
-        return;
-
-    }
-
-
-    mainStatus.textContent =
-        `${active.length} CARDS ACTIVE • `+
-        `${active.map(
-            beast=>beast.id
-        ).join(" + ")}`;
-
-
-    bottom.innerHTML =
-        `${active.map(
-            beast=>
-                beast.emoji+
-                " "+
-                beast.id
-        ).join(" + ")} ACTIVE`;
-
+function setBadge(index,text,className){
+    const el=document.getElementById("target"+index);
+    if(!el)return;
+    el.textContent=text;
+    el.className=className;
 }
 
+function updateUI(){
+
+    const active=beasts.filter((b,i)=>state[i].found);
+
+    if(active.length===0){
+        mainStatus.textContent="CAMERA READY • SEARCHING";
+        bottom.textContent="📷 Point camera at any Card Beast target.";
+        return;
+    }
+
+    if(active.length===1){
+        const b=active[0];
+
+        mainStatus.textContent=
+            `${b.id} FOUND • ${b.name.toUpperCase()}`;
+
+        bottom.innerHTML=
+            `${b.emoji} <b>${b.name.toUpperCase()} ACTIVE</b> • ${b.id}`;
+
+        return;
+    }
+
+    mainStatus.textContent=
+        `${active.length} CARDS ACTIVE • `+
+        active.map(b=>b.id).join(" + ");
+
+    bottom.innerHTML=
+        active.map(b=>b.emoji+" "+b.id).join(" + ")+
+        " ACTIVE";
+}
 
 /* =========================================================
    PRELOAD ONCE
@@ -1902,500 +649,156 @@ function updateUI(){
 
 function setupPreload(){
 
-    beasts.forEach(
-        (beast,index)=>{
+    beasts.forEach((beast,index)=>{
 
-            const model =
-                document.getElementById(
-                    beast.model
-                );
+        const model=document.getElementById(beast.model);
 
+        if(!model)return;
 
-            if(!model){
+        model.addEventListener("model-loaded",()=>{
 
-                console.error(
-                    beast.id+
-                    " model element missing"
-                );
+            if(state[index].loaded)return;
 
-                return;
+            state[index].loaded=true;
+            state[index].loadCount++;
 
-            }
+            console.log(beast.id+" GLB PRELOADED ONCE");
 
+        },{once:true});
 
-            model.addEventListener(
+        model.addEventListener("model-error",event=>{
 
-                "model-loaded",
+            console.error(beast.id+" GLB LOAD ERROR",event);
 
-                ()=>{
-
-                    if(
-                        state[index].loaded
-                    ){
-
-                        return;
-
-                    }
-
-
-                    state[index].loaded =
-                        true;
-
-
-                    state[index].loadCount++;
-
-
-                    console.log(
-                        beast.id+
-                        " GLB PRELOADED ONCE"
-                    );
-
-                },
-
-                {
-                    once:true
-                }
-
-            );
-
-
-            model.addEventListener(
-
-                "model-error",
-
-                event=>{
-
-                    console.error(
-                        beast.id+
-                        " GLB LOAD ERROR",
-                        event
-                    );
-
-
-                    setBadge(
-                        index,
-                        "GLB ERROR",
-                        "err"
-                    );
-
-                }
-
-            );
-
-        }
-    );
-
+            setBadge(index,"GLB ERROR","err");
+        });
+    });
 }
 
-
 /* =========================================================
-   TARGET SETUP
+   TARGETS
 ========================================================= */
 
-function setupTarget(
-    index
-){
+function setupTarget(index){
 
-    const beast =
-        beasts[index];
+    const beast=beasts[index];
+    const target=document.getElementById("beast"+index);
 
+    if(!target)return;
 
-    const target =
-        document.getElementById(
-            "beast"+index
-        );
+    target.addEventListener("targetFound",()=>{
 
+        state[index].found=true;
+        target.setAttribute("visible","true");
 
-    if(!target){
+        /* DR-002 VFX ONLY */
+        if(index===1){
 
-        console.error(
-            beast.id+
-            " target entity missing"
-        );
+            const vfx=document.getElementById("abyssVFX");
 
-        return;
+            if(vfx &&
+               vfx.components &&
+               vfx.components["tiger-portal-vfx"]){
 
-    }
-
-
-    /* =====================================================
-       TARGET FOUND
-    ===================================================== */
-
-    target.addEventListener(
-
-        "targetFound",
-
-        ()=>{
-
-            state[index].found =
-                true;
-
-
-            target.setAttribute(
-                "visible",
-                "true"
-            );
-
-
-            /*
-             * ABYSS TIGER ONLY
-             */
-
-            if(
-                index===1
-            ){
-
-                const vfx =
-                    document.getElementById(
-                        "abyssVFX"
-                    );
-
-
-                if(
-                    vfx &&
-                    vfx.components &&
-                    vfx.components[
-                        "abyss-fire-swirl"
-                    ]
-                ){
-
-                    vfx.components[
-                        "abyss-fire-swirl"
-                    ].setActive(
-                        true
-                    );
-
-                }
-
+                vfx.components["tiger-portal-vfx"]
+                    .setActive(true);
             }
-
-
-            setBadge(
-                index,
-                "FOUND",
-                "on"
-            );
-
-
-            updateUI();
-
-
-            console.log(
-                beast.id+
-                " targetFound"
-            );
-
         }
 
-    );
+        setBadge(index,"FOUND","on");
+        updateUI();
 
+        console.log(beast.id+" targetFound");
+    });
 
-    /* =====================================================
-       TARGET LOST
-    ===================================================== */
+    target.addEventListener("targetLost",()=>{
 
-    target.addEventListener(
+        state[index].found=false;
+        target.setAttribute("visible","false");
 
-        "targetLost",
+        /* DR-002 VFX ONLY */
+        if(index===1){
 
-        ()=>{
+            const vfx=document.getElementById("abyssVFX");
 
-            state[index].found =
-                false;
+            if(vfx &&
+               vfx.components &&
+               vfx.components["tiger-portal-vfx"]){
 
-
-            target.setAttribute(
-                "visible",
-                "false"
-            );
-
-
-            /*
-             * ABYSS TIGER ONLY
-             */
-
-            if(
-                index===1
-            ){
-
-                const vfx =
-                    document.getElementById(
-                        "abyssVFX"
-                    );
-
-
-                if(
-                    vfx &&
-                    vfx.components &&
-                    vfx.components[
-                        "abyss-fire-swirl"
-                    ]
-                ){
-
-                    vfx.components[
-                        "abyss-fire-swirl"
-                    ].setActive(
-                        false
-                    );
-
-                }
-
+                vfx.components["tiger-portal-vfx"]
+                    .setActive(false);
             }
-
-
-            setBadge(
-                index,
-                "LOST",
-                "wait"
-            );
-
-
-            updateUI();
-
-
-            console.log(
-                beast.id+
-                " targetLost"
-            );
-
         }
 
-    );
+        setBadge(index,"LOST","wait");
+        updateUI();
 
+        console.log(beast.id+" targetLost");
+    });
 }
 
-
 /* =========================================================
-   SCENE LOADED
+   SCENE
 ========================================================= */
 
-scene.addEventListener(
+scene.addEventListener("loaded",()=>{
 
-    "loaded",
+    console.log("CARD BEAST AR v66.6 SCENE LOADED");
 
-    ()=>{
+    beasts.forEach((_,index)=>setupTarget(index));
 
-        console.log(
-            "CARD BEAST AR v66.5 SCENE LOADED"
-        );
+    setupPreload();
+    forceCameraLayer();
+});
 
+scene.addEventListener("arReady",()=>{
 
-        beasts.forEach(
-            (_,index)=>{
+    const cameraState=document.getElementById("cameraState");
 
-                setupTarget(
-                    index
-                );
-
-            }
-        );
-
-
-        setupPreload();
-
-
-        forceCameraLayer();
-
+    if(cameraState){
+        cameraState.textContent="READY";
+        cameraState.className="on";
     }
 
-);
+    mainStatus.textContent="CAMERA READY • SEARCHING";
+    bottom.textContent="📷 Point camera at any Card Beast target.";
 
+    forceCameraLayer();
 
-/* =========================================================
-   AR READY
-========================================================= */
+    [100,300,700,1200,2000].forEach(ms=>{
+        setTimeout(forceCameraLayer,ms);
+    });
+});
 
-scene.addEventListener(
+scene.addEventListener("arError",event=>{
 
-    "arReady",
+    console.error("MINDAR AR ERROR",event);
 
-    ()=>{
+    const cameraState=document.getElementById("cameraState");
 
-        console.log(
-            "MINDAR CAMERA READY"
-        );
-
-
-        const cameraState =
-            document.getElementById(
-                "cameraState"
-            );
-
-
-        if(cameraState){
-
-            cameraState.textContent =
-                "READY";
-
-
-            cameraState.className =
-                "on";
-
-        }
-
-
-        mainStatus.textContent =
-            "CAMERA READY • SEARCHING";
-
-
-        bottom.textContent =
-            "📷 Point camera at any Card Beast target.";
-
-
-        forceCameraLayer();
-
-
-        setTimeout(
-            forceCameraLayer,
-            100
-        );
-
-
-        setTimeout(
-            forceCameraLayer,
-            300
-        );
-
-
-        setTimeout(
-            forceCameraLayer,
-            700
-        );
-
-
-        setTimeout(
-            forceCameraLayer,
-            1200
-        );
-
-
-        setTimeout(
-            forceCameraLayer,
-            2000
-        );
-
+    if(cameraState){
+        cameraState.textContent="ERROR";
+        cameraState.className="err";
     }
 
-);
+    mainStatus.textContent="CAMERA ERROR";
+    bottom.textContent="Camera could not start.";
+});
 
+window.addEventListener("load",()=>{
 
-/* =========================================================
-   AR ERROR
-========================================================= */
+    forceCameraLayer();
 
-scene.addEventListener(
+    [300,800,1500].forEach(ms=>{
+        setTimeout(forceCameraLayer,ms);
+    });
+});
 
-    "arError",
+setInterval(forceCameraLayer,1000);
 
-    event=>{
-
-        console.error(
-            "MINDAR AR ERROR",
-            event
-        );
-
-
-        const cameraState =
-            document.getElementById(
-                "cameraState"
-            );
-
-
-        if(cameraState){
-
-            cameraState.textContent =
-                "ERROR";
-
-
-            cameraState.className =
-                "err";
-
-        }
-
-
-        mainStatus.textContent =
-            "CAMERA ERROR";
-
-
-        bottom.textContent =
-            "Camera could not start.";
-
-    }
-
-);
-
-
-/* =========================================================
-   WINDOW LOAD
-========================================================= */
-
-window.addEventListener(
-
-    "load",
-
-    ()=>{
-
-        forceCameraLayer();
-
-
-        setTimeout(
-            forceCameraLayer,
-            300
-        );
-
-
-        setTimeout(
-            forceCameraLayer,
-            800
-        );
-
-
-        setTimeout(
-            forceCameraLayer,
-            1500
-        );
-
-    }
-
-);
-
-
-/* =========================================================
-   CONTINUOUS CAMERA PROTECTION
-========================================================= */
-
-setInterval(
-
-    ()=>{
-
-        forceCameraLayer();
-
-    },
-
-    1000
-
-);
-
-
-/* =========================================================
-   INITIAL TARGET UI
-========================================================= */
-
-beasts.forEach(
-
-    (_,index)=>{
-
-        setBadge(
-            index,
-            "WAIT",
-            "wait"
-        );
-
-    }
-
-);
-
+beasts.forEach((_,index)=>{
+    setBadge(index,"WAIT","wait");
+});
 </script>
 
 </body>
