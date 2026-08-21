@@ -1,333 +1,492 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
 <meta charset="UTF-8">
 
 <meta name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+      content="width=device-width,
+               initial-scale=1.0,
+               maximum-scale=1.0,
+               user-scalable=no">
 
-<title>Card Beast AR — v66.0 Camera Stable</title>
+<title>Card Beast AR — v66.0 Camera Fix</title>
 
 <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+
 <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
+
 
 <style>
 
-*{
-    box-sizing:border-box;
+/* =========================================================
+   GLOBAL
+========================================================= */
+
+* {
+    box-sizing: border-box;
 }
 
 html,
-body{
-    margin:0;
-    width:100%;
-    height:100%;
-    overflow:hidden;
-    background:#000;
-    font-family:Arial,Helvetica,sans-serif;
+body {
+
+    margin: 0;
+    padding: 0;
+
+    width: 100%;
+    height: 100%;
+
+    overflow: hidden;
+
+    background: transparent !important;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
 }
 
-body{
-    position:relative;
+body {
+
+    position: relative;
+
+    background:
+        transparent !important;
 }
 
 
-/* =========================================
-   HEADER
-========================================= */
+/* =========================================================
+   CAMERA VIDEO
+   VIDEO MUST BE BEHIND A-FRAME
+========================================================= */
 
-#header{
-    position:fixed;
-    top:12px;
-    left:0;
-    width:100%;
-    z-index:1000;
+video.mindar-video,
+video#mindar-video {
 
-    text-align:center;
+    position: fixed !important;
 
-    pointer-events:none;
+    top: 0 !important;
+    left: 0 !important;
+
+    width: 100vw !important;
+    height: 100vh !important;
+
+    min-width: 100vw !important;
+    min-height: 100vh !important;
+
+    max-width: none !important;
+    max-height: none !important;
+
+    object-fit: cover !important;
+
+    display: block !important;
+
+    visibility: visible !important;
+
+    opacity: 1 !important;
+
+    z-index: 0 !important;
+
+    background: transparent !important;
+
+    pointer-events: none !important;
 }
 
-#title{
-    font-size:clamp(28px,7vw,52px);
-    font-weight:900;
 
-    color:#fff;
+/* =========================================================
+   A-FRAME
+========================================================= */
+
+a-scene {
+
+    position: fixed !important;
+
+    top: 0 !important;
+    left: 0 !important;
+
+    width: 100vw !important;
+    height: 100vh !important;
+
+    min-width: 100vw !important;
+    min-height: 100vh !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    z-index: 1 !important;
+
+    background:
+        transparent !important;
+
+    background-color:
+        transparent !important;
+
+    pointer-events: none !important;
+}
+
+
+/* =========================================================
+   A-FRAME CANVAS
+========================================================= */
+
+a-scene canvas,
+.a-canvas {
+
+    position: fixed !important;
+
+    top: 0 !important;
+    left: 0 !important;
+
+    width: 100vw !important;
+    height: 100vh !important;
+
+    min-width: 100vw !important;
+    min-height: 100vh !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    z-index: 1 !important;
+
+    background:
+        transparent !important;
+
+    background-color:
+        transparent !important;
+
+    opacity: 1 !important;
+
+    pointer-events: none !important;
+}
+
+
+/* =========================================================
+   UI
+========================================================= */
+
+#header {
+
+    position: fixed;
+
+    top: 12px;
+    left: 0;
+
+    width: 100%;
+
+    z-index: 20;
+
+    text-align: center;
+
+    pointer-events: none;
+}
+
+
+#title {
+
+    font-size:
+        clamp(28px, 7vw, 52px);
+
+    font-weight: 900;
+
+    color: white;
 
     text-shadow:
         0 0 8px rgba(255,255,255,.5),
         0 4px 12px #000;
 }
 
-#title span{
-    color:#b83cff;
-}
 
-#build{
-    position:absolute;
+#title span {
 
-    right:12px;
-    top:0;
-
-    padding:8px 12px;
-
-    border:1px solid #42ff91;
-    border-radius:16px;
-
-    color:#55ff9b;
-
-    background:rgba(0,0,0,.55);
-
-    font-size:11px;
-    font-weight:800;
-
-    white-space:nowrap;
+    color: #b83cff;
 }
 
 
-/* =========================================
-   STATUS
-========================================= */
+#build {
 
-#mainStatus{
-    position:fixed;
+    position: absolute;
 
-    top:76px;
-    left:50%;
+    right: 12px;
+    top: 0;
 
-    transform:translateX(-50%);
+    padding:
+        8px 12px;
 
-    z-index:1000;
+    border:
+        1px solid #42ff91;
 
-    min-width:250px;
-    max-width:90%;
+    border-radius:
+        16px;
 
-    padding:8px 16px;
+    color:
+        #55ff9b;
 
-    text-align:center;
+    background:
+        rgba(0,0,0,.60);
 
-    color:#58ff9c;
+    font-size:
+        11px;
 
-    border:1px solid #a93cff;
-    border-radius:22px;
+    font-weight:
+        800;
 
-    background:rgba(0,0,0,.55);
+    white-space:
+        nowrap;
+}
+
+
+/* =========================================================
+   MAIN STATUS
+========================================================= */
+
+#mainStatus {
+
+    position: fixed;
+
+    top: 76px;
+
+    left: 50%;
+
+    transform:
+        translateX(-50%);
+
+    z-index: 20;
+
+    min-width:
+        250px;
+
+    max-width:
+        90%;
+
+    padding:
+        9px 17px;
+
+    text-align:
+        center;
+
+    color:
+        #58ff9c;
+
+    border:
+        1px solid #a93cff;
+
+    border-radius:
+        24px;
+
+    background:
+        rgba(0,0,0,.58);
 
     box-shadow:
-        0 0 12px rgba(168,60,255,.35);
+        0 0 15px
+        rgba(168,60,255,.45);
 
-    font-weight:900;
-    font-size:14px;
+    font-weight:
+        900;
+
+    font-size:
+        14px;
 }
 
 
-/* =========================================
+/* =========================================================
    DEBUG
-========================================= */
+========================================================= */
 
-#debug{
-    position:fixed;
+#debug {
 
-    top:128px;
-    left:12px;
+    position: fixed;
 
-    z-index:1000;
+    top: 128px;
+    left: 12px;
 
-    padding:8px 11px;
+    z-index: 20;
 
-    border:1px solid rgba(255,255,255,.18);
-    border-radius:12px;
+    padding:
+        8px 11px;
 
-    background:rgba(0,0,0,.38);
+    border:
+        1px solid
+        rgba(255,255,255,.18);
 
-    backdrop-filter:blur(5px);
+    border-radius:
+        12px;
 
-    color:#fff;
+    background:
+        rgba(0,0,0,.42);
 
-    font-size:11px;
-    line-height:1.45;
+    backdrop-filter:
+        blur(5px);
 
-    pointer-events:none;
+    color:
+        white;
 
-    min-width:150px;
-}
+    font-size:
+        11px;
 
-.debug-head{
-    color:#d05cff;
+    line-height:
+        1.45;
 
-    font-weight:900;
+    pointer-events:
+        none;
 
-    margin-bottom:3px;
-}
+    min-width:
+        150px;
 
-.debug-line{
-    display:flex;
-
-    gap:6px;
-
-    justify-content:space-between;
-}
-
-.on{
-    color:#59ff9b;
-    font-weight:900;
-}
-
-.wait{
-    color:#ffd84a;
-}
-
-.err{
-    color:#ff6565;
-    font-weight:900;
+    max-width:
+        calc(100vw - 24px);
 }
 
 
-/* =========================================
+.debug-head {
+
+    color:
+        #d05cff;
+
+    font-weight:
+        900;
+
+    margin-bottom:
+        3px;
+}
+
+
+.debug-line {
+
+    display:
+        flex;
+
+    gap:
+        6px;
+
+    justify-content:
+        space-between;
+}
+
+
+.on {
+
+    color:
+        #59ff9b;
+
+    font-weight:
+        900;
+}
+
+
+.off {
+
+    color:
+        #aaa;
+}
+
+
+.wait {
+
+    color:
+        #ffd84a;
+}
+
+
+.err {
+
+    color:
+        #ff6565;
+
+    font-weight:
+        900;
+}
+
+
+/* =========================================================
    BOTTOM
-========================================= */
+========================================================= */
 
-#bottom{
-    position:fixed;
+#bottom {
 
-    left:50%;
-    bottom:14px;
+    position: fixed;
 
-    transform:translateX(-50%);
+    left: 50%;
 
-    z-index:1000;
+    bottom: 14px;
 
-    width:min(560px,calc(100vw - 40px));
+    transform:
+        translateX(-50%);
 
-    padding:10px 14px;
+    z-index: 20;
 
-    text-align:center;
+    width:
+        min(560px, calc(100vw - 40px));
 
-    color:#fff;
+    padding:
+        10px 14px;
 
-    background:rgba(0,0,0,.48);
+    text-align:
+        center;
 
-    border:1px solid #a93cff;
+    color:
+        white;
 
-    border-radius:18px;
+    background:
+        rgba(0,0,0,.52);
 
-    backdrop-filter:blur(6px);
+    border:
+        1px solid #a93cff;
 
-    font-size:13px;
+    border-radius:
+        18px;
 
-    pointer-events:none;
+    backdrop-filter:
+        blur(6px);
+
+    font-size:
+        13px;
+
+    pointer-events:
+        none;
 }
 
 
-/* =========================================
-   CAMERA VIDEO
-========================================= */
-
-/*
-   IMPORTANT:
-   Video = layer paling bawah
-*/
-
-video.mindar-video,
-video#mindar-video{
-
-    position:fixed !important;
-
-    top:0 !important;
-    left:0 !important;
-
-    width:100vw !important;
-    height:100vh !important;
-
-    min-width:100vw !important;
-    min-height:100vh !important;
-
-    object-fit:cover !important;
-
-    display:block !important;
-
-    opacity:1 !important;
-
-    visibility:visible !important;
-
-    z-index:1 !important;
-
-    background:#000 !important;
-
-    pointer-events:none !important;
-}
-
-
-/* =========================================
-   A-FRAME SCENE
-========================================= */
-
-a-scene{
-
-    position:fixed !important;
-
-    top:0 !important;
-    left:0 !important;
-
-    width:100vw !important;
-    height:100vh !important;
-
-    z-index:2 !important;
-
-    background:transparent !important;
-
-    pointer-events:none !important;
-}
-
-
-/* =========================================
-   CANVAS
-========================================= */
-
-a-scene canvas{
-
-    position:fixed !important;
-
-    top:0 !important;
-    left:0 !important;
-
-    width:100vw !important;
-    height:100vh !important;
-
-    z-index:2 !important;
-
-    background:transparent !important;
-
-    opacity:1 !important;
-
-    pointer-events:none !important;
-}
-
-
-/* =========================================
+/* =========================================================
    MOBILE
-========================================= */
+========================================================= */
 
-@media(max-width:600px){
+@media (max-width:600px) {
 
-    #build{
-        font-size:9px;
-        padding:6px 8px;
-        right:7px;
+    #build {
+
+        font-size:
+            9px;
+
+        padding:
+            6px 8px;
+
+        right:
+            7px;
     }
 
-    #debug{
-        top:124px;
-        font-size:10px;
-        padding:7px 9px;
+
+    #debug {
+
+        top:
+            124px;
+
+        font-size:
+            10px;
+
+        padding:
+            7px 9px;
     }
 
-    #bottom{
-        font-size:12px;
-        padding:8px 11px;
-    }
 
+    #bottom {
+
+        font-size:
+            12px;
+
+        padding:
+            8px 11px;
+    }
 }
 
 </style>
@@ -338,9 +497,9 @@ a-scene canvas{
 <body>
 
 
-<!-- =========================================
+<!-- =========================================================
      HEADER
-========================================= -->
+========================================================= -->
 
 <div id="header">
 
@@ -349,24 +508,26 @@ a-scene canvas{
     </div>
 
     <div id="build">
-        v66.0 • CAMERA STABLE • 5-BEAST
+        v66.0 • CAMERA FIX • 5-BEAST
     </div>
 
 </div>
 
 
-<!-- =========================================
-     STATUS
-========================================= -->
+<!-- =========================================================
+     MAIN STATUS
+========================================================= -->
 
 <div id="mainStatus">
-    CAMERA STARTING • SEARCHING
+
+    CAMERA STARTING...
+
 </div>
 
 
-<!-- =========================================
+<!-- =========================================================
      DEBUG
-========================================= -->
+========================================================= -->
 
 <div id="debug">
 
@@ -374,287 +535,446 @@ a-scene canvas{
         TRACKING DEBUG
     </div>
 
+
     <div class="debug-line">
-        <span>CAMERA</span>
-        <span id="cameraState" class="wait">
+
+        <span>
+            CAMERA
+        </span>
+
+        <span
+            id="cameraState"
+            class="wait">
+
             STARTING
+
         </span>
+
     </div>
 
-    <div class="debug-line">
-        <span>DR-001</span>
-        <span id="target0" class="wait">
-            WAIT
-        </span>
-    </div>
 
     <div class="debug-line">
-        <span>DR-002</span>
-        <span id="target1" class="wait">
-            WAIT
+
+        <span>
+            DR-001
         </span>
+
+        <span
+            id="target0"
+            class="wait">
+
+            WAIT
+
+        </span>
+
     </div>
 
-    <div class="debug-line">
-        <span>DR-003</span>
-        <span id="target2" class="wait">
-            WAIT
-        </span>
-    </div>
 
     <div class="debug-line">
-        <span>DR-004</span>
-        <span id="target3" class="wait">
-            WAIT
+
+        <span>
+            DR-002
         </span>
+
+        <span
+            id="target1"
+            class="wait">
+
+            WAIT
+
+        </span>
+
     </div>
 
+
     <div class="debug-line">
-        <span>DR-005</span>
-        <span id="target4" class="wait">
-            WAIT
+
+        <span>
+            DR-003
         </span>
+
+        <span
+            id="target2"
+            class="wait">
+
+            WAIT
+
+        </span>
+
+    </div>
+
+
+    <div class="debug-line">
+
+        <span>
+            DR-004
+        </span>
+
+        <span
+            id="target3"
+            class="wait">
+
+            WAIT
+
+        </span>
+
+    </div>
+
+
+    <div class="debug-line">
+
+        <span>
+            DR-005
+        </span>
+
+        <span
+            id="target4"
+            class="wait">
+
+            WAIT
+
+        </span>
+
     </div>
 
 </div>
 
 
-<!-- =========================================
+<!-- =========================================================
      BOTTOM
-========================================= -->
+========================================================= -->
 
 <div id="bottom">
-    📷 Point camera at any Card Beast target.
+
+    📷 Starting camera...
+
 </div>
 
 
-<!-- =========================================
+
+<!-- =========================================================
      AR SCENE
-========================================= -->
+========================================================= -->
 
 <a-scene
+
     id="scene"
 
     mindar-image="
-        imageTargetSrc:./targets.mind;
-        maxTrack:5;
-        filterMinCF:0.0001;
-        filterBeta:0.01;
-        warmupTolerance:5;
-        missTolerance:5;
+        imageTargetSrc: ./targets.mind;
+        maxTrack: 5;
+        filterMinCF: 0.0001;
+        filterBeta: 0.01;
+        warmupTolerance: 5;
+        missTolerance: 5;
     "
 
     color-space="sRGB"
 
     renderer="
-        colorManagement:true;
-        physicallyCorrectLights:true;
-        antialias:true;
-        alpha:true;
+        alpha: true;
+        antialias: true;
+        colorManagement: true;
+        physicallyCorrectLights: true;
     "
 
     vr-mode-ui="
-        enabled:false
+        enabled: false
     "
 
     device-orientation-permission-ui="
-        enabled:true
+        enabled: true
     "
 >
 
 
-<!-- =========================================
+<!-- =========================================================
      ASSETS
-========================================= -->
+========================================================= -->
 
 <a-assets
     id="assets"
     timeout="30000"
 >
 
+
+    <!-- DR-001 -->
+
     <a-asset-item
+
         id="dragonAsset"
+
         src="./models/ember-dragon.glb">
+
     </a-asset-item>
 
+
+    <!-- DR-002 -->
+
     <a-asset-item
+
         id="tigerAsset"
+
         src="./models/abyss-tiger.glb">
+
     </a-asset-item>
 
+
+    <!-- DR-003 -->
+
     <a-asset-item
+
         id="phoenixAsset"
+
         src="./models/Frost-phoenix.glb">
+
     </a-asset-item>
 
+
+    <!-- DR-004 -->
+
     <a-asset-item
+
         id="mantisAsset"
+
         src="./models/puppet-mantis.glb">
+
     </a-asset-item>
 
+
+    <!-- DR-005 -->
+
     <a-asset-item
+
         id="leviathanAsset"
+
         src="./models/tidal-leviathan.glb">
+
     </a-asset-item>
+
 
 </a-assets>
 
 
-<!-- =========================================
+
+<!-- =========================================================
      CAMERA
-========================================= -->
+========================================================= -->
 
 <a-camera
+
     position="0 0 0"
-    look-controls="enabled:false">
+
+    look-controls="
+        enabled: false
+    ">
+
 </a-camera>
 
 
-<!-- =========================================
-     DR-001
-     EMBER DRAGON
-     SCALE 2.5
-========================================= -->
+
+<!-- =========================================================
+     DR-001 EMBER DRAGON
+     TARGET 0
+========================================================= -->
 
 <a-entity
+
     id="beast0"
 
-    mindar-image-target="targetIndex:0"
+    mindar-image-target="
+        targetIndex: 0
+    "
 
     visible="false"
 >
 
+
     <a-entity
+
         id="dragonModel"
 
         gltf-model="#dragonAsset"
 
-        position="0 -0.25 0"
+        position="
+            0 -0.25 0
+        "
 
-        rotation="90 0 0"
+        rotation="
+            90 0 0
+        "
 
-        scale="2.5 2.5 2.5"
-    >
+        scale="
+            2.5 2.5 2.5
+        ">
+
     </a-entity>
 
 </a-entity>
 
 
-<!-- =========================================
-     DR-002
-     ABYSS TIGER
-     SCALE 2.1
-========================================= -->
+
+<!-- =========================================================
+     DR-002 ABYSS TIGER
+     TARGET 1
+========================================================= -->
 
 <a-entity
+
     id="beast1"
 
-    mindar-image-target="targetIndex:1"
+    mindar-image-target="
+        targetIndex: 1
+    "
 
     visible="false"
 >
 
+
     <a-entity
+
         id="tigerModel"
 
         gltf-model="#tigerAsset"
 
-        position="0 -0.25 0"
+        position="
+            0 -0.25 0
+        "
 
-        rotation="90 0 0"
+        rotation="
+            90 0 0
+        "
 
-        scale="2.1 2.1 2.1"
-    >
+        scale="
+            1.5 1.5 1.5
+        ">
+
     </a-entity>
 
 </a-entity>
 
 
-<!-- =========================================
-     DR-003
-     FROST PHOENIX
-     SCALE 1.75
-========================================= -->
+
+<!-- =========================================================
+     DR-003 FROST PHOENIX
+     TARGET 2
+     BALANCED SCALE = 1.75
+========================================================= -->
 
 <a-entity
+
     id="beast2"
 
-    mindar-image-target="targetIndex:2"
+    mindar-image-target="
+        targetIndex: 2
+    "
 
     visible="false"
 >
 
+
     <a-entity
+
         id="phoenixModel"
 
         gltf-model="#phoenixAsset"
 
-        position="0 -0.25 0"
+        position="
+            0 -0.25 0
+        "
 
-        rotation="90 0 0"
+        rotation="
+            90 0 0
+        "
 
-        scale="1.75 1.75 1.75"
-    >
+        scale="
+            1.75 1.75 1.75
+        ">
+
     </a-entity>
 
 </a-entity>
 
 
-<!-- =========================================
-     DR-004
-     PUPPET MANTIS
-     SCALE 1.55
-========================================= -->
+
+<!-- =========================================================
+     DR-004 PUPPET MANTIS
+     TARGET 3
+     BALANCED SCALE = 1.55
+========================================================= -->
 
 <a-entity
+
     id="beast3"
 
-    mindar-image-target="targetIndex:3"
+    mindar-image-target="
+        targetIndex: 3
+    "
 
     visible="false"
 >
 
+
     <a-entity
+
         id="mantisModel"
 
         gltf-model="#mantisAsset"
 
-        position="0 -0.25 0"
+        position="
+            0 -0.25 0
+        "
 
-        rotation="90 0 0"
+        rotation="
+            90 0 0
+        "
 
-        scale="1.55 1.55 1.55"
-    >
+        scale="
+            1.55 1.55 1.55
+        ">
+
     </a-entity>
 
 </a-entity>
 
 
-<!-- =========================================
-     DR-005
-     TIDAL LEVIATHAN
-     SCALE 1.45
-========================================= -->
+
+<!-- =========================================================
+     DR-005 TIDAL LEVIATHAN
+     TARGET 4
+     BALANCED SCALE = 1.45
+========================================================= -->
 
 <a-entity
+
     id="beast4"
 
-    mindar-image-target="targetIndex:4"
+    mindar-image-target="
+        targetIndex: 4
+    "
 
     visible="false"
 >
 
+
     <a-entity
+
         id="leviathanModel"
 
         gltf-model="#leviathanAsset"
 
-        position="0 -0.25 0"
+        position="
+            0 -0.25 0
+        "
 
-        rotation="90 0 0"
+        rotation="
+            90 0 0
+        "
 
-        scale="1.45 1.45 1.45"
-    >
+        scale="
+            1.45 1.45 1.45
+        ">
+
     </a-entity>
 
 </a-entity>
@@ -663,152 +983,326 @@ a-scene canvas{
 </a-scene>
 
 
+
 <script>
 
 /* =========================================================
    CARD BEAST AR v66.0
-   CAMERA LAYER STABLE
+   CAMERA LAYER FIX
 
-   TARGETS:
-   0 = DR-001
-   1 = DR-002
-   2 = DR-003
-   3 = DR-004
-   4 = DR-005
-
+   5 TARGETS
    MAX TRACK = 5
    PRELOAD ONCE
    MULTI TRACK
    INDEPENDENT TARGET LOST
-
-   SCALE:
-   DR-001 = 2.5
-   DR-002 = 2.1
-   DR-003 = 1.75
-   DR-004 = 1.55
-   DR-005 = 1.45
 ========================================================= */
 
 
-/* =========================================
-   DATA
-========================================= */
+/* =========================================================
+   BEAST DATA
+========================================================= */
 
 const beasts = [
 
     {
-        id:"DR-001",
-        name:"Ember Dragon",
-        emoji:"🔥",
-        target:0,
-        model:"dragonModel",
-        asset:"dragonAsset"
+        id: "DR-001",
+        name: "Ember Dragon",
+        emoji: "🔥",
+        target: 0,
+        model: "dragonModel",
+        asset: "dragonAsset"
     },
 
     {
-        id:"DR-002",
-        name:"Abyss Tiger",
-        emoji:"🐯",
-        target:1,
-        model:"tigerModel",
-        asset:"tigerAsset"
+        id: "DR-002",
+        name: "Abyss Tiger",
+        emoji: "🐯",
+        target: 1,
+        model: "tigerModel",
+        asset: "tigerAsset"
     },
 
     {
-        id:"DR-003",
-        name:"Frost Phoenix",
-        emoji:"❄️",
-        target:2,
-        model:"phoenixModel",
-        asset:"phoenixAsset"
+        id: "DR-003",
+        name: "Frost Phoenix",
+        emoji: "❄️",
+        target: 2,
+        model: "phoenixModel",
+        asset: "phoenixAsset"
     },
 
     {
-        id:"DR-004",
-        name:"Puppet Mantis",
-        emoji:"🦗",
-        target:3,
-        model:"mantisModel",
-        asset:"mantisAsset"
+        id: "DR-004",
+        name: "Puppet Mantis",
+        emoji: "🦗",
+        target: 3,
+        model: "mantisModel",
+        asset: "mantisAsset"
     },
 
     {
-        id:"DR-005",
-        name:"Tidal Leviathan",
-        emoji:"🌊",
-        target:4,
-        model:"leviathanModel",
-        asset:"leviathanAsset"
+        id: "DR-005",
+        name: "Tidal Leviathan",
+        emoji: "🌊",
+        target: 4,
+        model: "leviathanModel",
+        asset: "leviathanAsset"
     }
 
 ];
 
 
-/* =========================================
+
+/* =========================================================
    STATE
-========================================= */
+========================================================= */
 
-const state =
-    beasts.map(() => ({
+const state = beasts.map(() => ({
 
-        found:false,
+    found: false,
 
-        loaded:false
+    loaded: false,
 
-    }));
+    loadCount: 0
+
+}));
 
 
-/* =========================================
+
+/* =========================================================
    DOM
-========================================= */
+========================================================= */
 
 const scene =
-    document.getElementById(
-        "scene"
-    );
+    document.getElementById("scene");
 
 const mainStatus =
-    document.getElementById(
-        "mainStatus"
-    );
+    document.getElementById("mainStatus");
 
 const bottom =
-    document.getElementById(
-        "bottom"
-    );
-
-const cameraState =
-    document.getElementById(
-        "cameraState"
-    );
+    document.getElementById("bottom");
 
 
-/* =========================================
-   FORCE TRANSPARENT RENDERER
-========================================= */
 
-function forceTransparentRenderer(){
+/* =========================================================
+   CAMERA LAYER FIX
+========================================================= */
 
-    try{
+function forceCameraLayer() {
 
-        if(
+    /*
+     * Find EVERY video.
+     * MindAR creates the camera video dynamically.
+     */
+
+    const videos =
+        document.querySelectorAll("video");
+
+
+    videos.forEach(video => {
+
+        video.classList.add(
+            "mindar-video"
+        );
+
+
+        video.style.setProperty(
+            "position",
+            "fixed",
+            "important"
+        );
+
+
+        video.style.setProperty(
+            "top",
+            "0",
+            "important"
+        );
+
+
+        video.style.setProperty(
+            "left",
+            "0",
+            "important"
+        );
+
+
+        video.style.setProperty(
+            "width",
+            "100vw",
+            "important"
+        );
+
+
+        video.style.setProperty(
+            "height",
+            "100vh",
+            "important"
+        );
+
+
+        video.style.setProperty(
+            "min-width",
+            "100vw",
+            "important"
+        );
+
+
+        video.style.setProperty(
+            "min-height",
+            "100vh",
+            "important"
+        );
+
+
+        video.style.setProperty(
+            "object-fit",
+            "cover",
+            "important"
+        );
+
+
+        video.style.setProperty(
+            "display",
+            "block",
+            "important"
+        );
+
+
+        video.style.setProperty(
+            "visibility",
+            "visible",
+            "important"
+        );
+
+
+        video.style.setProperty(
+            "opacity",
+            "1",
+            "important"
+        );
+
+
+        video.style.setProperty(
+            "z-index",
+            "0",
+            "important"
+        );
+
+
+        video.style.setProperty(
+            "pointer-events",
+            "none",
+            "important"
+        );
+
+
+        /*
+         * Make sure camera playback continues.
+         */
+
+        if (
+            video.paused &&
+            video.srcObject
+        ) {
+
+            video.play()
+                .catch(() => {});
+
+        }
+
+    });
+
+
+
+    /*
+     * A-FRAME CANVAS
+     */
+
+    const canvas =
+        document.querySelector(
+            "a-scene canvas"
+        );
+
+
+    if (canvas) {
+
+        canvas.style.setProperty(
+            "position",
+            "fixed",
+            "important"
+        );
+
+
+        canvas.style.setProperty(
+            "top",
+            "0",
+            "important"
+        );
+
+
+        canvas.style.setProperty(
+            "left",
+            "0",
+            "important"
+        );
+
+
+        canvas.style.setProperty(
+            "width",
+            "100vw",
+            "important"
+        );
+
+
+        canvas.style.setProperty(
+            "height",
+            "100vh",
+            "important"
+        );
+
+
+        canvas.style.setProperty(
+            "background",
+            "transparent",
+            "important"
+        );
+
+
+        canvas.style.setProperty(
+            "background-color",
+            "transparent",
+            "important"
+        );
+
+
+        canvas.style.setProperty(
+            "z-index",
+            "1",
+            "important"
+        );
+
+    }
+
+
+    /*
+     * Force WebGL transparent clear.
+     */
+
+    try {
+
+        if (
             scene &&
             scene.renderer
-        ){
+        ) {
 
             const renderer =
                 scene.renderer;
 
 
-            /*
-             * IMPORTANT:
-             * A-Frame canvas must NOT
-             * clear with opaque black.
-             */
-
-            if(
+            if (
                 renderer.setClearColor
-            ){
+            ) {
 
                 renderer.setClearColor(
                     0x000000,
@@ -818,9 +1312,9 @@ function forceTransparentRenderer(){
             }
 
 
-            if(
+            if (
                 renderer.setClearAlpha
-            ){
+            ) {
 
                 renderer.setClearAlpha(
                     0
@@ -828,24 +1322,11 @@ function forceTransparentRenderer(){
 
             }
 
-
-            if(
-                renderer.domElement
-            ){
-
-                renderer.domElement.style.background =
-                    "transparent";
-
-                renderer.domElement.style.backgroundColor =
-                    "transparent";
-
-                renderer.domElement.style.opacity =
-                    "1";
-            }
-
         }
 
-    }catch(error){
+    }
+
+    catch (error) {
 
         console.warn(
             "Renderer transparency patch:",
@@ -857,216 +1338,42 @@ function forceTransparentRenderer(){
 }
 
 
-/* =========================================
-   CAMERA VIDEO LAYER
-========================================= */
 
-function fixCameraLayer(){
+/* =========================================================
+   MUTATION OBSERVER
+   MindAR VIDEO IS CREATED DYNAMICALLY
+========================================================= */
 
-    /*
-     * Find EVERY video.
-     */
+const videoObserver =
+    new MutationObserver(() => {
 
-    const videos =
-        document.querySelectorAll(
-            "video"
-        );
+        forceCameraLayer();
+
+    });
 
 
-    videos.forEach(
-        video => {
+videoObserver.observe(
 
-            /*
-             * MindAR normally creates
-             * .mindar-video.
-             */
+    document.body,
 
-            const isMindARVideo =
-                video.classList.contains(
-                    "mindar-video"
-                ) ||
-                video.id ===
-                    "mindar-video";
-
-
-            if(!isMindARVideo){
-
-                return;
-
-            }
-
-
-            video.classList.add(
-                "mindar-video"
-            );
-
-
-            video.style.position =
-                "fixed";
-
-            video.style.top =
-                "0";
-
-            video.style.left =
-                "0";
-
-            video.style.width =
-                "100vw";
-
-            video.style.height =
-                "100vh";
-
-            video.style.minWidth =
-                "100vw";
-
-            video.style.minHeight =
-                "100vh";
-
-            video.style.objectFit =
-                "cover";
-
-            video.style.display =
-                "block";
-
-            video.style.visibility =
-                "visible";
-
-            video.style.opacity =
-                "1";
-
-            video.style.zIndex =
-                "1";
-
-            video.style.pointerEvents =
-                "none";
-
-
-            /*
-             * Make sure camera video
-             * is actually playing.
-             */
-
-            if(
-                video.paused &&
-                video.srcObject
-            ){
-
-                video.play()
-                    .catch(
-                        () => {}
-                    );
-
-            }
-
-        }
-    );
-
-
-    /*
-     * Fix A-Frame canvas.
-     */
-
-    const canvas =
-        document.querySelector(
-            "a-scene canvas"
-        );
-
-
-    if(canvas){
-
-        canvas.style.position =
-            "fixed";
-
-        canvas.style.top =
-            "0";
-
-        canvas.style.left =
-            "0";
-
-        canvas.style.width =
-            "100vw";
-
-        canvas.style.height =
-            "100vh";
-
-        canvas.style.zIndex =
-            "2";
-
-        canvas.style.background =
-            "transparent";
-
-        canvas.style.backgroundColor =
-            "transparent";
-
-        canvas.style.pointerEvents =
-            "none";
-
+    {
+        childList: true,
+        subtree: true
     }
 
-
-    /*
-     * Re-apply transparent renderer.
-     */
-
-    forceTransparentRenderer();
-
-}
+);
 
 
-/* =========================================
-   VIDEO WATCHER
-========================================= */
 
-function startVideoWatcher(){
+/* =========================================================
+   STATUS BADGE
+========================================================= */
 
-    /*
-     * MindAR may create the video
-     * after page load.
-     *
-     * Therefore keep checking.
-     */
-
-    let count = 0;
-
-
-    const timer =
-        setInterval(
-            () => {
-
-                fixCameraLayer();
-
-                count++;
-
-
-                /*
-                 * 30 checks is enough
-                 * for startup.
-                 */
-
-                if(count >= 30){
-
-                    clearInterval(
-                        timer
-                    );
-
-                }
-
-            },
-            250
-        );
-
-}
-
-
-/* =========================================
-   BADGE
-========================================= */
-
-function badge(
+function setBadge(
     index,
     text,
     className
-){
+) {
 
     const element =
         document.getElementById(
@@ -1074,15 +1381,12 @@ function badge(
         );
 
 
-    if(!element){
-
-        return;
-
-    }
+    if (!element) return;
 
 
     element.textContent =
         text;
+
 
     element.className =
         className;
@@ -1090,26 +1394,23 @@ function badge(
 }
 
 
-/* =========================================
-   UPDATE UI
-========================================= */
 
-function updateUI(){
+/* =========================================================
+   UPDATE MAIN UI
+========================================================= */
+
+function updateUI() {
 
     const active =
         beasts.filter(
-            (beast,index) =>
+            (beast, index) =>
                 state[index].found
         );
 
 
-    /*
-     * NOTHING FOUND
-     */
-
-    if(
+    if (
         active.length === 0
-    ){
+    ) {
 
         mainStatus.textContent =
             "CAMERA READY • SEARCHING";
@@ -1118,19 +1419,15 @@ function updateUI(){
         bottom.textContent =
             "📷 Point camera at any Card Beast target.";
 
-
         return;
 
     }
 
 
-    /*
-     * ONE TARGET
-     */
 
-    if(
+    if (
         active.length === 1
-    ){
+    ) {
 
         const beast =
             active[0];
@@ -1143,45 +1440,141 @@ function updateUI(){
         bottom.innerHTML =
             `${beast.emoji} <b>${beast.name.toUpperCase()} ACTIVE</b> • ${beast.id}`;
 
-
         return;
 
     }
 
 
-    /*
-     * MULTI TRACK
-     */
 
     mainStatus.textContent =
         `${active.length} CARDS ACTIVE • ` +
-        active
-            .map(
-                beast =>
-                    beast.id
-            )
-            .join(" + ");
+        `${active.map(
+            beast => beast.id
+        ).join(" + ")}`;
 
 
     bottom.innerHTML =
-        active
-            .map(
-                beast =>
-                    beast.emoji +
-                    " " +
-                    beast.id
-            )
-            .join(" + ") +
-        " ACTIVE";
+        `${active.map(
+            beast =>
+                beast.emoji +
+                " " +
+                beast.id
+        ).join(" + ")} ACTIVE`;
 
 }
 
 
-/* =========================================
-   TARGET SETUP
-========================================= */
 
-function setupTarget(index){
+/* =========================================================
+   PRELOAD
+   LOAD EACH GLB ONLY ONCE
+========================================================= */
+
+function setupPreload() {
+
+    beasts.forEach(
+        (beast, index) => {
+
+            const model =
+                document.getElementById(
+                    beast.model
+                );
+
+
+            if (!model) {
+
+                console.error(
+                    beast.id +
+                    " model element missing"
+                );
+
+                return;
+
+            }
+
+
+            /*
+             * MODEL LOADED
+             */
+
+            model.addEventListener(
+
+                "model-loaded",
+
+                () => {
+
+                    /*
+                     * Prevent duplicate count.
+                     */
+
+                    if (
+                        state[index].loaded
+                    ) {
+
+                        return;
+
+                    }
+
+
+                    state[index].loaded =
+                        true;
+
+
+                    state[index].loadCount++;
+
+
+                    console.log(
+                        beast.id +
+                        " GLB PRELOADED ONCE"
+                    );
+
+                },
+
+                {
+                    once: true
+                }
+
+            );
+
+
+            /*
+             * MODEL ERROR
+             */
+
+            model.addEventListener(
+
+                "model-error",
+
+                event => {
+
+                    console.error(
+                        beast.id +
+                        " GLB LOAD ERROR",
+                        event
+                    );
+
+                    setBadge(
+                        index,
+                        "GLB ERROR",
+                        "err"
+                    );
+
+                }
+
+            );
+
+        }
+    );
+
+}
+
+
+
+/* =========================================================
+   TARGET SETUP
+========================================================= */
+
+function setupTarget(index) {
 
     const beast =
         beasts[index];
@@ -1193,19 +1586,27 @@ function setupTarget(index){
         );
 
 
-    if(!target){
+    if (!target) {
+
+        console.error(
+            beast.id +
+            " target entity missing"
+        );
 
         return;
 
     }
 
 
-    /*
-     * TARGET FOUND
-     */
+
+    /* =====================================================
+       TARGET FOUND
+    ===================================================== */
 
     target.addEventListener(
+
         "targetFound",
+
         () => {
 
             state[index].found =
@@ -1213,7 +1614,7 @@ function setupTarget(index){
 
 
             /*
-             * ONLY THIS BEAST
+             * ONLY THIS TARGET
              * becomes visible.
              */
 
@@ -1223,7 +1624,7 @@ function setupTarget(index){
             );
 
 
-            badge(
+            setBadge(
                 index,
                 "FOUND",
                 "on"
@@ -1239,15 +1640,19 @@ function setupTarget(index){
             );
 
         }
+
     );
 
 
-    /*
-     * TARGET LOST
-     */
+
+    /* =====================================================
+       TARGET LOST
+    ===================================================== */
 
     target.addEventListener(
+
         "targetLost",
+
         () => {
 
             state[index].found =
@@ -1255,8 +1660,8 @@ function setupTarget(index){
 
 
             /*
-             * ONLY THIS BEAST
-             * is hidden.
+             * ONLY THIS TARGET
+             * becomes invisible.
              */
 
             target.setAttribute(
@@ -1265,7 +1670,7 @@ function setupTarget(index){
             );
 
 
-            badge(
+            setBadge(
                 index,
                 "LOST",
                 "wait"
@@ -1281,113 +1686,34 @@ function setupTarget(index){
             );
 
         }
+
     );
 
 }
 
 
-/* =========================================
-   PRELOAD ONCE
-========================================= */
 
-function setupPreload(){
-
-    beasts.forEach(
-        (beast,index) => {
-
-            const model =
-                document.getElementById(
-                    beast.model
-                );
-
-
-            if(!model){
-
-                return;
-
-            }
-
-
-            model.addEventListener(
-                "model-loaded",
-                () => {
-
-                    if(
-                        !state[index].loaded
-                    ){
-
-                        state[index].loaded =
-                            true;
-
-
-                        console.log(
-                            beast.id +
-                            " GLB PRELOADED ONCE"
-                        );
-
-                    }
-
-                },
-                {
-                    once:true
-                }
-            );
-
-
-            model.addEventListener(
-                "model-error",
-                event => {
-
-                    badge(
-                        index,
-                        "GLB ERROR",
-                        "err"
-                    );
-
-
-                    console.error(
-                        beast.id +
-                        " GLB LOAD ERROR",
-                        event
-                    );
-
-                }
-            );
-
-        }
-    );
-
-}
-
-
-/* =========================================
+/* =========================================================
    SCENE LOADED
-========================================= */
+========================================================= */
 
 scene.addEventListener(
+
     "loaded",
+
     () => {
 
         console.log(
-            "A-FRAME SCENE LOADED"
+            "CARD BEAST AR v66.0 SCENE LOADED"
         );
 
 
         /*
-         * Fix renderer immediately.
-         */
-
-        forceTransparentRenderer();
-
-        fixCameraLayer();
-
-
-        /*
-         * Setup targets.
+         * Setup all 5 targets.
          */
 
         beasts.forEach(
-            (_,index) => {
+            (_, index) => {
 
                 setupTarget(
                     index
@@ -1405,55 +1731,47 @@ scene.addEventListener(
 
 
         /*
-         * Start repeated
-         * camera layer protection.
+         * Camera layer.
          */
 
-        startVideoWatcher();
+        forceCameraLayer();
 
     }
+
 );
 
 
-/* =========================================
-   RENDERER INITIALIZED
-========================================= */
 
-scene.addEventListener(
-    "renderstart",
-    () => {
-
-        console.log(
-            "A-FRAME RENDER START"
-        );
-
-
-        forceTransparentRenderer();
-
-        fixCameraLayer();
-
-    }
-);
-
-
-/* =========================================
+/* =========================================================
    AR READY
-========================================= */
+========================================================= */
 
 scene.addEventListener(
+
     "arReady",
+
     () => {
 
         console.log(
-            "AR CAMERA READY"
+            "MINDAR CAMERA READY"
         );
 
 
-        cameraState.textContent =
-            "READY";
+        const cameraState =
+            document.getElementById(
+                "cameraState"
+            );
 
-        cameraState.className =
-            "on";
+
+        if (cameraState) {
+
+            cameraState.textContent =
+                "READY";
+
+            cameraState.className =
+                "on";
+
+        }
 
 
         mainStatus.textContent =
@@ -1465,60 +1783,78 @@ scene.addEventListener(
 
 
         /*
-         * Camera layer fix.
+         * Multiple camera layer passes.
          */
 
-        fixCameraLayer();
+        forceCameraLayer();
 
 
         setTimeout(
-            fixCameraLayer,
+            forceCameraLayer,
             100
         );
 
+
         setTimeout(
-            fixCameraLayer,
+            forceCameraLayer,
             300
         );
 
+
         setTimeout(
-            fixCameraLayer,
+            forceCameraLayer,
             700
         );
 
-        setTimeout(
-            fixCameraLayer,
-            1500
-        );
 
         setTimeout(
-            fixCameraLayer,
-            3000
+            forceCameraLayer,
+            1200
+        );
+
+
+        setTimeout(
+            forceCameraLayer,
+            2000
         );
 
     }
+
 );
 
 
-/* =========================================
+
+/* =========================================================
    AR ERROR
-========================================= */
+========================================================= */
 
 scene.addEventListener(
+
     "arError",
+
     event => {
 
         console.error(
-            "AR ERROR",
+            "MINDAR AR ERROR",
             event
         );
 
 
-        cameraState.textContent =
-            "ERROR";
+        const cameraState =
+            document.getElementById(
+                "cameraState"
+            );
 
-        cameraState.className =
-            "err";
+
+        if (cameraState) {
+
+            cameraState.textContent =
+                "ERROR";
+
+            cameraState.className =
+                "err";
+
+        }
 
 
         mainStatus.textContent =
@@ -1529,178 +1865,90 @@ scene.addEventListener(
             "Camera could not start.";
 
     }
+
 );
 
 
-/* =========================================
+
+/* =========================================================
    WINDOW LOAD
-========================================= */
+========================================================= */
 
 window.addEventListener(
+
     "load",
+
     () => {
 
         /*
-         * Initial attempts.
+         * Initial passes.
          */
 
-        fixCameraLayer();
+        forceCameraLayer();
 
 
         setTimeout(
-            fixCameraLayer,
-            250
+            forceCameraLayer,
+            300
         );
 
 
         setTimeout(
-            fixCameraLayer,
-            500
+            forceCameraLayer,
+            800
         );
 
 
         setTimeout(
-            fixCameraLayer,
-            1000
+            forceCameraLayer,
+            1500
         );
-
-
-        setTimeout(
-            fixCameraLayer,
-            2000
-        );
-
-
-        /*
-         * Continue watcher.
-         */
-
-        startVideoWatcher();
 
     }
+
 );
 
 
-/* =========================================
-   INITIAL BADGES
-========================================= */
+
+/* =========================================================
+   CONTINUOUS CAMERA LAYER PROTECTION
+========================================================= */
+
+setInterval(
+
+    () => {
+
+        forceCameraLayer();
+
+    },
+
+    1000
+
+);
+
+
+
+/* =========================================================
+   INITIAL TARGET UI
+========================================================= */
 
 beasts.forEach(
-    (_,index) => {
 
-        badge(
+    (_, index) => {
+
+        setBadge(
             index,
             "WAIT",
             "wait"
         );
 
     }
+
 );
 
-
-/* =========================================
-   EXTRA VIDEO OBSERVER
-========================================= */
-
-/*
- * If MindAR inserts a video after
- * startup, detect it automatically.
- */
-
-const observer =
-    new MutationObserver(
-        mutations => {
-
-            let foundVideo =
-                false;
-
-
-            mutations.forEach(
-                mutation => {
-
-                    mutation.addedNodes.forEach(
-                        node => {
-
-                            if(
-                                node.nodeType !== 1
-                            ){
-
-                                return;
-
-                            }
-
-
-                            if(
-                                node.tagName ===
-                                "VIDEO"
-                            ){
-
-                                foundVideo =
-                                    true;
-
-                            }
-
-
-                            if(
-                                node.querySelector
-                            ){
-
-                                const video =
-                                    node.querySelector(
-                                        "video"
-                                    );
-
-
-                                if(video){
-
-                                    foundVideo =
-                                        true;
-
-                                }
-
-                            }
-
-                        }
-                    );
-
-                }
-            );
-
-
-            if(foundVideo){
-
-                console.log(
-                    "MindAR video detected"
-                );
-
-
-                fixCameraLayer();
-
-                setTimeout(
-                    fixCameraLayer,
-                    100
-                );
-
-                setTimeout(
-                    fixCameraLayer,
-                    500
-                );
-
-            }
-
-        }
-    );
-
-
-observer.observe(
-    document.body,
-    {
-        childList:true,
-        subtree:true
-    }
-);
 
 </script>
 
 </body>
+
 </html>
