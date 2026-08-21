@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
 <meta charset="UTF-8">
@@ -10,12 +11,17 @@ initial-scale=1.0,
 maximum-scale=1.0,
 user-scalable=no">
 
-<title>Card Beast AR — v66.2 Premium VFX</title>
+<title>Card Beast AR — v66.3 Abyss VFX</title>
 
 <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+
 <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
 
 <style>
+
+/* =========================================================
+   GLOBAL
+========================================================= */
 
 *{
 box-sizing:border-box;
@@ -23,24 +29,34 @@ box-sizing:border-box;
 
 html,
 body{
+
 margin:0;
 padding:0;
+
 width:100%;
 height:100%;
+
 overflow:hidden;
+
 background:transparent!important;
-font-family:Arial,Helvetica,sans-serif;
+
+font-family:
+Arial,
+Helvetica,
+sans-serif;
 }
 
 body{
+
 position:relative;
+
 background:transparent!important;
 }
 
 
 /* =========================================================
    CAMERA VIDEO
-   v66.0 BASELINE
+   v66.0 CAMERA BASELINE
 ========================================================= */
 
 video.mindar-video,
@@ -63,7 +79,9 @@ max-height:none!important;
 object-fit:cover!important;
 
 display:block!important;
+
 visibility:visible!important;
+
 opacity:1!important;
 
 z-index:0!important;
@@ -97,6 +115,7 @@ padding:0!important;
 z-index:1!important;
 
 background:transparent!important;
+
 background-color:transparent!important;
 
 pointer-events:none!important;
@@ -127,6 +146,7 @@ padding:0!important;
 z-index:1!important;
 
 background:transparent!important;
+
 background-color:transparent!important;
 
 opacity:1!important;
@@ -157,7 +177,8 @@ pointer-events:none;
 
 #title{
 
-font-size:clamp(28px,7vw,52px);
+font-size:
+clamp(28px,7vw,52px);
 
 font-weight:900;
 
@@ -169,6 +190,7 @@ text-shadow:
 }
 
 #title span{
+
 color:#b83cff;
 }
 
@@ -181,13 +203,15 @@ top:0;
 
 padding:8px 12px;
 
-border:1px solid #42ff91;
+border:
+1px solid #42ff91;
 
 border-radius:16px;
 
 color:#55ff9b;
 
-background:rgba(0,0,0,.60);
+background:
+rgba(0,0,0,.60);
 
 font-size:11px;
 
@@ -209,7 +233,8 @@ top:76px;
 
 left:50%;
 
-transform:translateX(-50%);
+transform:
+translateX(-50%);
 
 z-index:20;
 
@@ -223,14 +248,17 @@ text-align:center;
 
 color:#58ff9c;
 
-border:1px solid #a93cff;
+border:
+1px solid #a93cff;
 
 border-radius:24px;
 
-background:rgba(0,0,0,.58);
+background:
+rgba(0,0,0,.58);
 
 box-shadow:
-0 0 15px rgba(168,60,255,.45);
+0 0 15px
+rgba(168,60,255,.45);
 
 font-weight:900;
 
@@ -253,13 +281,17 @@ z-index:20;
 
 padding:8px 11px;
 
-border:1px solid rgba(255,255,255,.18);
+border:
+1px solid
+rgba(255,255,255,.18);
 
 border-radius:12px;
 
-background:rgba(0,0,0,.42);
+background:
+rgba(0,0,0,.42);
 
-backdrop-filter:blur(5px);
+backdrop-filter:
+blur(5px);
 
 color:#fff;
 
@@ -271,7 +303,8 @@ pointer-events:none;
 
 min-width:150px;
 
-max-width:calc(100vw - 24px);
+max-width:
+calc(100vw - 24px);
 }
 
 .debug-head{
@@ -293,16 +326,21 @@ justify-content:space-between;
 }
 
 .on{
+
 color:#59ff9b;
+
 font-weight:900;
 }
 
 .wait{
+
 color:#ffd84a;
 }
 
 .err{
+
 color:#ff6565;
+
 font-weight:900;
 }
 
@@ -319,27 +357,36 @@ left:50%;
 
 bottom:14px;
 
-transform:translateX(-50%);
+transform:
+translateX(-50%);
 
 z-index:20;
 
-width:min(560px,calc(100vw - 40px));
+width:
+min(560px,
+calc(100vw - 40px));
 
-padding:10px 14px;
+padding:
+10px 14px;
 
 text-align:center;
 
 color:#fff;
 
-background:rgba(0,0,0,.52);
+background:
+rgba(0,0,0,.52);
 
-border:1px solid #a93cff;
+border:
+1px solid #a93cff;
 
-border-radius:18px;
+border-radius:
+18px;
 
-backdrop-filter:blur(6px);
+backdrop-filter:
+blur(6px);
 
-font-size:13px;
+font-size:
+13px;
 
 pointer-events:none;
 }
@@ -397,11 +444,15 @@ CARD <span>BEAST</span> AR
 </div>
 
 <div id="build">
-v66.2 • PREMIUM VFX • 5-BEAST
+v66.3 • ABYSS VFX • 5-BEAST
 </div>
 
 </div>
 
+
+<!-- =========================================================
+     MAIN STATUS
+========================================================= -->
 
 <div id="mainStatus">
 CAMERA STARTING...
@@ -418,40 +469,72 @@ CAMERA STARTING...
 TRACKING DEBUG
 </div>
 
+
 <div class="debug-line">
 <span>CAMERA</span>
-<span id="cameraState" class="wait">
+<span
+id="cameraState"
+class="wait">
 STARTING
 </span>
 </div>
 
+
 <div class="debug-line">
 <span>DR-001</span>
-<span id="target0" class="wait">WAIT</span>
+<span
+id="target0"
+class="wait">
+WAIT
+</span>
 </div>
+
 
 <div class="debug-line">
 <span>DR-002</span>
-<span id="target1" class="wait">WAIT</span>
+<span
+id="target1"
+class="wait">
+WAIT
+</span>
 </div>
+
 
 <div class="debug-line">
 <span>DR-003</span>
-<span id="target2" class="wait">WAIT</span>
+<span
+id="target2"
+class="wait">
+WAIT
+</span>
 </div>
+
 
 <div class="debug-line">
 <span>DR-004</span>
-<span id="target3" class="wait">WAIT</span>
+<span
+id="target3"
+class="wait">
+WAIT
+</span>
 </div>
+
 
 <div class="debug-line">
 <span>DR-005</span>
-<span id="target4" class="wait">WAIT</span>
+<span
+id="target4"
+class="wait">
+WAIT
+</span>
 </div>
 
 </div>
 
+
+<!-- =========================================================
+     BOTTOM
+========================================================= -->
 
 <div id="bottom">
 📷 Starting camera...
@@ -478,16 +561,19 @@ missTolerance: 5;
 color-space="sRGB"
 
 renderer="
-alpha: true;
-antialias: true;
-colorManagement: true;
-physicallyCorrectLights: true;
+alpha:true;
+antialias:true;
+colorManagement:true;
+physicallyCorrectLights:true;
 "
 
-vr-mode-ui="enabled:false"
+vr-mode-ui="
+enabled:false
+"
 
-device-orientation-permission-ui="enabled:true"
->
+device-orientation-permission-ui="
+enabled:true
+">
 
 
 <!-- =========================================================
@@ -498,30 +584,36 @@ device-orientation-permission-ui="enabled:true"
 id="assets"
 timeout="30000">
 
+
 <a-asset-item
 id="dragonAsset"
 src="./models/ember-dragon.glb">
 </a-asset-item>
+
 
 <a-asset-item
 id="tigerAsset"
 src="./models/abyss-tiger.glb">
 </a-asset-item>
 
+
 <a-asset-item
 id="phoenixAsset"
 src="./models/Frost-phoenix.glb">
 </a-asset-item>
+
 
 <a-asset-item
 id="mantisAsset"
 src="./models/puppet-mantis.glb">
 </a-asset-item>
 
+
 <a-asset-item
 id="leviathanAsset"
 src="./models/tidal-leviathan.glb">
 </a-asset-item>
+
 
 </a-assets>
 
@@ -531,8 +623,13 @@ src="./models/tidal-leviathan.glb">
 ========================================================= -->
 
 <a-camera
+
 position="0 0 0"
-look-controls="enabled:false">
+
+look-controls="
+enabled:false
+">
+
 </a-camera>
 
 
@@ -541,47 +638,98 @@ look-controls="enabled:false">
 ========================================================= -->
 
 <a-entity
+
 id="beast0"
-mindar-image-target="targetIndex:0"
-visible="false">
+
+mindar-image-target="
+targetIndex:0
+"
+
+visible="false"
+>
+
 
 <a-entity
+
 id="dragonModel"
+
 gltf-model="#dragonAsset"
-position="0 -0.25 0"
-rotation="90 0 0"
-scale="2.5 2.5 2.5">
+
+position="
+0 -0.25 0
+"
+
+rotation="
+90 0 0
+"
+
+scale="
+2.5 2.5 2.5
+">
+
 </a-entity>
 
+
+<!-- Future VFX anchor -->
+
 <a-entity
-id="vfx0"
-premium-vfx="type:fire">
+id="vfx0">
 </a-entity>
+
 
 </a-entity>
 
 
 <!-- =========================================================
-     DR-002
+     DR-002 ABYSS TIGER
+     SPECIAL MAGIC RING
 ========================================================= -->
 
 <a-entity
+
 id="beast1"
-mindar-image-target="targetIndex:1"
-visible="false">
+
+mindar-image-target="
+targetIndex:1
+"
+
+visible="false"
+>
+
 
 <a-entity
+
 id="tigerModel"
+
 gltf-model="#tigerAsset"
-position="0 -0.25 0"
-rotation="90 0 0"
-scale="1.5 1.5 1.5">
+
+position="
+0 -0.25 0
+"
+
+rotation="
+90 0 0
+"
+
+scale="
+1.5 1.5 1.5
+">
+
 </a-entity>
 
+
+<!-- =====================================================
+     ABYSS VFX
+===================================================== -->
+
 <a-entity
-id="vfx1"
-premium-vfx="type:dark">
+id="abyssVFX"
+abyss-ring-vfx="
+active:false;
+">
+
 </a-entity>
+
 
 </a-entity>
 
@@ -591,22 +739,42 @@ premium-vfx="type:dark">
 ========================================================= -->
 
 <a-entity
+
 id="beast2"
-mindar-image-target="targetIndex:2"
-visible="false">
+
+mindar-image-target="
+targetIndex:2
+"
+
+visible="false"
+>
+
 
 <a-entity
+
 id="phoenixModel"
+
 gltf-model="#phoenixAsset"
-position="0 -0.25 0"
-rotation="90 0 0"
-scale="1.75 1.75 1.75">
+
+position="
+0 -0.25 0
+"
+
+rotation="
+90 0 0
+"
+
+scale="
+1.75 1.75 1.75
+">
+
 </a-entity>
 
+
 <a-entity
-id="vfx2"
-premium-vfx="type:frost">
+id="vfx2">
 </a-entity>
+
 
 </a-entity>
 
@@ -616,22 +784,42 @@ premium-vfx="type:frost">
 ========================================================= -->
 
 <a-entity
+
 id="beast3"
-mindar-image-target="targetIndex:3"
-visible="false">
+
+mindar-image-target="
+targetIndex:3
+"
+
+visible="false"
+>
+
 
 <a-entity
+
 id="mantisModel"
+
 gltf-model="#mantisAsset"
-position="0 -0.25 0"
-rotation="90 0 0"
-scale="1.55 1.55 1.55">
+
+position="
+0 -0.25 0
+"
+
+rotation="
+90 0 0
+"
+
+scale="
+1.55 1.55 1.55
+">
+
 </a-entity>
 
+
 <a-entity
-id="vfx3"
-premium-vfx="type:mind">
+id="vfx3">
 </a-entity>
+
 
 </a-entity>
 
@@ -641,22 +829,42 @@ premium-vfx="type:mind">
 ========================================================= -->
 
 <a-entity
+
 id="beast4"
-mindar-image-target="targetIndex:4"
-visible="false">
+
+mindar-image-target="
+targetIndex:4
+"
+
+visible="false"
+>
+
 
 <a-entity
+
 id="leviathanModel"
+
 gltf-model="#leviathanAsset"
-position="0 -0.25 0"
-rotation="90 0 0"
-scale="1.45 1.45 1.45">
+
+position="
+0 -0.25 0
+"
+
+rotation="
+90 0 0
+"
+
+scale="
+1.45 1.45 1.45
+">
+
 </a-entity>
 
+
 <a-entity
-id="vfx4"
-premium-vfx="type:water">
+id="vfx4">
 </a-entity>
+
 
 </a-entity>
 
@@ -667,15 +875,17 @@ premium-vfx="type:water">
 <script>
 
 /* =========================================================
-   CARD BEAST AR v66.2
-   PREMIUM ELEMENT VFX
+   CARD BEAST AR v66.3
 
-   CORE AR LOCKED
+   SPECIAL VFX:
+   DR-002 ABYSS TIGER
+
+   CORE AR UNCHANGED
 ========================================================= */
 
 
 /* =========================================================
-   DATA
+   BEAST DATA
 ========================================================= */
 
 const beasts=[
@@ -691,7 +901,7 @@ model:"dragonModel"
 {
 id:"DR-002",
 name:"Abyss Tiger",
-emoji:"🌑",
+emoji:"🐯",
 target:1,
 model:"tigerModel"
 },
@@ -707,7 +917,7 @@ model:"phoenixModel"
 {
 id:"DR-004",
 name:"Puppet Mantis",
-emoji:"🧠",
+emoji:"🦗",
 target:3,
 model:"mantisModel"
 },
@@ -723,95 +933,71 @@ model:"leviathanModel"
 ];
 
 
-const state=beasts.map(()=>({
-
-found:false,
-loaded:false,
-loadCount:0
-
-}));
-
-
-const scene=
-document.getElementById("scene");
-
-const mainStatus=
-document.getElementById("mainStatus");
-
-const bottom=
-document.getElementById("bottom");
-
-
 /* =========================================================
-   PREMIUM VFX CONFIG
+   STATE
 ========================================================= */
 
-const VFX={
+const state=
+beasts.map(
+()=>({
 
-fire:{
-color:"#ff6a00",
-secondary:"#ffd21a",
-type:"fire"
-},
+found:false,
 
-dark:{
-color:"#7d35ff",
-secondary:"#d17cff",
-type:"dark"
-},
+loaded:false,
 
-frost:{
-color:"#a8f5ff",
-secondary:"#ffffff",
-type:"frost"
-},
+loadCount:0
 
-mind:{
-color:"#d04cff",
-secondary:"#69dfff",
-type:"mind"
-},
-
-water:{
-color:"#22d9ff",
-secondary:"#ffffff",
-type:"water"
-}
-
-};
+})
+);
 
 
 /* =========================================================
-   PREMIUM VFX COMPONENT
+   DOM
+========================================================= */
+
+const scene=
+document.getElementById(
+"scene"
+);
+
+const mainStatus=
+document.getElementById(
+"mainStatus"
+);
+
+const bottom=
+document.getElementById(
+"bottom"
+);
+
+
+/* =========================================================
+   ABYSS RING VFX
 ========================================================= */
 
 AFRAME.registerComponent(
 
-"premium-vfx",
+"abyss-ring-vfx",
 
 {
 
 schema:{
-type:{
-type:"string",
-default:"fire"
+
+active:{
+type:"boolean",
+default:false
 }
+
 },
 
 
 init:function(){
 
-this.active=false;
-
 this.time=0;
 
 this.parts=[];
 
-this.config=
-VFX[this.data.type] ||
-VFX.fire;
-
-this.build();
+this.buildRing();
 
 },
 
@@ -820,466 +1006,270 @@ this.build();
    BUILD
 ===================================================== */
 
-build:function(){
+buildRing:function(){
 
-const type=this.data.type;
-const cfg=this.config;
+/*
+ * MAIN INNER RING
+ */
 
-
-/* -----------------------------------------------------
-   CENTRAL AURA RING
------------------------------------------------------ */
-
-const ring=
-document.createElement("a-ring");
-
-ring.setAttribute(
-"radius-inner",
-"0.28"
+this.ring1=
+this.createRing(
+0.28,
+0.34,
+"#ffb52e",
+0.95
 );
 
-ring.setAttribute(
-"radius-outer",
-"0.34"
+
+/*
+ * WHITE HOT CORE
+ */
+
+this.ringCore=
+this.createRing(
+0.17,
+0.205,
+"#fff4cf",
+0.95
 );
 
-ring.setAttribute(
-"rotation",
-"-90 0 0"
+
+/*
+ * PURPLE INNER RING
+ */
+
+this.ringPurple=
+this.createRing(
+0.36,
+0.385,
+"#8f35ff",
+0.70
 );
 
-ring.setAttribute(
-"material",
-{
 
-color:cfg.color,
+/*
+ * LARGE ORBIT RING
+ */
 
-transparent:true,
-
-opacity:.42,
-
-shader:"flat"
-
-}
+this.ringOuter=
+this.createRing(
+0.47,
+0.49,
+"#ff7a18",
+0.58
 );
 
-ring.setAttribute(
-"visible",
-"false"
+
+/*
+ * SECOND OUTER ENERGY
+ */
+
+this.ringOuter2=
+this.createRing(
+0.55,
+0.565,
+"#ffca4b",
+0.35
 );
 
-this.el.appendChild(ring);
 
-this.ring=ring;
-
-
-/* -----------------------------------------------------
-   SECOND RING
------------------------------------------------------ */
-
-const ring2=
-document.createElement("a-ring");
-
-ring2.setAttribute(
-"radius-inner",
-"0.42"
-);
-
-ring2.setAttribute(
-"radius-outer",
-"0.45"
-);
-
-ring2.setAttribute(
-"rotation",
-"-90 0 0"
-);
-
-ring2.setAttribute(
-"material",
-{
-
-color:cfg.secondary,
-
-transparent:true,
-
-opacity:.18,
-
-shader:"flat"
-
-}
-);
-
-ring2.setAttribute(
-"visible",
-"false"
-);
-
-this.el.appendChild(ring2);
-
-this.ring2=ring2;
-
-
-/* -----------------------------------------------------
-   SMALL ENERGY POINTS
------------------------------------------------------ */
-
-const count=
-type==="frost" ? 7 :
-type==="water" ? 6 :
-5;
-
+/*
+ * SPARKS
+ */
 
 for(
 let i=0;
-i<count;
+i<18;
 i++
 ){
 
-const point=
+const spark=
 document.createElement(
 "a-sphere"
 );
 
 
-const angle=
-(
-Math.PI*2/count
-)*i;
-
-
-const radius=
-type==="mind" ?
-.38 :
-.32;
-
-
-const x=
-Math.cos(angle)*radius;
-
-const z=
-Math.sin(angle)*radius;
-
-const y=
-type==="frost" ?
-.32 :
-.18;
-
-
-point.setAttribute(
+spark.setAttribute(
 "radius",
-type==="frost" ? .018 : .022
+randomRange(
+0.006,
+0.015
+)
 );
 
 
-point.setAttribute(
-"position",
-`${x} ${y} ${z}`
-);
-
-
-point.setAttribute(
+spark.setAttribute(
 "material",
 {
 
 color:
-i%2===0 ?
-cfg.color :
-cfg.secondary,
+i%3===0
+?
+"#ffffff"
+:
+"#ff8b20",
 
 shader:"standard",
 
 transparent:true,
 
-opacity:.72,
+opacity:
+randomRange(.45,.9),
 
-roughness:.25,
+emissive:
+i%3===0
+?
+"#ffffff"
+:
+"#ff5b00",
 
-metalness:.05
+emissiveIntensity:
+2
 
 }
 );
 
 
-point.setAttribute(
+const angle=
+Math.random()*
+Math.PI*2;
+
+
+const radius=
+randomRange(
+0.25,
+0.58
+);
+
+
+spark.dataset.angle=
+angle;
+
+spark.dataset.radius=
+radius;
+
+spark.dataset.height=
+randomRange(
+0.02,
+0.18
+);
+
+spark.dataset.phase=
+Math.random()*6.28;
+
+spark.dataset.speed=
+randomRange(
+0.5,
+1.25
+);
+
+
+spark.setAttribute(
 "visible",
 "false"
 );
 
-
-this.el.appendChild(point);
-
-this.parts.push({
-
-el:point,
-
-angle:angle,
-
-radius:radius,
-
-phase:Math.random()*6.28
-
-});
-
-}
-
-
-/* -----------------------------------------------------
-   ELEMENT-SPECIFIC DETAIL
------------------------------------------------------ */
-
-if(
-type==="fire"
-){
-
-this.buildFire();
-
-}
-
-if(
-type==="dark"
-){
-
-this.buildDark();
-
-}
-
-if(
-type==="frost"
-){
-
-this.buildFrost();
-
-}
-
-if(
-type==="mind"
-){
-
-this.buildMind();
-
-}
-
-if(
-type==="water"
-){
-
-this.buildWater();
-
-}
-
-},
-
-
-/* =====================================================
-   FIRE
-===================================================== */
-
-buildFire:function(){
-
-for(
-let i=0;
-i<3;
-i++
-){
-
-const ember=
-document.createElement(
-"a-sphere"
-);
-
-ember.setAttribute(
-"radius",
-".025"
-);
-
-ember.setAttribute(
-"material",
-{
-
-color:
-i===0 ?
-"#ff4a00" :
-"#ffd21a",
-
-transparent:true,
-
-opacity:.8
-
-}
-);
-
-ember.setAttribute(
-"visible",
-"false"
-);
 
 this.el.appendChild(
-ember
+spark
 );
 
-this.parts.push({
-
-el:ember,
-
-fire:true,
-
-phase:i*2
-
-});
+this.parts.push(
+spark
+);
 
 }
 
-},
 
+/*
+ * DARK INNER DISC
+ * very transparent
+ */
 
-/* =====================================================
-   DARK
-===================================================== */
-
-buildDark:function(){
-
-const orb=
+this.shadow=
 document.createElement(
-"a-torus"
+"a-circle"
 );
 
-orb.setAttribute(
+this.shadow.setAttribute(
 "radius",
-".34"
+"0.32"
 );
 
-orb.setAttribute(
-"radius-tubular",
-".012"
-);
-
-orb.setAttribute(
+this.shadow.setAttribute(
 "rotation",
-"90 0 0"
+"-90 0 0"
 );
 
-orb.setAttribute(
+this.shadow.setAttribute(
 "material",
 {
 
-color:"#792dff",
+color:"#12000d",
 
 transparent:true,
 
-opacity:.35
+opacity:.20,
+
+shader:"flat"
 
 }
 );
 
-orb.setAttribute(
+this.shadow.setAttribute(
 "visible",
 "false"
 );
 
 this.el.appendChild(
-orb
+this.shadow
 );
-
-this.darkOrb=orb;
 
 },
 
 
 /* =====================================================
-   FROST
+   RING CREATOR
 ===================================================== */
 
-buildFrost:function(){
-
-for(
-let i=0;
-i<4;
-i++
+createRing:function(
+inner,
+outer,
+color,
+opacity
 ){
-
-const snow=
-document.createElement(
-"a-sphere"
-);
-
-snow.setAttribute(
-"radius",
-".018"
-);
-
-snow.setAttribute(
-"material",
-{
-
-color:"#dfffff",
-
-transparent:true,
-
-opacity:.65
-
-}
-);
-
-snow.setAttribute(
-"visible",
-"false"
-);
-
-this.el.appendChild(
-snow
-);
-
-this.parts.push({
-
-el:snow,
-
-snow:true,
-
-phase:i*1.4
-
-});
-
-}
-
-},
-
-
-/* =====================================================
-   MIND
-===================================================== */
-
-buildMind:function(){
 
 const ring=
 document.createElement(
-"a-torus"
+"a-ring"
 );
 
 ring.setAttribute(
-"radius",
-".40"
+"radius-inner",
+inner
 );
 
 ring.setAttribute(
-"radius-tubular",
-".008"
+"radius-outer",
+outer
 );
 
 ring.setAttribute(
 "rotation",
-"0 0 0"
+"-90 0 0"
 );
 
 ring.setAttribute(
 "material",
 {
 
-color:"#c64cff",
+color:color,
+
+shader:"flat",
 
 transparent:true,
 
-opacity:.45
+opacity:opacity
 
 }
 );
@@ -1293,60 +1283,7 @@ this.el.appendChild(
 ring
 );
 
-this.mindRing=ring;
-
-},
-
-
-/* =====================================================
-   WATER
-===================================================== */
-
-buildWater:function(){
-
-const wave=
-document.createElement(
-"a-ring"
-);
-
-wave.setAttribute(
-"radius-inner",
-".48"
-);
-
-wave.setAttribute(
-"radius-outer",
-".51"
-);
-
-wave.setAttribute(
-"rotation",
-"-90 0 0"
-);
-
-wave.setAttribute(
-"material",
-{
-
-color:"#19d9ff",
-
-transparent:true,
-
-opacity:.30,
-
-shader:"flat"
-
-}
-);
-
-wave.setAttribute(
-"visible",
-"false"
-);
-
-this.el.appendChild(wave);
-
-this.wave=wave;
+return ring;
 
 },
 
@@ -1355,49 +1292,53 @@ this.wave=wave;
    ACTIVE
 ===================================================== */
 
-setActive:function(active){
+setActive:function(
+active
+){
 
-this.active=active;
+this.active=
+active;
 
 this.el.setAttribute(
 "visible",
 active
 );
 
-if(this.ring)
-this.ring.setAttribute(
+this.ring1.setAttribute(
 "visible",
 active
 );
 
-if(this.ring2)
-this.ring2.setAttribute(
+this.ringCore.setAttribute(
 "visible",
 active
 );
 
-if(this.darkOrb)
-this.darkOrb.setAttribute(
+this.ringPurple.setAttribute(
 "visible",
 active
 );
 
-if(this.mindRing)
-this.mindRing.setAttribute(
+this.ringOuter.setAttribute(
 "visible",
 active
 );
 
-if(this.wave)
-this.wave.setAttribute(
+this.ringOuter2.setAttribute(
 "visible",
 active
 );
+
+this.shadow.setAttribute(
+"visible",
+active
+);
+
 
 this.parts.forEach(
-p=>{
+part=>{
 
-p.el.setAttribute(
+part.setAttribute(
 "visible",
 active
 );
@@ -1412,217 +1353,192 @@ active
    ANIMATION
 ===================================================== */
 
-tick:function(time,delta){
+tick:function(
+time,
+delta
+){
 
-if(!this.active)
+if(
+!this.active
+){
+
 return;
+
+}
 
 
 this.time+=
-delta*.001;
+delta*0.001;
 
 
-const t=this.time;
+const t=
+this.time;
 
 
-/* -----------------------------------------------------
-   MAIN RINGS
------------------------------------------------------ */
+/*
+ * Main ring
+ */
 
-if(this.ring){
+this.ring1.object3D.rotation.z=
+t*1.8;
+
+
+this.ringCore.object3D.rotation.z=
+-t*2.6;
+
+
+this.ringPurple.object3D.rotation.z=
+t*1.25;
+
+
+this.ringOuter.object3D.rotation.z=
+-t*.85;
+
+
+this.ringOuter2.object3D.rotation.z=
+t*.55;
+
+
+/*
+ * Pulse
+ */
 
 const pulse=
 1+
-Math.sin(t*3)*.06;
+Math.sin(
+t*3.5
+)*.055;
 
-this.ring.object3D.scale.set(
+
+this.ring1.object3D.scale.set(
 pulse,
 pulse,
 pulse
 );
 
-this.ring.object3D.rotation.y=
-t*.25;
-}
 
-
-if(this.ring2){
-
-const pulse=
+const corePulse=
 1+
-Math.sin(t*2.2+1)*.05;
+Math.sin(
+t*5
+)*.08;
 
-this.ring2.object3D.scale.set(
-pulse,
-pulse,
-pulse
+
+this.ringCore.object3D.scale.set(
+corePulse,
+corePulse,
+corePulse
 );
 
-this.ring2.object3D.rotation.y=
--t*.18;
-}
+
+/*
+ * Outer pulse
+ */
+
+const outerPulse=
+1+
+Math.sin(
+t*2.1
+)*.06;
 
 
-/* -----------------------------------------------------
-   ORBIT POINTS
------------------------------------------------------ */
+this.ringOuter.object3D.scale.set(
+outerPulse,
+outerPulse,
+outerPulse
+);
+
+
+/*
+ * Sparks
+ */
 
 this.parts.forEach(
-p=>{
-
-if(p.fire || p.snow)
-return;
-
-if(
-p.angle===undefined
-)
-return;
-
+spark=>{
 
 const angle=
-p.angle+
-t*.45;
-
+Number(
+spark.dataset.angle
+)+
+t*
+Number(
+spark.dataset.speed
+);
 
 const radius=
-p.radius+
+Number(
+spark.dataset.radius
+);
+
+const phase=
+Number(
+spark.dataset.phase
+);
+
+let y=
+Number(
+spark.dataset.height
+);
+
+
+/*
+ * Sparks slowly rise
+ */
+
+y+=
+(
 Math.sin(
-t*1.5+p.phase
+t*1.8+
+phase
+)+1
+)*.11;
+
+
+/*
+ * Slight spiral
+ */
+
+const r=
+radius+
+Math.sin(
+t*2+
+phase
 )*.025;
 
 
-p.el.object3D.position.x=
-Math.cos(angle)*radius;
+spark.object3D.position.x=
+Math.cos(angle)*r;
 
 
-p.el.object3D.position.z=
-Math.sin(angle)*radius;
+spark.object3D.position.z=
+Math.sin(angle)*r;
 
 
-p.el.object3D.position.y=
-.18+
-Math.sin(
-t*2+p.phase
-)*.055;
-
-}
-);
+spark.object3D.position.y=
+y;
 
 
-/* -----------------------------------------------------
-   FIRE EMBERS
------------------------------------------------------ */
+/*
+ * Fade/pulse
+ */
 
-this.parts.forEach(
-p=>{
-
-if(!p.fire)
-return;
-
-
-const phase=p.phase;
-
-p.el.object3D.position.x=
-Math.sin(
-t*2+phase
-)*.12;
-
-p.el.object3D.position.z=
-Math.cos(
-t*1.7+phase
-)*.10;
-
-p.el.object3D.position.y=
-.12+
+const s=
+0.7+
 (
-(t*.25+phase)%1
-)*.45;
-
-}
-);
-
-
-/* -----------------------------------------------------
-   FROST SNOW
------------------------------------------------------ */
-
-this.parts.forEach(
-p=>{
-
-if(!p.snow)
-return;
-
-
-const cycle=
-(t*.18+p.phase)%1;
-
-p.el.object3D.position.y=
-.60-cycle*.60;
-
-p.el.object3D.position.x=
 Math.sin(
-t*1.2+p.phase
-)*.15;
+t*4+
+phase
+)+1
+)*.25;
 
-p.el.object3D.position.z=
-Math.cos(
-t*1.1+p.phase
-)*.15;
+spark.object3D.scale.set(
+s,
+s,
+s
+);
 
 }
 );
-
-
-/* -----------------------------------------------------
-   DARK ORBIT
------------------------------------------------------ */
-
-if(this.darkOrb){
-
-this.darkOrb.object3D.rotation.z=
-t*.55;
-
-this.darkOrb.object3D.rotation.y=
-t*.30;
-
-}
-
-
-/* -----------------------------------------------------
-   MIND
------------------------------------------------------ */
-
-if(this.mindRing){
-
-this.mindRing.object3D.rotation.x=
-Math.sin(t)*.45;
-
-this.mindRing.object3D.rotation.y=
-t*.65;
-
-}
-
-
-/* -----------------------------------------------------
-   WATER
------------------------------------------------------ */
-
-if(this.wave){
-
-const pulse=
-1+
-Math.sin(t*2)*.08;
-
-this.wave.object3D.scale.set(
-pulse,
-pulse,
-pulse
-);
-
-this.wave.object3D.rotation.z=
-t*.25;
-
-}
 
 }
 
@@ -1632,14 +1548,32 @@ t*.25;
 
 
 /* =========================================================
+   RANDOM
+========================================================= */
+
+function randomRange(
+min,
+max
+){
+
+return min+
+Math.random()*
+(max-min);
+
+}
+
+
+/* =========================================================
    CAMERA LAYER
-   EXACT v66.0 BASELINE
+   v66.0 UNCHANGED
 ========================================================= */
 
 function forceCameraLayer(){
 
 const videos=
-document.querySelectorAll("video");
+document.querySelectorAll(
+"video"
+);
 
 
 videos.forEach(
@@ -1649,11 +1583,13 @@ video.classList.add(
 "mindar-video"
 );
 
+
 video.style.setProperty(
 "position",
 "fixed",
 "important"
 );
+
 
 video.style.setProperty(
 "top",
@@ -1661,11 +1597,13 @@ video.style.setProperty(
 "important"
 );
 
+
 video.style.setProperty(
 "left",
 "0",
 "important"
 );
+
 
 video.style.setProperty(
 "width",
@@ -1673,11 +1611,13 @@ video.style.setProperty(
 "important"
 );
 
+
 video.style.setProperty(
 "height",
 "100vh",
 "important"
 );
+
 
 video.style.setProperty(
 "min-width",
@@ -1685,11 +1625,13 @@ video.style.setProperty(
 "important"
 );
 
+
 video.style.setProperty(
 "min-height",
 "100vh",
 "important"
 );
+
 
 video.style.setProperty(
 "object-fit",
@@ -1697,11 +1639,13 @@ video.style.setProperty(
 "important"
 );
 
+
 video.style.setProperty(
 "display",
 "block",
 "important"
 );
+
 
 video.style.setProperty(
 "visibility",
@@ -1709,17 +1653,20 @@ video.style.setProperty(
 "important"
 );
 
+
 video.style.setProperty(
 "opacity",
 "1",
 "important"
 );
 
+
 video.style.setProperty(
 "z-index",
 "0",
 "important"
 );
+
 
 video.style.setProperty(
 "pointer-events",
@@ -1734,7 +1681,9 @@ video.srcObject
 ){
 
 video.play()
-.catch(()=>{});
+.catch(
+()=>{}
+);
 
 }
 
@@ -1811,7 +1760,10 @@ scene.renderer
 const renderer=
 scene.renderer;
 
-if(renderer.setClearColor){
+
+if(
+renderer.setClearColor
+){
 
 renderer.setClearColor(
 0x000000,
@@ -1820,7 +1772,10 @@ renderer.setClearColor(
 
 }
 
-if(renderer.setClearAlpha){
+
+if(
+renderer.setClearAlpha
+){
 
 renderer.setClearAlpha(
 0
@@ -1830,7 +1785,8 @@ renderer.setClearAlpha(
 
 }
 
-}catch(error){
+}
+catch(error){
 
 console.warn(
 "Renderer transparency patch:",
@@ -1855,12 +1811,16 @@ forceCameraLayer();
 }
 );
 
+
 videoObserver.observe(
+
 document.body,
+
 {
 childList:true,
 subtree:true
 }
+
 );
 
 
@@ -1879,10 +1839,16 @@ document.getElementById(
 "target"+index
 );
 
-if(!element)
+
+if(!element){
+
 return;
 
-element.textContent=text;
+}
+
+
+element.textContent=
+text;
 
 element.className=
 className;
@@ -1891,28 +1857,34 @@ className;
 
 
 /* =========================================================
-   VFX CONTROL
+   ABYSS VFX CONTROL
 ========================================================= */
 
-function setVFX(
-index,
+function setAbyssVFX(
 active
 ){
 
-const vfx=
+const entity=
 document.getElementById(
-"vfx"+index
+"abyssVFX"
 );
 
+
 if(
-!vfx ||
-!vfx.components ||
-!vfx.components["premium-vfx"]
-)
+!entity ||
+!entity.components ||
+!entity.components[
+"abyss-ring-vfx"
+]
+){
+
 return;
 
-vfx.components[
-"premium-vfx"
+}
+
+
+entity.components[
+"abyss-ring-vfx"
 ].setActive(
 active
 );
@@ -1933,7 +1905,9 @@ state[index].found
 );
 
 
-if(active.length===0){
+if(
+active.length===0
+){
 
 mainStatus.textContent=
 "CAMERA READY • SEARCHING";
@@ -1946,13 +1920,17 @@ return;
 }
 
 
-if(active.length===1){
+if(
+active.length===1
+){
 
 const beast=
 active[0];
 
+
 mainStatus.textContent=
 `${beast.id} FOUND • ${beast.name.toUpperCase()}`;
+
 
 bottom.innerHTML=
 `${beast.emoji} <b>${beast.name.toUpperCase()} ACTIVE</b> • ${beast.id}`;
@@ -1981,7 +1959,7 @@ beast.id
 
 
 /* =========================================================
-   PRELOAD ONCE
+   PRELOAD
 ========================================================= */
 
 function setupPreload(){
@@ -1993,6 +1971,7 @@ const model=
 document.getElementById(
 beast.model
 );
+
 
 if(!model){
 
@@ -2007,15 +1986,25 @@ return;
 
 
 model.addEventListener(
+
 "model-loaded",
+
 ()=>{
 
-if(state[index].loaded)
+if(
+state[index].loaded
+){
+
 return;
 
-state[index].loaded=true;
+}
+
+
+state[index].loaded=
+true;
 
 state[index].loadCount++;
+
 
 console.log(
 beast.id+
@@ -2023,14 +2012,18 @@ beast.id+
 );
 
 },
+
 {
 once:true
 }
+
 );
 
 
 model.addEventListener(
+
 "model-error",
+
 event=>{
 
 console.error(
@@ -2039,6 +2032,7 @@ beast.id+
 event
 );
 
+
 setBadge(
 index,
 "GLB ERROR",
@@ -2046,6 +2040,7 @@ index,
 );
 
 }
+
 );
 
 }
@@ -2058,15 +2053,19 @@ index,
    TARGET SETUP
 ========================================================= */
 
-function setupTarget(index){
+function setupTarget(
+index
+){
 
 const beast=
 beasts[index];
+
 
 const target=
 document.getElementById(
 "beast"+index
 );
+
 
 if(!target){
 
@@ -2081,24 +2080,39 @@ return;
 
 
 /* =====================================================
-   FOUND
+   TARGET FOUND
 ===================================================== */
 
 target.addEventListener(
+
 "targetFound",
+
 ()=>{
 
-state[index].found=true;
+state[index].found=
+true;
+
 
 target.setAttribute(
 "visible",
 "true"
 );
 
-setVFX(
-index,
+
+/*
+ * DR-002 ONLY
+ */
+
+if(
+index===1
+){
+
+setAbyssVFX(
 true
 );
+
+}
+
 
 setBadge(
 index,
@@ -2106,7 +2120,9 @@ index,
 "on"
 );
 
+
 updateUI();
+
 
 console.log(
 beast.id+
@@ -2118,24 +2134,39 @@ beast.id+
 
 
 /* =====================================================
-   LOST
+   TARGET LOST
 ===================================================== */
 
 target.addEventListener(
+
 "targetLost",
+
 ()=>{
 
-state[index].found=false;
+state[index].found=
+false;
+
 
 target.setAttribute(
 "visible",
 "false"
 );
 
-setVFX(
-index,
+
+/*
+ * DR-002 ONLY
+ */
+
+if(
+index===1
+){
+
+setAbyssVFX(
 false
 );
+
+}
+
 
 setBadge(
 index,
@@ -2143,7 +2174,9 @@ index,
 "wait"
 );
 
+
 updateUI();
+
 
 console.log(
 beast.id+
@@ -2161,20 +2194,29 @@ beast.id+
 ========================================================= */
 
 scene.addEventListener(
+
 "loaded",
+
 ()=>{
 
 console.log(
-"CARD BEAST AR v66.2 SCENE LOADED"
+"CARD BEAST AR v66.3 SCENE LOADED"
 );
+
 
 beasts.forEach(
 (_,index)=>{
-setupTarget(index);
+
+setupTarget(
+index
+);
+
 }
 );
 
+
 setupPreload();
+
 
 forceCameraLayer();
 
@@ -2187,17 +2229,21 @@ forceCameraLayer();
 ========================================================= */
 
 scene.addEventListener(
+
 "arReady",
+
 ()=>{
 
 console.log(
 "MINDAR CAMERA READY"
 );
 
+
 const cameraState=
 document.getElementById(
 "cameraState"
 );
+
 
 if(cameraState){
 
@@ -2209,33 +2255,41 @@ cameraState.className=
 
 }
 
+
 mainStatus.textContent=
 "CAMERA READY • SEARCHING";
+
 
 bottom.textContent=
 "📷 Point camera at any Card Beast target.";
 
+
 forceCameraLayer();
+
 
 setTimeout(
 forceCameraLayer,
 100
 );
 
+
 setTimeout(
 forceCameraLayer,
 300
 );
+
 
 setTimeout(
 forceCameraLayer,
 700
 );
 
+
 setTimeout(
 forceCameraLayer,
 1200
 );
+
 
 setTimeout(
 forceCameraLayer,
@@ -2251,7 +2305,9 @@ forceCameraLayer,
 ========================================================= */
 
 scene.addEventListener(
+
 "arError",
+
 event=>{
 
 console.error(
@@ -2259,10 +2315,12 @@ console.error(
 event
 );
 
+
 const cameraState=
 document.getElementById(
 "cameraState"
 );
+
 
 if(cameraState){
 
@@ -2274,8 +2332,10 @@ cameraState.className=
 
 }
 
+
 mainStatus.textContent=
 "CAMERA ERROR";
+
 
 bottom.textContent=
 "Camera could not start.";
@@ -2289,20 +2349,25 @@ bottom.textContent=
 ========================================================= */
 
 window.addEventListener(
+
 "load",
+
 ()=>{
 
 forceCameraLayer();
+
 
 setTimeout(
 forceCameraLayer,
 300
 );
 
+
 setTimeout(
 forceCameraLayer,
 800
 );
+
 
 setTimeout(
 forceCameraLayer,
@@ -2314,14 +2379,19 @@ forceCameraLayer,
 
 
 /* =========================================================
-   CAMERA PROTECTION
+   CONTINUOUS CAMERA PROTECTION
 ========================================================= */
 
 setInterval(
+
 ()=>{
+
 forceCameraLayer();
+
 },
+
 1000
+
 );
 
 
@@ -2330,6 +2400,7 @@ forceCameraLayer();
 ========================================================= */
 
 beasts.forEach(
+
 (_,index)=>{
 
 setBadge(
@@ -2339,9 +2410,11 @@ index,
 );
 
 }
+
 );
 
 </script>
 
 </body>
+
 </html>
