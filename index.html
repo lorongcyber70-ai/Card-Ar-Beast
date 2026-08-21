@@ -176,7 +176,7 @@ a-scene canvas,
 
 <div id="header">
     <div id="title">CARD <span>BEAST</span> AR</div>
-    <div id="build">v66.6 • TIGER PORTAL • 5-BEAST</div>
+    <div id="build">v66.8 • TIGER FOOT ANCHOR • 5-BEAST</div>
 </div>
 
 <div id="mainStatus">CAMERA STARTING...</div>
@@ -241,14 +241,16 @@ a-scene canvas,
 
     <!--
       VFX LOCAL COORDINATES:
+      v66.8: deliberately anchored lower on the target plane
+      so the portal sits beneath the Tiger instead of through its body.
       MindAR image target lies in the XY plane.
       Therefore the fire vortex stays FLAT on the card:
       no -90 degree rotation.
       Z is the direction coming out of the card.
     -->
     <a-entity id="abyssVFX"
-        position="0 -0.43 0.035"
-        scale="0.62 0.62 0.62"
+        position="0 -0.82 0.012"
+        scale="0.28 0.28 0.28"
         tiger-portal-vfx>
     </a-entity>
 
@@ -288,8 +290,8 @@ a-scene canvas,
 
 <script>
 /* =========================================================
-   CARD BEAST AR v66.6
-   TIGER PORTAL VFX
+   CARD BEAST AR v66.8
+   TIGER FOOT PORTAL VFX
 
    KEPT:
    - 5 targets
@@ -320,7 +322,7 @@ const mainStatus = document.getElementById("mainStatus");
 const bottom = document.getElementById("bottom");
 
 /* =========================================================
-   TIGER PORTAL VFX
+   TIGER FOOT PORTAL VFX
    All rings are created directly in XY plane.
 ========================================================= */
 
@@ -370,7 +372,8 @@ AFRAME.registerComponent("tiger-portal-vfx",{
             transparent:true,
             opacity,
             depthWrite:false,
-            depthTest:false,
+            depthTest:true,
+            depthWrite:false,
             blending:THREE.AdditiveBlending,
             side:THREE.DoubleSide
         });
@@ -389,7 +392,8 @@ AFRAME.registerComponent("tiger-portal-vfx",{
             transparent:true,
             opacity,
             depthWrite:false,
-            depthTest:false,
+            depthTest:true,
+            depthWrite:false,
             blending:THREE.AdditiveBlending,
             side:THREE.DoubleSide
         });
@@ -431,7 +435,8 @@ AFRAME.registerComponent("tiger-portal-vfx",{
             transparent:true,
             opacity:0.55+Math.random()*0.35,
             depthWrite:false,
-            depthTest:false,
+            depthTest:true,
+            depthWrite:false,
             blending:THREE.AdditiveBlending
         });
 
@@ -457,7 +462,8 @@ AFRAME.registerComponent("tiger-portal-vfx",{
             transparent:true,
             opacity:0.55+Math.random()*0.4,
             depthWrite:false,
-            depthTest:false,
+            depthTest:true,
+            depthWrite:false,
             blending:THREE.AdditiveBlending
         });
 
@@ -521,7 +527,7 @@ AFRAME.registerComponent("tiger-portal-vfx",{
 
             /* rise out from the card */
             s.position.z=
-                d.height+
+                0.02 + d.height+
                 (Math.sin(t*2.5+d.phase)+1)*d.lift;
 
             const pulse=.65+
@@ -743,7 +749,7 @@ function setupTarget(index){
 
 scene.addEventListener("loaded",()=>{
 
-    console.log("CARD BEAST AR v66.6 SCENE LOADED");
+    console.log("CARD BEAST AR v66.8 SCENE LOADED");
 
     beasts.forEach((_,index)=>setupTarget(index));
 
