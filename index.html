@@ -176,7 +176,7 @@ a-scene canvas,
 
 <div id="header">
     <div id="title">CARD <span>BEAST</span> AR</div>
-    <div id="build">v66.9 • TIGER FOOT VFX BALANCE • 5-BEAST</div>
+    <div id="build">v67.0 • TIGER ABYSS PORTAL • 5-BEAST</div>
 </div>
 
 <div id="mainStatus">CAMERA STARTING...</div>
@@ -241,8 +241,8 @@ a-scene canvas,
 
     <!--
       VFX LOCAL COORDINATES:
-      v66.8: deliberately anchored lower on the target plane
-      so the portal sits beneath the Tiger instead of through its body.
+      v67.0: anchored below the Tiger and enlarged to cover the
+      full foot area, with purple abyss energy + orange fire core.
       MindAR image target lies in the XY plane.
       Therefore the fire vortex stays FLAT on the card:
       no -90 degree rotation.
@@ -250,7 +250,7 @@ a-scene canvas,
     -->
     <a-entity id="abyssVFX"
         position="0 -0.82 0.012"
-        scale="0.36 0.36 0.36"
+        scale="0.78 0.78 0.78"
         tiger-portal-vfx>
     </a-entity>
 
@@ -290,7 +290,7 @@ a-scene canvas,
 
 <script>
 /* =========================================================
-   CARD BEAST AR v66.9
+   CARD BEAST AR v67.0
    TIGER FOOT PORTAL VFX
 
    KEPT:
@@ -341,11 +341,11 @@ AFRAME.registerComponent("tiger-portal-vfx",{
 
         /* soft center glow */
         this.center = this.makeDisc(
-            0.27, 0xff5a00, 0.24, 64
+            0.30, 0xff5a00, 0.28, 64
         );
 
         this.centerHot = this.makeDisc(
-            0.13, 0xfff4c2, 0.62, 48
+            0.15, 0xfff4c2, 0.68, 48
         );
 
         /* main vortex rings */
@@ -354,13 +354,17 @@ AFRAME.registerComponent("tiger-portal-vfx",{
         this.makeRing(0.44,0.70,0xffd15b,0.48, 0.55);
         this.makeRing(0.53,0.80,0xff3b00,0.36,-0.36);
 
+        /* purple abyss rings from the reference */
+        this.makeRing(0.60,0.88,0x7b19ff,0.48,0.28);
+        this.makeRing(0.70,0.98,0xb43cff,0.30,-0.20);
+
         /* broken hot arcs */
         for(let i=0;i<10;i++){
             this.makeArc(i);
         }
 
         /* rising embers */
-        for(let i=0;i<28;i++){
+        for(let i=0;i<42;i++){
             this.makeSpark(i);
         }
     },
@@ -749,7 +753,7 @@ function setupTarget(index){
 
 scene.addEventListener("loaded",()=>{
 
-    console.log("CARD BEAST AR v66.9 SCENE LOADED");
+    console.log("CARD BEAST AR v67.0 SCENE LOADED");
 
     beasts.forEach((_,index)=>setupTarget(index));
 
