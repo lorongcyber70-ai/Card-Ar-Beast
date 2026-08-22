@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-<title>Card Beast AR — v66.6 Tiger Portal VFX</title>
+<title>Card Beast AR — v67.0 Official 10-Track</title>
 
 <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
@@ -14,63 +14,16 @@
 
 html,body{
     margin:0;
-    padding:0;
     width:100%;
     height:100%;
     overflow:hidden;
-    background:transparent!important;
+    background:#050505;
     font-family:Arial,Helvetica,sans-serif;
 }
 
-body{position:relative;background:transparent!important}
+body{position:relative}
 
-video.mindar-video,
-video#mindar-video{
-    position:fixed!important;
-    inset:0!important;
-    width:100vw!important;
-    height:100vh!important;
-    min-width:100vw!important;
-    min-height:100vh!important;
-    max-width:none!important;
-    max-height:none!important;
-    object-fit:cover!important;
-    display:block!important;
-    visibility:visible!important;
-    opacity:1!important;
-    z-index:0!important;
-    background:transparent!important;
-    pointer-events:none!important;
-}
-
-a-scene{
-    position:fixed!important;
-    inset:0!important;
-    width:100vw!important;
-    height:100vh!important;
-    margin:0!important;
-    padding:0!important;
-    z-index:1!important;
-    background:transparent!important;
-    background-color:transparent!important;
-    pointer-events:none!important;
-}
-
-a-scene canvas,
-.a-canvas{
-    position:fixed!important;
-    inset:0!important;
-    width:100vw!important;
-    height:100vh!important;
-    margin:0!important;
-    padding:0!important;
-    z-index:1!important;
-    background:transparent!important;
-    background-color:transparent!important;
-    opacity:1!important;
-    pointer-events:none!important;
-}
-
+/* HEADER */
 #header{
     position:fixed;
     top:12px;
@@ -98,12 +51,13 @@ a-scene canvas,
     border:1px solid #42ff91;
     border-radius:16px;
     color:#55ff9b;
-    background:rgba(0,0,0,.60);
+    background:rgba(0,0,0,.55);
     font-size:11px;
     font-weight:800;
     white-space:nowrap;
 }
 
+/* STATUS */
 #mainStatus{
     position:fixed;
     top:76px;
@@ -112,17 +66,19 @@ a-scene canvas,
     z-index:20;
     min-width:250px;
     max-width:90%;
-    padding:9px 17px;
+    padding:8px 16px;
     text-align:center;
     color:#58ff9c;
     border:1px solid #a93cff;
-    border-radius:24px;
-    background:rgba(0,0,0,.58);
-    box-shadow:0 0 15px rgba(168,60,255,.45);
+    border-radius:22px;
+    background:rgba(0,0,0,.55);
+    box-shadow:0 0 12px rgba(168,60,255,.35);
     font-weight:900;
     font-size:14px;
+    pointer-events:none;
 }
 
+/* DEBUG */
 #debug{
     position:fixed;
     top:128px;
@@ -131,21 +87,36 @@ a-scene canvas,
     padding:8px 11px;
     border:1px solid rgba(255,255,255,.18);
     border-radius:12px;
-    background:rgba(0,0,0,.42);
+    background:rgba(0,0,0,.38);
     backdrop-filter:blur(5px);
     color:#fff;
-    font-size:11px;
-    line-height:1.45;
+    font-size:10px;
+    line-height:1.35;
     pointer-events:none;
-    min-width:150px;
+    min-width:175px;
+    max-width:calc(100vw - 24px);
+    max-height:48vh;
+    overflow:hidden;
 }
 
-.debug-head{color:#d05cff;font-weight:900;margin-bottom:3px}
-.debug-line{display:flex;gap:6px;justify-content:space-between}
+.debug-head{
+    color:#d05cff;
+    font-weight:900;
+    margin-bottom:3px;
+}
+
+.debug-line{
+    display:flex;
+    gap:10px;
+    justify-content:space-between;
+}
+
 .on{color:#59ff9b;font-weight:900}
+.off{color:#aaa}
 .wait{color:#ffd84a}
 .err{color:#ff6565;font-weight:900}
 
+/* BOTTOM */
 #bottom{
     position:fixed;
     left:50%;
@@ -156,7 +127,7 @@ a-scene canvas,
     padding:10px 14px;
     text-align:center;
     color:#fff;
-    background:rgba(0,0,0,.52);
+    background:rgba(0,0,0,.48);
     border:1px solid #a93cff;
     border-radius:18px;
     backdrop-filter:blur(6px);
@@ -164,10 +135,32 @@ a-scene canvas,
     pointer-events:none;
 }
 
+/* A-FRAME / MINDAR
+   Keep MindAR's camera/video/canvas layers untouched.
+*/
+a-scene{
+    width:100vw !important;
+    height:100vh !important;
+}
+
 @media(max-width:600px){
-    #build{font-size:9px;padding:6px 8px;right:7px}
-    #debug{top:124px;font-size:10px;padding:7px 9px}
-    #bottom{font-size:12px;padding:8px 11px}
+    #build{
+        font-size:9px;
+        padding:6px 8px;
+        right:7px;
+    }
+
+    #debug{
+        top:124px;
+        font-size:9px;
+        padding:7px 9px;
+        min-width:160px;
+    }
+
+    #bottom{
+        font-size:12px;
+        padding:8px 11px;
+    }
 }
 </style>
 </head>
@@ -176,48 +169,81 @@ a-scene canvas,
 
 <div id="header">
     <div id="title">CARD <span>BEAST</span> AR</div>
-    <div id="build">v67.4 • TIGER BELLY PORTAL • 5-BEAST</div>
+    <div id="build">v67.0 • 10-BEAST MULTI-TRACK</div>
 </div>
 
 <div id="mainStatus">CAMERA STARTING...</div>
 
 <div id="debug">
     <div class="debug-head">TRACKING DEBUG</div>
+
     <div class="debug-line"><span>CAMERA</span><span id="cameraState" class="wait">STARTING</span></div>
-    <div class="debug-line"><span>DR-001</span><span id="target0" class="wait">WAIT</span></div>
-    <div class="debug-line"><span>DR-002</span><span id="target1" class="wait">WAIT</span></div>
-    <div class="debug-line"><span>DR-003</span><span id="target2" class="wait">WAIT</span></div>
-    <div class="debug-line"><span>DR-004</span><span id="target3" class="wait">WAIT</span></div>
-    <div class="debug-line"><span>DR-005</span><span id="target4" class="wait">WAIT</span></div>
+
+    <div class="debug-line"><span>DR-001 Ember Dragon</span><span id="target0" class="wait">WAIT</span></div>
+    <div class="debug-line"><span>DR-002 Abyss Tiger</span><span id="target1" class="wait">WAIT</span></div>
+    <div class="debug-line"><span>DR-003 Frost Phoenix</span><span id="target2" class="wait">WAIT</span></div>
+    <div class="debug-line"><span>DR-004 Puppet Mantis</span><span id="target3" class="wait">WAIT</span></div>
+    <div class="debug-line"><span>DR-005 Tidal Leviathan</span><span id="target4" class="wait">WAIT</span></div>
+
+    <div class="debug-line"><span>DR-006 Tsar</span><span id="target5" class="wait">WAIT</span></div>
+    <div class="debug-line"><span>DR-007 Hasta</span><span id="target6" class="wait">WAIT</span></div>
+    <div class="debug-line"><span>DR-008 Manticore</span><span id="target7" class="wait">WAIT</span></div>
+    <div class="debug-line"><span>DR-009 Toyol</span><span id="target8" class="wait">WAIT</span></div>
+    <div class="debug-line"><span>DR-010 Marduk</span><span id="target9" class="wait">WAIT</span></div>
 </div>
 
-<div id="bottom">📷 Starting camera...</div>
+<div id="bottom">
+    📷 Point camera at any Card Beast target.
+</div>
 
 <a-scene
     id="scene"
+    embedded
     mindar-image="
-        imageTargetSrc: ./targets.mind;
-        maxTrack: 5;
-        filterMinCF: 0.0001;
-        filterBeta: 0.01;
-        warmupTolerance: 5;
-        missTolerance: 5;
+        imageTargetSrc:./targets.mind;
+        maxTrack:10;
+        filterMinCF:0.0001;
+        filterBeta:0.01;
+        warmupTolerance:5;
+        missTolerance:5;
+        uiScanning:false;
+        uiLoading:false;
+        uiError:false;
     "
     color-space="sRGB"
-    renderer="alpha:true; antialias:true; colorManagement:true; physicallyCorrectLights:true;"
+    renderer="
+        colorManagement:true;
+        physicallyCorrectLights:true;
+        antialias:true;
+        alpha:true;
+    "
     vr-mode-ui="enabled:false"
     device-orientation-permission-ui="enabled:true"
+    loading-screen="enabled:false"
 >
 
 <a-assets id="assets" timeout="30000">
+
+    <!-- EXISTING OFFICIAL CARDS -->
     <a-asset-item id="dragonAsset" src="./models/ember-dragon.glb"></a-asset-item>
     <a-asset-item id="tigerAsset" src="./models/abyss-tiger.glb"></a-asset-item>
     <a-asset-item id="phoenixAsset" src="./models/Frost-phoenix.glb"></a-asset-item>
     <a-asset-item id="mantisAsset" src="./models/puppet-mantis.glb"></a-asset-item>
     <a-asset-item id="leviathanAsset" src="./models/tidal-leviathan.glb"></a-asset-item>
+
+    <!-- NEW OFFICIAL CARDS: DR-006 to DR-010 -->
+    <a-asset-item id="tsarAsset" src="./models/tsar.glb"></a-asset-item>
+    <a-asset-item id="hastaAsset" src="./models/hasta.glb"></a-asset-item>
+    <a-asset-item id="manticoreAsset" src="./models/manticore.glb"></a-asset-item>
+    <a-asset-item id="toyolAsset" src="./models/toyol.glb"></a-asset-item>
+    <a-asset-item id="mardukAsset" src="./models/marduk.glb"></a-asset-item>
+
 </a-assets>
 
-<a-camera position="0 0 0" look-controls="enabled:false"></a-camera>
+<a-camera
+    position="0 0 0"
+    look-controls="enabled:false">
+</a-camera>
 
 <!-- DR-001 -->
 <a-entity id="beast0" mindar-image-target="targetIndex:0" visible="false">
@@ -231,29 +257,12 @@ a-scene canvas,
 
 <!-- DR-002 -->
 <a-entity id="beast1" mindar-image-target="targetIndex:1" visible="false">
-
     <a-entity id="tigerModel"
         gltf-model="#tigerAsset"
         position="0 -0.25 0"
         rotation="90 0 0"
         scale="1.5 1.5 1.5">
     </a-entity>
-
-    <!--
-      VFX LOCAL COORDINATES:
-      v67.4: centered under the Tiger's belly, between the front feet,
-      using a wide circular purple/orange vortex like the reference.
-      MindAR image target lies in the XY plane.
-      Therefore the fire vortex stays FLAT on the card:
-      no -90 degree rotation.
-      Z is the direction coming out of the card.
-    -->
-    <a-entity id="abyssVFX"
-        position="0 -0.34 0.012"
-        scale="0.88 0.88 0.88"
-        tiger-portal-vfx>
-    </a-entity>
-
 </a-entity>
 
 <!-- DR-003 -->
@@ -262,7 +271,7 @@ a-scene canvas,
         gltf-model="#phoenixAsset"
         position="0 -0.25 0"
         rotation="90 0 0"
-        scale="1.75 1.75 1.75">
+        scale="1.6 1.6 1.6">
     </a-entity>
 </a-entity>
 
@@ -272,7 +281,7 @@ a-scene canvas,
         gltf-model="#mantisAsset"
         position="0 -0.25 0"
         rotation="90 0 0"
-        scale="1.55 1.55 1.55">
+        scale="1.3 1.3 1.3">
     </a-entity>
 </a-entity>
 
@@ -282,29 +291,101 @@ a-scene canvas,
         gltf-model="#leviathanAsset"
         position="0 -0.25 0"
         rotation="90 0 0"
-        scale="1.45 1.45 1.45">
+        scale="1.2 1.2 1.2">
+    </a-entity>
+</a-entity>
+
+<!-- =====================================================
+     NEW: DR-006 TSAR
+     TARGET INDEX 5
+     ===================================================== -->
+<a-entity id="beast5" mindar-image-target="targetIndex:5" visible="false">
+    <a-entity id="tsarModel"
+        gltf-model="#tsarAsset"
+        position="0 -0.25 0"
+        rotation="90 0 0"
+        scale="1.35 1.35 1.35">
+    </a-entity>
+</a-entity>
+
+<!-- =====================================================
+     NEW: DR-007 HASTA
+     TARGET INDEX 6
+     ===================================================== -->
+<a-entity id="beast6" mindar-image-target="targetIndex:6" visible="false">
+    <a-entity id="hastaModel"
+        gltf-model="#hastaAsset"
+        position="0 -0.25 0"
+        rotation="90 0 0"
+        scale="1.35 1.35 1.35">
+    </a-entity>
+</a-entity>
+
+<!-- =====================================================
+     NEW: DR-008 MANTICORE
+     TARGET INDEX 7
+     ===================================================== -->
+<a-entity id="beast7" mindar-image-target="targetIndex:7" visible="false">
+    <a-entity id="manticoreModel"
+        gltf-model="#manticoreAsset"
+        position="0 -0.25 0"
+        rotation="90 0 0"
+        scale="1.25 1.25 1.25">
+    </a-entity>
+</a-entity>
+
+<!-- =====================================================
+     NEW: DR-009 TOYOL
+     TARGET INDEX 8
+     ===================================================== -->
+<a-entity id="beast8" mindar-image-target="targetIndex:8" visible="false">
+    <a-entity id="toyolModel"
+        gltf-model="#toyolAsset"
+        position="0 -0.25 0"
+        rotation="90 0 0"
+        scale="1.35 1.35 1.35">
+    </a-entity>
+</a-entity>
+
+<!-- =====================================================
+     NEW: DR-010 MARDUK
+     TARGET INDEX 9
+     ===================================================== -->
+<a-entity id="beast9" mindar-image-target="targetIndex:9" visible="false">
+    <a-entity id="mardukModel"
+        gltf-model="#mardukAsset"
+        position="0 -0.25 0"
+        rotation="90 0 0"
+        scale="1.25 1.25 1.25">
     </a-entity>
 </a-entity>
 
 </a-scene>
 
 <script>
-/* =========================================================
-   CARD BEAST AR v67.4
-   TIGER FOOT PORTAL VFX
 
-   KEPT:
-   - 5 targets
-   - maxTrack 5
-   - preload once
+/* =========================================================
+   CARD BEAST AR v67.0
+
+   OFFICIAL 10-TARGET INDEX
+   0 = DR-001 Ember Dragon
+   1 = DR-002 Abyss Tiger
+   2 = DR-003 Frost Phoenix
+   3 = DR-004 Puppet Mantis
+   4 = DR-005 Tidal Leviathan
+   5 = DR-006 Tsar
+   6 = DR-007 Hasta
+   7 = DR-008 Manticore
+   8 = DR-009 Toyol
+   9 = DR-010 Marduk
+
+   KEPT FROM v65.5:
+   - MindAR + A-Frame
    - multi-track
    - independent targetLost
-   - camera layer fix
-
-   CHANGED:
-   - DR-002 VFX only
-   - correct XY target-plane orientation
-   - no GLB changes
+   - preload once
+   - no GLB reload on targetFound
+   - existing target logic
 ========================================================= */
 
 const beasts = [
@@ -312,536 +393,271 @@ const beasts = [
     {id:"DR-002",name:"Abyss Tiger",emoji:"🐯",target:1,model:"tigerModel"},
     {id:"DR-003",name:"Frost Phoenix",emoji:"❄️",target:2,model:"phoenixModel"},
     {id:"DR-004",name:"Puppet Mantis",emoji:"🦗",target:3,model:"mantisModel"},
-    {id:"DR-005",name:"Tidal Leviathan",emoji:"🌊",target:4,model:"leviathanModel"}
+    {id:"DR-005",name:"Tidal Leviathan",emoji:"🌊",target:4,model:"leviathanModel"},
+
+    {id:"DR-006",name:"Tsar",emoji:"👑",target:5,model:"tsarModel"},
+    {id:"DR-007",name:"Hasta",emoji:"⚡",target:6,model:"hastaModel"},
+    {id:"DR-008",name:"Manticore",emoji:"🦂",target:7,model:"manticoreModel"},
+    {id:"DR-009",name:"Toyol",emoji:"🪓",target:8,model:"toyolModel"},
+    {id:"DR-010",name:"Marduk",emoji:"🧠",target:9,model:"mardukModel"}
 ];
 
-const state = beasts.map(()=>({found:false,loaded:false,loadCount:0}));
+const state = beasts.map(() => ({
+    found:false,
+    loaded:false,
+    loadCount:0
+}));
 
 const scene = document.getElementById("scene");
 const mainStatus = document.getElementById("mainStatus");
 const bottom = document.getElementById("bottom");
+const cameraState = document.getElementById("cameraState");
 
-/* =========================================================
-   TIGER FOOT PORTAL VFX
-   All rings are created directly in XY plane.
-========================================================= */
+/* =========================================
+   BADGE
+========================================= */
+function badge(index,text,cls){
+    const el = document.getElementById("target" + index);
+    if(!el) return;
 
-AFRAME.registerComponent("tiger-portal-vfx",{
-    init:function(){
-        this.active=false;
-        this.time=0;
-        this.rings=[];
-        this.sparks=[];
-        this.glows=[];
-        this.build();
-        this.setActive(false);
-    },
-
-    build:function(){
-
-        /* soft center glow */
-        this.center = this.makeDisc(
-            0.22, 0x6d16ff, 0.36, 64
-        );
-
-        this.centerHot = this.makeDisc(
-            0.095, 0xfff4c2, 0.82, 48
-        );
-
-        /* layered abyss portal — orange fire core */
-        this.makeRing(0.22,0.34,0xfff3a0,0.95, 1.35);
-        this.makeRing(0.30,0.43,0xff7a00,0.92,-1.05);
-        this.makeRing(0.39,0.54,0xffb300,0.82, 0.88);
-        this.makeRing(0.49,0.64,0xff4a00,0.70,-0.70);
-
-        /* outer purple abyss energy */
-        this.makeRing(0.58,0.73,0xff2cff,0.62, 0.48);
-        this.makeRing(0.67,0.84,0x9b22ff,0.55,-0.38);
-        this.makeRing(0.78,0.94,0xd84cff,0.42, 0.27);
-        this.makeRing(0.84,0.98,0x6810ff,0.22,-0.20);
-
-        /* broken hot arcs */
-        for(let i=0;i<10;i++){
-            this.makeArc(i);
-        }
-
-        /* rising embers */
-        for(let i=0;i<52;i++){
-            this.makeSpark(i);
-        }
-
-        /* wider outer sparks */
-        for(let i=0;i<18;i++){
-            this.makeOuterSpark(i);
-        }
-    },
-
-    makeDisc:function(radius,color,opacity,segments){
-        const g = new THREE.CircleGeometry(radius,segments);
-        const m = new THREE.MeshBasicMaterial({
-            color,
-            transparent:true,
-            opacity,
-            depthWrite:false,
-            depthTest:true,
-            depthWrite:false,
-            blending:THREE.AdditiveBlending,
-            side:THREE.DoubleSide
-        });
-        const mesh = new THREE.Mesh(g,m);
-
-        /* IMPORTANT: XY plane, no rotation */
-        mesh.position.z=0.012;
-        this.el.object3D.add(mesh);
-        return mesh;
-    },
-
-    makeRing:function(inner,outer,color,opacity,speed){
-        const g = new THREE.RingGeometry(inner,outer,64,2);
-        const m = new THREE.MeshBasicMaterial({
-            color,
-            transparent:true,
-            opacity,
-            depthWrite:false,
-            depthTest:true,
-            depthWrite:false,
-            blending:THREE.AdditiveBlending,
-            side:THREE.DoubleSide
-        });
-
-        const mesh = new THREE.Mesh(g,m);
-        mesh.userData.speed=speed;
-        mesh.userData.baseScale=1;
-        mesh.userData.phase=Math.random()*Math.PI*2;
-
-        mesh.position.z=0.018+Math.random()*0.012;
-
-        this.el.object3D.add(mesh);
-        this.rings.push(mesh);
-    },
-
-    makeArc:function(index){
-        const points=[];
-        const start=Math.random()*Math.PI*2;
-        const length=0.45+Math.random()*0.9;
-        const radius=0.35+Math.random()*0.40;
-
-        const segments=18;
-
-        for(let i=0;i<=segments;i++){
-            const a=start+(i/segments)*length;
-            points.push(
-                new THREE.Vector3(
-                    Math.cos(a)*radius,
-                    Math.sin(a)*radius,
-                    0
-                )
-            );
-        }
-
-        const geometry=new THREE.BufferGeometry().setFromPoints(points);
-
-        const material=new THREE.LineBasicMaterial({
-            color:index%3===0?0xffffff:0xff6a00,
-            transparent:true,
-            opacity:0.55+Math.random()*0.35,
-            depthWrite:false,
-            depthTest:true,
-            depthWrite:false,
-            blending:THREE.AdditiveBlending
-        });
-
-        const line=new THREE.Line(geometry,material);
-
-        line.userData.speed=(Math.random()*.8+.25)*
-            (index%2===0?1:-1);
-
-        line.userData.phase=Math.random()*Math.PI*2;
-        line.position.z=0.035+Math.random()*0.02;
-
-        this.el.object3D.add(line);
-        this.rings.push(line);
-    },
-
-    makeSpark:function(index){
-        const g=new THREE.SphereGeometry(
-            0.006+Math.random()*0.012,5,5
-        );
-
-        const m=new THREE.MeshBasicMaterial({
-            color:index%5===0?0xffffff:0xff7614,
-            transparent:true,
-            opacity:0.55+Math.random()*0.4,
-            depthWrite:false,
-            depthTest:true,
-            depthWrite:false,
-            blending:THREE.AdditiveBlending
-        });
-
-        const s=new THREE.Mesh(g,m);
-
-        s.userData.angle=Math.random()*Math.PI*2;
-        s.userData.radius=.20+Math.random()*.55;
-        s.userData.height=.035+Math.random()*.14;
-        s.userData.speed=.25+Math.random()*1.0;
-        s.userData.phase=Math.random()*Math.PI*2;
-        s.userData.lift=.08+Math.random()*.16;
-
-        this.el.object3D.add(s);
-        this.sparks.push(s);
-    },
-
-    makeOuterSpark:function(index){
-        const g = new THREE.SphereGeometry(
-            0.006 + Math.random()*0.010, 5, 5
-        );
-
-        const m = new THREE.MeshBasicMaterial({
-            color: index % 3 === 0 ? 0xff7a00 : 0xc33cff,
-            transparent:true,
-            opacity:0.45 + Math.random()*0.35,
-            depthWrite:false,
-            depthTest:true,
-            blending:THREE.AdditiveBlending
-        });
-
-        const s = new THREE.Mesh(g,m);
-
-        s.userData.angle = Math.random()*Math.PI*2;
-        s.userData.radius = 0.72 + Math.random()*0.35;
-        s.userData.speed = 0.15 + Math.random()*0.55;
-        s.userData.phase = Math.random()*Math.PI*2;
-        s.userData.lift = 0.04 + Math.random()*0.10;
-
-        this.el.object3D.add(s);
-        this.sparks.push(s);
-    },
-
-    setActive:function(active){
-        this.active=active;
-        this.el.object3D.visible=active;
-
-        this.rings.forEach(x=>x.visible=active);
-        this.sparks.forEach(x=>x.visible=active);
-        this.center.visible=active;
-        this.centerHot.visible=active;
-    },
-
-    tick:function(time,delta){
-
-        if(!this.active) return;
-
-        const dt=delta*.001;
-        this.time+=dt;
-        const t=this.time;
-
-        this.rings.forEach((ring,i)=>{
-            const speed=ring.userData.speed||.4;
-            ring.rotation.z += speed*dt;
-
-            const pulse=1+
-                Math.sin(t*3+
-                (ring.userData.phase||0))*0.055;
-
-            ring.scale.set(pulse,pulse,1);
-        });
-
-        const cp=1+Math.sin(t*5)*.12;
-        this.center.scale.set(cp,cp,1);
-
-        const hp=1+Math.sin(t*7)*.16;
-        this.centerHot.scale.set(hp,hp,1);
-
-        this.sparks.forEach(s=>{
-            const d=s.userData;
-            const a=d.angle+t*d.speed;
-
-            const r=d.radius+
-                Math.sin(t*2+d.phase)*.025;
-
-            s.position.x=Math.cos(a)*r;
-            s.position.y=Math.sin(a)*r;
-
-            /* rise out from the card */
-            s.position.z=
-                0.018 + d.height+
-                (Math.sin(t*2.5+d.phase)+1)*d.lift;
-
-            const pulse=.65+
-                (Math.sin(t*6+d.phase)+1)*.35;
-
-            s.scale.set(pulse,pulse,pulse);
-        });
-    }
-});
-
-/* =========================================================
-   CAMERA LAYER
-========================================================= */
-
-function forceCameraLayer(){
-
-    document.querySelectorAll("video").forEach(video=>{
-
-        video.classList.add("mindar-video");
-
-        const props={
-            position:"fixed",
-            top:"0",
-            left:"0",
-            width:"100vw",
-            height:"100vh",
-            "min-width":"100vw",
-            "min-height":"100vh",
-            "object-fit":"cover",
-            display:"block",
-            visibility:"visible",
-            opacity:"1",
-            "z-index":"0",
-            "pointer-events":"none"
-        };
-
-        Object.entries(props).forEach(([key,value])=>{
-            video.style.setProperty(key,value,"important");
-        });
-
-        if(video.paused && video.srcObject){
-            video.play().catch(()=>{});
-        }
-    });
-
-    const canvas=document.querySelector("a-scene canvas");
-
-    if(canvas){
-        const props={
-            position:"fixed",
-            top:"0",
-            left:"0",
-            width:"100vw",
-            height:"100vh",
-            background:"transparent",
-            "background-color":"transparent",
-            "z-index":"1"
-        };
-
-        Object.entries(props).forEach(([key,value])=>{
-            canvas.style.setProperty(key,value,"important");
-        });
-    }
-
-    try{
-        if(scene && scene.renderer){
-            scene.renderer.setClearColor(0x000000,0);
-            if(scene.renderer.setClearAlpha){
-                scene.renderer.setClearAlpha(0);
-            }
-        }
-    }catch(e){
-        console.warn("Renderer transparency patch:",e);
-    }
+    el.textContent = text;
+    el.className = cls;
 }
 
-const videoObserver=new MutationObserver(forceCameraLayer);
-videoObserver.observe(document.body,{childList:true,subtree:true});
-
-/* =========================================================
-   UI
-========================================================= */
-
-function setBadge(index,text,className){
-    const el=document.getElementById("target"+index);
-    if(!el)return;
-    el.textContent=text;
-    el.className=className;
-}
-
+/* =========================================
+   UI UPDATE
+========================================= */
 function updateUI(){
 
-    const active=beasts.filter((b,i)=>state[i].found);
+    const active = beasts.filter(
+        (b,index) => state[index].found
+    );
 
-    if(active.length===0){
-        mainStatus.textContent="CAMERA READY • SEARCHING";
-        bottom.textContent="📷 Point camera at any Card Beast target.";
+    if(active.length === 0){
+        mainStatus.textContent = "CAMERA READY • SEARCHING";
+        bottom.textContent = "📷 Point camera at any Card Beast target.";
         return;
     }
 
-    if(active.length===1){
-        const b=active[0];
+    if(active.length === 1){
 
-        mainStatus.textContent=
-            `${b.id} FOUND • ${b.name.toUpperCase()}`;
+        const beast = active[0];
 
-        bottom.innerHTML=
-            `${b.emoji} <b>${b.name.toUpperCase()} ACTIVE</b> • ${b.id}`;
+        mainStatus.textContent =
+            `${beast.id} FOUND • ${beast.name.toUpperCase()}`;
+
+        bottom.innerHTML =
+            `${beast.emoji} <b>${beast.name.toUpperCase()} ACTIVE</b> • ${beast.id}`;
 
         return;
     }
 
-    mainStatus.textContent=
-        `${active.length} CARDS ACTIVE • `+
-        active.map(b=>b.id).join(" + ");
+    mainStatus.textContent =
+        `${active.length} CARDS ACTIVE • ` +
+        active.map(b => b.id).join(" + ");
 
-    bottom.innerHTML=
-        active.map(b=>b.emoji+" "+b.id).join(" + ")+
+    bottom.innerHTML =
+        active.map(b => `${b.emoji} ${b.id}`).join(" + ") +
         " ACTIVE";
 }
 
-/* =========================================================
-   PRELOAD ONCE
-========================================================= */
-
-function setupPreload(){
-
-    beasts.forEach((beast,index)=>{
-
-        const model=document.getElementById(beast.model);
-
-        if(!model)return;
-
-        model.addEventListener("model-loaded",()=>{
-
-            if(state[index].loaded)return;
-
-            state[index].loaded=true;
-            state[index].loadCount++;
-
-            console.log(beast.id+" GLB PRELOADED ONCE");
-
-        },{once:true});
-
-        model.addEventListener("model-error",event=>{
-
-            console.error(beast.id+" GLB LOAD ERROR",event);
-
-            setBadge(index,"GLB ERROR","err");
-        });
-    });
-}
-
-/* =========================================================
-   TARGETS
-========================================================= */
-
+/* =========================================
+   TARGET SETUP
+========================================= */
 function setupTarget(index){
 
-    const beast=beasts[index];
-    const target=document.getElementById("beast"+index);
+    const beast = beasts[index];
+    const target = document.getElementById("beast" + index);
 
-    if(!target)return;
+    if(!target){
+        console.error(beast.id + " target entity missing");
+        return;
+    }
 
-    target.addEventListener("targetFound",()=>{
+    target.addEventListener("targetFound",() => {
 
-        state[index].found=true;
+        state[index].found = true;
+
         target.setAttribute("visible","true");
 
-        /* DR-002 VFX ONLY */
-        if(index===1){
+        badge(index,"FOUND","on");
 
-            const vfx=document.getElementById("abyssVFX");
-
-            if(vfx &&
-               vfx.components &&
-               vfx.components["tiger-portal-vfx"]){
-
-                vfx.components["tiger-portal-vfx"]
-                    .setActive(true);
-            }
-        }
-
-        setBadge(index,"FOUND","on");
         updateUI();
 
-        console.log(beast.id+" targetFound");
+        console.log(
+            `[${beast.id}] targetFound • targetIndex:${beast.target}`
+        );
     });
 
-    target.addEventListener("targetLost",()=>{
+    target.addEventListener("targetLost",() => {
 
-        state[index].found=false;
+        state[index].found = false;
+
         target.setAttribute("visible","false");
 
-        /* DR-002 VFX ONLY */
-        if(index===1){
+        badge(index,"LOST","wait");
 
-            const vfx=document.getElementById("abyssVFX");
-
-            if(vfx &&
-               vfx.components &&
-               vfx.components["tiger-portal-vfx"]){
-
-                vfx.components["tiger-portal-vfx"]
-                    .setActive(false);
-            }
-        }
-
-        setBadge(index,"LOST","wait");
         updateUI();
 
-        console.log(beast.id+" targetLost");
+        console.log(
+            `[${beast.id}] targetLost`
+        );
     });
 }
 
-/* =========================================================
-   SCENE
-========================================================= */
+/* =========================================
+   PRELOAD ONCE
+========================================= */
+function setupPreload(){
 
-scene.addEventListener("loaded",()=>{
+    beasts.forEach((beast,index) => {
 
-    console.log("CARD BEAST AR v67.4 SCENE LOADED");
+        const model =
+            document.getElementById(beast.model);
 
-    beasts.forEach((_,index)=>setupTarget(index));
+        if(!model){
+            console.error(
+                beast.id + " model entity missing"
+            );
+            return;
+        }
 
-    setupPreload();
-    forceCameraLayer();
-});
+        model.addEventListener(
+            "model-loaded",
+            () => {
 
-scene.addEventListener("arReady",()=>{
+                if(!state[index].loaded){
 
-    const cameraState=document.getElementById("cameraState");
+                    state[index].loaded = true;
+                    state[index].loadCount = 1;
 
-    if(cameraState){
-        cameraState.textContent="READY";
-        cameraState.className="on";
-    }
+                    badge(index,"LOADED","on");
 
-    mainStatus.textContent="CAMERA READY • SEARCHING";
-    bottom.textContent="📷 Point camera at any Card Beast target.";
+                    console.log(
+                        `[${beast.id}] GLB loaded once`
+                    );
+                }
 
-    forceCameraLayer();
+            },
+            {once:true}
+        );
 
-    [100,300,700,1200,2000].forEach(ms=>{
-        setTimeout(forceCameraLayer,ms);
+        model.addEventListener(
+            "model-error",
+            event => {
+
+                console.error(
+                    `[${beast.id}] GLB LOAD ERROR`,
+                    event
+                );
+
+                badge(index,"GLB ERROR","err");
+            }
+        );
     });
-});
+}
 
-scene.addEventListener("arError",event=>{
+/* =========================================
+   SCENE LOADED
+========================================= */
+scene.addEventListener(
+    "loaded",
+    () => {
 
-    console.error("MINDAR AR ERROR",event);
+        console.log(
+            "======================================"
+        );
 
-    const cameraState=document.getElementById("cameraState");
+        console.log(
+            "CARD BEAST AR v67.0 SCENE LOADED"
+        );
 
-    if(cameraState){
-        cameraState.textContent="ERROR";
-        cameraState.className="err";
+        beasts.forEach(
+            (_,index) => setupTarget(index)
+        );
+
+        setupPreload();
+
+        console.log(
+            "10 TARGETS REGISTERED"
+        );
     }
+);
 
-    mainStatus.textContent="CAMERA ERROR";
-    bottom.textContent="Camera could not start.";
-});
+/* =========================================
+   AR READY
+========================================= */
+scene.addEventListener(
+    "arReady",
+    () => {
 
-window.addEventListener("load",()=>{
+        cameraState.textContent = "READY";
+        cameraState.className = "on";
 
-    forceCameraLayer();
+        mainStatus.textContent =
+            "CAMERA READY • SEARCHING";
 
-    [300,800,1500].forEach(ms=>{
-        setTimeout(forceCameraLayer,ms);
-    });
-});
+        bottom.textContent =
+            "📷 Point camera at any Card Beast target.";
 
-setInterval(forceCameraLayer,1000);
+        console.log(
+            "CARD BEAST AR CAMERA READY"
+        );
+    }
+);
 
-beasts.forEach((_,index)=>{
-    setBadge(index,"WAIT","wait");
-});
+/* =========================================
+   AR ERROR
+========================================= */
+scene.addEventListener(
+    "arError",
+    event => {
+
+        cameraState.textContent = "ERROR";
+        cameraState.className = "err";
+
+        mainStatus.textContent =
+            "CAMERA ERROR";
+
+        bottom.textContent =
+            "Camera could not start.";
+
+        console.error(
+            "CARD BEAST AR ERROR",
+            event
+        );
+    }
+);
+
+/* =========================================
+   INITIAL TARGET STATES
+========================================= */
+beasts.forEach(
+    (_,index) => badge(index,"WAIT","wait")
+);
+
+/* =========================================
+   DEBUG
+========================================= */
+console.log("======================================");
+console.log("CARD BEAST AR v67.0");
+console.log("10 TARGETS");
+console.log("TARGET 0 = DR-001 Ember Dragon");
+console.log("TARGET 1 = DR-002 Abyss Tiger");
+console.log("TARGET 2 = DR-003 Frost Phoenix");
+console.log("TARGET 3 = DR-004 Puppet Mantis");
+console.log("TARGET 4 = DR-005 Tidal Leviathan");
+console.log("TARGET 5 = DR-006 Tsar");
+console.log("TARGET 6 = DR-007 Hasta");
+console.log("TARGET 7 = DR-008 Manticore");
+console.log("TARGET 8 = DR-009 Toyol");
+console.log("TARGET 9 = DR-010 Marduk");
+console.log("maxTrack = 10");
+console.log("MULTI-TRACK = ENABLED");
+console.log("PRELOAD = ONCE");
+console.log("targetLost = INDEPENDENT");
+console.log("======================================");
+
 </script>
 
 </body>
