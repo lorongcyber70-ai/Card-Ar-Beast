@@ -176,7 +176,7 @@ a-scene canvas,
 
 <div id="header">
     <div id="title">CARD <span>BEAST</span> AR</div>
-    <div id="build">v67.2 • TIGER FOOT CENTER • 5-BEAST</div>
+    <div id="build">v67.4 • TIGER BELLY PORTAL • 5-BEAST</div>
 </div>
 
 <div id="mainStatus">CAMERA STARTING...</div>
@@ -241,15 +241,15 @@ a-scene canvas,
 
     <!--
       VFX LOCAL COORDINATES:
-      v67.2: shifted left and slightly lower so the vortex center aligns
-      beneath the Tiger's feet instead of sitting beside the body.
+      v67.4: centered under the Tiger's belly, between the front feet,
+      using a wide circular purple/orange vortex like the reference.
       MindAR image target lies in the XY plane.
       Therefore the fire vortex stays FLAT on the card:
       no -90 degree rotation.
       Z is the direction coming out of the card.
     -->
     <a-entity id="abyssVFX"
-        position="-0.22 -0.88 0.012"
+        position="0 -0.34 0.012"
         scale="0.88 0.88 0.88"
         tiger-portal-vfx>
     </a-entity>
@@ -290,7 +290,7 @@ a-scene canvas,
 
 <script>
 /* =========================================================
-   CARD BEAST AR v67.2
+   CARD BEAST AR v67.4
    TIGER FOOT PORTAL VFX
 
    KEPT:
@@ -341,11 +341,11 @@ AFRAME.registerComponent("tiger-portal-vfx",{
 
         /* soft center glow */
         this.center = this.makeDisc(
-            0.25, 0x6d16ff, 0.32, 64
+            0.22, 0x6d16ff, 0.36, 64
         );
 
         this.centerHot = this.makeDisc(
-            0.11, 0xfff4c2, 0.78, 48
+            0.095, 0xfff4c2, 0.82, 48
         );
 
         /* layered abyss portal — orange fire core */
@@ -358,7 +358,7 @@ AFRAME.registerComponent("tiger-portal-vfx",{
         this.makeRing(0.58,0.73,0xff2cff,0.62, 0.48);
         this.makeRing(0.67,0.84,0x9b22ff,0.55,-0.38);
         this.makeRing(0.78,0.94,0xd84cff,0.42, 0.27);
-        this.makeRing(0.84,0.98,0x6810ff,0.25,-0.20);
+        this.makeRing(0.84,0.98,0x6810ff,0.22,-0.20);
 
         /* broken hot arcs */
         for(let i=0;i<10;i++){
@@ -786,7 +786,7 @@ function setupTarget(index){
 
 scene.addEventListener("loaded",()=>{
 
-    console.log("CARD BEAST AR v67.2 SCENE LOADED");
+    console.log("CARD BEAST AR v67.4 SCENE LOADED");
 
     beasts.forEach((_,index)=>setupTarget(index));
 
