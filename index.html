@@ -2,10 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-<title>Card Beast AR — v68.0 Camera Fix</title>
+<title>Card Beast AR — v68.1 Manticore Fix</title>
 
 <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
@@ -34,8 +33,6 @@ body{
 
 /* =====================================================
    MINDAR CAMERA
-   IMPORTANT:
-   Keep camera video behind A-Frame canvas.
 ===================================================== */
 
 video.mindar-video,
@@ -116,24 +113,17 @@ a-scene canvas,
 
 #header{
     position:fixed;
-
     top:12px;
     left:0;
-
     width:100%;
-
     z-index:20;
-
     text-align:center;
-
     pointer-events:none;
 }
 
 #title{
     font-size:clamp(28px,7vw,52px);
-
     font-weight:900;
-
     color:#fff;
 
     text-shadow:
@@ -161,14 +151,13 @@ a-scene canvas,
     background:rgba(0,0,0,.55);
 
     font-size:11px;
-
     font-weight:800;
 
     white-space:nowrap;
 }
 
 /* =====================================================
-   MAIN STATUS
+   STATUS
 ===================================================== */
 
 #mainStatus{
@@ -199,7 +188,6 @@ a-scene canvas,
         0 0 12px rgba(168,60,255,.35);
 
     font-weight:900;
-
     font-size:14px;
 
     pointer-events:none;
@@ -230,13 +218,11 @@ a-scene canvas,
     color:#fff;
 
     font-size:10px;
-
     line-height:1.35;
 
     pointer-events:none;
 
     min-width:175px;
-
     max-width:calc(100vw - 24px);
 
     max-height:48vh;
@@ -246,23 +232,18 @@ a-scene canvas,
 
 .debug-head{
     color:#d05cff;
-
     font-weight:900;
-
     margin-bottom:3px;
 }
 
 .debug-line{
     display:flex;
-
     gap:10px;
-
     justify-content:space-between;
 }
 
 .on{
     color:#59ff9b;
-
     font-weight:900;
 }
 
@@ -276,7 +257,6 @@ a-scene canvas,
 
 .err{
     color:#ff6565;
-
     font-weight:900;
 }
 
@@ -323,25 +303,19 @@ a-scene canvas,
 
     #build{
         font-size:9px;
-
         padding:6px 8px;
-
         right:7px;
     }
 
     #debug{
         top:124px;
-
         font-size:9px;
-
         padding:7px 9px;
-
         min-width:160px;
     }
 
     #bottom{
         font-size:12px;
-
         padding:8px 11px;
     }
 
@@ -363,7 +337,7 @@ a-scene canvas,
     </div>
 
     <div id="build">
-        v68.0 • CAMERA FIX • 10-BEAST
+        v68.1 • 10-BEAST • MANTICORE FIX
     </div>
 
 </div>
@@ -379,7 +353,7 @@ a-scene canvas,
 
 
 <!-- =====================================================
-     DEBUG PANEL
+     DEBUG
 ===================================================== -->
 
 <div id="debug">
@@ -397,72 +371,52 @@ a-scene canvas,
 
     <div class="debug-line">
         <span>DR-001 Ember Dragon</span>
-        <span id="target0" class="wait">
-            WAIT
-        </span>
+        <span id="target0" class="wait">WAIT</span>
     </div>
 
     <div class="debug-line">
         <span>DR-002 Abyss Tiger</span>
-        <span id="target1" class="wait">
-            WAIT
-        </span>
+        <span id="target1" class="wait">WAIT</span>
     </div>
 
     <div class="debug-line">
         <span>DR-003 Frost Phoenix</span>
-        <span id="target2" class="wait">
-            WAIT
-        </span>
+        <span id="target2" class="wait">WAIT</span>
     </div>
 
     <div class="debug-line">
         <span>DR-004 Puppet Mantis</span>
-        <span id="target3" class="wait">
-            WAIT
-        </span>
+        <span id="target3" class="wait">WAIT</span>
     </div>
 
     <div class="debug-line">
         <span>DR-005 Tidal Leviathan</span>
-        <span id="target4" class="wait">
-            WAIT
-        </span>
+        <span id="target4" class="wait">WAIT</span>
     </div>
 
     <div class="debug-line">
         <span>DR-006 Tsar</span>
-        <span id="target5" class="wait">
-            WAIT
-        </span>
+        <span id="target5" class="wait">WAIT</span>
     </div>
 
     <div class="debug-line">
         <span>DR-007 Hasta</span>
-        <span id="target6" class="wait">
-            WAIT
-        </span>
+        <span id="target6" class="wait">WAIT</span>
     </div>
 
     <div class="debug-line">
         <span>DR-008 Manticore</span>
-        <span id="target7" class="wait">
-            WAIT
-        </span>
+        <span id="target7" class="wait">WAIT</span>
     </div>
 
     <div class="debug-line">
         <span>DR-009 Toyol</span>
-        <span id="target8" class="wait">
-            WAIT
-        </span>
+        <span id="target8" class="wait">WAIT</span>
     </div>
 
     <div class="debug-line">
         <span>DR-010 Marduk</span>
-        <span id="target9" class="wait">
-            WAIT
-        </span>
+        <span id="target9" class="wait">WAIT</span>
     </div>
 
 </div>
@@ -519,10 +473,7 @@ a-scene canvas,
      ASSETS
 ===================================================== -->
 
-<a-assets
-    id="assets"
-    timeout="30000"
->
+<a-assets id="assets" timeout="30000">
 
     <!-- DR-001 -->
     <a-asset-item
@@ -530,13 +481,11 @@ a-scene canvas,
         src="./models/ember-dragon.glb">
     </a-asset-item>
 
-
     <!-- DR-002 -->
     <a-asset-item
         id="tigerAsset"
         src="./models/abyss-tiger.glb">
     </a-asset-item>
-
 
     <!-- DR-003 -->
     <a-asset-item
@@ -544,13 +493,11 @@ a-scene canvas,
         src="./models/Frost-phoenix.glb">
     </a-asset-item>
 
-
     <!-- DR-004 -->
     <a-asset-item
         id="mantisAsset"
         src="./models/puppet-mantis.glb">
     </a-asset-item>
-
 
     <!-- DR-005 -->
     <a-asset-item
@@ -558,13 +505,11 @@ a-scene canvas,
         src="./models/tidal-leviathan.glb">
     </a-asset-item>
 
-
     <!-- DR-006 -->
     <a-asset-item
         id="tsarAsset"
         src="./models/tsar.glb">
     </a-asset-item>
-
 
     <!-- DR-007 -->
     <a-asset-item
@@ -572,20 +517,20 @@ a-scene canvas,
         src="./models/hasta.glb">
     </a-asset-item>
 
-
     <!-- DR-008 -->
+    <!-- IMPORTANT:
+         GitHub filename is mandicore.glb
+    -->
     <a-asset-item
         id="manticoreAsset"
-        src="./models/manticore.glb">
+        src="./models/mandicore.glb">
     </a-asset-item>
-
 
     <!-- DR-009 -->
     <a-asset-item
         id="toyolAsset"
         src="./models/toyol.glb">
     </a-asset-item>
-
 
     <!-- DR-010 -->
     <a-asset-item
@@ -607,135 +552,100 @@ a-scene canvas,
 
 
 <!-- =====================================================
-     DR-001 EMBER DRAGON
-     TARGET INDEX 0
+     DR-001
 ===================================================== -->
 
 <a-entity
     id="beast0"
     mindar-image-target="targetIndex:0"
-    visible="false"
->
+    visible="false">
 
     <a-entity
         id="dragonModel"
-
         gltf-model="#dragonAsset"
-
         position="0 -0.25 0"
-
         rotation="90 0 0"
-
-        scale="2.5 2.5 2.5"
-    >
+        scale="2.5 2.5 2.5">
     </a-entity>
 
 </a-entity>
 
 
 <!-- =====================================================
-     DR-002 ABYSS TIGER
-     TARGET INDEX 1
+     DR-002
 ===================================================== -->
 
 <a-entity
     id="beast1"
     mindar-image-target="targetIndex:1"
-    visible="false"
->
+    visible="false">
 
     <a-entity
         id="tigerModel"
-
         gltf-model="#tigerAsset"
-
         position="0 -0.25 0"
-
         rotation="90 0 0"
-
-        scale="1.5 1.5 1.5"
-    >
+        scale="1.5 1.5 1.5">
     </a-entity>
 
 </a-entity>
 
 
 <!-- =====================================================
-     DR-003 FROST PHOENIX
-     TARGET INDEX 2
+     DR-003
 ===================================================== -->
 
 <a-entity
     id="beast2"
     mindar-image-target="targetIndex:2"
-    visible="false"
->
+    visible="false">
 
     <a-entity
         id="phoenixModel"
-
         gltf-model="#phoenixAsset"
-
         position="0 -0.25 0"
-
         rotation="90 0 0"
-
-        scale="1.6 1.6 1.6"
-    >
+        scale="1.6 1.6 1.6">
     </a-entity>
 
 </a-entity>
 
 
 <!-- =====================================================
-     DR-004 PUPPET MANTIS
-     TARGET INDEX 3
+     DR-004
 ===================================================== -->
 
 <a-entity
     id="beast3"
     mindar-image-target="targetIndex:3"
-    visible="false"
->
+    visible="false">
 
     <a-entity
         id="mantisModel"
-
         gltf-model="#mantisAsset"
-
         position="0 -0.25 0"
-
         rotation="90 0 0"
-
-        scale="1.3 1.3 1.3"
-    >
+        scale="1.3 1.3 1.3">
     </a-entity>
 
 </a-entity>
 
 
 <!-- =====================================================
-     DR-005 TIDAL LEVIATHAN
-     TARGET INDEX 4
+     DR-005
 ===================================================== -->
 
 <a-entity
     id="beast4"
     mindar-image-target="targetIndex:4"
-    visible="false"
->
+    visible="false">
 
     <a-entity
         id="leviathanModel"
-
         gltf-model="#leviathanAsset"
-
         position="0 -0.25 0"
-
         rotation="90 0 0"
-
-        scale="1.2 1.2 1.2"
-    >
+        scale="1.2 1.2 1.2">
     </a-entity>
 
 </a-entity>
@@ -749,20 +659,14 @@ a-scene canvas,
 <a-entity
     id="beast5"
     mindar-image-target="targetIndex:5"
-    visible="false"
->
+    visible="false">
 
     <a-entity
         id="tsarModel"
-
         gltf-model="#tsarAsset"
-
         position="0 -0.25 0"
-
         rotation="90 0 0"
-
-        scale="1.35 1.35 1.35"
-    >
+        scale="1.35 1.35 1.35">
     </a-entity>
 
 </a-entity>
@@ -776,20 +680,14 @@ a-scene canvas,
 <a-entity
     id="beast6"
     mindar-image-target="targetIndex:6"
-    visible="false"
->
+    visible="false">
 
     <a-entity
         id="hastaModel"
-
         gltf-model="#hastaAsset"
-
         position="0 -0.25 0"
-
         rotation="90 0 0"
-
-        scale="1.35 1.35 1.35"
-    >
+        scale="1.35 1.35 1.35">
     </a-entity>
 
 </a-entity>
@@ -803,20 +701,14 @@ a-scene canvas,
 <a-entity
     id="beast7"
     mindar-image-target="targetIndex:7"
-    visible="false"
->
+    visible="false">
 
     <a-entity
         id="manticoreModel"
-
         gltf-model="#manticoreAsset"
-
         position="0 -0.25 0"
-
         rotation="90 0 0"
-
-        scale="1.25 1.25 1.25"
-    >
+        scale="1.25 1.25 1.25">
     </a-entity>
 
 </a-entity>
@@ -830,20 +722,14 @@ a-scene canvas,
 <a-entity
     id="beast8"
     mindar-image-target="targetIndex:8"
-    visible="false"
->
+    visible="false">
 
     <a-entity
         id="toyolModel"
-
         gltf-model="#toyolAsset"
-
         position="0 -0.25 0"
-
         rotation="90 0 0"
-
-        scale="1.35 1.35 1.35"
-    >
+        scale="1.35 1.35 1.35">
     </a-entity>
 
 </a-entity>
@@ -857,20 +743,14 @@ a-scene canvas,
 <a-entity
     id="beast9"
     mindar-image-target="targetIndex:9"
-    visible="false"
->
+    visible="false">
 
     <a-entity
         id="mardukModel"
-
         gltf-model="#mardukAsset"
-
         position="0 -0.25 0"
-
         rotation="90 0 0"
-
-        scale="1.25 1.25 1.25"
-    >
+        scale="1.25 1.25 1.25">
     </a-entity>
 
 </a-entity>
@@ -882,9 +762,9 @@ a-scene canvas,
 <script>
 
 /* =====================================================
-   CARD BEAST AR v68.0
+   CARD BEAST AR v68.1
 
-   TARGET MAP
+   10 OFFICIAL TARGETS
 
    0 = DR-001 Ember Dragon
    1 = DR-002 Abyss Tiger
@@ -897,9 +777,17 @@ a-scene canvas,
    8 = DR-009 Toyol
    9 = DR-010 Marduk
 
-   CAMERA LAYER RESTORED
-   MULTI-TRACK = 10
-   PRELOAD = ONCE
+   DR-008 FILE:
+   ./models/mandicore.glb
+
+   CAMERA FIX:
+   ENABLED
+
+   MULTI-TRACK:
+   ENABLED
+
+   PRELOAD:
+   ONCE
 ===================================================== */
 
 
@@ -1025,7 +913,7 @@ const cameraState =
 
 
 /* =====================================================
-   DEBUG BADGE
+   BADGE
 ===================================================== */
 
 function badge(index,text,cls){
@@ -1058,8 +946,6 @@ function updateUI(){
         );
 
 
-    /* NO CARD */
-
     if(active.length === 0){
 
         mainStatus.textContent =
@@ -1071,8 +957,6 @@ function updateUI(){
         return;
     }
 
-
-    /* ONE CARD */
 
     if(active.length === 1){
 
@@ -1089,22 +973,18 @@ function updateUI(){
     }
 
 
-    /* MULTIPLE CARDS */
-
     mainStatus.textContent =
         `${active.length} CARDS ACTIVE • ` +
-        active
-            .map(b => b.id)
-            .join(" + ");
+        active.map(
+            b => b.id
+        ).join(" + ");
 
 
     bottom.innerHTML =
-        active
-            .map(
-                b =>
-                    `${b.emoji} ${b.id}`
-            )
-            .join(" + ") +
+        active.map(
+            b =>
+                `${b.emoji} ${b.id}`
+        ).join(" + ") +
         " ACTIVE";
 }
 
@@ -1141,8 +1021,6 @@ function setupTarget(index){
     }
 
 
-    /* TARGET FOUND */
-
     target.addEventListener(
         "targetFound",
         () => {
@@ -1170,8 +1048,6 @@ function setupTarget(index){
         }
     );
 
-
-    /* TARGET LOST */
 
     target.addEventListener(
         "targetLost",
@@ -1204,7 +1080,7 @@ function setupTarget(index){
 
 
 /* =====================================================
-   PRELOAD MODELS
+   PRELOAD
 ===================================================== */
 
 function setupPreload(){
@@ -1235,8 +1111,6 @@ function setupPreload(){
             }
 
 
-            /* MODEL LOADED */
-
             model.addEventListener(
                 "model-loaded",
                 () => {
@@ -1260,6 +1134,7 @@ function setupPreload(){
                         console.log(
                             `[${beast.id}] GLB loaded once`
                         );
+
                     }
 
                 },
@@ -1268,8 +1143,6 @@ function setupPreload(){
                 }
             );
 
-
-            /* MODEL ERROR */
 
             model.addEventListener(
                 "model-error",
@@ -1308,19 +1181,15 @@ scene.addEventListener(
         );
 
         console.log(
-            "CARD BEAST AR v68.0 SCENE LOADED"
+            "CARD BEAST AR v68.1 SCENE LOADED"
         );
 
-
-        /* REGISTER TARGETS */
 
         beasts.forEach(
             (_,index) =>
                 setupTarget(index)
         );
 
-
-        /* PRELOAD GLB */
 
         setupPreload();
 
@@ -1357,20 +1226,7 @@ scene.addEventListener(
 
 
         console.log(
-            "======================================"
-        );
-
-        console.log(
             "CARD BEAST AR CAMERA READY"
-        );
-
-        console.log(
-            "CAMERA VIDEO LAYER ACTIVE"
-        );
-
-        console.log(
-            "======================================"
-
         );
 
     }
@@ -1410,7 +1266,7 @@ scene.addEventListener(
 
 
 /* =====================================================
-   INITIAL STATES
+   INITIAL TARGET STATES
 ===================================================== */
 
 beasts.forEach(
@@ -1424,7 +1280,7 @@ beasts.forEach(
 
 
 /* =====================================================
-   DEBUG CONSOLE
+   DEBUG
 ===================================================== */
 
 console.log(
@@ -1432,15 +1288,15 @@ console.log(
 );
 
 console.log(
-    "CARD BEAST AR v68.0"
+    "CARD BEAST AR v68.1"
 );
 
 console.log(
-    "CAMERA FIX ENABLED"
+    "CAMERA FIX = ON"
 );
 
 console.log(
-    "10 TARGETS"
+    "MULTI-TRACK = 10"
 );
 
 console.log(
@@ -1476,23 +1332,15 @@ console.log(
 );
 
 console.log(
+    "DR-008 GLB = ./models/mandicore.glb"
+);
+
+console.log(
     "TARGET 8 = DR-009 Toyol"
 );
 
 console.log(
     "TARGET 9 = DR-010 Marduk"
-);
-
-console.log(
-    "maxTrack = 10"
-);
-
-console.log(
-    "CAMERA VIDEO LAYER = RESTORED"
-);
-
-console.log(
-    "MULTI-TRACK = ENABLED"
 );
 
 console.log(
