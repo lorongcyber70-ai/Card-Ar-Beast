@@ -176,7 +176,7 @@ a-scene canvas,
 
 <div id="header">
     <div id="title">CARD <span>BEAST</span> AR</div>
-    <div id="build">v67.0 • TIGER ABYSS PORTAL • 5-BEAST</div>
+    <div id="build">v67.2 • TIGER FOOT CENTER • 5-BEAST</div>
 </div>
 
 <div id="mainStatus">CAMERA STARTING...</div>
@@ -241,16 +241,16 @@ a-scene canvas,
 
     <!--
       VFX LOCAL COORDINATES:
-      v67.0: anchored below the Tiger and enlarged to cover the
-      full foot area, with purple abyss energy + orange fire core.
+      v67.2: shifted left and slightly lower so the vortex center aligns
+      beneath the Tiger's feet instead of sitting beside the body.
       MindAR image target lies in the XY plane.
       Therefore the fire vortex stays FLAT on the card:
       no -90 degree rotation.
       Z is the direction coming out of the card.
     -->
     <a-entity id="abyssVFX"
-        position="0 -0.82 0.012"
-        scale="0.78 0.78 0.78"
+        position="-0.22 -0.88 0.012"
+        scale="0.88 0.88 0.88"
         tiger-portal-vfx>
     </a-entity>
 
@@ -290,7 +290,7 @@ a-scene canvas,
 
 <script>
 /* =========================================================
-   CARD BEAST AR v67.0
+   CARD BEAST AR v67.2
    TIGER FOOT PORTAL VFX
 
    KEPT:
@@ -341,22 +341,24 @@ AFRAME.registerComponent("tiger-portal-vfx",{
 
         /* soft center glow */
         this.center = this.makeDisc(
-            0.30, 0xff5a00, 0.28, 64
+            0.25, 0x6d16ff, 0.32, 64
         );
 
         this.centerHot = this.makeDisc(
-            0.15, 0xfff4c2, 0.68, 48
+            0.11, 0xfff4c2, 0.78, 48
         );
 
-        /* main vortex rings */
-        this.makeRing(0.25,0.47,0xff5a00,0.92, 1.15);
-        this.makeRing(0.34,0.58,0xff9b1c,0.78,-0.82);
-        this.makeRing(0.44,0.70,0xffd15b,0.48, 0.55);
-        this.makeRing(0.53,0.80,0xff3b00,0.36,-0.36);
+        /* layered abyss portal — orange fire core */
+        this.makeRing(0.22,0.34,0xfff3a0,0.95, 1.35);
+        this.makeRing(0.30,0.43,0xff7a00,0.92,-1.05);
+        this.makeRing(0.39,0.54,0xffb300,0.82, 0.88);
+        this.makeRing(0.49,0.64,0xff4a00,0.70,-0.70);
 
-        /* purple abyss rings from the reference */
-        this.makeRing(0.60,0.88,0x7b19ff,0.48,0.28);
-        this.makeRing(0.70,0.98,0xb43cff,0.30,-0.20);
+        /* outer purple abyss energy */
+        this.makeRing(0.58,0.73,0xff2cff,0.62, 0.48);
+        this.makeRing(0.67,0.84,0x9b22ff,0.55,-0.38);
+        this.makeRing(0.78,0.94,0xd84cff,0.42, 0.27);
+        this.makeRing(0.84,0.98,0x6810ff,0.25,-0.20);
 
         /* broken hot arcs */
         for(let i=0;i<10;i++){
@@ -364,8 +366,13 @@ AFRAME.registerComponent("tiger-portal-vfx",{
         }
 
         /* rising embers */
-        for(let i=0;i<42;i++){
+        for(let i=0;i<52;i++){
             this.makeSpark(i);
+        }
+
+        /* wider outer sparks */
+        for(let i=0;i<18;i++){
+            this.makeOuterSpark(i);
         }
     },
 
@@ -484,6 +491,32 @@ AFRAME.registerComponent("tiger-portal-vfx",{
         this.sparks.push(s);
     },
 
+    makeOuterSpark:function(index){
+        const g = new THREE.SphereGeometry(
+            0.006 + Math.random()*0.010, 5, 5
+        );
+
+        const m = new THREE.MeshBasicMaterial({
+            color: index % 3 === 0 ? 0xff7a00 : 0xc33cff,
+            transparent:true,
+            opacity:0.45 + Math.random()*0.35,
+            depthWrite:false,
+            depthTest:true,
+            blending:THREE.AdditiveBlending
+        });
+
+        const s = new THREE.Mesh(g,m);
+
+        s.userData.angle = Math.random()*Math.PI*2;
+        s.userData.radius = 0.72 + Math.random()*0.35;
+        s.userData.speed = 0.15 + Math.random()*0.55;
+        s.userData.phase = Math.random()*Math.PI*2;
+        s.userData.lift = 0.04 + Math.random()*0.10;
+
+        this.el.object3D.add(s);
+        this.sparks.push(s);
+    },
+
     setActive:function(active){
         this.active=active;
         this.el.object3D.visible=active;
@@ -531,7 +564,7 @@ AFRAME.registerComponent("tiger-portal-vfx",{
 
             /* rise out from the card */
             s.position.z=
-                0.02 + d.height+
+                0.018 + d.height+
                 (Math.sin(t*2.5+d.phase)+1)*d.lift;
 
             const pulse=.65+
@@ -753,7 +786,7 @@ function setupTarget(index){
 
 scene.addEventListener("loaded",()=>{
 
-    console.log("CARD BEAST AR v67.0 SCENE LOADED");
+    console.log("CARD BEAST AR v67.2 SCENE LOADED");
 
     beasts.forEach((_,index)=>setupTarget(index));
 
